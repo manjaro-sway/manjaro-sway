@@ -1,0 +1,60 @@
+## Xorg Input Drivers
+xf86-input-acecad
+xf86-input-aiptek
+xf86-input-elographics
+xf86-input-evdev
+xf86-input-joystick
+xf86-input-keyboard
+xf86-input-mouse
+xf86-input-synaptics
+xf86-input-void
+xf86-input-wacom
+
+## Xorg Server and Graphics
+xorg-server
+xorg-server-utils
+xorg-twm
+xorg-utils
+xorg-xinit
+mesa-demos
+>multilib lib32-mesa-demos
+
+## Desktop Utils
+xdg-user-dirs
+xdg-utils
+xdg-su
+
+## Fonts
+terminus-font
+ttf-bitstream-vera
+ttf-dejavu
+ttf-inconsolata
+ttf-indic-otf
+ttf-liberation
+ttf-droid
+
+## Applications
+inxi
+dmidecode # for inxi -m output
+powertop
+
+## Sound
+alsa-firmware
+>openrc alsa-utils-openrc
+>systemd alsa-utils
+
+## Network
+mobile-broadband-provider-info
+modemmanager
+>openrc avahi-openrc
+>systemd avahi
+nss-mdns # NSS support for mDNS (optdepend for avahi)
+>systemd ntp
+>openrc ntp-openrc
+
+## Misc
+>openrc consolekit-openrc
+>openrc displaymanager-openrc
+>openrc pm-utils
+>openrc cgmanager-openrc
+manjaro-hotfixes
