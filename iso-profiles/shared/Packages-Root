@@ -1,0 +1,153 @@
+## Base group minus netctl
+bash
+bzip2
+coreutils
+>openrc cronie-openrc
+>systemd cronie
+>openrc cryptsetup-openrc
+>systemd cryptsetup
+>openrc dbus-openrc
+>openrc device-mapper-openrc
+>systemd device-mapper
+>openrc dhcpcd-openrc
+>systemd dhcpcd
+diffutils
+e2fsprogs
+exfat-utils
+f2fs-tools
+file
+filesystem
+findutils
+gawk
+gcc-libs
+>multilib gcc-libs-multilib
+gettext
+glibc
+grep
+gzip
+inetutils
+iproute2
+iputils
+jfsutils
+less
+licenses
+logrotate
+>openrc lvm2-openrc
+>systemd lvm2
+man-db
+man-pages
+manjaro-system
+>openrc mdadm-openrc
+>systemd mdadm
+mhwd
+mhwd-db
+nano
+pacman
+pciutils
+pcmciautils
+perl
+procps-ng
+psmisc
+reiserfsprogs
+s-nail
+sed
+shadow
+sysfsutils
+>openrc eudev-systemdcompat
+>openrc netifrc
+>systemd systemd-sysvcompat
+tar
+texinfo
+usbutils
+util-linux
+which
+xfsprogs
+
+## Kernel
+KERNEL
+
+## Extra Base Packages
+grub
+linux-firmware
+lsb-release
+>openrc haveged-openrc
+>systemd haveged
+manjaro-firmware
+manjaro-release
+memtest86+
+mkinitcpio-nfs-utils
+>multilib lib32-mesa  # Optional dependency for mhwd
+os-prober
+pkg-config
+sudo
+syslinux
+
+## Misc applications
+lsof
+>openrc rsync-openrc
+>systemd rsync
+wget
+numlockx
+
+## Compression utils
+lzop
+unarj
+unrar
+unzip
+xz
+zip
+
+## Efi support (only x86_64)
+>x86_64 prebootloader
+>x86_64 refind-efi
+
+## Storage and filesystem
+btrfs-progs
+dmraid
+dosfstools
+ecryptfs-utils
+>openrc hdparm-openrc
+>systemd hdparm
+nilfs-utils
+>openrc nfs-utils-openrc
+>systemd nfs-utils
+ntfs-3g
+sdparm
+squashfs-tools
+smartmontools
+testdisk
+
+## Network
+b43-fwcutter
+crda
+dhclient
+dnsmasq
+ethtool
+iptables
+ipw2100-fw
+ipw2200-fw
+iw
+nbd
+KERNEL-ndiswrapper
+ndiswrapper-utils
+rp-pppoe
+usb_modeswitch
+wireless_tools
+>openrc wpa_supplicant-openrc
+>systemd wpa_supplicant
+zd1211-firmware
+
+## Power management
+>openrc acpid-openrc
+>systemd acpid
+>openrc cpupower-openrc
+>systemd cpupower
+>systemd tlp
+
+## ucode for new cpus
+intel-ucode
+
+## bmenu profiles should add it if required -> issue 119
+#bmenu
+#brandr
+#mhwd-tui
