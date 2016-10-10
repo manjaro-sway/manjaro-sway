@@ -1,15 +1,18 @@
 ### General Packages
+>x86_64 efitools
+>x86_64 manjaro-efi-shell
+mkinitcpio-nfs-utils
+nbd
+>manjaro manjaro-syslinux-theme
+>sonar sonar-syslinux-theme
 
 >openrc manjaro-live-openrc
 >systemd manjaro-live-systemd
 manjaro-live-skel		# live skel
-manjaro-cli-installer
-
-#calamares			# new GUI installer of manjaro
-#calamares-dev			# new GUI installer of manjaro - kpmcore
-thus
-#thus-dev
-#gparted
+# calamares				# new GUI installer of manjaro
+calamares-dev			# new GUI installer of manjaro - kpmcore
+# calamares-exp			# new GUI installer of manjaro - experimental version
+# gparted
 
 ### Driver set for fast live-session bootup (optional)
 
@@ -71,9 +74,6 @@ KERNEL-r8168
 #>openrc virtualbox-guest-utils-openrc
 #>systemd virtualbox-guest-utils
 #KERNEL-virtualbox-guest-modules
-
-## Xorg Packages
-libxvmc
 
 ## Xorg x86_64 Packages
 >multilib lib32-libxvmc

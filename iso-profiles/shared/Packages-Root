@@ -53,7 +53,8 @@ s-nail
 sed
 shadow
 sysfsutils
->openrc eudev-systemdcompat
+>openrc eudev-systemd
+>openrc libeudev-systemd
 >openrc netifrc
 >systemd systemd-sysvcompat
 tar
@@ -68,74 +69,35 @@ KERNEL
 
 ## Extra Base Packages
 grub
-linux-firmware
 lsb-release
->openrc haveged-openrc
->systemd haveged
-manjaro-firmware
 manjaro-release
 memtest86+
-mkinitcpio-nfs-utils
->multilib lib32-mesa  # Optional dependency for mhwd
+mkinitcpio-openswap # needed to be in rootfs by Calamares LUKS support
 os-prober
-pkg-config
-sudo
-syslinux
 
 ## Misc applications
-lsof
 >openrc rsync-openrc
 >systemd rsync
-wget
-numlockx
-
-## Compression utils
-lzop
-unarj
-unrar
-unzip
-xz
-zip
-
-## Efi support (only x86_64)
->x86_64 prebootloader
->x86_64 refind-efi
+>openrc haveged-openrc
+>systemd haveged
 
 ## Storage and filesystem
 btrfs-progs
 dmraid
 dosfstools
 ecryptfs-utils
->openrc hdparm-openrc
->systemd hdparm
-nilfs-utils
 >openrc nfs-utils-openrc
 >systemd nfs-utils
 ntfs-3g
-sdparm
-squashfs-tools
-smartmontools
-testdisk
 
 ## Network
-b43-fwcutter
 crda
 dhclient
 dnsmasq
-ethtool
+#ethtool
 iptables
-ipw2100-fw
-ipw2200-fw
-iw
-nbd
-KERNEL-ndiswrapper
-ndiswrapper-utils
-rp-pppoe
-usb_modeswitch
-wireless_tools
 >openrc wpa_supplicant-openrc
 >systemd wpa_supplicant
-zd1211-firmware
 
 ## Power management
 >openrc acpid-openrc
@@ -143,11 +105,15 @@ zd1211-firmware
 >openrc cpupower-openrc
 >systemd cpupower
 >systemd tlp
+acpi
 
 ## ucode for new cpus
 intel-ucode
 
-## bmenu profiles should add it if required -> issue 119
-#bmenu
-#brandr
-#mhwd-tui
+## Firmware
+ipw2100-fw
+ipw2200-fw
+zd1211-firmware
+b43-fwcutter
+linux-firmware
+manjaro-firmware

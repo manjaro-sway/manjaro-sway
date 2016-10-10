@@ -1,10 +1,18 @@
+## Mandatory
+>x86_64 efitools
+>x86_64 manjaro-efi-shell
+mkinitcpio-nfs-utils
+nbd
+>manjaro manjaro-syslinux-theme
+>sonar sonar-syslinux-theme
+>sonar sonar-calamares-branding
+
+## Live session
+manjaro-live-skel
 >openrc manjaro-live-openrc
 >systemd manjaro-live-systemd
-manjaro-cli-installer
-manjaro-live-skel		# live skel
-calamares			# new GUI installer of manjaro
-#calamares-dev			# new GUI installer of manjaro - kpmcore
-#calamares-exp			# new GUI installer of manjaro - experimental version
-thus
-#thus-dev
-#gparted
+
+## Installer
+#calamares
+calamares-dev
+#calamares-exp

@@ -3,5 +3,3 @@ Manjaro Live ISO (\l) - \s-\r \m.
 
 Default login "manjaro" with password "manjaro".
 "root" login has password "manjaro".
-
-You can start the installation with "sudo cli-installer".

@@ -2,10 +2,10 @@
 xf86-input-acecad
 xf86-input-elographics
 xf86-input-evdev
-xf86-input-joystick
 xf86-input-keyboard
 xf86-input-mouse
 xf86-input-libinput
+xf86-input-synaptics #synaptic mice
 xf86-input-void
 
 ## Xorg Server and Graphics
@@ -31,6 +31,7 @@ ttf-inconsolata
 ttf-indic-otf
 ttf-liberation
 ttf-droid
+ttf-ubraille
 
 ## Applications
 inxi
@@ -62,3 +63,23 @@ nss-mdns
 >openrc pm-utils
 >openrc cgmanager-openrc
 manjaro-hotfixes
+
+#accessibility packages
+>systemd espeakup
+>openrc espeakup-openrc
+orca
+>systemd brltty
+>openrc brltty-openrc
+eviacam
+open-dyslexic-fonts
+caribou
+ibus
+ibus-table
+ibus-table-extraphrase
+mousetweaks
+#alteraeon sound pack
+tintin-alteraeon
+python-yaml
+vorbis-tools
+ocrdesktop
+mumble

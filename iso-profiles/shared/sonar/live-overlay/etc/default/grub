@@ -1,8 +1,8 @@
 GRUB_DEFAULT=saved
 GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR="Manjaro"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet"
-GRUB_CMDLINE_LINUX=""
+GRUB_DISTRIBUTOR="Sonar"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+#GRUB_CMDLINE_LINUX=""
 
 # If you want to enable the save default function, uncomment the following
 # line, and set GRUB_DEFAULT to saved.
@@ -46,4 +46,4 @@ GRUB_BACKGROUND="/usr/share/grub/background.png"
 #GRUB_THEME="/path/to/gfxtheme"
 
 # Uncomment to get a beep at GRUB start
-#GRUB_INIT_TUNE="480 440 1"
+GRUB_INIT_TUNE="480 440 1"
