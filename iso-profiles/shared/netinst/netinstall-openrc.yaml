@@ -1,0 +1,229 @@
+- name: "base"
+  description: "Command line interface"
+  hidden: true
+  selected: true
+  packages:
+       - bash
+       - bzip2
+       - coreutils
+       - cryptsetup-openrc
+       - device-mapper-openrc
+       - dhcpcd-openrc
+       - diffutils
+       - e2fsprogs
+       - file
+       - filesystem
+       - findutils
+       - gawk
+       - gcc-libs
+       - gettext
+       - glibc-openrc
+       - grep
+       - gzip
+       - inetutils-openrc
+       - iproute2
+       - iputils
+       - jfsutils
+       - less
+       - libeudev-systemd
+       - licenses
+       - logrotate
+       - lvm2-openrc
+       - man-db
+       - man-pages
+       - manjaro-system
+       - mdadm-openrc
+       - mhwd
+       - mhwd-db
+       - nano
+       - netifrc
+       - pacman
+       - pciutils
+       - pcmciautils
+       - perl
+       - procps-ng
+       - psmisc
+       - reiserfsprogs
+       - s-nail
+       - sed
+       - shadow
+       - sudo
+       - sysfsutils
+       - eudev-systemd
+       - tar
+       - texinfo
+       - udev-openrc
+       - usbutils
+       - util-linux
+       - vi
+       - which
+       - xfsprogs
+       - tcp_wrappers
+
+- name: "kernel"
+  description: "Kernel packages"
+  hidden: true
+  selected: true
+  packages:
+        - linux44
+
+- name: "boot"
+  description: "Bootloader packages"
+  hidden: true
+  selected: true
+  packages:
+        - grub
+        - os-prober
+        - memtest86+
+
+- name: "network"
+  description: "Network packages"
+  hidden: true
+  selected: true
+  packages:
+        - networkmanager-consolekit
+        - networkmanager-openrc
+        - avahi-openrc
+        - ntp-openrc
+        - rsync-openrc
+
+- name: "base-devel"
+  description: "Development packages"
+  hidden: false
+  selected: false
+  packages:
+        - autoconf
+        - automake
+        - binutils
+        - bison
+        - fakeroot
+        - file
+        - findutils
+        - flex
+        - gawk
+        - gcc
+        - gettext
+        - grep
+        - groff
+        - gzip
+        - libtool
+        - m4
+        - make
+        - patch
+        - pkg-config
+        - sed
+        - texinfo
+        - util-linux
+        - which
+
+- name: "plymouth"
+  description: "Plymouth"
+  hidden: false
+  selected: false
+  packages:
+        - plymouth-theme-manjaro-elegant
+
+- name: 'xfce4'
+  description: 'xfce4'
+  selected: false
+  hidden: false
+  packages:
+       - exo
+       - garcon
+       - gtk-xfce-engine
+       - thunar
+       - thunar-volman
+       - tumbler
+       - xfce4-appfinder
+       - xfce4-mixer
+       - xfce4-panel
+       - xfce4-power-manager
+       - xfce4-session
+       - xfce4-settings
+       - xfce4-terminal
+       - xfconf
+       - xfdesktop
+       - xfwm4
+       - xfwm4-themes
+       - displaymanager-openrc
+       - lightdm-gtk-greeter
+       - mousepad
+
+- name: 'plasma'
+  description: 'plasma'
+  selected: false
+  hidden: false
+  packages:
+       - bluedevil
+       - breeze
+       - breeze-gtk
+       - drkonqi
+       - kactivitymanagerd
+       - kde-cli-tools
+       - kde-gtk-config
+       - kdecoration
+       - kdeplasma-addons
+       - kgamma5
+       - khotkeys
+       - kinfocenter
+       - kmenuedit
+       - kscreen
+       - kscreenlocker
+       - ksshaskpass
+       - ksysguard
+       - kuiserver
+       - kwallet-pam
+       - kwayland-integration
+       - kwin
+       - kwrited
+       - libkscreen
+       - libksysguard
+       - milou
+       - oxygen
+       - plasma-desktop
+       - plasma-gpg-agent
+       - plasma-integration
+       - plasma-nm
+       - plasma-pa
+       - plasma-sdk
+       - plasma-ssh-agent
+       - plasma-workspace
+       - plasma-workspace-wallpapers
+       - polkit-kde-agent
+       - powerdevil
+       - sddm-kcm
+       - systemsettings
+       - user-manager
+       - displaymanager-openrc
+       - sddm-consolekit
+       - konsole
+       - dolphin
+       - kate
+       - ark
+       - khelpcenter
+
+- name: 'lxqt'
+  description: 'lxqt'
+  selected: false
+  hidden: false
+  packages:
+       - lximage-qt
+       - lxqt-about
+       - lxqt-common
+       - lxqt-config
+       - lxqt-globalkeys
+       - lxqt-notificationd
+       - lxqt-openssh-askpass
+       - lxqt-panel
+       - lxqt-policykit
+       - lxqt-powermanagement
+       - lxqt-qtplugin
+       - lxqt-runner
+       - lxqt-session
+       - lxqt-sudo
+       - openbox
+       - pcmanfm-qt
+       - displaymanager-openrc
+       - sddm-consolekit
+       - qterminal
+       - kwrite
