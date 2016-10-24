@@ -74,6 +74,7 @@ manjaro-release
 memtest86+
 mkinitcpio-openswap # needed to be in rootfs by Calamares LUKS support
 os-prober
+sudo
 
 ## Misc applications
 >openrc rsync-openrc
