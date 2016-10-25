@@ -1,6 +1,7 @@
 ### General Packages
 >x86_64 efitools
 >x86_64 manjaro-efi-utils
+squashfs-tools
 mkinitcpio-nfs-utils
 nbd
 >manjaro manjaro-syslinux-theme
