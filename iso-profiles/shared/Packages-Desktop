@@ -1,3 +1,7 @@
+###############################
+### This is a template list ###
+###############################
+
 ## Xorg Input Drivers
 xf86-input-acecad
 xf86-input-elographics
