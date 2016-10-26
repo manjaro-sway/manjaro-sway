@@ -1,8 +1,42 @@
-## Xorg Drivers
+KERNEL-bbswitch
+KERNEL-broadcom-wl
+KERNEL-r8168
+KERNEL-rt3562sta
+KERNEL-virtualbox-guest-modules
+libva-intel-driver
+libva-mesa-driver
+libva-vdpau-driver
+libxaw
+libxpm
+libxvmc
+mesa-vdpau
+>multilib lib32-libxvmc
+>multilib lib32-primus
+>nonfree_default catalyst-utils
+>nonfree_default KERNEL-catalyst
+>nonfree_default KERNEL-nvidia
+>nonfree_default KERNEL-nvidia-304xx
+>nonfree_default KERNEL-nvidia-340xx
+>nonfree_default nvidia-304xx-utils
+>nonfree_default nvidia-340xx-utils
+>nonfree_default nvidia-utils
+>nonfree_multilib lib32-catalyst-utils
+>nonfree_multilib lib32-nvidia-304xx-utils
+>nonfree_multilib lib32-nvidia-340xx-utils
+>nonfree_multilib lib32-nvidia-utils
+opencl-mesa
+>openrc bumblebee-openrc
+>openrc virtualbox-guest-utils-openrc
+open-vm-tools
+pangox-compat
+primus
+>systemd bumblebee
+>systemd virtualbox-guest-utils
+xf86-input-vmmouse
+xf86-video-amdgpu
 xf86-video-apm
 xf86-video-ark
 xf86-video-ati
-xf86-video-amdgpu # only works with kernels 4.2+
 xf86-video-chips
 xf86-video-dummy
 xf86-video-fbdev
@@ -29,54 +63,3 @@ xf86-video-tseng
 xf86-video-vesa
 xf86-video-vmware
 xf86-video-voodoo
-
-## Bumblebee Support
->systemd bumblebee
->openrc bumblebee-openrc
-primus
->multilib lib32-primus
-KERNEL-bbswitch
-
-## Network Support
-KERNEL-broadcom-wl
-KERNEL-rt3562sta
-KERNEL-r8168
-
-## Proprietary Drivers
->nonfree_default catalyst-utils
->nonfree_default KERNEL-catalyst
->nonfree_default nvidia-utils
->nonfree_default KERNEL-nvidia
->nonfree_default nvidia-340xx-utils
->nonfree_default KERNEL-nvidia-340xx
->nonfree_default nvidia-304xx-utils
->nonfree_default KERNEL-nvidia-304xx
->nonfree_multilib lib32-catalyst-utils
->nonfree_multilib lib32-nvidia-utils
->nonfree_multilib lib32-nvidia-304xx-utils
->nonfree_multilib lib32-nvidia-340xx-utils
-
-## Virtualbox Drivers
->openrc virtualbox-guest-utils-openrc
->systemd virtualbox-guest-utils
-KERNEL-virtualbox-guest-modules
-
-## Xorg Packages
-libxaw
-libxpm
-libxvmc
-pangox-compat
-
-## Xorg x86_64 Packages
->multilib lib32-libxvmc
-
-## VMWare Support
-open-vm-tools
-xf86-input-vmmouse
-#vdpau drivers
-mesa-vdpau
-libva-intel-driver
-libva-mesa-driver
-libva-vdpau-driver
-opencl-mesa
-

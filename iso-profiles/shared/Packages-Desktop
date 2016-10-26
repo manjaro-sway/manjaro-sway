@@ -2,67 +2,52 @@
 ### This is a template list ###
 ###############################
 
-## Xorg Input Drivers
+alsa-firmware
+dmidecode
+inxi
+manjaro-hotfixes
+mesa-demos
+mobile-broadband-provider-info
+modemmanager
+>multilib lib32-mesa-demos
+nss-mdns
+numlockx
+>openrc alsa-utils-openrc
+>openrc avahi-openrc
+>openrc cgmanager-openrc
+>openrc consolekit-openrc
+>openrc displaymanager-openrc
+>openrc networkmanager-consolekit
+>openrc networkmanager-openrc
+>openrc ntp-openrc
+>openrc openssh-openrc
+>openrc pm-utils
+powertop
+>systemd alsa-utils
+>systemd avahi
+>systemd networkmanager
+>systemd ntp
+>systemd openssh
+terminus-font
+ttf-bitstream-vera
+ttf-dejavu
+ttf-droid
+ttf-inconsolata
+ttf-indic-otf
+ttf-liberation
+xdg-su
+xdg-user-dirs
+xdg-utils
 xf86-input-acecad
 xf86-input-elographics
 xf86-input-evdev
 xf86-input-joystick
 xf86-input-keyboard
-xf86-input-mouse
 xf86-input-libinput
+xf86-input-mouse
 xf86-input-void
-
-## Xorg Server and Graphics
 xorg-server
 xorg-server-utils
 xorg-twm
 xorg-utils
 xorg-xinit
-mesa-demos
->multilib lib32-mesa-demos
-
-## Desktop Utils
-xdg-user-dirs
-xdg-utils
-xdg-su
-numlockx
-
-## Fonts
-terminus-font
-ttf-bitstream-vera
-ttf-dejavu
-ttf-inconsolata
-ttf-indic-otf
-ttf-liberation
-ttf-droid
-
-## Applications
-inxi
-dmidecode # for inxi -m output
-powertop
-
-## Sound
-alsa-firmware
->openrc alsa-utils-openrc
->systemd alsa-utils
-
-## Network
-mobile-broadband-provider-info
-modemmanager
->systemd networkmanager
->openrc networkmanager-consolekit
->openrc networkmanager-openrc
->openrc avahi-openrc
->systemd avahi
-nss-mdns
->systemd ntp
->openrc ntp-openrc
->systemd openssh
->openrc openssh-openrc
-
-## Misc
->openrc consolekit-openrc
->openrc displaymanager-openrc
->openrc pm-utils
->openrc cgmanager-openrc
-manjaro-hotfixes

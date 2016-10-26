@@ -1,18 +1,17 @@
-## Base group minus netctl
+acpi
+b43-fwcutter
 bash
+btrfs-progs
 bzip2
 coreutils
->openrc cronie-openrc
->systemd cronie
->openrc cryptsetup-openrc
->systemd cryptsetup
->openrc dbus-openrc
->openrc device-mapper-openrc
->systemd device-mapper
->openrc dhcpcd-openrc
->systemd dhcpcd
+crda
+dhclient
 diffutils
+dmraid
+dnsmasq
+dosfstools
 e2fsprogs
+ecryptfs-utils
 exfat-utils
 f2fs-tools
 file
@@ -20,28 +19,54 @@ filesystem
 findutils
 gawk
 gcc-libs
->multilib gcc-libs-multilib
 gettext
 glibc
 grep
+grub
 gzip
 inetutils
+intel-ucode
 iproute2
+iptables
 iputils
+ipw2100-fw
+ipw2200-fw
 jfsutils
+KERNEL
 less
 licenses
+linux-firmware
 logrotate
->openrc lvm2-openrc
->systemd lvm2
+lsb-release
 man-db
-man-pages
+manjaro-firmware
+manjaro-release
 manjaro-system
->openrc mdadm-openrc
->systemd mdadm
+man-pages
+memtest86+
 mhwd
 mhwd-db
+mkinitcpio-openswap
+>multilib gcc-libs-multilib
 nano
+ntfs-3g
+>openrc acpid-openrc
+>openrc cpupower-openrc
+>openrc cronie-openrc
+>openrc cryptsetup-openrc
+>openrc dbus-openrc
+>openrc device-mapper-openrc
+>openrc dhcpcd-openrc
+>openrc eudev-systemd
+>openrc haveged-openrc
+>openrc libeudev-systemd
+>openrc lvm2-openrc
+>openrc mdadm-openrc
+>openrc netifrc
+>openrc nfs-utils-openrc
+>openrc rsync-openrc
+>openrc wpa_supplicant-openrc
+os-prober
 pacman
 pciutils
 pcmciautils
@@ -49,72 +74,29 @@ perl
 procps-ng
 psmisc
 reiserfsprogs
-s-nail
 sed
 shadow
+s-nail
+sudo
 sysfsutils
->openrc eudev-systemd
->openrc libeudev-systemd
->openrc netifrc
+>systemd acpid
+>systemd cpupower
+>systemd cronie
+>systemd cryptsetup
+>systemd device-mapper
+>systemd dhcpcd
+>systemd haveged
+>systemd lvm2
+>systemd mdadm
+>systemd nfs-utils
+>systemd rsync
 >systemd systemd-sysvcompat
+>systemd tlp
+>systemd wpa_supplicant
 tar
 texinfo
 usbutils
 util-linux
 which
 xfsprogs
-
-## Kernel
-KERNEL
-
-## Extra Base Packages
-grub
-lsb-release
-manjaro-release
-memtest86+
-mkinitcpio-openswap # needed to be in rootfs by Calamares LUKS support
-os-prober
-sudo
-
-## Misc applications
->openrc rsync-openrc
->systemd rsync
->openrc haveged-openrc
->systemd haveged
-
-## Storage and filesystem
-btrfs-progs
-dmraid
-dosfstools
-ecryptfs-utils
->openrc nfs-utils-openrc
->systemd nfs-utils
-ntfs-3g
-
-## Network
-crda
-dhclient
-dnsmasq
-#ethtool
-iptables
->openrc wpa_supplicant-openrc
->systemd wpa_supplicant
-
-## Power management
->openrc acpid-openrc
->systemd acpid
->openrc cpupower-openrc
->systemd cpupower
->systemd tlp
-acpi
-
-## ucode for new cpus
-intel-ucode
-
-## Firmware
-ipw2100-fw
-ipw2200-fw
 zd1211-firmware
-b43-fwcutter
-linux-firmware
-manjaro-firmware

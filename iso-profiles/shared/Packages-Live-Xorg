@@ -1,27 +1,29 @@
-### General Packages
+calamares-dev
+KERNEL-bbswitch
+KERNEL-broadcom-wl
+KERNEL-r8168
+KERNEL-rt3562sta
+manjaro-live-skel
+>manjaro manjaro-syslinux-theme
+mkinitcpio-nfs-utils
+>multilib lib32-libxvmc
+>multilib lib32-primus
+nbd
+>openrc bumblebee-openrc
+>openrc manjaro-live-openrc
+open-vm-tools
+primus
+>sonar sonar-syslinux-theme
+squashfs-tools
+>systemd bumblebee
+>systemd manjaro-live-systemd
 >x86_64 efitools
 >x86_64 manjaro-efi-utils
-squashfs-tools
-mkinitcpio-nfs-utils
-nbd
->manjaro manjaro-syslinux-theme
->sonar sonar-syslinux-theme
-
->openrc manjaro-live-openrc
->systemd manjaro-live-systemd
-manjaro-live-skel		# live skel
-# calamares				# new GUI installer of manjaro
-calamares-dev			# new GUI installer of manjaro - kpmcore
-# calamares-exp			# new GUI installer of manjaro - experimental version
-# gparted
-
-### Driver set for fast live-session bootup (optional)
-
-## Xorg Drivers
+xf86-input-vmmouse
+xf86-video-amdgpu
 xf86-video-apm
 xf86-video-ark
 xf86-video-ati
-xf86-video-amdgpu # only works with kernels 4.2+
 xf86-video-chips
 xf86-video-dummy
 xf86-video-fbdev
@@ -48,37 +50,3 @@ xf86-video-tseng
 xf86-video-vesa
 xf86-video-vmware
 xf86-video-voodoo
-
-## Bumblebee Support
->systemd bumblebee
->openrc bumblebee-openrc
-primus
->multilib lib32-primus
-KERNEL-bbswitch
-
-## Network Support
-KERNEL-broadcom-wl
-KERNEL-rt3562sta
-KERNEL-r8168
-
-## Proprietary Drivers (catalyst and nvidia only)
-# by default disabled
-#>nonfree_default catalyst-utils
-#>nonfree_default KERNEL-catalyst
-#>nonfree_default nvidia-utils
-#>nonfree_default KERNEL-nvidia
-#>nonfree_multilib lib32-catalyst-utils
-#>nonfree_multilib lib32-nvidia-utils
-
-## Virtualbox Drivers
-# by default disabled
-#>openrc virtualbox-guest-utils-openrc
-#>systemd virtualbox-guest-utils
-#KERNEL-virtualbox-guest-modules
-
-## Xorg x86_64 Packages
->multilib lib32-libxvmc
-
-## VMWare Support
-open-vm-tools
-xf86-input-vmmouse
