@@ -38,9 +38,9 @@
 # netinstall="false"
 
 # the default url for the netinstall.yaml
-# netgroups="https://raw.githubusercontent.com/manjaro/iso-profiles/master/shared/netgroups"
+# netgroups="https://raw.githubusercontent.com/manjaro/calamares-netgroups/master"
 
-# configure calamares to use chrootcfg instead of unpackfs
+# configure calamares to use chrootcfg instead of unpackfs; default: unpackfs
 # chrootcfg="false"
 
 # use geoip
