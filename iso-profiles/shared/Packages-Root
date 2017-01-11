@@ -1,4 +1,3 @@
-## Base packages
 acpi
 b43-fwcutter
 bash
@@ -13,6 +12,7 @@ dnsmasq
 dosfstools
 e2fsprogs
 ecryptfs-utils
+>x86_64 efibootmgr
 exfat-utils
 f2fs-tools
 file
@@ -102,7 +102,3 @@ which
 xfsprogs
 zd1211-firmware
 zsh
-
-## Efi support (only x86_64)
->x86_64 efibootmgr
->x86_64 efitools
