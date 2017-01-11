@@ -8,6 +8,7 @@ nbd
 >sonar sonar-syslinux-theme
 squashfs-tools
 >systemd manjaro-live-systemd
+>x86_64 manjaro-efi-utils
 
 # unfinished plymouth handling
 #>manjaro_plymouth plymouth-theme-manjaro-elegant

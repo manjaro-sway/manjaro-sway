@@ -104,5 +104,5 @@ zd1211-firmware
 zsh
 
 ## Efi support (only x86_64)
->x86_64 manjaro-efi-utils
 >x86_64 efibootmgr
+>x86_64 efitools
