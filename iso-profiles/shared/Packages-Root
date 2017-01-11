@@ -1,3 +1,4 @@
+## Base packages
 acpi
 b43-fwcutter
 bash
@@ -101,3 +102,7 @@ which
 xfsprogs
 zd1211-firmware
 zsh
+
+## Efi support (only x86_64)
+>x86_64 manjaro-efi-utils
+>x86_64 efibootmgr
