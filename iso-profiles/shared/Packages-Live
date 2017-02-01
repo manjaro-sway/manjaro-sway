@@ -8,5 +8,4 @@ nbd
 >sonar sonar-syslinux-theme
 squashfs-tools
 >systemd manjaro-live-systemd
->x86_64 efitools
 >x86_64 manjaro-efi-utils
