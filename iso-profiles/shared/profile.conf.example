@@ -59,11 +59,11 @@
 
 # unset defaults to given values,
 # names must match openrc service names
-# enable_openrc=('acpid' 'bluetooth' 'consolekit' 'cronie' 'cupsd' 'dbus' 'syslog-ng' 'NetworkManager')
+# enable_openrc=('acpid' 'bluetooth' 'cgmanager' 'consolekit' 'cronie' 'cupsd' 'dbus' 'syslog-ng' 'NetworkManager')
 # disable_openrc=()
 
 # unset defaults to given values
-# addgroups="video,power,disk,storage,optical,network,lp,scanner,wheel"
+# addgroups="video,power,storage,optical,network,lp,scanner,wheel"
 
 # the same workgroup name if samba is used
 # smb_workgroup="Manjaro"
