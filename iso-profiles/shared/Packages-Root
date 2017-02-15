@@ -41,7 +41,7 @@ logrotate
 lsb-release
 man-db
 manjaro-firmware
-manjaro-release
+>manjaro manjaro-release
 manjaro-system
 man-pages
 memtest86+
@@ -78,6 +78,7 @@ reiserfsprogs
 sed
 shadow
 s-nail
+>sonar sonar-release
 sudo
 sysfsutils
 >systemd acpid
