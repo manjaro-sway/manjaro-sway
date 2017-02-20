@@ -1,10 +1,12 @@
 [H[2J
-Manjaro Live ISO (\l) - \s-\r \m.
+Manjaro Live ISO (\l) - \s-\r \m
+
 
 
                  # Welcome to Manjaro #
 
-                         login:
+
+            login for the live environment:
                    user     'manjaro'
                    password 'manjaro'
 
