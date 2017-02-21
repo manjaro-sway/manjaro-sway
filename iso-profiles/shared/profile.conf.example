@@ -14,14 +14,6 @@
 # use extra packages as defined in pkglist to activate a full profile
 # extra="false"
 
-################ torrent ################
-
-# the torrent tracker urls, comma separated
-# tracker_url='udp://mirror.strits.dk:6969'
-
-# Piece size, 2^n
-# piece_size=21
-
 ################ install ################
 
 # default displaymanager: none
