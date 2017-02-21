@@ -71,6 +71,10 @@
 # unset defaults to given value
 # password="manjaro"
 
+# the login shell
+# defaults to bash
+# login_shell=/bin/bash
+
 # unset defaults to given values
 # names must match systemd service names
 # services in enable_systemd array don't need to be listed here
