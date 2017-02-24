@@ -9,3 +9,4 @@ nbd
 squashfs-tools
 >systemd manjaro-live-systemd
 >x86_64 manjaro-efi-utils
+>sonar thus
