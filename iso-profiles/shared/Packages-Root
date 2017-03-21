@@ -56,6 +56,7 @@ ntfs-3g
 >openrc cronie-openrc
 >openrc cryptsetup-openrc
 >openrc dbus-openrc
+>openrc dbus-elogind
 >openrc device-mapper-openrc
 >openrc dhcpcd-openrc
 >openrc eudev-systemd
@@ -67,12 +68,14 @@ ntfs-3g
 >openrc nfs-utils-openrc
 >openrc rsync-openrc
 >openrc wpa_supplicant-openrc
+>openrc libusb-nosystemd
 os-prober
 pacman
 pciutils
 pcmciautils
 perl
-procps-ng
+>systemd procps-ng
+>openrc procps-ng-elogind
 psmisc
 reiserfsprogs
 sed
@@ -98,7 +101,8 @@ sysfsutils
 tar
 texinfo
 usbutils
-util-linux
+>systemd util-linux
+>openrc util-linux-nosystemd
 which
 xfsprogs
 zd1211-firmware
