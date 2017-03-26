@@ -24,6 +24,7 @@ gettext
 glibc
 grep
 grub
+>manjaro grub-theme-live
 gzip
 inetutils
 intel-ucode

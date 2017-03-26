@@ -4,7 +4,6 @@ KERNEL-broadcom-wl
 KERNEL-r8168
 KERNEL-rt3562sta
 manjaro-live-skel
->manjaro manjaro-syslinux-theme
 mkinitcpio-nfs-utils
 >multilib lib32-libxvmc
 >multilib lib32-primus
