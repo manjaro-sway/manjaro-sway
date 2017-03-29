@@ -2,6 +2,7 @@ calamares
 manjaro-live-skel
 mkinitcpio-nfs-utils
 nbd
+>manjaro grub-theme-live
 >openrc manjaro-live-openrc
 >sonar sonar-calamares-branding
 >sonar sonar-syslinux-theme

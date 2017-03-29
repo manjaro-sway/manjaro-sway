@@ -12,6 +12,7 @@ nbd
 >openrc manjaro-live-openrc
 open-vm-tools
 primus
+>manjaro grub-theme-live
 >sonar sonar-syslinux-theme
 squashfs-tools
 >systemd bumblebee
