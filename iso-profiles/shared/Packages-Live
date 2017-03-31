@@ -2,11 +2,11 @@ calamares
 manjaro-live-skel
 mkinitcpio-nfs-utils
 nbd
->manjaro grub-theme-live
+>manjaro grub-theme-live-manjaro
+>sonar grub-theme-live-sonar
 >openrc manjaro-live-openrc
 >sonar sonar-calamares-branding
 >sonar sonar-syslinux-theme
 squashfs-tools
 >systemd manjaro-live-systemd
->x86_64 manjaro-efi-utils
 >sonar thus
