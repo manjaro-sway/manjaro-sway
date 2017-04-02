@@ -25,6 +25,8 @@ numlockx
 >openrc udisks2-elogind
 >openrc xdg-user-dirs-nosystemd
 >openrc xorg-server-nosystemd
+>openrc media-player-info-nosystemd
+>openrc libpulse-nosystemd
 powertop
 >systemd alsa-utils
 >systemd avahi
