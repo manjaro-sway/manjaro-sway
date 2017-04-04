@@ -69,10 +69,12 @@ ntfs-3g
 >openrc rsync-openrc
 >openrc wpa_supplicant-openrc
 >openrc libusb-nosystemd
+>openrc mkinitcpio-nosystemd
 os-prober
 pacman
 pciutils
-pcmciautils
+>systemd pcmciautils
+>openrc pcmciautils-nosystemd
 perl
 >systemd procps-ng
 >openrc procps-ng-elogind
