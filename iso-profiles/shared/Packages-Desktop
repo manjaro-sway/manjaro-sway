@@ -14,20 +14,27 @@ nss-mdns
 numlockx
 >openrc alsa-utils-openrc
 >openrc avahi-openrc
->openrc cgmanager-openrc
->openrc consolekit-openrc
+>openrc elogind-openrc
+>openrc openrc-settingsd
 >openrc displaymanager-openrc
->openrc networkmanager-consolekit
 >openrc networkmanager-openrc
 >openrc ntp-openrc
 >openrc openssh-openrc
->openrc pm-utils
+>openrc accountsservice-elogind
+>openrc upower-nosystemd
+>openrc udisks2-elogind
+>openrc xdg-user-dirs-nosystemd
+>openrc xorg-server-nosystemd
+>openrc media-player-info-nosystemd
+>openrc libpulse-nosystemd
 powertop
 >systemd alsa-utils
 >systemd avahi
->systemd networkmanager
+networkmanager
 >systemd ntp
 >systemd openssh
+>systemd xdg-user-dirs
+>systemd xorg-server
 terminus-font
 ttf-bitstream-vera
 ttf-dejavu
@@ -36,15 +43,14 @@ ttf-inconsolata
 ttf-indic-otf
 ttf-liberation
 xdg-su
-xdg-user-dirs
 xdg-utils
 xf86-input-elographics
 xf86-input-evdev
 xf86-input-keyboard
-xf86-input-libinput
+>systemd xf86-input-libinput
+>openrc xf86-input-libinput-nosystemd
 xf86-input-mouse
 xf86-input-void
-xorg-server
 xorg-server-utils
 xorg-twm
 xorg-utils

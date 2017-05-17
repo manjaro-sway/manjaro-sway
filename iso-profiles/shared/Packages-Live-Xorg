@@ -4,7 +4,6 @@ KERNEL-broadcom-wl
 KERNEL-r8168
 KERNEL-rt3562sta
 manjaro-live-skel
->manjaro manjaro-syslinux-theme
 mkinitcpio-nfs-utils
 >multilib lib32-libxvmc
 >multilib lib32-primus
@@ -13,11 +12,11 @@ nbd
 >openrc manjaro-live-openrc
 open-vm-tools
 primus
->sonar sonar-syslinux-theme
+>manjaro grub-theme-live-manjaro
+>sonar grub-theme-live-sonar
 squashfs-tools
 >systemd bumblebee
 >systemd manjaro-live-systemd
->x86_64 manjaro-efi-utils
 xf86-input-vmmouse
 xf86-video-amdgpu
 xf86-video-ati
