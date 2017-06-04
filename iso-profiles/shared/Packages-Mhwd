@@ -6,10 +6,12 @@ KERNEL-virtualbox-guest-modules
 libva-intel-driver
 libva-mesa-driver
 libva-vdpau-driver
+>multilib lib32-libva-vdpau-driver 
 libxaw
 libxpm
 libxvmc
 mesa-vdpau
+>multilib lib32-mesa-vdpau
 >multilib lib32-libxvmc
 >multilib lib32-primus
 >nonfree_default catalyst-utils
@@ -32,6 +34,10 @@ pangox-compat
 primus
 >systemd bumblebee
 >systemd virtualbox-guest-utils
+vulkan-radeon
+>multilib lib32-vulkan-radeon
+vulkan-intel
+>multilib lib32-vulkan-intel
 xf86-input-vmmouse
 xf86-video-amdgpu
 xf86-video-ati
