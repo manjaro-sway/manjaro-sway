@@ -2,7 +2,7 @@ KERNEL-bbswitch
 KERNEL-broadcom-wl
 KERNEL-r8168
 KERNEL-rt3562sta
->x86_64 KERNEL-virtualbox-guest-modules
+KERNEL-virtualbox-guest-modules
 libva-intel-driver
 libva-mesa-driver
 libva-vdpau-driver
@@ -28,12 +28,12 @@ mesa-vdpau
 >nonfree_multilib lib32-nvidia-utils
 opencl-mesa
 >openrc bumblebee-openrc
->x86_64 >openrc virtualbox-guest-utils-openrc
+>openrc virtualbox-guest-utils-openrc
 open-vm-tools
 pangox-compat
 primus
 >systemd bumblebee
->x86_64 >systemd virtualbox-guest-utils
+>systemd virtualbox-guest-utils
 vulkan-radeon
 >multilib lib32-vulkan-radeon
 vulkan-intel
