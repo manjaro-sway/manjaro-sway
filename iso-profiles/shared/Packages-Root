@@ -105,6 +105,7 @@ texinfo
 usbutils
 >systemd util-linux
 >openrc util-linux-nosystemd
+vi
 which
 xfsprogs
 zd1211-firmware
