@@ -31,6 +31,7 @@ powertop
 >systemd alsa-utils
 >systemd avahi
 networkmanager
+usb_modeswitch
 >systemd ntp
 >systemd openssh
 >systemd xdg-user-dirs
