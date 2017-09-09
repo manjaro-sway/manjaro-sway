@@ -9,7 +9,6 @@ manjaro-hotfixes
 mesa-demos
 mobile-broadband-provider-info
 modemmanager
-usb_modeswitch
 >multilib lib32-mesa-demos
 nss-mdns
 numlockx
