@@ -106,6 +106,7 @@ usbutils
 >systemd util-linux
 >openrc util-linux-nosystemd
 vi
+wget
 which
 xfsprogs
 zd1211-firmware
