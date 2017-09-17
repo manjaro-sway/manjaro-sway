@@ -1,0 +1,23 @@
+---
+componentName:  manjaro
+
+strings:
+    productName:         Manjaro Linux
+    shortProductName:    Manjaro
+    version:             17.0.5
+    shortVersion:        17.0.5
+    versionedName:       Manjaro Linux 17.0 "Gellivara"
+    shortVersionedName:  Manjaro 17.0.5
+    bootloaderEntryName: Manjaro
+
+images:
+    productLogo:         "squid.png"
+    productIcon:         "logo.png"
+    productWelcome:      "languages.png"
+
+slideshow:               "show.qml"
+
+style:
+   sidebarBackground:    "#454948"
+   sidebarText:          "#efefef"
+   sidebarTextSelect:    "#9E4F5D"
