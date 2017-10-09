@@ -5,8 +5,7 @@ nbd
 gsmartcontrol
 >manjaro grub-theme-live-manjaro
 >sonar grub-theme-live-sonar
->openrc manjaro-live-openrc
 >sonar sonar-calamares-branding
 squashfs-tools
->systemd manjaro-live-systemd
+manjaro-live-systemd
 >sonar thus

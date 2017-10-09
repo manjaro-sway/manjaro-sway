@@ -12,29 +12,14 @@ modemmanager
 >multilib lib32-mesa-demos
 nss-mdns
 numlockx
->openrc alsa-utils-openrc
->openrc avahi-openrc
->openrc elogind-openrc
->openrc openrc-settingsd
->openrc displaymanager-openrc
->openrc networkmanager-openrc
->openrc ntp-openrc
->openrc openssh-openrc
->openrc accountsservice-elogind
->openrc upower-nosystemd
->openrc udisks2-elogind
->openrc xdg-user-dirs-nosystemd
->openrc xorg-server-nosystemd
->openrc media-player-info-nosystemd
->openrc libpulse-nosystemd
 powertop
->systemd alsa-utils
->systemd avahi
+alsa-utils
+avahi
 networkmanager
->systemd ntp
->systemd openssh
->systemd xdg-user-dirs
->systemd xorg-server
+ntp
+openssh
+xdg-user-dirs
+xorg-server
 terminus-font
 ttf-bitstream-vera
 ttf-dejavu
@@ -47,8 +32,7 @@ xdg-utils
 xf86-input-elographics
 xf86-input-evdev
 xf86-input-keyboard
->systemd xf86-input-libinput
->openrc xf86-input-libinput-nosystemd
+xf86-input-libinput
 xf86-input-mouse
 xf86-input-void
 xorg-server-utils

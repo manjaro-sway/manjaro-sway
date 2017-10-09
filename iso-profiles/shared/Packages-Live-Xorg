@@ -8,15 +8,13 @@ mkinitcpio-nfs-utils
 >multilib lib32-libxvmc
 >multilib lib32-primus
 nbd
->openrc bumblebee-openrc
->openrc manjaro-live-openrc
 open-vm-tools
 primus
 >manjaro grub-theme-live-manjaro
 >sonar grub-theme-live-sonar
 squashfs-tools
->systemd bumblebee
->systemd manjaro-live-systemd
+bumblebee
+manjaro-live-systemd
 xf86-input-vmmouse
 xf86-video-amdgpu
 xf86-video-ati

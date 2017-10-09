@@ -51,33 +51,12 @@ mhwd-db
 mkinitcpio-openswap
 nano
 ntfs-3g
->openrc acpid-openrc
->openrc cpupower-openrc
->openrc cronie-openrc
->openrc cryptsetup-openrc
->openrc dbus-openrc
->openrc dbus-elogind
->openrc device-mapper-openrc
->openrc dhcpcd-openrc
->openrc eudev-systemd
->openrc haveged-openrc
->openrc libeudev-systemd
->openrc lvm2-openrc
->openrc mdadm-openrc
->openrc netifrc
->openrc nfs-utils-openrc
->openrc rsync-openrc
->openrc wpa_supplicant-openrc
->openrc libusb-nosystemd
->openrc mkinitcpio-nosystemd
 os-prober
 pacman
 pciutils
->systemd pcmciautils
->openrc pcmciautils-nosystemd
+pcmciautils
 perl
->systemd procps-ng
->openrc procps-ng-elogind
+procps-ng
 psmisc
 reiserfsprogs
 sed
@@ -86,25 +65,24 @@ s-nail
 >sonar sonar-release
 sudo
 sysfsutils
->systemd acpid
->systemd cpupower
->systemd cronie
->systemd cryptsetup
->systemd device-mapper
->systemd dhcpcd
->systemd haveged
->systemd lvm2
->systemd mdadm
->systemd nfs-utils
->systemd rsync
->systemd systemd-sysvcompat
->systemd tlp
->systemd wpa_supplicant
+acpid
+cpupower
+cronie
+cryptsetup
+device-mapper
+dhcpcd
+haveged
+lvm2
+mdadm
+nfs-utils
+rsync
+systemd-sysvcompat
+tlp
+wpa_supplicant
 tar
 texinfo
 usbutils
->systemd util-linux
->openrc util-linux-nosystemd
+util-linux
 vi
 wget
 which

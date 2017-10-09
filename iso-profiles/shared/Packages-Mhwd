@@ -27,13 +27,11 @@ mesa-vdpau
 >nonfree_multilib lib32-nvidia-340xx-utils
 >nonfree_multilib lib32-nvidia-utils
 opencl-mesa
->openrc bumblebee-openrc
->openrc virtualbox-guest-utils-openrc
 open-vm-tools
 pangox-compat
 primus
->systemd bumblebee
->systemd virtualbox-guest-utils
+bumblebee
+virtualbox-guest-utils
 vulkan-radeon
 >multilib lib32-vulkan-radeon
 vulkan-intel
