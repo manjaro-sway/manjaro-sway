@@ -3,7 +3,8 @@ manjaro-live-skel
 mkinitcpio-nfs-utils
 nbd
 gsmartcontrol
->manjaro grub-theme-live-manjaro
+>manjaro grub-theme-live-manjaro-dev
+#>manjaro grub-theme-live-manjaro
 >sonar grub-theme-live-sonar
 >sonar sonar-calamares-branding
 squashfs-tools
