@@ -4,14 +4,14 @@ componentName:  manjaro
 strings:
     productName:         Manjaro Linux
     shortProductName:    Manjaro
-    version:             17.1-rc1
-    shortVersion:        17.1-rc1
-    versionedName:       Manjaro Linux 17.1-rc1 "Hakoila"
-    shortVersionedName:  Manjaro 17.1-rc1
+    version:             17.1-rc2
+    shortVersion:        17.1-rc2
+    versionedName:       Manjaro Linux 17.1-rc2 "Hakoila"
+    shortVersionedName:  Manjaro 17.1-rc2
     bootloaderEntryName: Manjaro
 
 images:
-    productLogo:         "squid.png"
+    productLogo:         "logo.png"
     productIcon:         "logo.png"
     productWelcome:      "languages.png"
 
