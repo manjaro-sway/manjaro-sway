@@ -1,4 +1,5 @@
 acpi
+>i686 archlinux32-keyring
 b43-fwcutter
 bash
 btrfs-progs
