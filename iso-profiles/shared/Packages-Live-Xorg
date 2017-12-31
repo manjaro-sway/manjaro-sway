@@ -10,11 +10,13 @@ mkinitcpio-nfs-utils
 nbd
 open-vm-tools
 primus
->manjaro grub-theme-live-manjaro
+>manjaro grub-theme-live-manjaro-dev
+#>manjaro grub-theme-live-manjaro
 >sonar grub-theme-live-sonar
 squashfs-tools
 bumblebee
 manjaro-live-systemd
+manjaro-architect
 xf86-input-vmmouse
 xf86-video-amdgpu
 xf86-video-ati
@@ -27,4 +29,3 @@ xf86-video-sisusb
 xf86-video-vesa
 xf86-video-vmware
 xf86-video-voodoo
->sonar thus
