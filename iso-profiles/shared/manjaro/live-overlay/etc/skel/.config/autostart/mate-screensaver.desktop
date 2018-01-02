@@ -146,3 +146,4 @@ X-MATE-Bugzilla-Product=mate-screensaver
 X-MATE-Bugzilla-Component=general
 X-MATE-Bugzilla-Version=1.18.2
 X-MATE-Autostart-enabled=false
+Hidden=true
