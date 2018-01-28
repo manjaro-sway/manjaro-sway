@@ -10,8 +10,7 @@ mkinitcpio-nfs-utils
 nbd
 open-vm-tools
 primus
->manjaro grub-theme-live-manjaro-dev
-#>manjaro grub-theme-live-manjaro
+>manjaro grub-theme-live-manjaro
 >sonar grub-theme-live-sonar
 squashfs-tools
 bumblebee
