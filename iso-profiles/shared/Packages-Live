@@ -1,11 +1,11 @@
 calamares
-manjaro-live-skel
-mkinitcpio-nfs-utils
-nbd
-gsmartcontrol
 >manjaro grub-theme-live-manjaro
 >sonar grub-theme-live-sonar
+gsmartcontrol
+manjaro-architect
+manjaro-live-skel
+manjaro-live-systemd
+mkinitcpio-nfs-utils
+nbd
 >sonar sonar-calamares-branding
 squashfs-tools
-manjaro-live-systemd
-manjaro-architect
