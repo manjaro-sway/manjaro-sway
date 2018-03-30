@@ -1,7 +1,7 @@
 KERNEL-bbswitch
 KERNEL-broadcom-wl
 KERNEL-r8168
-KERNEL-rt3562sta
+#KERNEL-rt3562sta
 KERNEL-virtualbox-guest-modules
 libva-intel-driver
 libva-mesa-driver
