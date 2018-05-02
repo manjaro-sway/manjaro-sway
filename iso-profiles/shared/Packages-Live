@@ -9,3 +9,4 @@ mkinitcpio-nfs-utils
 nbd
 >sonar sonar-calamares-branding
 squashfs-tools
+clonezilla
