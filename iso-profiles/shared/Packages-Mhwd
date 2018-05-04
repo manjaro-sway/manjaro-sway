@@ -19,13 +19,16 @@ mesa-vdpau
 >nonfree_default KERNEL-nvidia
 >nonfree_default KERNEL-nvidia-304xx
 >nonfree_default KERNEL-nvidia-340xx
+>nonfree_default KERNEL-nvidia-390xx
 >nonfree_default nvidia-304xx-utils
 >nonfree_default nvidia-340xx-utils
+>nonfree_default nvidia-390xx-utils
 >nonfree_default nvidia-utils
 >nonfree_multilib lib32-catalyst-utils
+>nonfree_multilib lib32-nvidia-utils
 >nonfree_multilib lib32-nvidia-304xx-utils
 >nonfree_multilib lib32-nvidia-340xx-utils
->nonfree_multilib lib32-nvidia-utils
+>nonfree_multilib lib32-nvidia-390xx-utils
 opencl-mesa
 open-vm-tools
 pangox-compat

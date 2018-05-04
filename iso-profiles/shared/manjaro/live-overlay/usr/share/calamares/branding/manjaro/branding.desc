@@ -4,10 +4,10 @@ componentName:  manjaro
 strings:
     productName:         Manjaro Linux
     shortProductName:    Manjaro
-    version:             18.0-alpha-1
-    shortVersion:        18.0a1
-    versionedName:       Manjaro Linux 18.0-alpha-1 "Illyria"
-    shortVersionedName:  Manjaro 18.0a1
+    version:             18.0-alpha-3
+    shortVersion:        18.0a3
+    versionedName:       Manjaro Linux 18.0-alpha-3 "Illyria"
+    shortVersionedName:  Manjaro 18.0a3
     bootloaderEntryName: Manjaro
 
 images:
