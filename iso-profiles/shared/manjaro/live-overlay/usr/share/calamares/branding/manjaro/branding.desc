@@ -2,12 +2,12 @@
 componentName:  manjaro
 
 strings:
-    productName:         Manjaro Openbox Linux
-    shortProductName:    Manjaro Openbox
-    version:             18.0rc2
-    shortVersion:        18.0rc2
-    versionedName:       Manjaro Openbox Linux 18.0rc2 "Illyria"
-    shortVersionedName:  Manjaro Openbox 18.0rc2
+    productName:         Manjaro Basic Openbox Linux
+    shortProductName:    Manjaro Basic Openbox
+    version:             18.0
+    shortVersion:        18.0
+    versionedName:       Manjaro Basic Openbox Linux 18.0 "Illyria"
+    shortVersionedName:  Manjaro Basic Openbox 18.0
     bootloaderEntryName: Manjaro
 
 images:
