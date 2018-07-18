@@ -1,12 +1,10 @@
 calamares-git
 >manjaro grub-theme-live-manjaro-dev
->sonar grub-theme-live-sonar
 gsmartcontrol
 manjaro-architect
 manjaro-live-skel
 manjaro-live-systemd
 mkinitcpio-nfs-utils
 nbd
->sonar sonar-calamares-branding
 squashfs-tools
 clonezilla
