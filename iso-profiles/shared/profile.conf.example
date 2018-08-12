@@ -34,19 +34,20 @@
 
 # unset defaults to given values
 # names must match systemd service names
-# enable_systemd=('bluetooth' 'cronie' 'ModemManager' 'NetworkManager' 'org.cups.cupsd' 'tlp' 'tlp-sleep')
-# disable_systemd=()
-
-# unset defaults to given values,
-# names must match openrc service names
-# enable_openrc=('acpid' 'bluetooth' 'elogind' 'cronie' 'cupsd' 'dbus' 'syslog-ng' 'NetworkManager')
-# disable_openrc=()
+# enable_systemd=('avahi-daemon' 'bluetooth' 'cronie' 'ModemManager' 'NetworkManager' 'org.cups.cupsd' 'tlp' 'tlp-sleep' 'ufw')
+# disable_systemd=('pacman-init')
 
 # unset defaults to given values
-# addgroups="video,power,storage,optical,network,lp,scanner,wheel"
+# addgroups="lp,network,power,wheel"
 
 # the same workgroup name if samba is used
 # smb_workgroup="Manjaro"
+
+# default system shell is bash
+# '/etc/defaults/useradd': " "
+# userShell              : "/bin/zsh"
+# empty value will not be used
+# user_shell=
 
 ################# live-session #################
 
@@ -59,16 +60,7 @@
 # unset defaults to given value
 # password="manjaro"
 
-# the login shell
-# defaults to bash
-# login_shell=/bin/bash
-
 # unset defaults to given values
 # names must match systemd service names
 # services in enable_systemd array don't need to be listed here
 # enable_systemd_live=('manjaro-live' 'mhwd-live' 'pacman-init' 'mirrors-live')
-
-# unset defaults to given values,
-# names must match openrc service names
-# services in enable_openrc array don't need to be listed here
-# enable_openrc_live=('manjaro-live' 'mhwd-live' 'pacman-init' 'mirrors-live')
