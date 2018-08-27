@@ -1,4 +1,5 @@
 acpi
+amd-ucode
 >i686 archlinux32-keyring
 b43-fwcutter
 bash
