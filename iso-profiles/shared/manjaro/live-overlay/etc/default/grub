@@ -1,7 +1,7 @@
 GRUB_DEFAULT=saved
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Manjaro"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=3 vga=current rd.systemd.show_status=auto rd.udev.log-priority=3 vt.global_cursor_default=0"
 GRUB_CMDLINE_LINUX=""
 
 # If you want to enable the save default function, uncomment the following
