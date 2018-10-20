@@ -31,7 +31,6 @@ open-vm-tools
 pangox-compat
 primus
 bumblebee
-virtualbox-guest-utils
 vulkan-radeon
 >multilib lib32-vulkan-radeon
 vulkan-intel
