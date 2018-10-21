@@ -27,7 +27,7 @@ gcc-libs
 gettext
 glibc
 grep
-grub-quiet-test
+grub-quiet
 gzip
 inetutils
 intel-ucode
