@@ -26,7 +26,8 @@ gcc-libs
 gettext
 glibc
 grep
-grub-quiet
+grub
+#grub-quiet # seems we are not ready yet
 gzip
 inetutils
 intel-ucode
