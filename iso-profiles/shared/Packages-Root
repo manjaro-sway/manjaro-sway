@@ -78,7 +78,7 @@ lvm2
 mdadm
 nfs-utils
 rsync
-systemd-fsck-silent
+#systemd-fsck-silent # only needed with grub-quiet
 systemd-sysvcompat
 tlp
 wpa_supplicant
