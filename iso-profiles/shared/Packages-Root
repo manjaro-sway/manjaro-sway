@@ -27,7 +27,6 @@ gettext
 glibc
 grep
 grub
-#grub-quiet # seems we are not ready yet
 gzip
 inetutils
 intel-ucode
@@ -78,7 +77,7 @@ lvm2
 mdadm
 nfs-utils
 rsync
-#systemd-fsck-silent # only needed with grub-quiet
+systemd-fsck-silent
 systemd-sysvcompat
 tlp
 wpa_supplicant
