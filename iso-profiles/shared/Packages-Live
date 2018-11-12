@@ -8,3 +8,4 @@ mkinitcpio-nfs-utils
 nbd
 squashfs-tools
 clonezilla
+virtualbox-guest-utils
