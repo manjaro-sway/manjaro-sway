@@ -1,0 +1,23 @@
+---
+componentName:  manjaro
+
+strings:
+    productName:         Manjaro Linux
+    shortProductName:    Manjaro
+    version:             18.0.3
+    shortVersion:        18.0.3
+    versionedName:       Manjaro Linux 18.0.3 "Illyria"
+    shortVersionedName:  Manjaro 18.0.3
+    bootloaderEntryName: Manjaro
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "logo.png"
+    productWelcome:      "languages.png"
+
+slideshow:               "show.qml"
+
+style:
+   sidebarBackground:    "#454948"
+   sidebarText:          "#efefef"
+   sidebarTextSelect:    "#9E4F5D"
