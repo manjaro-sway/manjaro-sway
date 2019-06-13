@@ -5,7 +5,7 @@ acpi
 acpid
 amd-ucode
 b43-fwcutter
-bash
+bash-completion
 btrfs-progs
 bzip2
 coreutils
