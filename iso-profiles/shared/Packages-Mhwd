@@ -1,3 +1,9 @@
+## The following is only temp for 18.1-rc7
+libreoffice-still
+freeoffice
+
+## Normal MHWD package list
+
 KERNEL-bbswitch
 KERNEL-broadcom-wl
 #KERNEL-r8168
