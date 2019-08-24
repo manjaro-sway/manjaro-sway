@@ -1,7 +1,7 @@
 calamares
 KERNEL-bbswitch
 KERNEL-broadcom-wl
-KERNEL-r8168
+#KERNEL-r8168
 #KERNEL-rt3562sta
 manjaro-live-skel
 mkinitcpio-nfs-utils
