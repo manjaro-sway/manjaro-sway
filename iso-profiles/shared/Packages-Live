@@ -6,5 +6,5 @@ manjaro-live-skel
 manjaro-live-systemd
 mkinitcpio-nfs-utils
 nbd
-squashfs-tools
+#squashfs-tools
 clonezilla
