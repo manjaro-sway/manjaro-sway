@@ -14,7 +14,7 @@ KERNEL-virtualbox-guest-modules
 libva-intel-driver
 libva-mesa-driver
 libva-vdpau-driver
->multilib lib32-libva-vdpau-driver 
+>multilib lib32-libva-vdpau-driver
 libxaw
 libxpm
 libxvmc
@@ -24,7 +24,7 @@ mesa-vdpau
 >multilib lib32-primus
 #>nonfree_default catalyst-utils
 #>nonfree_default KERNEL-catalyst
->nonfree_default KERNEL-nvidia-340xx
+#>nonfree_default KERNEL-nvidia-340xx
 >nonfree_default KERNEL-nvidia-390xx
 >nonfree_x86_64 KERNEL-nvidia-418xx
 >nonfree_default nvidia-340xx-utils
@@ -32,7 +32,7 @@ mesa-vdpau
 >nonfree_x86_64 nvidia-418xx-utils
 #>nonfree_multilib lib32-catalyst-utils
 >nonfree_multilib lib32-nvidia-418xx-utils
->nonfree_multilib lib32-nvidia-340xx-utils
+#>nonfree_multilib lib32-nvidia-340xx-utils
 >nonfree_multilib lib32-nvidia-390xx-utils
 opencl-mesa
 open-vm-tools
