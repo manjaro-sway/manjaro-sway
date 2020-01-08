@@ -39,6 +39,7 @@ open-vm-tools
 pangox-compat
 primus
 bumblebee
+nvidia-prime
 gtkmm3
 virtualbox-guest-utils
 vulkan-radeon
