@@ -41,6 +41,7 @@ primus
 bumblebee
 nvidia-prime
 gtkmm3
+spice-vdagent
 virtualbox-guest-utils
 vulkan-radeon
 >multilib lib32-vulkan-radeon
