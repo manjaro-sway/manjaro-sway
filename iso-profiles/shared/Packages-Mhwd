@@ -1,6 +1,6 @@
 ## The following is only temp for 18.1-rc7
->office libreoffice-still
->office freeoffice
+>extra libreoffice-still
+>extra freeoffice
 
 ## Normal MHWD package list
 
