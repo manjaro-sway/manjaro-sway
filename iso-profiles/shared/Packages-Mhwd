@@ -38,7 +38,6 @@ mesa-vdpau
 >nonfree_multilib lib32-nvidia-390xx-utils
 opencl-mesa
 open-vm-tools
-pangox-compat
 primus
 bumblebee
 nvidia-prime
