@@ -1,7 +1,3 @@
-## The following is only temp for 18.1-rc7
->office libreoffice-still
->office freeoffice
-
 ## Normal MHWD package list
 
 KERNEL-bbswitch
