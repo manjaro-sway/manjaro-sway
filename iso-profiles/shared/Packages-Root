@@ -87,4 +87,5 @@ wpa_supplicant
 xfsprogs
 xz
 manjaro-zsh-config
-hardcode-fixer #This script adjust the missing icons when are hardcoded
+# remove the following until we have a clear setup
+#hardcode-fixer #This script adjust the missing icons when are hardcoded
