@@ -4,10 +4,10 @@ componentName:  manjaro
 strings:
     productName:         Manjaro Linux
     shortProductName:    Manjaro
-    version:             19.0.2 OEM
-    shortVersion:        19.0.2 OEM
-    versionedName:       Manjaro Linux 19.0.2 "Kyria" OEM
-    shortVersionedName:  Manjaro 19.0.2 OEM
+    version:             20.1 OEM
+    shortVersion:        20.1 OEM
+    versionedName:       Manjaro Linux 20.1 "Mikah" OEM
+    shortVersionedName:  Manjaro 20.1 OEM
     bootloaderEntryName: Manjaro
 
 images:
