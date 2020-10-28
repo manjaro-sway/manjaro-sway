@@ -50,6 +50,7 @@ man-pages
 manjaro-firmware
 manjaro-release
 manjaro-system
+manjaro-zsh-config
 mdadm
 memtest86+
 mhwd
@@ -86,6 +87,3 @@ which
 wpa_supplicant
 xfsprogs
 xz
-manjaro-zsh-config
-# remove the following until we have a clear setup
-#hardcode-fixer #This script adjust the missing icons when are hardcoded
