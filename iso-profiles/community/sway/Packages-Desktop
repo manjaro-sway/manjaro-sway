@@ -1,0 +1,43 @@
+alsa-firmware
+>extra apparmor
+avahi
+>extra manjaro-hello
+gnome-keyring
+grub-theme-manjaro
+gufw
+kitty
+greetd
+greetd-gtkgreet
+>extra manjaro-printer
+networkmanager
+network-manager-applet
+networkmanager-openconnect
+networkmanager-openvpn
+networkmanager-pptp
+networkmanager-vpnc
+mako
+modemmanager
+pamac
+pulseaudio-bluetooth
+pulseaudio-ctl
+pulseaudio-zeroconf
+>extra snapd
+sway
+ttf-bitstream-vera
+>extra ttf-dejavu
+>extra ttf-droid
+>extra ttf-inconsolata
+>extra ttf-indic-otf
+>extra ttf-liberation
+vi
+vim
+waybar
+wofi
+light
+pamixer
+flashfocus
+pavucontrol
+blueberry
+sgtk-menu
+
+

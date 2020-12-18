@@ -1,0 +1,10 @@
+#%PAM-1.0
+
+auth required pam_env.so
+auth sufficient pam_fprintd.so
+auth sufficient pam_unix.so try_first_pass likeauth nullok
+auth required pam_deny.so
+auth       include      system-auth
+account    include      system-auth
+password   include      system-auth
+session    include      system-auth
