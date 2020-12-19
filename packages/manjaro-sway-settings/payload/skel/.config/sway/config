@@ -29,7 +29,7 @@
 # Note: it'es recommended that you pass the final command to sway
     set $menu wofi --show=run
 
-# Your prefered locking mechanism, chose between gdbus -> gdm and swaylock
+# Your prefered locking mechanism
 #
     set $locking swaylock
 
@@ -249,7 +249,6 @@ bar {
 exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
-exec flashfocus
-#exec nm-applet
+#exec flashfocus
 exec sh ~/.config/sway/scripts/keyring.sh
 include /etc/sway/config.d/*
