@@ -1,0 +1,16 @@
+# The VT to run the greeter on. Can be "next", "current" or a number
+# designating the VT.
+vt = "next"
+
+# The greeter to run. Here is given an example that starts `agreety`, the
+# agetty-lookalike, which will start sway once login completes. Replace it
+# with "$SHELL" if you wish to log in to your shell.
+
+#greeter = "sway --config /etc/greetd/sway-config"
+#greeter = "agreety -c sway"
+greeter = "sway --config /etc/greetd/sway-config -d 2>/tmp/swaylog"
+
+# The user to run the greeter as. The privileges this user must have depends
+# on the greeter. A graphical greeter may for example require the user to be
+# in the `video` group.
+greeter_user = "greeter"

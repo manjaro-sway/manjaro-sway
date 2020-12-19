@@ -1,0 +1,141 @@
+/* Thank you to u/Krudjan for sharing their dotfiles, I used
+   https://gitlab.com/Krudjan/dotfiles/tree/master/waybar/.config/waybar
+   as a reference when writing this */
+
+{
+    "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar at the bottom of your screen
+    "height": 25, // Waybar height
+    // "width": 1280, // Waybar width
+    // Choose the order of the modules
+    "modules-left": ["custom/menu","custom/arrow10","sway/workspaces","custom/block0","custom/arrow0","sway/mode"],
+    "modules-center": [],
+    "modules-right": ["custom/arrow9","tray","idle_inhibitor","custom/arrow1","pulseaudio","custom/arrow2","cpu","custom/arrow3","memory","custom/arrow8","custom/vpn","custom/arrow4","custom/pacman","custom/arrow5","network","custom/bluetooth","custom/arrow6","battery","custom/arrow7","clock"],
+    "gtk-layer-shell": true,
+    // Modules configuration
+     "sway/workspaces": {
+         "disable-scroll": true,
+         "format": "{name}"
+     },
+    "sway/mode": {
+        "format": "!"
+    },
+    "clock": {
+	"format": "{:%a, %d. %b %H:%M}"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{}% ",
+	"on-click": "kitty -e htop"
+    },
+    "battery": {
+    "bat": "BAT0",
+    "interval": 60,
+    "states": {
+        "warning": 30,
+        "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""],
+        "max-length": 25
+    },
+    "custom/vpn": {
+    "interval": 5,
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/modules/vpn.sh",
+    "on-click": "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center network" 
+    },
+    "network": {
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-disconnected": "",
+        "on-click": "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center wifi" 
+    },
+    "custom/bluetooth": {
+        "format": "",
+        "interval": 5,
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/bluetooth.sh",
+        "on-click": "blueberry"
+    },
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/pacman": {
+        "format": "{} ",
+        "interval": 3600,                     // every hour
+        "exec": "pamac checkupdates -a -q | wc -l",       // # of updates
+        "on-click": "pamac-manager", // update system
+        "tooltip": false
+    },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+                
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+           "activated": "",
+           "deactivated": ""                                         
+        }                
+    },
+ /*   "custom/menu": {
+         "format": "",
+         "on-click": "sgtk-menu -y 25",
+         "tooltip": false
+     }, */
+    "custom/block0": {
+        "format": "█"
+    },
+    "custom/arrow0": {
+        "format": ""
+    },
+    "custom/arrow1": {
+        "format": ""
+    },
+    "custom/arrow2": {
+        "format": ""
+    },
+    "custom/arrow3": {
+        "format": ""
+    },
+    "custom/arrow4": {
+        "format": ""
+    },
+    "custom/arrow5": {
+        "format": ""
+    },
+    "custom/arrow6": {
+        "format": ""
+    },
+    "custom/arrow7": {
+        "format": ""
+    },
+    "custom/arrow8": {
+        "format": ""
+    },
+    "custom/arrow9": {
+        "format": ""
+    },
+    "custom/arrow10": {
+         "format": ""
+     }
+
+}

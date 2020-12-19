@@ -1,0 +1,15 @@
+## Keyboard layout
+  input * xkb_layout "ch(de_nodeadkeys)"
+  input type:keyboard xkb_numlock enable
+
+exec "gtkgreet -l --command=sway; swaymsg exit"
+
+bindsym Mod4+shift+e exec swaynag \
+	-t warning \
+	-m 'What do you want to do?' \
+	-b 'Exit sway' 'swaymsg exit' \
+	-b 'Lock session' 'killall -USR1 swayidle' \
+	-b 'Poweroff' 'systemctl poweroff' \
+	-b 'Reboot' 'systemctl reboot'
+
+include /etc/sway/config.d/*

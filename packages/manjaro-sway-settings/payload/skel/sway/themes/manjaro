@@ -1,0 +1,35 @@
+# Default Manjaro Sway Configs
+#
+
+################----------------THEMING----------------################
+
+ font Fira Mono 9
+
+ default_border pixel 3
+ smart_borders on
+ smart_gaps on
+ gaps inner 6
+ #gaps top 3
+
+ # set gnome
+
+ set $gnome-schema org.gnome.desktop.interface
+ exec_always {
+     gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+     gsettings set $gnome-schema icon-theme 'Adwaita'
+     gsettings set $gnome-schema cursor-theme 'xcursor-breeze'
+ }
+
+ set $grey       #323232
+ set $lightgreen #1abc9c
+ set $white      #eff0f1
+ set $bg         #31363b
+ set $black      #900000
+ set $red        #CB4B16
+
+ # Sway theme
+ # class                   border     backgr.    text    indic.     child_border
+   client.focused          $lightgreen $bg        $white  $lightgreen $lightgreen
+   client.focused_inactive $bg        $bg        $white  $bg        $bg
+   client.unfocused        $bg        $bg        $white  $bg        $bg
+   client.urgent           $red       $red       $white  $black     $black

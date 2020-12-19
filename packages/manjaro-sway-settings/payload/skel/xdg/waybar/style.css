@@ -1,0 +1,213 @@
+
+/* Thank you to u/Krudjan for sharing their dotfiles, I used
+   https://gitlab.com/Krudjan/dotfiles/tree/master/waybar/.config/waybar
+   as a reference when writing this */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "FontAwesome 5 Free Solid","Dejavu Sans Mono";
+    font-size: 16px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #2F3D44;
+    border-top: 3px solid #1ABC9C;
+    color: #1ABC9C;
+    transition-property: background-color;
+    transition-duration: 1s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button {
+    padding: 3px 5px 0 5px;
+    background-color: #0a2929;
+}
+
+#workspaces button.focused {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.3);
+    padding-top: 6px;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mode {
+    background: rgba(255, 0, 0, 0.8); /* pure red is a bit hard on the eyes */
+    color: #ffffff;
+    margin: 0 10px;
+    padding: 0 7px;
+    font-weight: bolder;
+    border-radius: 100%;
+}
+
+#clock, #battery, #cpu, #memory,#temperature, #backlight, #network,#custom-bluetooth, #pulseaudio, #tray, #mode, #idle_inhibitor, #custom-pacman, #custom-vpn, #custom-menu {
+    padding: 0 10px;
+    margin: 0 0px;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#pulseaudio {
+    background-color: #196767;
+}
+
+#custom-pacman {
+    background-color: #196767;
+}
+
+#cpu {
+    background-color: #145252;
+}
+
+#network {
+    background-color: #145252;
+}
+
+#network.disconnected {
+    background-color: #145252;
+    border-bottom: 2px solid #dd2241;
+}
+
+#custom-bluetooth {
+    background-color: #145252;
+}
+
+#custom-bluetooth.down {
+    background-color: #145252;
+    border-bottom: 2px solid #dd2241;
+}
+
+#memory {
+    background-color: #0f3e3e;
+}
+
+#battery {
+     background-color: #0f3e3e;
+ }
+ #battery.warning:not(.charging) {
+     border-bottom: 2px solid #dd2241;
+ }
+
+#clock {
+    background-color: #051515;
+}
+
+#custom-vpn {
+    background-color: #051515;
+}
+
+#custom-vpn.down {
+    background-color: #051515;
+    border-bottom: 2px solid #dd2241;
+}
+
+#pulseaudio {
+    background-color: #196767;
+}
+
+#pulseaudio.muted {
+    background: #196767;
+    border-bottom: 2px solid #dd2241;
+}
+
+#idle_inhibitor {
+    background-color: #051515;
+
+}
+
+#tray {
+    background-color: #051515;
+}
+
+#custom-menu {
+     background-color: #051515;
+
+ }
+
+/* If the font size for the arrows is too big, it will resize
+the bar in a problematic way */
+#custom-block0 {
+	color: #0a2929;
+	background: #0a2929;
+}
+
+#custom-arrow0 {
+	font-size: 130%;
+	color: #0a2929;
+	background: transparent;
+}
+
+#custom-arrow1 {
+	font-size: 130%;
+	color: #196767;
+	background: #051515;
+}
+
+#custom-arrow2 {
+	font-size: 130%;
+	color: #145252;
+	background: #196767;
+}
+
+#custom-arrow3 {
+	font-size: 130%;
+	color: #0f3e3e;
+	background: #145252;
+}
+
+#custom-arrow4 {
+	font-size: 130%;
+	color: #196767;
+	background: #051515;
+}
+
+#custom-arrow5 {
+	font-size: 130%;
+	color: #145252;
+	background: #196767;
+}
+
+#custom-arrow6 {
+	font-size: 130%;
+	color: #0f3e3e;
+	background: #145252;
+}
+
+#custom-arrow7 {
+	font-size: 130%;
+	color: #051515;
+	background: #0f3e3e;
+}
+
+#custom-arrow8 {
+	font-size: 130%;
+	color: #051515;
+	background: #0f3e3e;
+}
+#custom-arrow9 {
+	font-size: 130%;
+	color: #051515;
+	background: transparent;
+}
+#custom-arrow10 {
+     font-size: 130%;
+     color: #051515;
+     background-color: #0a2929;
+ }
