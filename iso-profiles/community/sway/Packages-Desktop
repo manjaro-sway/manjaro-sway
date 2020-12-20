@@ -21,18 +21,18 @@ modemmanager
 pamac
 htop
 ttf-font-awesome
->extra manjaro-wallpapers-18.0
+manjaro-wallpapers-18.0
 pulseaudio-bluetooth
 pulseaudio-ctl
 pulseaudio-zeroconf
 >extra snapd
 sway
 ttf-bitstream-vera
->extra ttf-dejavu
->extra ttf-droid
->extra ttf-inconsolata
->extra ttf-indic-otf
->extra ttf-liberation
+ttf-dejavu
+ttf-droid
+ttf-inconsolata
+ttf-indic-otf
+ttf-liberation
 vi
 vim
 waybar
@@ -43,5 +43,10 @@ flashfocus-git
 pavucontrol
 blueberry
 sgtk-menu
+matcha-gtk-theme
+xcursor-breeze
+breeze-maia-icon-themes
+papirus-maia-icon-theme
+manjaro-architect
 
 
