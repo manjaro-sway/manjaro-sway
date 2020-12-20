@@ -7,4 +7,8 @@ for_window [window_type="dialog"] floating enable
 for_window [class="(?i)pinentry"] floating enable
 for_window [app_id="pamac-manager"] floating enable
 for_window [app_id="blueberry.py"] floating enable
-for_window [app_id="nm-openconnect-auth-dialog"] floating enable
+for_window [app_id="nm-connection-editor"] floating enable
+for_window [title="File Operation Progress"] floating enable
+for_window [app_id="firefox" title="Library"] floating enable
+for_window [app_id="thunderbird" title=".*Reminder"] floating enable
+for_window [app_id="pavucontrol"] floating enable
