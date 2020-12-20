@@ -21,6 +21,11 @@
 #
     include themes/manjaro
 
+### Standard Background
+#
+
+    output * bg /usr/share/backgrounds/illyria-default.jpg
+
 ### Include user configurations
 #
     include config.d/*
