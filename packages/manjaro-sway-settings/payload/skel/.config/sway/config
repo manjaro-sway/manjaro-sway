@@ -24,7 +24,7 @@
 ### Standard Background
 #
 
-    output * bg /usr/share/backgrounds//usr/share/backgrounds/manjaro-wallpapers-18.0/default-adapta.jpg fill
+    output * bg /usr/share/backgrounds/manjaro-wallpapers-18.0/default-adapta.jpg fill
 
 ### Include user configurations
 #
