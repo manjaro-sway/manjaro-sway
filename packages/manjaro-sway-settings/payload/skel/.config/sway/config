@@ -15,7 +15,7 @@
     set $up k
     set $right l
     # Your preferred terminal emulator
-    set $term urxvt
+    set $term kitty
 
 ### Include theme
 #
