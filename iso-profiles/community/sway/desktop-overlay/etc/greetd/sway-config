@@ -1,6 +1,9 @@
-## Keyboard layout
-  input * xkb_layout "ch(de_nodeadkeys)"
-  input type:keyboard xkb_numlock enable
+## Set background 
+set $background /usr/share/backgrounds/manjaro-wallpapers-18.0/default-adapta-lockscreen.jpg
+## Basic includes
+include /etc/sway/inputs/*
+include /etc/sway/outputs/*
+
 
 exec "gtkgreet -l --command=sway; swaymsg exit"
 
