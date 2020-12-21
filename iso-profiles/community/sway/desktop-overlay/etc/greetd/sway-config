@@ -5,7 +5,7 @@ include /etc/sway/inputs/*
 include /etc/sway/outputs/*
 
 
-exec "gtkgreet -l --command=sway; swaymsg exit"
+exec "gtkgreet -l -s /etc/greetd/style.css --command=sway; swaymsg exit"
 
 bindsym Mod4+shift+e exec swaynag \
 	-t warning \
