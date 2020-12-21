@@ -11,7 +11,7 @@
     // "modules-left": ["custom/menu","custom/arrow10","sway/workspaces","custom/block0","custom/arrow0","sway/mode"],
     "modules-left": ["sway/workspaces","custom/block0","custom/arrow0","sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["custom/arrow9","tray","idle_inhibitor","custom/arrow1","pulseaudio","custom/arrow2","cpu","custom/arrow3","memory","custom/arrow8","custom/vpn","custom/arrow4","custom/pacman","custom/arrow5","network","custom/bluetooth","battery","custom/arrow7","clock"],
+    "modules-right": ["custom/arrow9","tray","idle_inhibitor","custom/arrow1","pulseaudio","custom/arrow2","cpu","custom/arrow3","memory","custom/arrow8","custom/vpn","custom/arrow4","custom/pacman","custom/arrow5","network","custom/bluetooth","battery","custom/arrow6","clock"],
     "gtk-layer-shell": true,
     // Modules configuration
      "sway/workspaces": {

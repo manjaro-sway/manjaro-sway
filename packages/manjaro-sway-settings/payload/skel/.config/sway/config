@@ -24,7 +24,7 @@
 ### Standard Background
 #
 
-    set $bakground /usr/share/backgrounds/manjaro-wallpapers-18.0/default-adapta.jpg
+    set $background /usr/share/backgrounds/manjaro-wallpapers-18.0/default-adapta.jpg
 
 ### Include configurations
 #
