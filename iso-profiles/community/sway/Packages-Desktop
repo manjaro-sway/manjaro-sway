@@ -1,49 +1,74 @@
+#basic
 manjaro-sway-settings
-alsa-firmware
->extra apparmor
-avahi
->extra manjaro-hello
-gnome-keyring
-grub-theme-manjaro
-gufw
-kitty
+
+# Core sway packages
 greetd
 greetd-gtkgreet
->extra manjaro-printer
-networkmanager
-network-manager-applet
-networkmanager-openconnect
-networkmanager-openvpn
-networkmanager-pptp
-networkmanager-vpnc
-mako
-modemmanager
-pamac
-htop
-ttf-font-awesome
-manjaro-wallpapers-18.0
-pulseaudio-bluetooth
-pulseaudio-ctl
-pulseaudio-zeroconf
->extra snapd
 sway
+waybar
+wofi
+mako
+kitty
+light
+wl-clipboard
+xorg-server-xwayland
+grim
+imv
+slurp
+manjaro-wallpapers-18.0
+gnome-keyring
+
+# extra
+>extra manjaro-hello
+>extra snapd
+>extra apparmor
+>extra manjaro-printer
+
+# Browser
+firefox
+firefox-ublock-origin
+
+# CLI tools
+htop
+neofetch
+neovim
+
+# Themes
+matcha-gtk-theme
+xcursor-breeze
+breeze-maia-icon-themes
+papirus-maia-icon-theme
+grub-theme-manjaro
+
+# Fonts
 ttf-bitstream-vera
 ttf-dejavu
 ttf-droid
 ttf-inconsolata
 ttf-indic-otf
 ttf-liberation
-vi
-vim
-waybar
-wofi
-light
+ttf-font-awesome
+
+# Sound, video and bluetooth
 pamixer
-flashfocus-git
 pavucontrol
+pulseaudio-alsa
+alsa-utils
+alsa-firmware
+bluez
+bluez-utils
+pulseaudio-bluetooth
+pulseaudio-ctl
+pulseaudio-zeroconf
 blueberry
-sgtk-menu
-matcha-gtk-theme
-xcursor-breeze
-breeze-maia-icon-themes
-papirus-maia-icon-theme
+
+# Network
+avahi
+networkmanager
+network-manager-applet
+networkmanager-openconnect
+networkmanager-openvpn
+networkmanager-pptp
+networkmanager-vpnc
+modemmanager
+gufw
