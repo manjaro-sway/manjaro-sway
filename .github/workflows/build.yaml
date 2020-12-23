@@ -1,5 +1,7 @@
 name: prepare
 on:
+  repository_dispatch:
+    types: [rebuild_image]
   push:
   schedule:
     - cron: "0 1 * * *"
@@ -8,27 +10,28 @@ jobs:
   release:
     runs-on: manjaro
     steps:
-      - name: checkout
+      - 
+        name: checkout
         uses: actions/checkout@v2
         with:
           repository: boredland/iso-profiles
           token: "${{ secrets.GITHUB_TOKEN }}"
           ref: 'sway'
-
-      - id: time
+      - 
+        id: time
         uses: nanzm/get-time-action@v1.1
         with:
           format: 'YYYYMMDD-HHmm'
-
-      - name: build
+      - 
+        name: build
         run: |
           paccache -ruk0
           buildiso -p sway
           FILE_PATH=$(find /var/cache/manjaro-tools/iso/community/sway -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
           cp -f ${FILE_PATH} .
           echo "RELEASE_FILE=$(basename $FILE_PATH)" >> $GITHUB_ENV
-
-      - id: create_release
+      - 
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,8 +40,8 @@ jobs:
           release_name: Release ${{ steps.time.outputs.time }}
           draft: false
           prerelease: false
-
-      - id: upload-release-asset 
+      - 
+        id: upload_release 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,3 +50,29 @@ jobs:
           asset_path: ./${{ env.RELEASE_FILE }}
           asset_name: ${{ env.RELEASE_FILE }}
           asset_content_type: application/zip
+    
+    outputs:
+      url: ${{ steps.upload_release.outputs.browser_download_url }}
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: release
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        env:
+          URL: ${{ needs.release.outputs.url }}
+        run: |
+          echo ${URL} >public/url.href
+      -
+        name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: public
+          fqdn: manjaro-sway.download
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
