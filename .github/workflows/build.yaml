@@ -11,6 +11,11 @@ jobs:
     runs-on: manjaro
     steps:
       - 
+        uses: n1hility/cancel-previous-runs@v2
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: build.yaml
+      - 
         name: checkout
         uses: actions/checkout@v2
         with:
@@ -21,15 +26,17 @@ jobs:
         id: time
         uses: nanzm/get-time-action@v1.1
         with:
-          format: 'YYYYMMDD-HHmm'
+          format: 'YYYYMMDDHHmm'
       - 
         name: build
         run: |
+          rm -rf .chroots
           paccache -ruk0
-          buildiso -p sway
+          buildiso -p sway  -r ./.chroots
           FILE_PATH=$(find /var/cache/manjaro-tools/iso/community/sway -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
           cp -f ${FILE_PATH} .
           echo "RELEASE_FILE=$(basename $FILE_PATH)" >> $GITHUB_ENV
+          rm -rf .chroots
       - 
         id: create_release
         uses: actions/create-release@v1
@@ -65,7 +72,8 @@ jobs:
         env:
           URL: ${{ needs.release.outputs.url }}
         run: |
-          echo ${URL} >public/url.href
+          mkdir -p public/_includes
+          echo ${URL} >public/_includes/url.href
       -
         name: Deploy to GitHub Pages
         if: success()
