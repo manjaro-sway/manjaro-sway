@@ -8,6 +8,10 @@ i recently saw, that there was a decent manjaro sway distribution for arm. this 
 - pre-package some tools for software development
 - automate stuff where feasible
 
+## what are the commands?
+
+you can reach a quick introduction pressing `Super + Shift + ?`
+
 ## what doesn't work yet?
 
 you tell me. that is what issues are for.
