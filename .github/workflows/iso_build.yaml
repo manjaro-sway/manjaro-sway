@@ -38,7 +38,7 @@ jobs:
       - 
         name: build
         run: |
-          buildiso -p sway
+          buildiso -f -p sway
           FILE_PATH=$(find /var/cache/manjaro-tools/iso/community/sway -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
           cp -f ${FILE_PATH} .
           echo "RELEASE_FILE=$(basename $FILE_PATH)" >> $GITHUB_ENV
