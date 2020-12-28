@@ -1,4 +1,4 @@
-name: prepare
+name: iso_build
 on:
   repository_dispatch:
     types: [rebuild_image]

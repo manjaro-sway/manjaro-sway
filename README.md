@@ -1,5 +1,9 @@
 # manjaro sway edition
 
+![repo_build](https://github.com/boredland/arch-repo/workflows/repo_build/badge.svg)
+![iso_build](https://github.com/boredland/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)
+
+
 ## description
 
 i recently saw, that there was a decent manjaro sway distribution for arm. this is my approach to port a lot from those configurations to a regular manjaro sway built, with some smaller and bigger changes:
