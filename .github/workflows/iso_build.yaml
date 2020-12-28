@@ -23,6 +23,14 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           path: 'iso-profiles'
       - 
+        id: cleanup
+        run: |
+          sudo rm -r /var/cache/manjaro-tools/
+          sudo rm -r /var/lib/manjaro-tools/buildiso/
+          sudo paccache -ruk0
+          sudo pacman -Syyu --noconfirm
+          rm -r ~/.config/manjaro-tools
+      - 
         id: time
         uses: nanzm/get-time-action@v1.1
         with:
