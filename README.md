@@ -14,7 +14,11 @@ you can reach a quick introduction pressing `Super + Shift + ?`
 
 ## what doesn't work yet?
 
-you tell me. that is what issues are for.
+- blurry fonts in xwayland
+
+```
+Otherwise: you tell me. I'd be happy to try even out everything. PRs will be accepted in the repos listed below.
+```
 
 ## sources
 
@@ -34,6 +38,28 @@ you tell me. that is what issues are for.
 ![launcher](public/_includes/launcher.png?raw=true)
 ![nmtui](public/_includes/nmtui.png?raw=true)
 ![pamac](public/_includes/pamac.png?raw=true)
-![chromium](public/_includes/chromium.png?raw=true)
 ![ranger](public/_includes/ranger.png?raw=true)
 ![qutebrowser](public/_includes/qutebrowser.png?raw=true)
+
+## credentials
+
+```
+user: manjaro
+password: manjaro
+```
+
+## first boot
+
+1. make chromium use native window decorations
+
+![chromium](public/_includes/chromium.png?raw=true)
+
+2. [set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
+
+3. fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
+
+## credits
+
+- initial inspiration came from the [sway branch in the manjaro iso profiles repo](https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/-/tree/sway)
+- most of the work is (with some modifications) copied from the [manjaro sway arm overlay](https://gitlab.manjaro.org/manjaro-arm/applications/arm-profiles/-/tree/master/overlays/sway)
+- the background image is [modified from beautiful designs by reddit user atlas dark](https://www.reddit.com/r/wallpaper/comments/kekos0/1920x1080_all_resolutions_available_dark_light/)
