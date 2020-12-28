@@ -57,9 +57,11 @@ password: manjaro
 
 ![chromium](public/_includes/chromium.png?raw=true)
 
-2. [set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
+2. enable [this flag](chrome://flags/#enable-webrtc-pipewire-capturer) to allow screensharing in chromium
 
-3. fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
+3. [set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
+
+4. fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
 
 ## credits
 
