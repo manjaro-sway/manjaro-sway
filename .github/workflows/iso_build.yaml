@@ -4,13 +4,17 @@ on:
     types: [rebuild_image]
     
 jobs:
-  release:
-    runs-on: manjaro
+  kill:
+    runs-on: ubuntu-latest
     steps:
       - 
         uses: n1hility/cancel-previous-runs@v2
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    runs-on: manjaro
+    steps:
       - 
         name: checkout
         uses: actions/checkout@v2

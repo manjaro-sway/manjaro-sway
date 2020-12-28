@@ -1,8 +1,6 @@
 # manjaro sway edition
-
-![repo_build](https://github.com/boredland/arch-repo/workflows/repo_build/badge.svg)
-![iso_build](https://github.com/boredland/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)
-
+[![repo_build](https://github.com/boredland/arch-repo/workflows/repo_build/badge.svg)](https://github.com/boredland/arch-repo/actions)
+[![iso_build](https://github.com/boredland/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)](https://github.com/boredland/manjaro-sway/actions)
 
 ## description
 
