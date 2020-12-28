@@ -42,6 +42,7 @@ Otherwise: you tell me. I'd be happy to try even out everything. PRs will be acc
 ![pamac](public/_includes/pamac.png?raw=true)
 ![ranger](public/_includes/ranger.png?raw=true)
 ![qutebrowser](public/_includes/qutebrowser.png?raw=true)
+![mako](public/_includes/mako.png?raw=true)
 
 ## credentials
 
