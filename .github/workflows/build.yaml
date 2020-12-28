@@ -3,8 +3,6 @@ on:
   repository_dispatch:
     types: [rebuild_image]
   push:
-  schedule:
-    - cron: "0 1 * * *"
     
 jobs:
   release:
@@ -58,7 +56,7 @@ jobs:
         id: release_cleaner
         uses: dev-drprasad/delete-older-releases@v0.1.0
         with:
-          keep_latest: 10
+          keep_latest: 5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
