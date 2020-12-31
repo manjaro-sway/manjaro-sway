@@ -4,13 +4,13 @@ on:
     types: [rebuild_image]
     
 jobs:
-  kill:
+  cancel:
     runs-on: ubuntu-latest
     steps:
       - 
-        uses: n1hility/cancel-previous-runs@v2
-        with: 
-          token: ${{ secrets.GITHUB_TOKEN }}
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
 
   release:
     runs-on: manjaro
@@ -25,11 +25,11 @@ jobs:
       - 
         id: cleanup
         run: |
-          sudo rm -r /var/cache/manjaro-tools/
-          sudo rm -r /var/lib/manjaro-tools/buildiso/
+          sudo rm -rf /var/cache/manjaro-tools/
+          sudo rm -rf /var/lib/manjaro-tools/buildiso/
           sudo paccache -ruk0
           sudo pacman -Syyu --noconfirm
-          rm -r ~/.config/manjaro-tools
+          rm -rf ~/.config/manjaro-tools
       - 
         id: time
         uses: nanzm/get-time-action@v1.1
