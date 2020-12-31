@@ -25,7 +25,7 @@ Otherwise: you tell me. I'd be happy to try even out everything. PRs will be acc
 ## sources
 
 - [iso profile](https://github.com/boredland/manjaro-iso-profiles/tree/main/community/sway)
-- [desktop settings](https://github.com/boredland/arch-repo/tree/master/custom/manjaro-sway-settings)
+- [desktop settings](https://github.com/boredland/manjaro-sway-settings)
 
 ## building
 
