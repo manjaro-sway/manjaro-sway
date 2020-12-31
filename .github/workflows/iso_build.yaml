@@ -36,13 +36,19 @@ jobs:
         with:
           format: 'YYYYMMDDHHmm'
       - 
-        name: build
+        name: build_minimal
         run: |
           buildiso -p sway
           FILE_PATH=$(find /var/cache/manjaro-tools/iso/community/sway -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
-          cp -f ${FILE_PATH} .
-          echo "RELEASE_FILE=$(basename $FILE_PATH)" >> $GITHUB_ENV
-          rm -rf .chroots
+          mv -f ${FILE_PATH} .
+          echo "RELEASE_FILE_MINIMAL=$(basename $FILE_PATH)" >> $GITHUB_ENV
+      - 
+        name: build_full
+        run: |
+          buildiso -p sway
+          FILE_PATH=$(find /var/cache/manjaro-tools/iso/community/sway -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
+          mv -f ${FILE_PATH} .
+          echo "RELEASE_FILE_FULL=$(basename $FILE_PATH)" >> $GITHUB_ENV
       - 
         id: create_release
         uses: actions/create-release@v1
@@ -54,14 +60,24 @@ jobs:
           draft: false
           prerelease: false
       - 
-        id: upload_release 
+        id: upload_min_release 
         uses: boredland/upload-release-asset@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ env.RELEASE_FILE }}
-          asset_name: ${{ env.RELEASE_FILE }}
+          asset_path: ./${{ env.RELEASE_FILE_MINIMAL }}
+          asset_name: ${{ env.RELEASE_FILE_MINIMAL }}
+          asset_content_type: application/x-iso-image
+      - 
+        id: upload_full_release 
+        uses: boredland/upload-release-asset@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ env.RELEASE_FILE_FULL }}
+          asset_name: ${{ env.RELEASE_FILE_FULL }}
           asset_content_type: application/x-iso-image
       - 
         id: release_cleaner
