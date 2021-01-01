@@ -11,18 +11,20 @@ mako
 kitty
 light
 wl-clipboard
-xorg-server-xwayland
+xorg-xwayland
 grim
 imv
 slurp
 manjaro-wallpapers-18.0
 gnome-keyring
+polkit-gnome
+qt5-wayland
 
 # extra
->extra manjaro-hello
->extra snapd
->extra apparmor
->extra manjaro-printer
+manjaro-hello
+snapd
+apparmor
+manjaro-printer
 
 # Browser
 firefox
