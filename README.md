@@ -10,6 +10,25 @@ i recently saw, that there was a decent manjaro sway distribution for arm. this 
 - pre-package some tools for software development
 - automate stuff where feasible
 
+## where can I download an iso?
+
+images are build and uploaded in a relatively regular interval to [github releases](https://github.com/boredland/manjaro-sway/releases)
+
+there will be two different isos:
+
+- full: containing everything from [manjaro sway settings](https://github.com/boredland/arch-repo/blob/master/custom/manjaro-sway-settings-git/PKGBUILD) and the [iso overlay](https://github.com/boredland/manjaro-iso-profiles/blob/main/community/sway/Packages-Desktop)
+- minimal: same as full - minus the "extra" packages from the [iso overlay](https://github.com/boredland/manjaro-iso-profiles/blob/main/community/sway/Packages-Desktop)
+
+## how to upgrade?
+
+after upgrading packages, you will sometimes need to update you skeleton:
+
+```
+cp -rf /etc/skel/.config/* ~/.config
+```
+
+keep in mind that this could cause problems with customizations you made. make a backup pls.
+
 ## what are the commands?
 
 you can reach a quick introduction pressing `Super + Shift + ?`
@@ -18,9 +37,7 @@ you can reach a quick introduction pressing `Super + Shift + ?`
 
 - blurry fonts in xwayland
 
-```
-Otherwise: you tell me. I'd be happy to try even out everything. PRs will be accepted in the repos listed below.
-```
+Otherwise: [you tell me](https://github.com/boredland/manjaro-sway/issues). I'd be happy to try to even out everything. PRs will be accepted in the repos listed below.
 
 ## sources
 
@@ -62,6 +79,8 @@ password: manjaro
 3. [set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
 
 4. fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
+
+5. auto enable bluetooth on boot: `echo "AutoEnable=true" >> /etc/bluetooth/main.conf`
 
 ## credits
 
