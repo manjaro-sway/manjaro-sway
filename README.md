@@ -7,7 +7,6 @@
 i recently saw, that there was a decent manjaro sway distribution for arm. this is my approach to port a lot from those configurations to a regular manjaro sway built, with some smaller and bigger changes:
 
 - trying to use a decent cli solution whenever available
-- pre-package some tools for software development
 - automate stuff where feasible
 
 ## where can I download an iso?
