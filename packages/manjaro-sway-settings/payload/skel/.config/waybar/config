@@ -1,142 +1,194 @@
-/* Thank you to u/Krudjan for sharing their dotfiles, I used
-   https://gitlab.com/Krudjan/dotfiles/tree/master/waybar/.config/waybar
-   as a reference when writing this */
+// =============================================================================
+//
+// Waybar configuration
+//
+// Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+//
+// =============================================================================
 
 {
-    "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar at the bottom of your screen
-    "height": 25, // Waybar height
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
-    // "modules-left": ["custom/menu","custom/arrow10","sway/workspaces","custom/block0","custom/arrow0","sway/mode"],
-    "modules-left": ["sway/workspaces","custom/block0","custom/arrow0","sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["custom/arrow9","tray","idle_inhibitor","custom/arrow1","pulseaudio","custom/arrow2","cpu","custom/arrow3","memory","custom/arrow8","custom/vpn","custom/arrow4","custom/pacman","custom/arrow5","network","custom/bluetooth","battery","custom/arrow6","clock"],
-    "gtk-layer-shell": true,
-    // Modules configuration
-     "sway/workspaces": {
-         "disable-scroll": true,
-         "format": "{name}"
-     },
-    "sway/mode": {
-        "format": "!"
-    },
-    "clock": {
-	"format": "{:%a, %d. %b %H:%M}"
-    },
-    "cpu": {
-        "format": "{usage}% "
-    },
-    "memory": {
-        "format": "{}% ",
-	"on-click": "kitty -e htop"
-    },
+    // -------------------------------------------------------------------------
+    // Global configuration
+    // -------------------------------------------------------------------------
+
+    "layer": "top",
+
+    "position": "top",
+
+    // If height property would be not present, it'd be calculated dynamically
+    "height": 30,
+
+    "modules-left": [
+        "custom/menu",
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-center": [
+        "sway/window"
+    ],
+    "modules-right": [
+        "network",
+        "bluetooth",
+        "cpu",
+        "memory",
+        "battery",
+        "temperature",
+        "backlight",
+        "idle_inhibitor",
+        "pulseaudio",
+        "custom/pacman",
+        "tray",
+        "clock"
+    ],
+
+
+    // -------------------------------------------------------------------------
+    // Modules
+    // -------------------------------------------------------------------------
+
     "battery": {
-    "bat": "BAT0",
-    "interval": 60,
-    "states": {
-        "warning": 30,
-        "critical": 15
+        "interval": 30,
+        "states": {
+            "warning": 30,
+            "critical": 15
         },
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""],
-        "max-length": 25
+        "format-charging": "󰂄{capacity}%", // Icon: bolt
+        "format": "{icon}{capacity}%",
+        "format-icons": [
+            "󰂃",
+	    "󰁺", // Icon: battery-empty
+            "󰁻", // Icon: battery-quarter
+            "󰁽", // Icon: battery-half
+            "󰂀", // Icon: battery-three-quarters
+            "󰁹"  // Icon: battery-full
+        ],
+        "tooltip": false,
+        "bat": "BAT0"
     },
-    "custom/vpn": {
-    "interval": 5,
-    "format": "{}",
-    "return-type": "json",
-    "exec": "~/.config/waybar/modules/vpn.sh",
-    "on-click": "nm-connection-editor" 
+
+    "clock": {
+        "interval": 60,
+        "format": "󰸗{:%e %b %Y %H:%M}", // Icon: calendar-alt
+        "tooltip": true,
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>"
     },
-    "network": {
-        "format-wifi": "",
-        "format-ethernet": "",
-        "format-disconnected": "",
-        "on-click": "nm-connection-editor" 
-    },
-    "custom/bluetooth": {
-        "format": "",
+
+    "cpu": {
         "interval": 5,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/bluetooth.sh",
-        "on-click": "blueberry"
-    },
-    "pulseaudio": {
-        "scroll-step": 5,
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "",
-        "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
+        "format": "󰘚{usage}%", // Icon: microchip
+        "states": {
+            "warning": 70,
+            "critical": 90
         },
-        "on-click": "pavucontrol"
+        "on-click": "swaymsg exec \\$term_float htop"
     },
-    "custom/pacman": {
-        "format": "{} ",
-        "interval": 3600,                     // every hour
-        "exec": "pamac checkupdates -a -q | wc -l",       // # of updates
-        "on-click": "pamac-manager", // update system
+
+    "memory": {
+        "interval": 5,
+        "format": "󰍛{}%", // Icon: memory
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "swaymsg exec \\$term_float htop"
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": "󰖩 {essid} ({signalStrength}%)", // Icon: wifi
+        "format-ethernet": "󰈀 {ifname}", // Icon: ethernet
+        "format-disconnected": "󱘖",
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "on-click": "swaymsg exec \\$term_float nmtui"
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>",
         "tooltip": false
     },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-                
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 120
     },
+
+    "sway/workspaces": {
+        "all-outputs": false,
+        "disable-scroll": true,
+        "format": "{name}"
+    },
+
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-down": "light -A 1",
+        "on-scroll-up": "light -U 1"
+    },
+
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-           "activated": "",
-           "deactivated": ""                                         
-        }                
+            "activated": "󰒳",
+            "deactivated": "󰒲"
+        }
     },
- /*   "custom/menu": {
-         "format": "",
-         "on-click": "sgtk-menu -y 25",
-         "tooltip": false
-     }, */
-    "custom/block0": {
-        "format": "█"
-    },
-    "custom/arrow0": {
-        "format": ""
-    },
-    "custom/arrow1": {
-        "format": ""
-    },
-    "custom/arrow2": {
-        "format": ""
-    },
-    "custom/arrow3": {
-        "format": ""
-    },
-    "custom/arrow4": {
-        "format": ""
-    },
-    "custom/arrow5": {
-        "format": ""
-    },
-    "custom/arrow6": {
-        "format": ""
-    },
-    "custom/arrow7": {
-        "format": ""
-    },
-    "custom/arrow8": {
-        "format": ""
-    },
-    "custom/arrow9": {
-        "format": ""
-    },
-    "custom/arrow10": {
-         "format": ""
-     }
 
+    "pulseaudio": {
+        //"scroll-step": 1,
+        "format": "{icon}{volume}%  󰍬{format_source}",
+        "format-bluetooth": "{icon}󰂰 {volume}%  󰍬{format_source}",
+        "format-muted": "󰖁",
+        "format-icons": {
+            "headphones": "󰋋",
+            "handsfree": "󱋿",
+            "headset": "󰋎",
+            "phone": "󰏲",
+            "portable": "󰄝",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "swaymsg exec \\$pulseaudio"
+    },
+
+    "temperature": {
+      "critical-threshold": 90,
+      "interval": 5,
+      "format": "{icon}{temperatureC}°C",
+      "format-icons": [
+          "󱃃",
+          "󰔏", // Icon: temperature ok
+	  "󰔐"  // Icon: temperature not ok
+      ],
+      "tooltip": true
+    },
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 5
+    },
+
+    "custom/pacman": {
+        "format": "󰀼 {}",
+        "interval": 3600,
+        "exec-if": "[ $(checkupdates | wc -l) -gt 0 ]",
+        "exec": "pamac checkupdates | wc -l",
+        "on-click": "pamac-manager --updates && pamac checkupdates -a -q | wc -l",
+    },
+
+    "custom/menu": {
+        "format": "󱘊",
+        "on-click": "swaymsg exec \\$menu",
+        "tooltip": false
+    },
+
+    "bluetooth": {
+        "format": "{icon}",
+        "interval": 30,
+        "format-icons": {
+            "enabled": "󰂯",
+            "disabled": "󰂲"
+        },
+        "on-click": "blueberry",
+        "tooltip-format": "{status}"
+    }
 }

@@ -1,5 +1,25 @@
+#!/bin/sh
 # make default editor Neovim
 export EDITOR=nvim
 
+# Most pure GTK3 apps use wayland by default, but some,
+# like Firefox, need the backend to be explicitely selected.
+export LD_PRELOAD=/usr/lib/libgtk3-nocsd.so.0
+export LIBVA_DRIVER_NAME=v4l2_request
+export LIBVA_V4L2_REQUEST_VIDEO_PATH=/dev/video1
+export MOZ_ENABLE_WAYLAND=1
+export MOZ_DBUS_REMOTE=1
+export GTK_CSD=0
 
+# qt wayland
+export QT_QPA_PLATFORM="wayland"
+export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 
+# set default shell
+export SHELL=/usr/bin/zsh
+
+#!/bin/sh
+
+export TERM=xterm-termite
+export TERMINAL_COMMAND='/etc/sway/scripts/terminal.sh'

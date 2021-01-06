@@ -1,207 +1,212 @@
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
 
-/* Thank you to u/Krudjan for sharing their dotfiles, I used
-   https://gitlab.com/Krudjan/dotfiles/tree/master/waybar/.config/waybar
-   as a reference when writing this */
+/* import css definitions for current theme */
+@import url("theme.css");
 
-* {
-    border: none;
-    border-radius: 0;
-    font-family: "FontAwesome 5 Free Solid","Dejavu Sans Mono";
-    font-size: 16px;
-    min-height: 0;
-}
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
 
-window#waybar {
-    background-color: #2F3D44;
-    border-top: 3px solid #1ABC9C;
-    color: #1ABC9C;
-    transition-property: background-color;
-    transition-duration: 1s;
-}
+@keyframes blink-warning {
+    70% {
+        color: @text_color;
+    }
 
-window#waybar.hidden {
-    opacity: 0.2;
-}
-
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button {
-    padding: 3px 5px 0 5px;
-    background-color: #0a2929;
-}
-
-#workspaces button.focused {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-bottom: 3px solid rgba(0, 0, 0, 0.3);
-    padding-top: 6px;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-
-#mode {
-    background: rgba(255, 0, 0, 0.8); /* pure red is a bit hard on the eyes */
-    color: #ffffff;
-    margin: 0 10px;
-    padding: 0 7px;
-    font-weight: bolder;
-    border-radius: 100%;
-}
-
-#clock, #battery, #cpu, #memory,#temperature, #backlight, #network,#custom-bluetooth, #pulseaudio, #tray, #mode, #idle_inhibitor, #custom-pacman, #custom-vpn, #custom-menu {
-    padding: 0 10px;
-    margin: 0 0px;
-}
-
-@keyframes blink {
     to {
-        background-color: #ffffff;
-        color: #000000;
+        color: @text_color;
+        background-color: @warning_color;
     }
 }
 
-label:focus {
-    background-color: #000000;
+@keyframes blink-critical {
+    70% {
+      color: @text_color;
+    }
+
+    to {
+        color: @text_color;
+        background-color: @error_color;
+    }
 }
 
-#pulseaudio {
-    background-color: #196767;
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+/* Reset all styles */
+* {
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    font-family: "RobotoMono Nerd Font", "Roboto Mono", "Material Design Icons", sans-serif;
 }
 
-#custom-pacman {
-    background-color: #196767;
+/* The whole bar */
+#waybar {
+    background: @background_color;
+    color: @text_color;
+    font-family: "RobotoMono Nerd Font", "Font Awesome 5 Free", "Roboto Mono", sans-serif;
+    font-size: 14px;
+}
+
+/* Each module */
+#custom-pacman,
+#custom-menu,
+#bluetooth,
+#battery,
+#clock,
+#cpu,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#temperature,
+#idle_inhibitor,
+#backlight,
+#tray {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+#battery {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.warning {
+    color: @warning_color;
+}
+
+#battery.critical {
+    color: @error_color;
+}
+
+#battery.warning.discharging {
+    animation-name: blink-warning;
+    animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+    animation-name: blink-critical;
+    animation-duration: 2s;
+}
+
+#clock {
+    font-weight: bold;
 }
 
 #cpu {
-    background-color: #145252;
+  /* No styles */
 }
 
-#network {
-    background-color: #145252;
+#cpu.warning {
+    color: @warning_color;
 }
 
-#network.disconnected {
-    background-color: #145252;
-    border-bottom: 2px solid #dd2241;
-}
-
-#custom-bluetooth {
-    background-color: #145252;
-}
-
-#custom-bluetooth.down {
-    background-color: #145252;
-    border-bottom: 2px solid #dd2241;
-}
-
-#memory {
-    background-color: #0f3e3e;
-}
-
-#battery {
-     background-color: #0f3e3e;
- }
- #battery.warning:not(.charging) {
-     border-bottom: 2px solid #dd2241;
- }
-
-#clock {
-    background-color: #051515;
-}
-
-#custom-vpn {
-    background-color: #051515;
-}
-
-#custom-vpn.down {
-    background-color: #051515;
-    border-bottom: 2px solid #dd2241;
-}
-
-#pulseaudio {
-    background-color: #196767;
-}
-
-#pulseaudio.muted {
-    background: #196767;
-    border-bottom: 2px solid #dd2241;
-}
-
-#idle_inhibitor {
-    background-color: #051515;
-
-}
-
-#tray {
-    background-color: #051515;
+#cpu.critical {
+    color: @error_color;
 }
 
 #custom-menu {
-     background-color: #051515;
-
- }
-
-/* If the font size for the arrows is too big, it will resize
-the bar in a problematic way */
-#custom-block0 {
-	color: #0a2929;
-	background: #0a2929;
+    background-color: @accent_color;
 }
 
-#custom-arrow0 {
-	font-size: 130%;
-	color: #0a2929;
-	background: transparent;
+#memory {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
-#custom-arrow1 {
-	font-size: 130%;
-	color: #196767;
-	background: #051515;
+#memory.warning {
+    color: @warning_color;
 }
 
-#custom-arrow2 {
-	font-size: 130%;
-	color: #145252;
-	background: #196767;
+#memory.critical {
+    color: @error_color;
+    animation-name: blink-critical;
+    animation-duration: 2s;
 }
 
-#custom-arrow3 {
-	font-size: 130%;
-	color: #0f3e3e;
-	background: #145252;
+#mode {
+    background: @background_color;
 }
 
-#custom-arrow4 {
-	font-size: 130%;
-	color: #196767;
-	background: #051515;
+#network {
+    /* No styles */
 }
 
-#custom-arrow5 {
-	font-size: 130%;
-	color: #145252;
-	background: #196767;
+#network.disconnected {
+    color: @warning_color;
 }
 
-#custom-arrow6 {
-	font-size: 130%;
-	color: #051515;
-	background: #145252;
+#pulseaudio {
+    /* No styles */
 }
 
-#custom-arrow8 {
-	font-size: 130%;
-	color: #051515;
-	background: #0f3e3e;
+#pulseaudio.muted {
+    /* No styles */
+    color: @warning_color;
 }
-#custom-arrow9 {
-	font-size: 130%;
-	color: #051515;
-	background: transparent;
+
+#temperature {
+    /* No styles */
 }
-#custom-arrow10 {
-     font-size: 130%;
-     color: #051515;
-     background-color: #0a2929;
- }
+
+#temperature.critical {
+    color: @error_color;
+}
+
+#tray {
+    /* No styles */
+}
+
+#window {
+    font-weight: bold;
+    margin-right: 25px;
+    color: @accent_color;
+}
+
+#workspaces button {
+    border-top: 2px solid transparent;
+    /* To compensate for the top border and still have vertical centering */
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: @accent_color;
+    font-weight: bold;
+}
+
+#workspaces button.focused {
+    border-color: @accent_color;
+    color: @text_color;
+    background-color: @accent_color;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    border-color: @error_color;
+    color: @error_color;
+}
+
+#custom-pacman {
+    color: @warning_color;
+}
+
+#bluetooth.disabled {
+    color: @warning_color;
+}

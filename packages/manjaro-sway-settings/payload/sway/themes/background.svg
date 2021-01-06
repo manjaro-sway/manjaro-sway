@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Layer_1"
+   data-name="Layer 1"
+   viewBox="0 0 1920 1080"
+   version="1.1"
+   sodipodi:docname="gruvbox-dark-manjaro-scalable.svg"
+   width="1920"
+   height="1080"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata13">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Android robot</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="967"
+     inkscape:window-height="1025"
+     id="namedview11"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.15504295"
+     inkscape:cx="1394.6287"
+     inkscape:cy="678.69314"
+     inkscape:window-x="949"
+     inkscape:window-y="28"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Layer_1"
+     inkscape:document-rotation="0"
+     inkscape:snap-intersection-paths="true" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1{fill:#3ddc84;}</style>
+  </defs>
+  <title
+     id="title6">Android robot</title>
+  <g
+     id="g902"
+     inkscape:export-filename="/home/fjall/g902111.png"
+     inkscape:export-xdpi="192"
+     inkscape:export-ydpi="192">
+    <rect
+       style="fill:#282828;fill-opacity:1;fill-rule:nonzero;stroke-width:104.97;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"
+       id="rect835"
+       width="1920"
+       height="1080"
+       x="-7.4218752e-07"
+       y="5.2734376e-06" />
+    <path
+       id="rect2943"
+       style="fill:#689d6a;fill-opacity:1;stroke:none;stroke-width:7.12245;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M 0 432.61133 L 0 647.38672 L 1262.0039 647.38672 L 1262.125 645.92773 C 1266.7314 590.85879 1286.351 540.35068 1317.125 498.57812 L 1317.125 432.61133 L 0 432.61133 z " />
+    <path
+       id="rect2945"
+       style="fill:#458588;fill-opacity:1;stroke:none;stroke-width:6.30148;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M 0 486.30469 L 0 647.38672 L 1317.125 647.38672 L 1317.125 486.30469 L 0 486.30469 z " />
+    <path
+       id="path940"
+       style="fill:#d79921;fill-opacity:1;stroke:none;stroke-width:5.14515;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M 0 540 L 0 647.38672 L 1317.125 647.38672 L 1317.125 540 L 0 540 z " />
+    <path
+       id="path949"
+       style="fill:#cc241d;fill-opacity:1;stroke:none;stroke-width:3.68623;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke markers fill"
+       d="M 0 593.69336 L 0 647.38672 L 1317.125 647.38672 L 1317.125 593.69336 L 0 593.69336 z " />
+    <path
+       id="rect4138"
+       style="fill:#ebdbb2;fill-opacity:1;stroke:none;stroke-width:18.7167;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1317.125 340.35547 L 1317.125 739.64453 L 1429.4238 739.64453 L 1429.4238 452.6543 L 1572.9199 452.6543 L 1572.9199 340.35547 L 1317.125 340.35547 z M 1604.1133 340.35547 L 1604.1133 739.64453 L 1716.4141 739.64453 L 1716.4141 340.35547 L 1604.1133 340.35547 z M 1460.6191 483.84961 L 1460.6191 739.64453 L 1572.9199 739.64453 L 1572.9199 483.84961 L 1460.6191 483.84961 z " />
+  </g>
+</svg>

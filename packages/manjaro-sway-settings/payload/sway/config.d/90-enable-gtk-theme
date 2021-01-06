@@ -1,0 +1,12 @@
+exec_always {
+  'cat /etc/sway/themes/templates/gtk2 | sed -e $theme_template_script > $HOME/.gtkrc-2.0'
+  'mkdir -p $HOME/.config/gtk-3.0 && \
+    cat /etc/sway/themes/templates/gtk3 | sed -e $theme_template_script > $HOME/.config/gtk-3.0/settings.ini'
+  'mkdir -p $HOME/.config/gtk-4.0 && \
+    cat /etc/sway/themes/templates/gtk4 | sed -e $theme_template_script > $HOME/.config/gtk-4.0/settings.ini'
+
+  gsettings set org.gnome.desktop.interface gtk-theme $gtk-theme
+  gsettings set org.gnome.desktop.interface icon-theme $icon-theme
+  gsettings set org.gnome.desktop.interface cursor-theme $cursor-theme
+  gsettings set org.gnome.desktop.interface font-name $gui-font
+}

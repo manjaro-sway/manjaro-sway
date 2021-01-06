@@ -1,0 +1,35 @@
+.\" Manpage for manjaro-sway.
+
+.TH man 8 "27 Dec 2020" "1.1" "Manjaro Sway Edition man page"
+
+.SH NAME
+Manjaro Sway Edition
+
+.SH SHORTCUTS
+
+.SH UTILS
+
+.B yay
+Package manager
+
+.B qutebrowser
+keyboard centric browser
+
+.B pulsemixer
+audio mixer
+
+.B nmtui
+network manager
+
+.B mpsyt
+youtube player
+
+.B ranger
+file manager
+
+.SH EXTEND
+
+Logic should be injected into ~/.config/sway/config.d/
+
+.SH AUTHOR
+Jonas Strassel (info@jonas-strassel.de)

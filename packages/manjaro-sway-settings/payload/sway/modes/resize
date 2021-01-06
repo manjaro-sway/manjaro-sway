@@ -1,0 +1,43 @@
+set $mode_resize "<span foreground='$base0A'></span>  \
+<span foreground='$base05'><b>Resize</b></span> <span foreground='$base0A'>(<b>h/j/k/l</b>)</span> \
+<span foreground='$base01'>—</span> \
+<span foreground='$base05'><b>Increase Gaps</b></span> <span foreground='$base0A'>(<b>+</b>)</span> \
+<span foreground='$base01'>—</span> \
+<span foreground='$base05'><b>Decrease Gaps</b></span> <span foreground='$base0A'>(<b>-</b>)</span>"
+
+mode --pango_markup $mode_resize {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+    bindsym Shift+$left resize shrink width 20px
+    bindsym Shift+$down resize grow height 20px
+    bindsym Shift+$up resize shrink height 20px
+    bindsym Shift+$right resize grow width 20px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+    bindsym Shift+Left resize shrink width 20px
+    bindsym Shift+Down resize grow height 20px
+    bindsym Shift+Up resize shrink height 20px
+    bindsym Shift+Right resize grow width 20px
+
+    ## Resize // Window Gaps // + - ##
+    bindsym minus gaps inner current minus 5px
+    bindsym plus gaps inner current plus 5px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+## Launch // Resize Mode ##
+bindsym $mod+r mode $mode_resize
+gaps inner 5px
+gaps outer 5px

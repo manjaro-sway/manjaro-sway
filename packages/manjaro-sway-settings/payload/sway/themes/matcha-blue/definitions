@@ -1,0 +1,41 @@
+# based on Base16 Seti UI
+# Author: Appelgriebsch
+
+# some global theme specific variables
+set $gtk-theme Matcha-dark-azul
+set $icon-theme Papirus-Dark
+set $cursor-theme xcursor-breeze
+set $gui-font Roboto 11
+set $term-font RobotoMono Nerd Font 14
+set $kvantum-theme Matchama-Dark-Azul
+
+# a theme specific color map
+set $base00 #14161b
+set $base01 #282a2b
+set $base02 #3B758C
+set $base03 #41535B
+set $base04 #43a5d5
+set $base05 #d6d6d6
+set $base06 #eeeeee
+set $base07 #ffffff
+set $base08 #Cd3f45
+set $base09 #db7b55
+set $base0A #e6cd69
+set $base0B #9fca56
+set $base0C #16a085
+set $base0D #55b5db
+set $base0E #a074c4
+set $base0F #8a553f
+
+set $transparent-background-color rgba(20, 22, 27, 0.9)
+
+# Basic color configuration using the Base16 variables for windows and borders.
+# Property Name         Border  BG      Text    Indicator Child Border
+client.focused          $base05 $base0D $base00 $base0D $base0D
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.placeholder      $base00 $base00 $base05 $base00 $base00
+client.background       $base07
+
+set $theme_template_script "s/GTK_THEME/$gtk-theme/g; s/ICON_THEME/$icon-theme/g; s/CURSOR_THEME/$cursor-theme/g; s/GUI_FONT/$gui-font/g; s/KVANTUM_THEME/$kvantum-theme/g; s/BACKGROUND_COLOR/$base00/g; s/ACCENT_COLOR/$base0D/g; s/TEXT_COLOR/$base06/g; s/TERM_FONT/$term-font/g;"

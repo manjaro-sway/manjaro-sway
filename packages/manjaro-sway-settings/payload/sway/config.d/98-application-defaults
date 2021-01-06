@@ -1,0 +1,18 @@
+# override mode for specific applications
+for_window [app_id="pavucontrol"] floating enable
+for_window [instance="lxappearance"] floating enable
+for_window [app_id="pamac-manager"] floating enable
+for_window [app_id="blueberry.py"] floating enable
+for_window [app_id="nm-connection-editor"] floating enable
+for_window [title="File Operation Progress"] floating enable
+for_window [app_id="firefox" title="Library"] floating enable
+for_window [app_id="thunderbird" title=".*Reminder"] floating enable
+for_window [app_id="floating_shell"] floating enable, border pixel 1, sticky enable
+for_window [app_id="Manjaro.manjaro-settings-manager"] floating enable
+for_window [title="Picture in picture"] floating enable, sticky enable
+for_window [title="nmtui"] floating enable
+
+# inhibit idle
+for_window [app_id="firefox"] inhibit_idle fullscreen
+for_window [app_id="Chromium"] inhibit_idle fullscreen
+for_window [app_id="firefoxdeveloperedition"] inhibit_idle fullscreen

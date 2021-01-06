@@ -1,1 +1,4 @@
-user-config
+config.d/*
+help.man
+!config.d/.gitkeep
+!00-user.conf

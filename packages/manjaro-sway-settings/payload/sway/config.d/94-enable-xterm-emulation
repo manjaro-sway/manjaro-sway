@@ -1,0 +1,3 @@
+exec_always {
+  'mkdir -p $HOME/.local/bin && echo -e "#!/bin/bash\n$term --exec=\"\$2\"" > $HOME/.local/bin/xterm && chmod 755 $HOME/.local/bin/xterm'
+}

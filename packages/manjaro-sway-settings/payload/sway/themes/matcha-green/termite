@@ -1,0 +1,94 @@
+[options]
+#allow_bold = true
+#audible_bell = false
+#bold_is_bright = true
+#cell_height_scale = 1.0
+#cell_width_scale = 1.0
+clickable_url = true
+dynamic_title = true
+font = RobotoMono Nerd Font 11
+#fullscreen = true
+#icon_name = terminal
+#mouse_autohide = false
+#scroll_on_output = false
+#scroll_on_keystroke = true
+# Length of the scrollback buffer, 0 disabled the scrollback buffer
+# and setting it to a negative value means "infinite scrollback"
+scrollback_lines = 10000
+#search_wrap = true
+#urgent_on_bell = true
+#hyperlinks = false
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
+
+# "system", "on" or "off"
+cursor_blink = on
+
+# "block", "underline" or "ibeam"
+cursor_shape = block
+
+# Hide links that are no longer valid in url select overlay mode
+#filter_unmatched_urls = true
+
+# Emit escape sequences for extra modified keys
+#modify_other_keys = false
+
+# set size hints for the window
+#size_hints = false
+
+# "off", "left" or "right"
+#scrollbar = off
+
+[colors]
+# based on Base16 Seti UI
+# Author: Appelgriebsch
+
+foreground          = #eeeeee
+foreground_bold     = #eeeeee
+cursor              = #eeeeee
+cursor_foreground   = #141a1b
+background          = rgba(20, 26, 27, 0.9)
+
+# 16 color space
+
+# Black, Gray, Silver, White
+color0  = #141a1b
+color8  = #41535B
+color7  = #d6d6d6
+color15 = #ffffff
+
+# Red
+color1  = #Cd3f45
+color9  = #Cd3f45
+
+# Green
+color2  = #9fca56
+color10 = #9fca56
+
+# Yellow
+color3  = #e6cd69
+color11 = #e6cd69
+
+# Accent Color
+color4  = #16a085
+color12 = #16a085
+
+# Purple
+color5  = #a074c4
+color13 = #a074c4
+
+# Alternative Color
+color6  = #55b5db
+color14 = #55b5db
+
+# Extra colors
+color16 = #db7b55
+color17 = #8a553f
+color18 = #282a2b
+color19 = #3B758C
+color20 = #43a5d5
+color21 = #eeeeee
+
+# vim: ft=dosini cms=#%s
+

@@ -1,65 +1,23 @@
 # Default config for sway
 #
-# Copy this to ~/.config/sway/config.d/user-config and edit it to your liking.
+# Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
 
-### Default sway settings
-# Please adjust in user-config
+# global variables
+include /etc/sway/definitions
 
-    # Logo key. Use Mod1 for Alt.
-    set $mod Mod4
-    # Home row direction keys, like vim
-    set $left h
-    set $down j
-    set $up k
-    set $right l
-    # Your preferred terminal emulator
-    set $term kitty
+# user config
+include ~/.config/sway/config.d/*
 
-### Include theme
-#
-    include themes/manjaro
-
-### Standard Background
-#
-
-    set $background /usr/share/backgrounds/manjaro-wallpapers-18.0/default-adapta.jpg
-
-### Include configurations
-#
-    include config.d/*
-
-# Your preferred application launcher
-# Note: it'es recommended that you pass the final command to sway
-    set $menu wofi --show=run
-
-# Your prefered locking mechanism
-#
-    set $locking swaylock
-
-### Idle configuration
-#
-#
-    exec_always swayidle -w \
-            timeout 300 'exec $locking' \
-            timeout 600 'swaymsg "output * dpms off"' \
-            resume 'swaymsg "output * dpms on"' \
-            before-sleep 'exec $locking'
-
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-
-### Customization area
-# add your customizations here
-
-
-
-### End of Customization area
-
-# include system specific configs
-include /etc/sway/config.d/*
 include /etc/sway/inputs/*
 include /etc/sway/outputs/*
+
+# enable modes
+include /etc/sway/modes/*
+
+# only enable this if every app you use is compatible with wayland
+# xwayland disable
+
+# include additional configs e.g. to autostart applications
+include /etc/sway/config.d/*
