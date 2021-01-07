@@ -1,0 +1,5 @@
+for_window [class="calamares"] floating enable
+set $installer sudo -E calamares -d &
+set $mod Mod4
+bindsym $mod+i exec $installer
+exec $installer

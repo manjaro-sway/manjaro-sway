@@ -1,76 +1,117 @@
 #basic
-manjaro-sway-settings
+boredland/manjaro-sway-settings-git
 
-# Core sway packages
-greetd
-greetd-gtkgreet
-sway
-waybar
-wofi
-mako
-kitty
-light
-wl-clipboard
-xorg-xwayland
-grim
-imv
-slurp
-manjaro-wallpapers-18.0
-gnome-keyring
-polkit-gnome
+# Wayland support
+xorg-xwayland # xorg-wayland bridge
+>extra wdisplays # graphical display management like arandr
 qt5-wayland
+gnome-keyring # unlock keyring on login
+polkit-gnome # polkit for visual superuser access
 
-# extra
-manjaro-hello
-snapd
-apparmor
-manjaro-printer
+# Sway packages
+boredland/greetd # community package is outdated
+boredland/greetd-gtkgreet # community package is outdated
+boredland/wlogout # nice logout menu
+sway # the desktop manager
+waybar # configurable bar
+boredland/sway-launcher-desktop # tui launcher application
+mako # desktop notifications
+light # cli to control brightness
+wl-clipboard # wayland clipboard application
+grim # screenshot tool
+slurp # helper for grim
+boredland/autotiling
+boredland/wob # wayland overlay bar for brightness and volume
+
+## remove
+flashfocus-git # flash and transparency on window switching
+grimshot # grim extension
 
 # Browser
+w3m
+qutebrowser
+#>extra chromium
+#>extra chromium-theme-oceanic
+#>extra chromium-ublock-origin
+#>extra chromium-vimium
 firefox
 firefox-ublock-origin
 
-# CLI tools
-htop
-neofetch
-neovim
-
 # Themes
+qt5ct
+kvantum-qt5
+kvantum-theme-matchama
+>extra lxappearance
+boredland/gtk3-nocsd-git
 matcha-gtk-theme
-xcursor-breeze
-breeze-maia-icon-themes
 papirus-maia-icon-theme
+xcursor-breeze
 grub-theme-manjaro
 
 # Fonts
-ttf-bitstream-vera
-ttf-dejavu
-ttf-droid
-ttf-inconsolata
-ttf-indic-otf
-ttf-liberation
-ttf-font-awesome
+ttf-roboto
+ttf-roboto-mono
+ttf-font-icons
+boredland/nerd-fonts-roboto-mono
+boredland/ttf-material-design-icons-git
+
+# File systems access
+ranger
+>extra file-roller
 
 # Sound, video and bluetooth
-pamixer
-pavucontrol
-pulseaudio-alsa
+pulsemixer
 alsa-utils
 alsa-firmware
 bluez
 bluez-utils
+pulseaudio-alsa
 pulseaudio-bluetooth
 pulseaudio-ctl
 pulseaudio-zeroconf
+playerctl
 blueberry
 
 # Network
 avahi
+firewalld
 networkmanager
-network-manager-applet
-networkmanager-openconnect
-networkmanager-openvpn
-networkmanager-pptp
-networkmanager-vpnc
-modemmanager
-gufw
+>extra networkmanager-openconnect
+>extra networkmanager-openvpn
+>extra networkmanager-pptp
+>extra networkmanager-vpnc
+>extra modemmanager
+dhclient
+manjaro-hotfixes
+>extra manjaro-settings-samba
+
+# Multimedia
+>extra mps-youtube # cli youtube player
+>extra mplayer # multimedia player
+>extra ffmpeg
+>extra ffmpegthumbnailer
+>extra mediainfo
+>extra zathura
+>extra zathura-pdf-poppler
+>extra gnome-epub-thumbnailer
+>extra ueberzug # thumbs on the cli
+>extra imv
+>extra tumbler
+
+# Package Management
+>extra yay
+pamac-gtk
+
+# extra
+apparmor
+>extra manjaro-printer
+>extra atool
+
+# CLI tools
+boredland/termite-nocsd
+curl
+htop
+jq
+boredland/oh-my-zsh-git
+tlp
+wget

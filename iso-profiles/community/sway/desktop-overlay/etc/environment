@@ -3,3 +3,5 @@
 #
 # Syntax: simple "KEY=VAL" pairs on separate lines
 #
+XDG_SESSION_TYPE=wayland
+XDG_CURRENT_DESKTOP=sway

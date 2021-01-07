@@ -1,9 +1,9 @@
 ## Set background 
-set $background /usr/share/backgrounds/manjaro-wallpapers-18.0/default-adapta-lockscreen.jpg
+set $background /etc/sway/themes/background_lockscreen.png
+
 ## Basic includes
 include /etc/sway/inputs/*
 include /etc/sway/outputs/*
-
 
 exec "gtkgreet -l -s /etc/greetd/style.css --command=sway; swaymsg exit"
 
