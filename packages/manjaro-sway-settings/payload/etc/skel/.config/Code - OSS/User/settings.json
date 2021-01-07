@@ -1,4 +1,4 @@
 {
-    "editor.fontFamily": "'RobotoMono Nerd Font', 'Material Design Icons', monospace",
+    "editor.fontFamily": "'RobotoMono Nerd Font', 'Noto Color Emoji', 'Material Design Icons', monospace",
     "terminal.integrated.fontSize": 14,
 }

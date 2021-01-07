@@ -47,14 +47,13 @@
     min-height: 0;
     margin: 0;
     padding: 0;
-    font-family: "RobotoMono Nerd Font", "Roboto Mono", "Material Design Icons", sans-serif;
+    font-family: "RobotoMono Nerd Font", "Noto Color Emoji", "Material Design Icons", sans-serif;
 }
 
 /* The whole bar */
 #waybar {
     background: @background_color;
     color: @text_color;
-    font-family: "RobotoMono Nerd Font", "Font Awesome 5 Free", "Roboto Mono", sans-serif;
     font-size: 14px;
 }
 
