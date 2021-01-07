@@ -1,0 +1,1 @@
+exec_always sed '/^.SH SHORTCUTS$/r'<(sbdp $HOME/.config/sway/config man) /usr/share/sway/templates/help.man > $HOME/.config/sway/help.man

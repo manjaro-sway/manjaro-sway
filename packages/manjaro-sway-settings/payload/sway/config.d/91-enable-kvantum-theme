@@ -1,6 +1,0 @@
-exec_always {
-  'mkdir -p $HOME/.config/qt5ct && \
-    cat /etc/sway/themes/templates/qt5ct | sed -e $theme_template_script > $HOME/.config/qt5ct/qt5ct.conf'
-  'mkdir -p $HOME/.config/Kvantum && \
-    cat /etc/sway/themes/templates/kvantum | sed -e $theme_template_script > $HOME/.config/Kvantum/kvantum.kvconfig'
-}

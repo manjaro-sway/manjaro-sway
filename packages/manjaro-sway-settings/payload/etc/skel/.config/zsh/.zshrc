@@ -16,11 +16,6 @@ source /usr/share/oh-my-zsh/zshrc
 plugins=(
     archlinux
     git
-    docker
-    docker-compose
-    nvm
-    npm
-    yarn
 )
 ZSH_THEME="agnoster"
 source $ZSH/oh-my-zsh.sh

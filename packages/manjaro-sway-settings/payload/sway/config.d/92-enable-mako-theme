@@ -1,3 +1,0 @@
-exec_always {
-  'mkdir -p $HOME/.config/mako && cat /etc/sway/themes/templates/mako | sed -e $theme_template_script > $HOME/.config/mako/config'
-}
