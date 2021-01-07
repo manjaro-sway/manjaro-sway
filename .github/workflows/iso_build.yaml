@@ -19,8 +19,9 @@ jobs:
         name: checkout
         uses: actions/checkout@v2
         with:
-          repository: boredland/manjaro-iso-profiles
+          repository: boredland/iso-profiles
           token: "${{ secrets.GITHUB_TOKEN }}"
+          ref: sway
           path: 'iso-profiles'
       - 
         id: cleanup
