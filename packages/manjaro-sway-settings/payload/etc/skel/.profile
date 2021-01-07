@@ -16,10 +16,7 @@ export QT_QPA_PLATFORM="wayland"
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 
-# set default shell
+# set default shell and terminal
 export SHELL=/usr/bin/zsh
-
-#!/bin/sh
-
 export TERM=xterm-termite
-export TERMINAL_COMMAND='/etc/sway/scripts/terminal.sh'
+export TERMINAL_COMMAND='/usr/share/sway/scripts/terminal.sh'
