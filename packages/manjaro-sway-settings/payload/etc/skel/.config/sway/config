@@ -8,16 +8,16 @@
 include /etc/sway/definitions
 
 # user config
-include $user_config_dir/config.d/*
+include $HOME/.config/sway//config.d/*
 
-include $config_dir/inputs/*
-include $config_dir/outputs/*
+include /etc/sway/inputs/*
+include /etc/sway/outputs/*
 
 # enable modes
-include $config_dir/modes/*
+include /etc/sway/modes/*
 
 # only enable this if every app you use is compatible with wayland
 # xwayland disable
 
 # include additional configs e.g. to autostart applications
-include $config_dir/config.d/*
+include /etc/sway/config.d/*

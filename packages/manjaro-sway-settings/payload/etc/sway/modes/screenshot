@@ -5,7 +5,7 @@ set $mode_screenshot "<span foreground='$base0A'></span>  \
 <span foreground='$base01'>—</span> \
 <span foreground='$base05'><b>Screen</b></span> <span foreground='$base0A'>(<b>s</b>)</span>"
 
-set $grimshot $script_dir/grimshot
+set $grimshot /usr/share/sway/scripts/grimshot
 
 mode --pango_markup $mode_screenshot {
 

@@ -5,4 +5,4 @@ exec $idle
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
 exec autotiling
-exec $script_dir/inactive-windows-transparency.py
+exec /usr/share/sway/scripts/inactive-windows-transparency.py
