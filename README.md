@@ -13,11 +13,6 @@ i recently saw, that there was a decent manjaro sway distribution for arm. this 
 
 images are build and uploaded in a relatively regular interval to [github releases](https://github.com/boredland/manjaro-sway/releases)
 
-there will be two different isos:
-
-- full: containing everything from [manjaro sway settings](https://github.com/boredland/arch-repo/blob/master/custom/manjaro-sway-settings-git/PKGBUILD) and the [iso overlay](https://github.com/boredland/manjaro-iso-profiles/blob/main/community/sway/Packages-Desktop)
-- minimal: same as full - minus the "extra" packages from the [iso overlay](https://github.com/boredland/manjaro-iso-profiles/blob/main/community/sway/Packages-Desktop)
-
 ## how to upgrade?
 
 after upgrading packages, you will sometimes need to update you skeleton:
@@ -40,8 +35,8 @@ Otherwise: [you tell me](https://github.com/boredland/manjaro-sway/issues). I'd 
 
 ## sources
 
-- [iso profile](https://github.com/boredland/manjaro-iso-profiles/tree/main/community/sway)
-- [desktop settings](https://github.com/boredland/manjaro-sway-settings)
+- [iso profile](https://github.com/boredland/iso-profiles/tree/sway/community/sway)
+- [desktop settings](https://github.com/boredland/desktop-settings/tree/sway/community/sway)
 
 ## building
 
