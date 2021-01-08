@@ -1,39 +1,22 @@
-#basic
+# Base
 boredland/manjaro-sway-settings-git
 
 # Wayland support
 xorg-xwayland # xorg-wayland bridge
 >extra wdisplays # graphical display management like arandr
+>extra kanshi # autorandr-like display profiles
 qt5-wayland
 gnome-keyring # unlock keyring on login
 polkit-gnome # polkit for visual superuser access
-
-# Sway packages
-boredland/greetd # community package is outdated
-boredland/greetd-gtkgreet # community package is outdated
-boredland/wlogout # nice logout menu
-sway # the desktop manager
-waybar # configurable bar
-boredland/sway-launcher-desktop # tui launcher application
-mako # desktop notifications
-light # cli to control brightness
 wl-clipboard # wayland clipboard application
-grim # screenshot tool
-slurp # helper for grim
-boredland/autotiling
-boredland/wob # wayland overlay bar for brightness and volume
 
-## remove
-flashfocus-git # flash and transparency on window switching
-grimshot # grim extension
+# Greeter
+greetd # community package is outdated
+greetd-gtkgreet # community package is outdated
 
 # Browser
 w3m
 qutebrowser
-#>extra chromium
-#>extra chromium-theme-oceanic
-#>extra chromium-ublock-origin
-#>extra chromium-vimium
 firefox
 firefox-ublock-origin
 
@@ -42,18 +25,11 @@ qt5ct
 kvantum-qt5
 kvantum-theme-matchama
 >extra lxappearance
-boredland/gtk3-nocsd-git
+boredland/gtk3-nocsd-git # use gtk3 without csd
 matcha-gtk-theme
 papirus-maia-icon-theme
 xcursor-breeze
 grub-theme-manjaro
-
-# Fonts
-ttf-roboto
-ttf-roboto-mono
-ttf-font-icons
-boredland/nerd-fonts-roboto-mono
-boredland/ttf-material-design-icons-git
 
 # File systems access
 ranger
@@ -108,10 +84,10 @@ apparmor
 >extra atool
 
 # CLI tools
-boredland/termite-nocsd
+neovim
 curl
 htop
 jq
-boredland/oh-my-zsh-git
+oh-my-zsh
 tlp
 wget
