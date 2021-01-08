@@ -1,5 +1,0 @@
-ao=pulse
-# cache=153600
-autofit-smaller=90%
-autofit-larger=90%
-volume-max=400    # 0&9 keys controls the volume
