@@ -125,7 +125,7 @@ hide_edge_borders smart
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
+    position bottom
     # Run waybar instead of swaybar
     swaybar_command $statusbar
 }

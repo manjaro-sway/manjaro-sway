@@ -13,7 +13,7 @@
 
     "layer": "top",
 
-    "position": "top",
+    "position": "bottom",
 
     // If height property would be not present, it'd be calculated dynamically
     "height": 30,
@@ -56,7 +56,7 @@
         "format": "{icon}{capacity}%",
         "format-icons": [
             "󰂃",
-	    "󰁺", // Icon: battery-empty
+	        "󰁺", // Icon: battery-empty
             "󰁻", // Icon: battery-quarter
             "󰁽", // Icon: battery-half
             "󰂀", // Icon: battery-three-quarters
