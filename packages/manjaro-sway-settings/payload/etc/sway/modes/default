@@ -129,3 +129,4 @@ bar {
     swaybar_command $statusbar
 }
 
+set $waybar_position top

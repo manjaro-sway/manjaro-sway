@@ -1,0 +1,3 @@
+exec_always {
+  'cat $HOME/.config/waybar/config.template | sh /usr/share/sway/scripts/jsonreplace.sh .position $waybar_position >$HOME/.config/waybar/config'
+}
