@@ -1,13 +1,12 @@
 # override mode for specific applications
-for_window [app_id="pavucontrol"] floating enable
 for_window [instance="lxappearance"] floating enable
 for_window [app_id="pamac-manager"] floating enable
 for_window [app_id="blueberry.py"] floating enable
-for_window [app_id="nm-connection-editor"] floating enable
-for_window [title="File Operation Progress"] floating enable
-for_window [app_id="firefox" title="Library"] floating enable
+for_window [title="File Operation Progress"] floating enable, border pixel 1, sticky enable, resize set width 80 ppt height 60 ppt
+for_window [app_id="firefox" title="Library"] floating enable, border pixel 1, sticky enable, resize set width 60 ppt height 80 ppt
 for_window [app_id="thunderbird" title=".*Reminder"] floating enable
-for_window [app_id="floating_shell"] floating enable, border pixel 1, sticky enable
+for_window [app_id="floating_shell_portrait"] floating enable, border pixel 1, sticky enable, resize set width 60 ppt height 80 ppt
+for_window [app_id="floating_shell_landscape"] floating enable, border pixel 1, sticky enable, resize set width 80 ppt height 60 ppt
 for_window [app_id="Manjaro.manjaro-settings-manager"] floating enable
 for_window [title="Picture in picture"] floating enable, sticky enable
 for_window [title="nmtui"] floating enable

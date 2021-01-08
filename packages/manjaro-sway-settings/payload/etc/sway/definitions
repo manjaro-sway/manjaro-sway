@@ -25,12 +25,13 @@ set $theme $theme_dir/matcha-green
 
 # Your preferred terminal emulator
 set $term termite --config=$theme/termite
-set $term_float $term --name=floating_shell --exec
+set $term_float_portrait $term --name=floating_shell_portrait --exec
+set $term_float_landscape $term --name=floating_shell_landscape --exec
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu exec $term_float sway-launcher-desktop
+set $menu exec $term_float_portrait sway-launcher-desktop
 
 ### Lockscreen configuration
 #
@@ -55,10 +56,10 @@ set $statusbar waybar
 set $shutdown wlogout --buttons-per-row 3
 
 # pulseaudio command
-set $pulseaudio $term_float pulsemixer
+set $pulseaudio $term_float_landscape pulsemixer
 
 # help command
-set $help $term_float "man $user_config_dir/help.man"
+set $help $term_float_landscape "man $user_config_dir/help.man"
 
 # onscreen bar
 set $onscreen_bar bash $script_dir/wob.sh

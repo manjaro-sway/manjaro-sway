@@ -80,7 +80,7 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float htop"
+        "on-click": "swaymsg exec \\$term_float_landscape htop"
     },
 
     "memory": {
@@ -90,7 +90,7 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float htop"
+        "on-click": "swaymsg exec \\$term_float_landscape htop"
     },
 
     "network": {
@@ -99,7 +99,7 @@
         "format-ethernet": "󰈀 {ifname}", // Icon: ethernet
         "format-disconnected": "󱘖",
         "tooltip-format": "{ifname}: {ipaddr}",
-        "on-click": "swaymsg exec \\$term_float nmtui"
+        "on-click": "swaymsg exec \\$term_float_landscape nmtui"
     },
 
     "sway/mode": {
@@ -172,7 +172,7 @@
         "interval": 3600,
         "exec-if": "[ $(checkupdates | wc -l) -gt 0 ]",
         "exec": "pamac checkupdates | wc -l",
-        "on-click": "pamac-manager --updates && pamac checkupdates -a -q | wc -l",
+        "on-click": "pamac-manager --updates",
     },
 
     "custom/menu": {
