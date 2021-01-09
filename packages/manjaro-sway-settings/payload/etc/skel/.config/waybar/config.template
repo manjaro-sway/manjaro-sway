@@ -78,7 +78,7 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float_landscape htop"
+        "on-click": "swaymsg exec \\$term_float htop"
     },
 
     "memory": {
@@ -88,7 +88,7 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float_landscape htop"
+        "on-click": "swaymsg exec \\$term_float htop"
     },
 
     "network": {
@@ -97,7 +97,7 @@
         "format-ethernet": "󰈀 {ifname}", // Icon: ethernet
         "format-disconnected": "󱘖",
         "tooltip-format": "{ifname}: {ipaddr}",
-        "on-click": "swaymsg exec \\$term_float_landscape nmtui"
+        "on-click": "swaymsg exec \\$term_float nmtui"
     },
 
     "sway/mode": {

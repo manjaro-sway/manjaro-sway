@@ -18,7 +18,7 @@ set $theme /usr/share/sway/themes/matcha-green
 # Your preferred terminal emulator
 set $term termite --config=$theme/termite
 set $term_float_portrait $term --name=floating_shell_portrait --exec
-set $term_float_landscape $term --name=floating_shell_landscape --exec
+set $term_float $term --name=floating_shell --exec
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -48,10 +48,10 @@ set $statusbar waybar
 set $shutdown wlogout --buttons-per-row 3
 
 # pulseaudio command
-set $pulseaudio $term_float_landscape pulsemixer
+set $pulseaudio $term_float pulsemixer
 
 # help command
-set $help $term_float_landscape "man $HOME/.config/sway//help.man"
+set $help $term_float "man $HOME/.config/sway//help.man"
 
 # onscreen bar
 set $onscreen_bar bash /usr/share/sway/scripts/wob.sh
