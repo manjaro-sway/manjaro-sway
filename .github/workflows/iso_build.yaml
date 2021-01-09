@@ -65,6 +65,17 @@ jobs:
           asset_name: ${{ env.RELEASE_FILE_FULL }}
           asset_content_type: application/x-iso-image
       - 
+        id: upload_full_release_retry
+        uses: boredland/upload-release-asset@master
+        if: ${{ failure() }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ env.RELEASE_FILE_FULL }}
+          asset_name: ${{ env.RELEASE_FILE_FULL }}
+          asset_content_type: application/x-iso-image
+      - 
         id: release_cleaner
         uses: dev-drprasad/delete-older-releases@v0.1.0
         with:
@@ -73,7 +84,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     outputs:
-      url: ${{ steps.upload_release.outputs.browser_download_url }}
+      url: ${{ steps.upload_full_release.outputs.browser_download_url }}
 
   publish:
     runs-on: ubuntu-latest
