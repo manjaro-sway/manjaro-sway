@@ -12,7 +12,7 @@ wl-clipboard # wayland clipboard application
 
 # Greeter
 greetd
-greetd-gtkgreet
+greetd-tuigreet-bin
 
 # Browser
 w3m

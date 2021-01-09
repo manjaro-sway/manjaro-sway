@@ -2,7 +2,7 @@
 vt = "next"
 
 [default_session]
-command = "sway --config /etc/sway/lockscreen -d 2>/tmp/swaylog"
+command = "tuigreet --cmd sway"
 user = "greeter"
  
 [initial_session]
