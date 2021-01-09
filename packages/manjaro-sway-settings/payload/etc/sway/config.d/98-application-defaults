@@ -11,6 +11,7 @@ for_window [app_id="Manjaro.manjaro-settings-manager"] floating enable
 for_window [title="Picture in picture"] floating enable, sticky enable
 for_window [title="nmtui"] floating enable
 for_window [app_id="xsensors"] floating enable
+for_window [title="Save File"] floating enable
 
 # inhibit idle
 for_window [app_id="firefox"] inhibit_idle fullscreen
