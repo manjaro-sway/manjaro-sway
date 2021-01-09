@@ -1,3 +1,12 @@
 exec_always {
   'cat $HOME/.config/waybar/config.template | sh /usr/share/sway/scripts/jsonreplace.sh .position $waybar_position >$HOME/.config/waybar/config'
 }
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    # Run waybar instead of swaybar
+    swaybar_command $statusbar
+}
