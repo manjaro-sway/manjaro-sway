@@ -1,12 +1,10 @@
-exec_always {
-  'cat $HOME/.config/waybar/config.template | sh /usr/share/sway/scripts/jsonreplace.sh .position $waybar_position >$HOME/.config/waybar/config'
+bar {
+    id default
+    swaybar_command waybar
+    position $waybar_position
 }
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    # Run waybar instead of swaybar
-    swaybar_command $statusbar
+exec_always {
+    # waybar config changes will only be respected every other time
+    'sleep 500 && cat $HOME/.config/waybar/config.template | sh /usr/share/sway/scripts/jsonreplace.sh .position $waybar_position >$HOME/.config/waybar/config'
 }

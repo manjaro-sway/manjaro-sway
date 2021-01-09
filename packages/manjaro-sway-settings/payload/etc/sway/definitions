@@ -52,7 +52,7 @@ set $shutdown wlogout --buttons-per-row 3
 set $pulseaudio $term_float pulsemixer
 
 # help command
-set $help $term_float "man $HOME/.config/sway//help.man"
+set $help $term_float "man $HOME/.config/sway/help.man"
 
 # onscreen bar
 set $onscreen_bar bash /usr/share/sway/scripts/wob.sh

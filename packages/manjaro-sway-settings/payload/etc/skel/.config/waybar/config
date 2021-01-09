@@ -1,0 +1,166 @@
+{
+  "layer": "top",
+  "height": 30,
+  "modules-left": [
+    "custom/menu",
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-center": [
+    "sway/window"
+  ],
+  "modules-right": [
+    "network",
+    "bluetooth",
+    "cpu",
+    "memory",
+    "battery",
+    "temperature",
+    "backlight",
+    "idle_inhibitor",
+    "pulseaudio",
+    "custom/pacman",
+    "tray",
+    "clock"
+  ],
+  "battery": {
+    "interval": 30,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format-charging": "󰂄{capacity}%",
+    "format": "{icon}{capacity}%",
+    "format-icons": [
+      "󰂃",
+      "󰁺",
+      "󰁻",
+      "󰁽",
+      "󰂀",
+      "󰁹"
+    ],
+    "tooltip": false,
+    "bat": "BAT0"
+  },
+  "clock": {
+    "interval": 60,
+    "format": "󰸗{:%e %b %Y %H:%M}",
+    "tooltip": true,
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
+    "on-click": "swaymsg exec \\$term_float khal"
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "󰘚{usage}%",
+    "states": {
+      "warning": 70,
+      "critical": 90
+    },
+    "on-click": "swaymsg exec \\$term_float htop"
+  },
+  "memory": {
+    "interval": 5,
+    "format": "󰍛{}%",
+    "states": {
+      "warning": 70,
+      "critical": 90
+    },
+    "on-click": "swaymsg exec \\$term_float htop"
+  },
+  "network": {
+    "interval": 5,
+    "format-wifi": "󰖩 {essid} ({signalStrength}%)",
+    "format-ethernet": "󰈀 {ifname}",
+    "format-disconnected": "󱘖",
+    "tooltip-format": "{ifname}: {ipaddr}",
+    "on-click": "swaymsg exec \\$term_float nmtui"
+  },
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>",
+    "tooltip": false
+  },
+  "sway/window": {
+    "format": "{}",
+    "max-length": 120
+  },
+  "sway/workspaces": {
+    "all-outputs": false,
+    "disable-scroll": true,
+    "format": "{name}"
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "󰃞",
+      "󰃟",
+      "󰃠"
+    ],
+    "on-scroll-down": "light -A 1",
+    "on-scroll-up": "light -U 1"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰒳",
+      "deactivated": "󰒲"
+    }
+  },
+  "pulseaudio": {
+    "format": "{icon}{volume}%  󰍬{format_source}",
+    "format-bluetooth": "{icon}󰂰 {volume}%  󰍬{format_source}",
+    "format-muted": "󰖁",
+    "format-icons": {
+      "headphones": "󰋋",
+      "handsfree": "󱋿",
+      "headset": "󰋎",
+      "phone": "󰏲",
+      "portable": "󰄝",
+      "car": "󰄋",
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
+    },
+    "on-click": "swaymsg exec \\$pulseaudio"
+  },
+  "temperature": {
+    "critical-threshold": 90,
+    "interval": 5,
+    "format": "{icon}{temperatureC}°C",
+    "format-icons": [
+      "󱃃",
+      "󰔏",
+      "󰔐"
+    ],
+    "tooltip": true,
+    "on-click": "swaymsg exec \"\\$term_float 'watch sensors'\""
+  },
+  "tray": {
+    "icon-size": 21,
+    "spacing": 5
+  },
+  "custom/pacman": {
+    "format": "󰀼 {}",
+    "interval": 3600,
+    "exec-if": "[ $(checkupdates | wc -l) -gt 0 ]",
+    "exec": "pamac checkupdates | wc -l",
+    "on-click": "pamac-manager --updates"
+  },
+  "custom/menu": {
+    "format": "󱘊",
+    "on-click": "swaymsg exec \\$menu",
+    "tooltip": false
+  },
+  "bluetooth": {
+    "format": "{icon}",
+    "interval": 30,
+    "format-icons": {
+      "enabled": "󰂯",
+      "disabled": "󰂲"
+    },
+    "on-click": "blueberry",
+    "tooltip-format": "{status}"
+  },
+  "position": "top"
+}
