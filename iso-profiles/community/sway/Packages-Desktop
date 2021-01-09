@@ -11,8 +11,8 @@ polkit-gnome # polkit for visual superuser access
 wl-clipboard # wayland clipboard application
 
 # Greeter
-greetd # community package is outdated
-greetd-gtkgreet # community package is outdated
+greetd
+greetd-gtkgreet
 
 # Browser
 w3m
@@ -25,7 +25,7 @@ qt5ct
 kvantum-qt5
 kvantum-theme-matchama
 >extra lxappearance
-boredland/gtk3-nocsd-git # use gtk3 without csd
+gtk3-classic
 matcha-gtk-theme
 papirus-maia-icon-theme
 xcursor-breeze
