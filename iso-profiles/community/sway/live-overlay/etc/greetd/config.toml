@@ -4,3 +4,7 @@ vt = "next"
 [default_session]
 command = "sway --config /etc/sway/lockscreen -d 2>/tmp/swaylog"
 user = "greeter"
+ 
+[initial_session]
+command = "sway"
+user = "manjaro"
