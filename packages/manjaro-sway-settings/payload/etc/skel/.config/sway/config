@@ -8,7 +8,7 @@
 include /etc/sway/definitions
 
 # user config
-include $HOME/.config/sway//config.d/*
+include $HOME/.config/sway/config.d/*
 
 include /etc/sway/inputs/*
 include /etc/sway/outputs/*

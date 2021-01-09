@@ -128,5 +128,3 @@ bar {
     # Run waybar instead of swaybar
     swaybar_command $statusbar
 }
-
-set $waybar_position top
