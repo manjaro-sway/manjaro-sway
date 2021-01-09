@@ -5,7 +5,8 @@ exec $idle
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
 exec autotiling
-exec /usr/share/sway/scripts/inactive-windows-transparency.py
-
+exec {
+    '[ -x "$(command -v flashfocus)" ] && flashfocus || /usr/share/sway/scripts/inactive-windows-transparency.py'
+}
 # restart kanshi https://github.com/emersion/kanshi/issues/43#issuecomment-531679213
 exec_always pkill kanshi; exec kanshi
