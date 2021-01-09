@@ -2,7 +2,8 @@
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-input type:keyboard {
-    xkb_layout "us"
-    #xkb_options ctrl:nocaps
+input type:keyboard xkb_layout "us"
+
+exec_always {
+   'swaymsg input type:keyboard xkb_layout "$(localectl status | grep "X11 Layout" | sed -e "s/^.*X11 Layout://")"'
 }
