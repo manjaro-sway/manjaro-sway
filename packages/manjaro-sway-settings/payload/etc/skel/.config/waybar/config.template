@@ -68,7 +68,7 @@
         "interval": 60,
         "format": "󰸗{:%e %b %Y %H:%M}", // Icon: calendar-alt
         "tooltip": true,
-        "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>"
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
         "on-click": "swaymsg exec \\$term_float khal"
     },
 
@@ -156,9 +156,10 @@
       "format-icons": [
           "󱃃",
           "󰔏", // Icon: temperature ok
-	  "󰔐"  // Icon: temperature not ok
+	      "󰔐"  // Icon: temperature not ok
       ],
-      "tooltip": true
+      "tooltip": true,
+      "on-click": "swaymsg exec \"\\$term_float 'watch sensors'\""
     },
 
     "tray": {
