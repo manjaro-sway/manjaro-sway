@@ -4,11 +4,10 @@ boredland/manjaro-sway-settings-git
 # Wayland support
 xorg-xwayland # xorg-wayland bridge
 >extra wdisplays # graphical display management like arandr
->extra kanshi # autorandr-like display profiles
 qt5-wayland
 gnome-keyring # unlock keyring on login
 polkit-gnome # polkit for visual superuser access
-wl-clipboard # wayland clipboard application
+>extra flashfocus # nicer flashing on focus change
 
 # Greeter
 greetd
@@ -91,3 +90,4 @@ jq
 oh-my-zsh
 tlp
 wget
+wl-clipboard # wayland clipboard application
