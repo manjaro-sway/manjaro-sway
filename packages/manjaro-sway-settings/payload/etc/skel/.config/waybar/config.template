@@ -69,6 +69,7 @@
         "format": "󰸗{:%e %b %Y %H:%M}", // Icon: calendar-alt
         "tooltip": true,
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>"
+        "on-click": "swaymsg exec \\$term_float khal"
     },
 
     "cpu": {
