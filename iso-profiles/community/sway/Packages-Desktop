@@ -14,6 +14,8 @@ xorg-xwayland # xorg-wayland bridge
 qt5-wayland
 gnome-keyring # unlock keyring on login
 polkit-gnome # polkit for visual superuser access
+>extra xdg-desktop-portal-wlr
+>extra libpipewire02
 
 # Greeter
 greetd
