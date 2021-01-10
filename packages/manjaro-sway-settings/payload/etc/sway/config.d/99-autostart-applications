@@ -4,9 +4,15 @@ exec $idle
 # autostart background applications
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec mako
-exec autotiling
+
+# optional autostarts
+#
 exec {
     '[ -x "$(command -v flashfocus)" ] && flashfocus || /usr/share/sway/scripts/inactive-windows-transparency.py'
+    '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh'
+    '[ -x "$(command -v autotiling)" ] && autotiling'
 }
-# restart kanshi https://github.com/emersion/kanshi/issues/43#issuecomment-531679213
-exec_always pkill kanshi; exec kanshi
+exec_always {
+    # restart kanshi https://github.com/emersion/kanshi/issues/43#issuecomment-531679213
+    '[ -x "$(command -v kanshi)" ] && pkill kanshi; exec kanshi'
+}
