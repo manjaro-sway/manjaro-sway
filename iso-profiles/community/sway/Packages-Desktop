@@ -38,6 +38,7 @@ grub-theme-manjaro
 
 # File systems access
 ranger
+pcmanfm-gtk3
 >extra file-roller
 
 # Sound, video and bluetooth
@@ -96,4 +97,4 @@ jq
 oh-my-zsh
 tlp
 wget
-wl-clipboard # wayland clipboard application
+>extra wl-clipboard # wayland clipboard application
