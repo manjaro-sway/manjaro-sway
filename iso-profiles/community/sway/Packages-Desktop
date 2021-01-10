@@ -11,7 +11,7 @@ polkit-gnome # polkit for visual superuser access
 
 # Greeter
 greetd
-greetd-tuigreet-bin
+greetd-tuigreet
 
 # Browser
 w3m
