@@ -22,8 +22,6 @@ greetd
 greetd-tuigreet
 
 # Browser
-w3m
-qutebrowser
 firefox
 firefox-ublock-origin
 
