@@ -1,13 +1,19 @@
 # Base
 boredland/manjaro-sway-settings-git
 
+# Sway Extras
+>extra flashfocus # nicer flashing on focus change
+>extra swaylock-effects # swaylock with nicer effects
+>extra wlsunset # time & place based light temperature
+>extra kanshi # automatically load matching output profiles
+>extra autotiling # automated tiling
+
 # Wayland support
 xorg-xwayland # xorg-wayland bridge
 >extra wdisplays # graphical display management like arandr
 qt5-wayland
 gnome-keyring # unlock keyring on login
 polkit-gnome # polkit for visual superuser access
->extra flashfocus # nicer flashing on focus change
 
 # Greeter
 greetd
