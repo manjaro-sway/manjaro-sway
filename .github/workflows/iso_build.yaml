@@ -1,20 +1,21 @@
 name: iso_build
 on:
+  push:
   repository_dispatch:
     types: [rebuild_image]
-    
+
+env:
+  EDITION: sway
+  BRANCH: unstable
+
 jobs:
-  cancel:
+  release:
     runs-on: ubuntu-latest
     steps:
       - 
         uses: styfle/cancel-workflow-action@0.6.0
         with:
           access_token: ${{ github.token }}
-
-  release:
-    runs-on: manjaro
-    steps:
       - 
         name: checkout
         uses: actions/checkout@v2
@@ -24,14 +25,26 @@ jobs:
           ref: sway
           path: 'iso-profiles'
       - 
-        id: cleanup
+        id: cache
+        uses: actions/cache@v2
+        with:
+          path: pkg-cache
+          key: ${{ env.EDITION }}-${{ env.BRANCH }}
+      -
+        name: build_full
         run: |
-          sudo rm -rf /var/cache/manjaro-tools/
-          sudo rm -rf /var/lib/manjaro-tools/buildiso/
-          sudo paccache -ruk0
-          sudo pacman -Syyu --noconfirm
-          rm -rf ~/.config/manjaro-tools
-          rm -rf *.iso
+          mkdir manjaro-tools pkg-cache iso
+          docker run -v --rm --privileged \
+          -e EDITION=$EDITION \
+          -e BRANCH=$BRANCH \
+          -v $PWD/pkg-cache:/var/cache/pacman/pkg/ \
+          -v $PWD/iso-profiles:/builder/iso-profiles/ \
+          -v $PWD/manjaro-tools:/var/lib/manjaro-tools/ \
+          -v $PWD/iso:/var/cache/manjaro-tools/iso \
+          -t boredland/manjaro-builder
+          
+          FILE_PATH=$(find ./pkg-cache -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
+          echo "RELEASE_FILE_FULL=$FILE_PATH" >> $GITHUB_ENV
       - 
         id: time
         uses: nanzm/get-time-action@v1.1
@@ -48,26 +61,8 @@ jobs:
           draft: false
           prerelease: false
       - 
-        name: build_full
-        run: |
-          buildiso -f -p sway -b unstable -k linux59
-          FILE_PATH=$(find /var/cache/manjaro-tools/iso/community/sway -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
-          mv -f ${FILE_PATH} .
-          echo "RELEASE_FILE_FULL=$(basename $FILE_PATH)" >> $GITHUB_ENV
-      - 
         id: upload_full_release 
         uses: boredland/upload-release-asset@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ env.RELEASE_FILE_FULL }}
-          asset_name: ${{ env.RELEASE_FILE_FULL }}
-          asset_content_type: application/x-iso-image
-      - 
-        id: upload_full_release_retry
-        uses: boredland/upload-release-asset@master
-        if: ${{ failure() }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
