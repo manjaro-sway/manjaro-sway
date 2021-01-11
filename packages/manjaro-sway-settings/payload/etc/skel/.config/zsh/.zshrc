@@ -17,7 +17,9 @@ plugins=(
     archlinux
     git
 )
-ZSH_THEME="agnoster"
-source $ZSH/oh-my-zsh.sh
 
-[ -d ~/.config/zsh/conf.d/ ] && source ~/.config/zsh/conf.d/*
+ZSH_THEME="agnoster"
+
+[ -d ~/.config/zsh/config.d/ ] && source ~/.config/zsh/config.d/*
+
+source $ZSH/oh-my-zsh.sh
