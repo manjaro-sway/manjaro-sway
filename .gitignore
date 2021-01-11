@@ -1,0 +1,5 @@
+*.iso
+manjaro-tools
+pkg-cache
+iso-profiles
+iso
