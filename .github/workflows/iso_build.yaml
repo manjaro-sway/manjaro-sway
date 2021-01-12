@@ -56,7 +56,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: pkg-cache
-          key: ${{ env.EDITION }}-${{ env.BRANCH }}
+          key: ${{ env.EDITION }}-${{ env.BRANCH }}-${{ env.SCOPE }}
       -
         name: build
         env:
