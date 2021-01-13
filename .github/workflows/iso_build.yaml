@@ -1,6 +1,6 @@
 name: iso_build
 on:
-  push:
+  workflow_dispatch:
   repository_dispatch:
     types: [iso_profile_update]
 
@@ -52,12 +52,6 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           ref: sway
           path: 'iso-profiles'
-      # - 
-      #   id: cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: pkg-cache
-      #     key: ${{ env.EDITION }}-${{ env.BRANCH }}-${{ env.SCOPE }}
       -
         name: build
         env:
@@ -92,13 +86,6 @@ jobs:
           asset_path: ./${{ env.FILE_PATH }}
           asset_name: ${{ env.FILE_PATH }}
           asset_content_type: application/x-iso-image
-      - 
-        id: release_cleaner
-        uses: dev-drprasad/delete-older-releases@v0.1.0
-        with:
-          keep_latest: 10
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - 
         name: rollback_release
         if: failure()
