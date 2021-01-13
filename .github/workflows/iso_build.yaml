@@ -2,7 +2,7 @@ name: iso_build
 on:
   push:
   repository_dispatch:
-    types: [rebuild_image]
+    types: [iso_profile_update]
 
 jobs:
   prepare_release:
@@ -47,7 +47,7 @@ jobs:
         name: checkout
         uses: actions/checkout@v2
         with:
-          repository: boredland/iso-profiles
+          repository: manjaro-sway/iso-profiles
           token: "${{ secrets.GITHUB_TOKEN }}"
           ref: sway
           path: 'iso-profiles'
@@ -76,14 +76,14 @@ jobs:
           -v $PWD/iso-profiles:/builder/iso-profiles/ \
           -v $PWD/manjaro-tools:/var/lib/manjaro-tools/ \
           -v $PWD/iso:/var/cache/manjaro-tools/iso \
-          -t boredland/manjaro-builder
+          -t manjarosway/manjaro-iso
           
           FILE_PATH=$(find ./iso -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
           cp $FILE_PATH .
           echo "FILE_PATH=$(basename $FILE_PATH)" >> $GITHUB_ENV
       - 
         id: upload_release 
-        uses: boredland/upload-release-asset@master
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
