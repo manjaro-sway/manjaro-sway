@@ -1,0 +1,23 @@
+name: count_downloads
+
+on:
+  schedule:
+    - cron:  '30 * * * *'
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: checkout
+        uses: actions/checkout@v2
+      - 
+        run: |
+          curl -s https://api.github.com/repos/manjaro-sway/manjaro-sway/releases | egrep 'download_count'  | cut '-d:' -f 2 | sed 's/,/+/' | xargs echo | xargs -I N echo N 0  | bc >docs/_includes/download_count
+      -
+        run: |
+          git config --global user.name "Repo Update Bot"
+          git config --global user.email "info@manjaro-sway.download"
+          git add docs/_includes/download_count
+          git commit -m "docs: update download count to $(cat docs/_includes/download_count)"
+          git push
