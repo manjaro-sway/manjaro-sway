@@ -52,12 +52,12 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           ref: sway
           path: 'iso-profiles'
-      - 
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: pkg-cache
-          key: ${{ env.EDITION }}-${{ env.BRANCH }}-${{ env.SCOPE }}
+      # - 
+      #   id: cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: pkg-cache
+      #     key: ${{ env.EDITION }}-${{ env.BRANCH }}-${{ env.SCOPE }}
       -
         name: build
         env:
