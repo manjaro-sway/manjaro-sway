@@ -29,6 +29,7 @@ jobs:
           prerelease: false
     outputs:
       upload_url: ${{ steps.release.outputs.upload_url }}
+      release_id: ${{ steps.release.outputs.id }}
 
   release:
     runs-on: ubuntu-latest
@@ -96,5 +97,13 @@ jobs:
         uses: dev-drprasad/delete-older-releases@v0.1.0
         with:
           keep_latest: 10
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: rollback_release
+        if: failure()
+        uses: author/action-rollback@stable
+        with:
+          id: ${{ needs.prepare_release.outputs.release_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
