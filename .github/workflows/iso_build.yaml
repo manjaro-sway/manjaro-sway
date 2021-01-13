@@ -37,7 +37,7 @@ jobs:
     strategy:
       matrix:
         EDITION: [sway]
-        BRANCH: [unstable,testing]
+        BRANCH: [testing]
         SCOPE: [full,minimal]
     steps:
       - 
