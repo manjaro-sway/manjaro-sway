@@ -1,6 +1,6 @@
 # manjaro sway edition
-[![repo_build](https://github.com/boredland/arch-repo/workflows/repo_build/badge.svg)](https://github.com/boredland/arch-repo/actions)
-[![iso_build](https://github.com/boredland/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)](https://github.com/boredland/manjaro-sway/actions)
+[![repo_build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
+[![iso_build](https://github.com/manjaro-sway/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/manjaro-sway/actions)
 
 ## description
 
@@ -11,7 +11,7 @@ i recently saw, that there was a decent manjaro sway distribution for arm. this 
 
 ## where can I download an iso?
 
-images are build and uploaded in a relatively regular interval to [github releases](https://github.com/boredland/manjaro-sway/releases)
+images are build and uploaded in a relatively regular interval to [github releases](https://github.com/manjaro-sway/manjaro-sway/releases)
 
 ## how to upgrade?
 
@@ -31,12 +31,12 @@ you can reach a quick introduction pressing `Super + Shift + ?`
 
 - blurry fonts in xwayland
 
-Otherwise: [you tell me](https://github.com/boredland/manjaro-sway/issues). I'd be happy to try to even out everything. PRs will be accepted in the repos listed below.
+Otherwise: [you tell me](https://github.com/manjaro-sway/manjaro-sway/issues). I'd be happy to try to even out everything. PRs will be accepted in the repos listed below.
 
 ## sources
 
-- [iso profile](https://github.com/boredland/iso-profiles/tree/sway/community/sway)
-- [desktop settings](https://github.com/boredland/desktop-settings/tree/sway/community/sway)
+- [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway)
+- [desktop settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway)
 
 ## building
 
