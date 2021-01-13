@@ -104,6 +104,6 @@ jobs:
         if: failure()
         uses: author/action-rollback@stable
         with:
-          id: ${{ needs.prepare_release.outputs.release_id }}
+          release_id: ${{ needs.prepare_release.outputs.release_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
