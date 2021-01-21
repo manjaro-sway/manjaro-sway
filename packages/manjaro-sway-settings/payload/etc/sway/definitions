@@ -16,9 +16,9 @@ set $background /usr/share/backgrounds/sway/atlas-ark-1970.png
 set $theme /usr/share/sway/themes/matcha-green
 
 # Your preferred terminal emulator
-set $term termite --config=$theme/termite
-set $term_float_portrait $term --name=floating_shell_portrait --exec
-set $term_float $term --name=floating_shell --exec
+set $term /usr/share/sway/scripts/terminal.sh
+set $term_float $term float
+set $term_float_portrait $term float_portrait
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
