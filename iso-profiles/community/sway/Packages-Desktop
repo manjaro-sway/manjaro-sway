@@ -7,6 +7,7 @@ manjaro-sway/manjaro-sway-settings
 >extra wlsunset # time & place based light temperature
 >extra kanshi # automatically load matching output profiles
 >extra autotiling # automated tiling
+>extra kitty # advanced terminal application
 
 # Wayland support
 xorg-xwayland # xorg-wayland bridge
