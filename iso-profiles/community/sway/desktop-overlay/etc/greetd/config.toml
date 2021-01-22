@@ -2,5 +2,5 @@
 vt = "next"
 
 [default_session]
-command = "tuigreet --remember --time --issue --cmd sway"
+command = "tuigreet --remember --time --issue --asterisks --cmd sway"
 user = "greeter"
