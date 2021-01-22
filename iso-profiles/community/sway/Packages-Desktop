@@ -31,7 +31,7 @@ qt5ct
 kvantum-qt5
 kvantum-theme-matchama
 >extra lxappearance
-gtk3-classic
+gtk3-nocsd
 matcha-gtk-theme
 papirus-maia-icon-theme
 xcursor-breeze
