@@ -168,5 +168,5 @@
     "on-click": "blueberry",
     "tooltip-format": "{status}"
   },
-  "position": ""
+  "position": "top"
 }
