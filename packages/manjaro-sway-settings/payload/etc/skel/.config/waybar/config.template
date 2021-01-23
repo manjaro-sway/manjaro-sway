@@ -36,9 +36,9 @@
         "pulseaudio",
         "custom/pacman",
         "tray",
-        "clock"
+        "custom/help",
+        "clock",
     ],
-
 
     // -------------------------------------------------------------------------
     // Modules
@@ -66,7 +66,7 @@
 
     "clock": {
         "interval": 60,
-        "format": "{:%e %b %Y %H:%M}", // Icon: calendar-alt
+        "format": "{:%e %b %Y %H:%M}",
         "tooltip": true,
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
         "on-click": "swaymsg exec \\$term_float_portrait \\$calendar"
@@ -179,6 +179,12 @@
         "format": "󱘊",
         "on-click": "swaymsg exec \\$menu",
         "tooltip": false
+    },
+
+    "custom/help": {
+        "format": "󰑪",
+        "on-click": "swaymsg exec \\$help",
+        "tooltip": "Display help page"
     },
 
     "bluetooth": {

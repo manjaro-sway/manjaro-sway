@@ -60,6 +60,7 @@
 /* Each module */
 #custom-pacman,
 #custom-menu,
+#custom-help,
 #bluetooth,
 #battery,
 #clock,
@@ -107,6 +108,7 @@
 
 #clock {
     font-weight: bold;
+    background-color: @accent_color;
 }
 
 #cpu {
@@ -208,4 +210,8 @@
 
 #bluetooth.disabled {
     color: @warning_color;
+}
+
+#custom-help {
+    padding-bottom: 2px;
 }

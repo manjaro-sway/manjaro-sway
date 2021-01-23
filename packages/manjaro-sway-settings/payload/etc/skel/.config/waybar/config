@@ -21,6 +21,7 @@
     "pulseaudio",
     "custom/pacman",
     "tray",
+    "custom/help",
     "clock"
   ],
   "battery": {
@@ -151,6 +152,11 @@
     "format": "󱘊",
     "on-click": "swaymsg exec \\$menu",
     "tooltip": false
+  },
+  "custom/help": {
+    "format": "󰑪",
+    "on-click": "swaymsg exec \\$help",
+    "tooltip": "Display help page"
   },
   "bluetooth": {
     "format": "{icon}",
