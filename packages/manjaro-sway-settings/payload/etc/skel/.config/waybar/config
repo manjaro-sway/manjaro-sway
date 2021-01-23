@@ -47,7 +47,7 @@
     "format": "{:%e %b %Y %H:%M}",
     "tooltip": true,
     "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
-    "on-click": "swaymsg exec \\$term_float khal"
+    "on-click": "swaymsg exec \\$term_float_portrait \\$calendar"
   },
   "cpu": {
     "interval": 5,
@@ -162,5 +162,5 @@
     "on-click": "blueberry",
     "tooltip-format": "{status}"
   },
-  "position": "top"
+  "position": ""
 }

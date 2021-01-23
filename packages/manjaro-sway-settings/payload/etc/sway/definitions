@@ -56,3 +56,6 @@ set $help $term_float "man $HOME/.config/sway/help.man"
 
 # onscreen bar
 set $onscreen_bar bash /usr/share/sway/scripts/wob.sh
+
+# calendar application
+set $calendar khal interactive
