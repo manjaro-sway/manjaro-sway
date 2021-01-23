@@ -15,6 +15,7 @@ for_window [title="Save File"] floating enable
 for_window [title="Firefox — Sharing Indicator"] floating enable
 for_window [title=".* is sharing your screen."] floating enable
 for_window [app_id="wdisplays"] floating enable
+for_window [app_id="ulauncher"] floating enable, border none, sticky enable
 
 # inhibit idle
 for_window [app_id="firefox"] inhibit_idle fullscreen

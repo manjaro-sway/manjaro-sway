@@ -23,7 +23,7 @@ set $term_float_portrait $term float_portrait
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu exec $term_float_portrait sway-launcher-desktop
+set $menu exec ulauncher --no-window-shadow
 
 ### Lockscreen configuration
 #

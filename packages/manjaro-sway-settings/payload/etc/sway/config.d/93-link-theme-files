@@ -1,4 +1,5 @@
 exec_always {
   'mkdir -p $HOME/.config/waybar && ln -sf $theme/theme.css $HOME/.config/waybar/'
   'mkdir -p $HOME/.config/wlogout && ln -sf $theme/theme.css $HOME/.config/wlogout/'
+  'mkdir -p $HOME/.config/ulauncher && ln -sf $theme/theme.css $HOME/.config/ulauncher/user-themes/manjaro/'
 }
