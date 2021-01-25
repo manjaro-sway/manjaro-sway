@@ -23,7 +23,7 @@ set $term_float_portrait $term float_portrait
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu exec ulauncher --no-window-shadow
+set $menu wofi --show=drun -I --exec-search --prompt "Run Command" --term $term | xargs swaymsg exec --
 
 ### Lockscreen configuration
 #

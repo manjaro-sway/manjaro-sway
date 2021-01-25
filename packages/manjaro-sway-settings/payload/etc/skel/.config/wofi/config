@@ -1,0 +1,10 @@
+# default config for the wofi launcher
+
+allow_images=true
+allow_markup=true
+insensitive=true
+hide_scroll=true
+lines=10
+no_actions=true
+term=termite
+width=600
