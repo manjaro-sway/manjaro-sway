@@ -21,40 +21,40 @@ WINDOW_ICONS = {
 
 DEFAULT_ICON = "󰄶"
 
+def get_icon(word):
+    if word in WINDOW_ICONS:
+        return WINDOW_ICONS[word]
+    logging.info("No icon available for: %s" % str(word))
+    return DEFAULT_ICON
+
 def icon_for_window(window):
     app_id = window.app_id
     if app_id is not None and len(app_id) > 0:
         app_id = app_id.lower()
-        if app_id in WINDOW_ICONS:
-            return WINDOW_ICONS[app_id]
-        logging.info("No icon available for window with app_id: %s" % str(app_id))
+        return get_icon(app_id)
     else:
         # xwayland support
         class_name = window.window_class
-        if len(class_name) > 0:
+        if class_name is not None and len(class_name) > 0:
             class_name = class_name.lower()
-            if class_name in WINDOW_ICONS:
-                return WINDOW_ICONS[class_name]
-            logging.info(
-                "No icon available for window with class_name: %s" % str(class_name)
-            )
-    return DEFAULT_ICON
-
+            return get_icon(class_name)
+        return DEFAULT_ICON
 
 def rename_workspaces(ipc):
+    ICONS_ON_WORKSPACE = {}
     for workspace in ipc.get_tree().workspaces():
         name_parts = parse_workspace_name(workspace.name)
-        icon_tuple = ()
+        num = str(name_parts["num"])
+        ICONS_ON_WORKSPACE[num] = ()
         for w in workspace:
             if w.app_id is not None or w.window_class is not None:
                 icon = icon_for_window(w)
-                if not ARGUMENTS.duplicates and icon in icon_tuple:
+                if not ARGUMENTS.duplicates and icon in ICONS_ON_WORKSPACE[num]:
                     continue
-                icon_tuple += (icon,)
-        name_parts["icons"] = "".join(icon_tuple) + ""
+                ICONS_ON_WORKSPACE[num] += (icon,)
+        name_parts["icons"] = get_icon(num).join(ICONS_ON_WORKSPACE[num])
         new_name = construct_workspace_name(name_parts)
         ipc.command('rename workspace "%s" to "%s"' % (workspace.name, new_name))
-
 
 def undo_window_renaming(ipc):
     for workspace in ipc.get_tree().workspaces():
@@ -72,7 +72,6 @@ def parse_workspace_name(name):
         "(?P<num>-*[0-9]+):?(?P<shortname>\w+)? ?(?P<icons>.+)?", name
     ).groupdict()
 
-
 def construct_workspace_name(parts):
     new_name = str(parts["num"])
     if parts["shortname"] or parts["icons"]:
@@ -82,7 +81,7 @@ def construct_workspace_name(parts):
             new_name += parts["shortname"]
 
         if parts["icons"]:
-            new_name += "" + parts["icons"]
+            new_name += parts["icons"]
 
     return new_name
 
@@ -104,7 +103,7 @@ if __name__ == "__main__":
         "--duplicates",
         "-d",
         action="store_true",
-        help="Set it when you want an icon for each instance of the same application per workspace.",
+        help="Set it if you want an icon for each instance of the same application per workspace.",
     )
     parser.add_argument(
         "--logfile",
@@ -145,6 +144,11 @@ if __name__ == "__main__":
             rename_workspaces(ipc)
 
     ipc.on("window", window_event_handler)
+
+    def workspace_event_handler(ipc, e):
+        rename_workspaces(ipc)
+
+    ipc.on("workspace::init", workspace_event_handler)
 
     rename_workspaces(ipc)
 
