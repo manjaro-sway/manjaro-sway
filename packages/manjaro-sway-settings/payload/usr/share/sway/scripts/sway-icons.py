@@ -52,7 +52,7 @@ def rename_workspaces(ipc):
                 if not ARGUMENTS.duplicates and icon in ICONS_ON_WORKSPACE[num]:
                     continue
                 ICONS_ON_WORKSPACE[num] += (icon,)
-        name_parts["icons"] = get_icon(num).join(ICONS_ON_WORKSPACE[num])
+        name_parts["icons"] = "%s%s" % (get_icon(num), "".join(ICONS_ON_WORKSPACE[num]))
         new_name = construct_workspace_name(name_parts)
         ipc.command('rename workspace "%s" to "%s"' % (workspace.name, new_name))
 
@@ -69,20 +69,13 @@ def undo_window_renaming(ipc):
 def parse_workspace_name(name):
     logging.info(name)
     return re.match(
-        "(?P<num>-*[0-9]+):?(?P<shortname>\w+)? ?(?P<icons>.+)?", name
+        "(?P<num>-*[0-9]+):?(?P<icons>.+)?", name
     ).groupdict()
 
 def construct_workspace_name(parts):
     new_name = str(parts["num"])
-    if parts["shortname"] or parts["icons"]:
-        new_name += ":"
-
-        if parts["shortname"]:
-            new_name += parts["shortname"]
-
-        if parts["icons"]:
-            new_name += parts["icons"]
-
+    if parts["icons"]:
+        new_name += ":%s" % parts["icons"]
     return new_name
 
 def parse_icons_file(path):
@@ -148,7 +141,7 @@ if __name__ == "__main__":
     def workspace_event_handler(ipc, e):
         rename_workspaces(ipc)
 
-    ipc.on("workspace::init", workspace_event_handler)
+    ipc.on("workspace", workspace_event_handler)
 
     rename_workspaces(ipc)
 
