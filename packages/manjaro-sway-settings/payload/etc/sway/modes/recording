@@ -1,4 +1,4 @@
-set $mode_recording "<span foreground='$base0A'>雷</span>  \
+set $mode_recording "<span foreground='$base0A'>󰃽</span>  \
 <span foreground='$base05'><b>Screen</b></span> <span foreground='$base0A'>(<b>w</b>)</span> \
 <span foreground='$base01'>—</span> \
 <span foreground='$base05'><b>Screen (+ Mic)</b></span> <span foreground='$base0A'>(<b>Shift+w</b>)</span> \

@@ -1,4 +1,4 @@
-set $mode_screenshot "<span foreground='$base0A'></span>  \
+set $mode_screenshot "<span foreground='$base0A'>󰄄</span>  \
 <span foreground='$base05'><b>Everything</b></span> <span foreground='$base0A'>(<b>e</b>)</span> \
 <span foreground='$base01'>—</span> \
 <span foreground='$base05'><b>Window</b></span> <span foreground='$base0A'>(<b>w</b>)</span> \
