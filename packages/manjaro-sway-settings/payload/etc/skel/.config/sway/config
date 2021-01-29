@@ -7,9 +7,6 @@
 # global variables
 include /etc/sway/definitions
 
-# user config
-include $HOME/.config/sway/config.d/*
-
 include /etc/sway/inputs/*
 include /etc/sway/outputs/*
 
@@ -21,3 +18,6 @@ include /etc/sway/modes/*
 
 # include additional configs e.g. to autostart applications
 include /etc/sway/config.d/*
+
+# user config
+include $HOME/.config/sway/config.d/*
