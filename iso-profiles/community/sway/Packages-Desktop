@@ -83,6 +83,7 @@ manjaro-hotfixes
 
 # Package Management
 >extra yay
+>extra manjaro-aur-support
 pamac-gtk
 
 # extra
