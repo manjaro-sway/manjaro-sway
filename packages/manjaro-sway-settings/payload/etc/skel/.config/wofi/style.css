@@ -1,5 +1,5 @@
 /* import css definitions for current theme */
-@import url("theme.css");
+@import url("./theme.css");
 
 #input {
   border: none;
