@@ -14,7 +14,7 @@ primus
 squashfs-tools
 bumblebee
 manjaro-live-systemd
-manjaro-architect
+#manjaro-architect
 xf86-input-vmmouse
 xf86-video-amdgpu
 xf86-video-ati

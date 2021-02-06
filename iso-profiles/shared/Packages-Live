@@ -1,7 +1,7 @@
 calamares
 grub-theme-live-manjaro
 gsmartcontrol
-manjaro-architect
+#manjaro-architect
 manjaro-live-skel
 manjaro-live-systemd
 mkinitcpio-nfs-utils
