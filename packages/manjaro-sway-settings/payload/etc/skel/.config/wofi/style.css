@@ -1,9 +1,14 @@
 /* import css definitions for current theme */
 @import url("./theme.css");
 
+#outer-box {
+  border: 1px solid @accent_color;
+}
+
 #input {
   border: none;
   border-radius: 0px;
+  margin: 10px;
 }
 
 #text {
@@ -13,5 +18,5 @@
 window {
   border: 2px solid @accent_color;
   color: @text_color;
-  border-radius: 5px;
+  border-radius: none;
 }
