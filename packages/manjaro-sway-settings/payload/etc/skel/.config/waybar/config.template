@@ -19,6 +19,7 @@
     "modules-left": [
         "custom/menu",
         "sway/workspaces",
+        "custom/scratchpad",
         "sway/mode"
     ],
     "modules-center": [
@@ -184,7 +185,7 @@
     "custom/help": {
         "format": "󰑪",
         "on-click": "swaymsg exec \\$help",
-        "tooltip": "Display help page"
+        "tooltip": false
     },
 
     "bluetooth": {
@@ -196,5 +197,16 @@
         },
         "on-click": "blueberry",
         "tooltip-format": "{status}"
+    },
+    "custom/scratchpad": {
+        "interval": 1,
+        "return-type": "json",
+        "format" : "{icon}",
+        "format-icons": {
+            "one": "󰀿",
+            "many": "󰪴"
+        },
+        "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
+        "on-click": "swaymsg 'scratchpad show'"
     }
 }

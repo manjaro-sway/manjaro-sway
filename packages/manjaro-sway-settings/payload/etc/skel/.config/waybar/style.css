@@ -61,6 +61,7 @@
 #custom-pacman,
 #custom-menu,
 #custom-help,
+#custom-scratchpad,
 #bluetooth,
 #battery,
 #clock,
@@ -81,6 +82,10 @@
 /* -----------------------------------------------------------------------------
  * Module styles
  * -------------------------------------------------------------------------- */
+
+#custom-scratchpad {
+    background-color: @accent_color;
+}
 
 #battery {
     animation-timing-function: linear;
