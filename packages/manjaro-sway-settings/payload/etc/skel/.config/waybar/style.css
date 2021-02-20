@@ -194,14 +194,12 @@
     padding-left: 10px;
     padding-right: 10px;
     color: @accent_color;
-    font-weight: bold;
 }
 
 #workspaces button.focused {
     border-color: @accent_color;
     color: @text_color;
     background-color: @accent_color;
-    font-weight: bold;
 }
 
 #workspaces button.urgent {
