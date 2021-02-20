@@ -178,8 +178,7 @@
       "many": "󰪴"
     },
     "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
-    "on-click": "swaymsg 'scratchpad show'",
-    "on-click-right": "swaymsg 'move scratchpad'"
+    "on-click": "swaymsg 'scratchpad show'"
   },
   "position": "top"
 }
