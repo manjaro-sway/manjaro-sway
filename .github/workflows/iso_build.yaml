@@ -39,8 +39,8 @@ jobs:
     strategy:
       matrix:
         EDITION: [sway]
-        BRANCH: [testing]
-        SCOPE: [full,minimal]
+        BRANCH: [stable]
+        SCOPE: [full]
     steps:
       - 
         uses: styfle/cancel-workflow-action@0.7.0
