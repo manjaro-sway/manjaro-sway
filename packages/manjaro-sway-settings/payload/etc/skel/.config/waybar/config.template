@@ -196,7 +196,7 @@
             "disabled": "󰂲"
         },
         "on-click": "blueberry",
-        "tooltip-format": "{status}"
+        "tooltip-format": "{}"
     },
     "custom/scratchpad": {
         "interval": 1,
