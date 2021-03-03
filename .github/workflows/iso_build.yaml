@@ -150,9 +150,9 @@ jobs:
         name: checkout-iso-profiles
         run: |          
           sudo git clone https://github.com/Manjaro-Sway/iso-profiles.git
-          sudo cd iso-profiles
+          cd iso-profiles
           sudo git checkout -b sway
-          sudo cd ..
+          cd ..
       -
         name: build
         env:
