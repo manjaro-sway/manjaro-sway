@@ -151,7 +151,7 @@ jobs:
         run: |          
           sudo git clone https://github.com/Manjaro-Sway/iso-profiles.git
           cd iso-profiles
-          sudo git checkout -b sway
+          sudo git checkout sway
           cd ..
       -
         name: build
