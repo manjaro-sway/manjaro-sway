@@ -3,7 +3,9 @@ set $mode_screenshot "<span foreground='$base0A'>󰄄</span>  \
 <span foreground='$base01'>—</span> \
 <span foreground='$base05'><b>Window</b></span> <span foreground='$base0A'>(<b>w</b>)</span> \
 <span foreground='$base01'>—</span> \
-<span foreground='$base05'><b>Screen</b></span> <span foreground='$base0A'>(<b>s</b>)</span>"
+<span foreground='$base05'><b>Screen</b></span> <span foreground='$base0A'>(<b>s</b>)</span> \
+<span foreground='$base01'>—</span> \
+<span foreground='$base05'><b>Area</b></span> <span foreground='$base0A'>(<b>a</b>)</span>"
 
 set $grimshot /usr/share/sway/scripts/grimshot
 
@@ -19,6 +21,10 @@ mode --pango_markup $mode_screenshot {
     # output = currently active output
     bindsym s exec $grimshot --notify copy output
     bindsym Shift+s exec $grimshot --notify save output
+    
+    # User can pick the area to screenshot
+    bindsym a exec $grimshot --notify copy area
+    bindsym Shift+a exec $grimshot --notify area output
 
     # Return to default mode.
     bindsym Escape mode "default"
