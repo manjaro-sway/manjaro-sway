@@ -35,6 +35,7 @@ glibc
 grep
 grub
 gzip
+haveged
 inetutils
 intel-ucode
 iproute2
