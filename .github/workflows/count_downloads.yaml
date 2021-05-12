@@ -11,7 +11,7 @@ jobs:
     steps:
       - 
         name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
       - 
         run: |
           curl -s https://api.github.com/repos/manjaro-sway/manjaro-sway/releases | egrep 'download_count'  | cut '-d:' -f 2 | sed 's/,/+/' | xargs echo | xargs -I N echo N 0  | bc >docs/_includes/download_count
