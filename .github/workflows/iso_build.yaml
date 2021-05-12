@@ -202,7 +202,7 @@ jobs:
           asset_content_type: application/zip
       - 
         id: check_files
-        uses: andstor/file-existence-action@v1
+        uses: andstor/file-existence-action@v1.0.1
         with:
           files: ${{ env.FILE_PATH }}.z01
           allow_failure: false
