@@ -192,7 +192,7 @@ jobs:
           echo "FILE_PKG=$(basename $FILE_PKG)" >> $GITHUB_ENV
       - 
         id: upload_release_zip
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -208,7 +208,7 @@ jobs:
           allow_failure: false
       - 
         id: upload_release_z01
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         if: steps.check_files.outputs.files_exists == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -219,7 +219,7 @@ jobs:
           asset_content_type: application/zip
       - 
         id: upload_sha256
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -229,7 +229,7 @@ jobs:
           asset_content_type: text/plain
       - 
         id: upload_pkg
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
