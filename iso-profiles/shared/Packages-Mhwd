@@ -10,7 +10,7 @@ KERNEL-broadcom-wl
 KERNEL-zfs
 zfs-utils
 #KERNEL-rt3562sta
-KERNEL-virtualbox-guest-modules
+#KERNEL-virtualbox-guest-modules
 KERNEL-headers
 zfs-dkms
 libva-intel-driver
