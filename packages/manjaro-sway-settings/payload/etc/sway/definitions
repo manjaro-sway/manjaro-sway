@@ -43,7 +43,7 @@ set $idle swayidle -w \
 
 # statusbar command
 set $statusbar waybar
-set $waybar_position top
+set $waybar_position bottom
 
 # shutdown command
 set $shutdown wlogout --buttons-per-row 3
