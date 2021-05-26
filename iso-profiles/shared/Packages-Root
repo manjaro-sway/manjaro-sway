@@ -32,6 +32,7 @@ gawk
 gcc-libs
 gettext
 glibc
+glibc-locales
 grep
 grub
 gzip
