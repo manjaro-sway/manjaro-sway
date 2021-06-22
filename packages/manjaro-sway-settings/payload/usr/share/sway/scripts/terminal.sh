@@ -3,7 +3,7 @@ function version {
     echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; 
 }
 
-GL_VERSION=$(glxinfo | awk '/OpenGL version/ {print $4}')
+GL_VERSION=$(glxinfo | awk '/OpenGL core profile version string/ {print $6}')
 
 CMD=""
 if [[ -x "$(command -v kitty)" && $(version $GL_VERSION) -ge $(version "3.3") ]]; then
