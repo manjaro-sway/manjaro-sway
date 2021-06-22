@@ -7,6 +7,9 @@
 # global variables
 include /etc/sway/definitions
 
+# user variables
+include $HOME/.config/sway/definitions
+
 include /etc/sway/inputs/*
 include /etc/sway/outputs/*
 
