@@ -19,11 +19,6 @@ jobs:
         uses: nanzm/get-time-action@v1.1
         with:
           format: 'YYYYMMDDHHmm'
-      - 
-        id: create_release
-        run: |
-          echo ${{ github.token }} | gh auth login --with-token 
-          gh release create ${{ steps.time.outputs.time }} --repo ${{ github.repository	}} 
     outputs:
       release_tag: ${{ steps.time.outputs.time }}
   build-release:
