@@ -46,3 +46,9 @@ jobs:
           kernel: linux510
           code-name: "Ornara"
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
+      -
+        name: rollback
+        if: failure()
+        run: |
+          echo ${{ github.token }} | gh auth login --with-token
+          gh release delete ${{ needs.prepare-release.outputs.release_tag }} -y
