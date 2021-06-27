@@ -51,15 +51,3 @@ jobs:
           kernel: linux510
           code-name: "Ornara"
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
-  rollback-release:
-    runs-on: ubuntu-20.04
-    if: failure()
-    needs: [prepare-release, build-release]
-    steps:
-      - 
-        id: rollback-release
-        uses: author/action-rollback@stable
-        with:
-          release_id: ${{ needs.prepare-release.outputs.release_id }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
