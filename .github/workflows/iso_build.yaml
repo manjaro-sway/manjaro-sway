@@ -35,8 +35,8 @@ jobs:
         with:
           access_token: ${{ github.token }}
       -
-        id: image-build
-        uses: Manjaro/manjaro-iso-action@release_upload
+        name: image-build-upload
+        uses: Manjaro/manjaro-iso-action@v1
         with:
           iso-profiles-repo: https://github.com/Manjaro-Sway/iso-profiles
           edition: ${{ matrix.edition }}
