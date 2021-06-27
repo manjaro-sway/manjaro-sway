@@ -48,7 +48,7 @@ jobs:
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
       -
         name: rollback
-        if: failure()
+        if: ${{ failure() || cancelled() }}
         run: |
           echo ${{ github.token }} | gh auth login --with-token
           gh release delete ${{ needs.prepare-release.outputs.release_tag }} -y
