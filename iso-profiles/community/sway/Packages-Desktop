@@ -40,6 +40,7 @@ grub-theme-manjaro
 # File systems access
 ranger
 pcmanfm-gtk3
+gvfs
 >extra file-roller
 
 # Sound, video and bluetooth
@@ -91,6 +92,7 @@ apparmor
 >extra xdg-user-dirs
 >extra manjaro-printer
 >extra atool
+>extra manjaro-settings-manager
 
 # CLI tools
 neovim
