@@ -88,7 +88,7 @@ manjaro-hotfixes
 pamac-gtk
 
 # extra
-apparmor
+>extra apparmor
 >extra xdg-user-dirs
 >extra manjaro-printer
 >extra atool
