@@ -24,7 +24,7 @@ mode --pango_markup $mode_screenshot {
     
     # User can pick the area to screenshot
     bindsym a exec $grimshot --notify copy area
-    bindsym Shift+a exec $grimshot --notify area output
+    bindsym Shift+a exec $grimshot --notify save area
 
     # Return to default mode.
     bindsym Escape mode "default"
