@@ -27,6 +27,14 @@ keep in mind that this could cause problems with customizations you made. make a
 
 you can reach a quick introduction pressing `Super + Shift + ?`
 
+## unknown public key
+
+the public key used for our package repo is not yet inside the manjaro keyring. until we are, allow our key manually:
+
+```
+pacman-key --keyserver keys.openpgp.org --recv-key A44C644D792767CED7941AFEABB2075D5F310CF8
+```
+
 ## what doesn't work yet?
 
 - blurry fonts in xwayland
