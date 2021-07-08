@@ -36,8 +36,6 @@ jobs:
       - name: import sway key
         run: |
           gpg --keyserver keys.openpgp.org --receive-keys ${{ secrets.GPG_KEYID }}
-          pacman-key --keyserver keys.openpgp.org --recv-key ${{ secrets.GPG_KEYID }}
-
       - name: image-build-upload
         uses: Manjaro/manjaro-iso-action@v2
         with:
