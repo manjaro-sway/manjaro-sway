@@ -61,6 +61,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "AndreVallestero",
+      "name": "Andre Vallestero",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39736205?v=4",
+      "profile": "https://www.andrevallestero.com",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
