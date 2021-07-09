@@ -52,6 +52,15 @@
         "ideas",
         "code"
       ]
+    },
+    {
+      "login": "bhartshorn",
+      "name": "Brandon Hartshorn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56871?v=4",
+      "profile": "https://github.com/bhartshorn",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
