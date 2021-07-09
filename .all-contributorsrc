@@ -79,6 +79,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Chrysostomus",
+      "name": "Matti Hyttinen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12002226?v=4",
+      "profile": "https://github.com/Chrysostomus",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
