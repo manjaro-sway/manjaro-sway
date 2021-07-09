@@ -70,6 +70,15 @@
       "contributions": [
         "design"
       ]
+    },
+    {
+      "login": "xfalcox",
+      "name": "Rafael dos Santos Silva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1385470?v=4",
+      "profile": "http://falco.dev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
