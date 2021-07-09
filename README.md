@@ -7,10 +7,13 @@
 
 ## description
 
-i recently saw, that there was a decent manjaro sway distribution for arm. this is my approach to port a lot from those configurations to a regular manjaro sway built, with some smaller and bigger changes:
+[![watch it in action](https://yt-embed.herokuapp.com/embed?v=34DIO61GxAE)](https://www.youtube.com/watch?v=34DIO61GxAE "watch it in action")
 
-- trying to use a decent cli solution whenever available
-- automate stuff where feasible
+this is an approach to create a regular manjaro sway built - with to following paradigms:
+
+- try to use a decent cli solution whenever available and commonly acceptable
+- always use convention that can be overridden by configuration
+- build everything in automation (iso images, packages)
 
 ## where can I download an iso?
 
