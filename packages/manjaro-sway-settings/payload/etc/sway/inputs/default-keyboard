@@ -4,7 +4,7 @@
 # Read `man 5 sway-input` for more information about this section.
 input type:keyboard xkb_layout "us"
 
-exec {
-   'swaymsg input type:keyboard xkb_layout "$(localectl status | grep "X11 Layout" | sed -e "s/^.*X11 Layout://")"'
-   'swaymsg input type:keyboard xkb_variant "$(localectl status | grep "X11 Variant" | sed -e "s/^.*X11 Variant://")"'
+exec_always {
+   # set the sway keyboard layout and variant to the current X11 setting once and watch changes thereafter
+   '/usr/share/sway/scripts/setkeyboard.sh && watch -n1 "watch -d -t -g ls -lR ls -lR /etc/X11/xorg.conf.d/00-keyboard.conf && sh /usr/share/sway/scripts/setkeyboard.sh"'
 }
