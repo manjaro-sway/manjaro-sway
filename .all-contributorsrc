@@ -20,6 +20,17 @@
         "code",
         "maintenance"
       ]
+    },
+    {
+      "login": "simon-bueler",
+      "name": "Simon Büeler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5940667?v=4",
+      "profile": "https://github.com/simon-bueler",
+      "contributions": [
+        "code",
+        "maintenance",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7
