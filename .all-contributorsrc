@@ -1,6 +1,6 @@
 {
   "projectName": "manjaro-sway",
-  "projectOwner": "manjaro-sway",
+  "projectOwner": "Manjaro-Sway",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -31,7 +31,18 @@
         "maintenance",
         "ideas"
       ]
+    },
+    {
+      "login": "AntonPicetti",
+      "name": "Anton Picetti",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31367653?v=4",
+      "profile": "https://github.com/AntonPicetti",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
