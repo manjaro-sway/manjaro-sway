@@ -41,6 +41,17 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "Mathew-D",
+      "name": "Mathew",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44036272?v=4",
+      "profile": "https://github.com/Mathew-D",
+      "contributions": [
+        "bug",
+        "ideas",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
