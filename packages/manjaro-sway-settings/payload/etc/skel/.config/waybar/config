@@ -37,6 +37,7 @@
         "pulseaudio",
         "custom/pacman",
         "tray",
+        "sway/language",
         "custom/help",
         "clock",
     ],
