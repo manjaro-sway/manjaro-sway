@@ -35,6 +35,10 @@ the public key used for our package repo is not yet inside the manjaro keyring. 
 pacman-key --keyserver keys.openpgp.org --recv-key A44C644D792767CED7941AFEABB2075D5F310CF8
 ```
 
+## unable to log in virtual machines
+
+While it seems to work out of the box in some kvm/qemu environments (Gnome Boxes seems to work), you need to enable 3D acceleration in most of them. Refer [here](https://github.com/Manjaro-Sway/manjaro-sway/issues/56) for further information and feedback.
+
 ## what doesn't work yet?
 
 - blurry fonts in xwayland
