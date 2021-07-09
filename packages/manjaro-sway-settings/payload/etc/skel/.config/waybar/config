@@ -172,9 +172,9 @@
     "custom/pacman": {
         "format": "󰀼 {}",
         "interval": 3600,
-        "exec-if": "[ $(checkupdates | wc -l) -gt 0 ]",
-        "exec": "pamac checkupdates | wc -l",
-        "on-click": "pamac-manager --updates",
+        "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
+        "exec": "pamac checkupdates -q | wc -l",
+        "on-click": "pamac-manager --updates; pkill -SIGRTMIN+8 waybar",
     },
 
     "custom/menu": {
