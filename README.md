@@ -64,15 +64,15 @@ Otherwise: [you tell me](https://github.com/manjaro-sway/manjaro-sway/issues). I
 
 ## screenshots
 
-![desktop](public/_includes/desktop.png?raw=true)
-![help menu](public/_includes/help.png?raw=true)
-![htop](public/_includes/htop.png?raw=true)
-![launcher](public/_includes/launcher.png?raw=true)
-![nmtui](public/_includes/nmtui.png?raw=true)
-![pamac](public/_includes/pamac.png?raw=true)
-![ranger](public/_includes/ranger.png?raw=true)
-![qutebrowser](public/_includes/qutebrowser.png?raw=true)
-![mako](public/_includes/mako.png?raw=true)
+![desktop](docs/_includes/desktop.png?raw=true)
+![help menu](docs/_includes/help.png?raw=true)
+![htop](docs/_includes/htop.png?raw=true)
+![launcher](docs/_includes/launcher.png?raw=true)
+![nmtui](docs/_includes/nmtui.png?raw=true)
+![pamac](docs/_includes/pamac.png?raw=true)
+![ranger](docs/_includes/ranger.png?raw=true)
+![qutebrowser](docs/_includes/qutebrowser.png?raw=true)
+![mako](docs/_includes/mako.png?raw=true)
 
 ## credentials
 

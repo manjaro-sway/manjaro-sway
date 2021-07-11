@@ -1,0 +1,98 @@
+---
+---
+
+<script type="text/javascript" language="javascript">
+  function formatBytes(a, b = 2, k = 1024) {
+    with (Math) {
+      let d = floor(log(a) / log(k));
+      return 0 == a
+        ? "0 Bytes"
+        : parseFloat((a / pow(k, d)).toFixed(max(0, b))) +
+            " " +
+            ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][d];
+    }
+  }
+
+  fetch(
+    "https://api.github.com/repos/manjaro-sway/manjaro-sway/releases/latest"
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      const links = data.assets
+        .map(
+          (asset) =>
+            `<p><a href="${asset.browser_download_url}">${
+              asset.name
+            }</a><span> (${formatBytes(asset.size)})</span></p>`
+        )
+        .join("</br>");
+      document.getElementById(
+        "links"
+      ).innerHTML = `<pre id="links">${links}</pre>`;
+    })
+    .catch(function (err) {
+      console.warn("Something went wrong.", err);
+    });
+</script>
+<style>
+  * {
+    color: #eee;
+    text-decoration: none;
+  }
+
+  .topbar {
+    background: #141a1b;
+    height: 30px;
+  }
+
+  body {
+    background-image: url("https://raw.githubusercontent.com/Manjaro-Sway/manjaro-sway-wallpapers/master/static/gruvbox-dark-manjarosway-3840x2160.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
+  h1 {
+    color: #16a085;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 30px;
+    padding: 0 20px;
+    margin: 0;
+  }
+
+  pre {
+    color: gray;
+  }
+
+  pre a {
+    color: white;
+  }
+
+  #container {
+    margin: 20px;
+  }
+</style>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manjaro Sway Download</title>
+  </head>
+  <body>
+    <div class="topbar">
+      <h1>Manjaro Sway Download</h1>
+    </div>
+    <div id="container">
+      <pre id="links">...loading...</pre>
+    </div>
+  </body>
+</html>
