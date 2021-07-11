@@ -71,3 +71,6 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
+ 
+# show clipboard history
+bindsym $mod+h exec clipman pick --tool="wofi" --max-items=30 --histpath="~/.local/share/clipman.json"
