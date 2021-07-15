@@ -34,6 +34,10 @@ keep in mind that this could cause problems with customizations you made. make a
 
 you can reach a quick introduction pressing `Super + Shift + ?`
 
+## how do I configure sway to be even more awesome?
+
+you can easily add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway#Keymap) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints.
+
 ## unknown public key
 
 the public key used for our package repo is not yet inside the manjaro keyring. until we are, allow our key manually:
@@ -94,6 +98,8 @@ password: manjaro
 4. fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
 
 5. auto enable bluetooth on boot: `echo "AutoEnable=true" >> /etc/bluetooth/main.conf`
+
+6. add your keyboard settings to a userspace configuration file: `echo "swaymsg input type:keyboard xkb_layout de" > ~/.config/sway/config.d/01-keyboard.conf`
 
 ## credits
 
