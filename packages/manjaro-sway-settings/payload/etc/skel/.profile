@@ -15,7 +15,7 @@ export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 
 # set default shell and terminal
 export SHELL=/usr/bin/zsh
-export TERM=xterm-termite
+export TERM=xterm-kitty
 export TERMINAL_COMMAND='/usr/share/sway/scripts/terminal.sh'
 
 # sway-launcher-desktop with material icons
