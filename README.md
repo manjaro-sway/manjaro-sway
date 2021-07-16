@@ -89,7 +89,7 @@ password: manjaro
 
 1. make chromium use native window decorations
 
-![chromium](public/_includes/chromium.png?raw=true)
+![chromium](docs/_includes/chromium.png?raw=true)
 
 2. enable [this flag] (chrome://flags/#enable-webrtc-pipewire-capturer)(`chrome://flags/#enable-webrtc-pipewire-capturer`) to allow screensharing in chromium
 
