@@ -99,7 +99,7 @@ password: manjaro
 
 5. auto enable bluetooth on boot: `echo "AutoEnable=true" >> /etc/bluetooth/main.conf`
 
-6. add your keyboard settings to a userspace configuration file: `echo "swaymsg input type:keyboard xkb_layout de" > ~/.config/sway/config.d/01-keyboard.conf`
+6. if you have a keyboard layout other then basic `us`, [add your keyboard settings](https://wiki.archlinux.org/title/Sway#Keymap) to a userspace configuration file (e.g. `~/.config/sway/config.d/01-keyboard.conf`).
 
 ## credits
 
