@@ -3,13 +3,13 @@
 # Basics:
 #
 ## Launch // Terminal ##
-bindsym $mod+Return exec $term
+$bindsym $mod+Return exec $term
 
 ## Action // Kill focused window ##
-bindsym $mod+Shift+q kill
+$bindsym $mod+Shift+q kill
 
 ## Launch // Launcher ##
-bindsym $mod+d exec $menu
+$bindsym $mod+d exec $menu
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -19,102 +19,102 @@ bindsym $mod+d exec $menu
 floating_modifier $mod normal
 
 ## Action // Reload Sway Configuration ##
-bindsym $mod+Shift+c reload
+$bindsym $mod+Shift+c reload
 
 ## Launch // Exit Menu ##
-bindsym $mod+Shift+e exec $shutdown
+$bindsym $mod+Shift+e exec $shutdown
 
 ## Action // Increase volume of Master ##
-bindsym XF86AudioRaiseVolume exec $onscreen_bar $(amixer sset Master 5%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1) $base0C
+$bindsym XF86AudioRaiseVolume exec $onscreen_bar $(amixer sset Master 5%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1) $base0C
 
 ## Action // Decrease volume of Master ##
-bindsym XF86AudioLowerVolume exec $onscreen_bar $(amixer sset Master 5%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1) $base0C
+$bindsym XF86AudioLowerVolume exec $onscreen_bar $(amixer sset Master 5%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1) $base0C
 
 ## Action // Mute volume of Master ##
-bindsym XF86AudioMute exec $onscreen_bar $(amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1) $base0C
+$bindsym XF86AudioMute exec $onscreen_bar $(amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1) $base0C
 
 ## Action // Increase brightness ##
-bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1) $base0C
+$bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1) $base0C
 
 ## Action // Decrease brightness ##
-bindsym XF86MonBrightnessDown exec light -U 5 && $onscreen_bar $(light -G | cut -d'.' -f1) $base0C
+$bindsym XF86MonBrightnessDown exec light -U 5 && $onscreen_bar $(light -G | cut -d'.' -f1) $base0C
 
-bindsym XF86PowerOff exec $shutdown
+$bindsym XF86PowerOff exec $shutdown
 
-bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
+$bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
 
 #
 # Moving around:
 #
 # Move your focus around
 ## Navigation // Move focus // $mod + ↑ ↓ ← → ##
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+$bindsym $mod+Left focus left
+$bindsym $mod+Down focus down
+$bindsym $mod+Up focus up
+$bindsym $mod+Right focus right
 
 ## Navigation // Move focussed window // $mod + Shift + ↑ ↓ ← → ##
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+$bindsym $mod+Shift+Left move left
+$bindsym $mod+Shift+Down move down
+$bindsym $mod+Shift+Up move up
+$bindsym $mod+Shift+Right move right
 
 #
 # Workspaces:
 #
 ## Navigation // Switch workspace // $mod + [number] ##
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+$bindsym $mod+1 workspace $ws1
+$bindsym $mod+2 workspace $ws2
+$bindsym $mod+3 workspace $ws3
+$bindsym $mod+4 workspace $ws4
+$bindsym $mod+5 workspace $ws5
+$bindsym $mod+6 workspace $ws6
+$bindsym $mod+7 workspace $ws7
+$bindsym $mod+8 workspace $ws8
+$bindsym $mod+9 workspace $ws9
+$bindsym $mod+0 workspace $ws10
 
 ## Action // Move focussed window to workspace // $mod + Shift + [number] ##
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+$bindsym $mod+Shift+1 move container to workspace $ws1
+$bindsym $mod+Shift+2 move container to workspace $ws2
+$bindsym $mod+Shift+3 move container to workspace $ws3
+$bindsym $mod+Shift+4 move container to workspace $ws4
+$bindsym $mod+Shift+5 move container to workspace $ws5
+$bindsym $mod+Shift+6 move container to workspace $ws6
+$bindsym $mod+Shift+7 move container to workspace $ws7
+$bindsym $mod+Shift+8 move container to workspace $ws8
+$bindsym $mod+Shift+9 move container to workspace $ws9
+$bindsym $mod+Shift+0 move container to workspace $ws10
 
 #
 # Layout stuff:
 #
 ## Setting // Split windows horizontally ##
-bindsym $mod+b splith
+$bindsym $mod+b splith
 ## Setting // Split windows vertically ##
-bindsym $mod+v splitv
+$bindsym $mod+v splitv
 
 ## Action // Switch to window stacking ##
-bindsym $mod+s layout stacking
+$bindsym $mod+s layout stacking
 ## Action // Switch to window tabbing ##
-bindsym $mod+w layout tabbed
+$bindsym $mod+w layout tabbed
 ## Action // Toggle window splitting ##
-bindsym $mod+e layout toggle split
+$bindsym $mod+e layout toggle split
 
 ## Action // Toggle fullscreen ##
-bindsym $mod+f fullscreen
+$bindsym $mod+f fullscreen
 
 ## Action // Toggle floating ##
-bindsym $mod+Shift+space floating toggle
+$bindsym $mod+Shift+space floating toggle
 
 ## Navigation // Swap focus between the tiling area and the floating area ##
-bindsym $mod+space focus mode_toggle
+$bindsym $mod+space focus mode_toggle
 
 ## Navigation // Swap focus to the parent window ##
-bindsym $mod+a focus parent
+$bindsym $mod+a focus parent
 
 ## Launch // Help ##
-bindsym $mod+question exec $help
+$bindsym $mod+question exec $help
 
 default_border pixel 1
 hide_edge_borders smart

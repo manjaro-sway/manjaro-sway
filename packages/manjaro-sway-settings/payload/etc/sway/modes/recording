@@ -11,24 +11,24 @@ set $mode_recording_on "<span foreground='$base0A'>壘</span>  \
 <span foreground='$base05'><b>Exit</b></span> <span foreground='$base0A'>(<b>ESC</b>)</span>"
 
 mode --pango_markup $mode_recording_on {
-    bindsym Escape exec killall -s SIGINT wf-recorder, mode "default"
+    $bindsym Escape exec killall -s SIGINT wf-recorder, mode "default"
 }
 
 mode --pango_markup $mode_recording {
-    bindsym w exec killall -s SIGINT wf-recorder || wf-recorder --audio=0 -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
+    $bindsym w exec killall -s SIGINT wf-recorder || wf-recorder --audio=0 -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
             -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
-    bindsym Shift+w exec killall -s SIGINT wf-recorder || wf-recorder --audio -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
+    $bindsym Shift+w exec killall -s SIGINT wf-recorder || wf-recorder --audio -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
             -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
-    bindsym r exec killall -s SIGINT wf-recorder || wf-recorder --audio=0 -g "$(slurp -d)" \
+    $bindsym r exec killall -s SIGINT wf-recorder || wf-recorder --audio=0 -g "$(slurp -d)" \
             -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
-    bindsym Shift+r exec killall -s SIGINT wf-recorder || wf-recorder --audio -g "$(slurp -d)" \
+    $bindsym Shift+r exec killall -s SIGINT wf-recorder || wf-recorder --audio -g "$(slurp -d)" \
             -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
 
     # Return to default mode.
-    bindsym Escape mode "default"
-    bindsym Return mode "default"
+    $bindsym Escape mode "default"
+    $bindsym Return mode "default"
 }
 
 ## Launch // Recording Mode ##
-bindsym $mod+Shift+r mode $mode_recording
+$bindsym $mod+Shift+r mode $mode_recording
 
