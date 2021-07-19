@@ -24,9 +24,9 @@ set $background /usr/share/backgrounds/manjaro-sway/gruvbox-dark-manjarosway-384
 set $theme /usr/share/sway/themes/matcha-green
 
 # Your preferred terminal emulator
-set $term /usr/share/sway/scripts/terminal.sh
-set $term_float $term float
-set $term_float_portrait $term float_portrait
+set $term foot
+set $term_float footclient -a floating_shell
+set $term_float_portrait footclient -a floating_shell_portrait
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened

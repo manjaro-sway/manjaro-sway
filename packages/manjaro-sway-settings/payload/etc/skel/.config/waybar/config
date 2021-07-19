@@ -156,7 +156,7 @@
 	      "󰔐"  // Icon: temperature not ok
       ],
       "tooltip": true,
-      "on-click": "swaymsg exec \"\\$term_float 'watch sensors'\""
+      "on-click": "swaymsg exec \"\\$term_float watch sensors\""
     },
 
     "tray": {

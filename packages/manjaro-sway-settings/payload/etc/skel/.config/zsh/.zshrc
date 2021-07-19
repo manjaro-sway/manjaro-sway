@@ -24,3 +24,5 @@ ZSH_THEME="agnoster"
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zshrc
+
+alias ssh="TERM=xterm-256color ssh"

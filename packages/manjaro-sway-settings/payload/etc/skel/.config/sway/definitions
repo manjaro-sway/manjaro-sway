@@ -7,3 +7,4 @@
 # * change the background image: set $background /usr/share/wallpapers/manjaro-nudes.png
 # * change the theme: set $theme /usr/share/sway/themes/matcha-blue
 # * change waybar position: set $waybar_position bottom
+# make a foot client instance the default terminal for even faster terminal windows: set $term footclient
