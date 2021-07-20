@@ -60,8 +60,8 @@ major changes specific to this flavor of manjaro are mostly being done in the [d
 
 ### how can I customize sway without loosing my customizations after an upgrade?
 
-you can easily add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway#Keymap) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints.
-
+you can easily add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints.
+f
 ## setup and configuration
 
 ### how can I enable screen-share in chromium(-alike) browsers?
@@ -96,7 +96,7 @@ pacman -R flashfocus
 
 ### why do my keyboard settings from the installer have no effect?
 
-sway is doing keyboard settings using xkb not supported by the manjaro installer. please refer [here](https://wiki.archlinux.org/title/Sway#Keymap) for help.
+Manjaro installer controls keyboard settings using xkb, sway doesn't support it. Please refer [here](https://wiki.archlinux.org/title/Sway#Keymap) for help.
 
 ### why do my auto-login settings from the installer have no effect?
 
