@@ -20,41 +20,9 @@ this is an approach to create a regular manjaro sway built - with to following p
 
 images are build and uploaded in a relatively regular interval to [github releases](https://github.com/manjaro-sway/manjaro-sway/releases)
 
-## how to upgrade?
+## questions?
 
-after upgrading packages, you will sometimes need to update you skeleton:
-
-```
-cp -rf /etc/skel/.config/* ~/.config
-```
-
-keep in mind that this could cause problems with customizations you made. make a backup pls.
-
-## what are the commands?
-
-you can reach a quick introduction pressing `Super + Shift + ?`
-
-## how do I configure sway to be even more awesome?
-
-you can easily add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway#Keymap) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints.
-
-## unknown public key
-
-the public key used for our package repo is not yet inside the manjaro keyring. until we are, allow our key manually:
-
-```
-pacman-key --keyserver keys.openpgp.org --recv-key A44C644D792767CED7941AFEABB2075D5F310CF8
-```
-
-## unable to log in virtual machines
-
-While it seems to work out of the box in some kvm/qemu environments (Gnome Boxes seems to work), you need to enable 3D acceleration in most of them. Refer [here](https://github.com/Manjaro-Sway/manjaro-sway/issues/56) for further information and feedback.
-
-## what doesn't work yet?
-
-- blurry fonts in xwayland
-
-Otherwise: [you tell me](https://github.com/manjaro-sway/manjaro-sway/issues). I'd be happy to try to even out everything. PRs will be accepted in the repos listed below.
+have a look [here](SUPPORT.md)
 
 ## sources
 
@@ -84,22 +52,6 @@ Otherwise: [you tell me](https://github.com/manjaro-sway/manjaro-sway/issues). I
 user: manjaro
 password: manjaro
 ```
-
-## first boot
-
-1. make chromium use native window decorations
-
-![chromium](docs/_includes/chromium.png?raw=true)
-
-2. enable [this flag] (chrome://flags/#enable-webrtc-pipewire-capturer)(`chrome://flags/#enable-webrtc-pipewire-capturer`) to allow screensharing in chromium
-
-3. [set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
-
-4. fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
-
-5. auto enable bluetooth on boot: `echo "AutoEnable=true" >> /etc/bluetooth/main.conf`
-
-6. if you have a keyboard layout other then basic `us`, [add your keyboard settings](https://wiki.archlinux.org/title/Sway#Keymap) to a userspace configuration file (e.g. `~/.config/sway/config.d/01-keyboard.conf`).
 
 ## credits
 
