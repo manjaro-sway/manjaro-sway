@@ -30,10 +30,6 @@ you can easily add more sway configuration inside `~/.config/sway/config.d/`. pl
 
 While it seems to work out of the box in some kvm/qemu environments (Gnome Boxes seems to work), you need to enable 3D acceleration in most of them. Refer [here](https://github.com/Manjaro-Sway/manjaro-sway/issues/56) for further information and feedback.
 
-## how do I make chromium use native window decorations (mostly: none)?
-
-![chromium](docs/_includes/chromium.png?raw=true)
-
 ## how can I enable screen-share in chromium(-alike) browsers?
 
 enable [this flag] (chrome://flags/#enable-webrtc-pipewire-capturer)(`chrome://flags/#enable-webrtc-pipewire-capturer`)
@@ -74,4 +70,44 @@ to remove existing shortcuts (for example to reuse them elsewhere) you can `$unb
 
 ```
 $unbindsym $mod+w
+```
+
+## why doesn't it start with nvidia drivers?
+
+[perhaps you're using the proprietary ones](https://github.com/swaywm/sway/issues/490).
+
+## how do I disable the window focus flashing animation?
+
+```
+pacman -R flashfocus
+```
+
+## how can I track updates?
+
+major changes specific to this flavor of manjaro are mostly being done in the [desktop-settings repo](https://github.com/Manjaro-Sway/desktop-settings).
+
+## why do my keyboard settings from the installer have no effect?
+
+sway is doing keyboard settings using xkb not supported by the manjaro installer. please refer [here](https://wiki.archlinux.org/title/Sway#Keymap) for help.
+
+## why do my auto-login settings from the installer have no effect?
+
+greetd, our login messenger, is not supported by the manjaro installer. refer [here](https://wiki.archlinux.org/title/Greetd#Autologin) for help.
+
+## how can I disable the night light feature?
+
+```
+pacman -R wlsunset
+```
+
+## how can I disable the dynamic workspace icons?
+
+```
+pacman -R sworkstyle
+```
+
+## how can I disable the window auto-tiling?
+
+```
+pacman -R autotiling
 ```
