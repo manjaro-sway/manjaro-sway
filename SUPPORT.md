@@ -24,7 +24,7 @@ $unbindsym $mod+w
 
 ### how do I upgrade the ~/.config after an update?
 
-after upgrading packages, you will sometimes need to update you skeleton:
+after upgrading packages, you will sometimes need to update your skeleton:
 
 ```
 cp -rf /etc/skel/.config/* ~/.config
@@ -66,7 +66,7 @@ you can easily add more sway configuration inside `~/.config/sway/config.d/`. pl
 
 ### how can I enable screen-share in chromium(-alike) browsers?
 
-enable [this flag] (chrome://flags/#enable-webrtc-pipewire-capturer)(`chrome://flags/#enable-webrtc-pipewire-capturer`)
+enable [this flag](chrome://flags/#enable-webrtc-pipewire-capturer)
 
 ### how can I log in inside a virtual machine?
 
