@@ -66,7 +66,7 @@ you can easily add more sway configuration inside `~/.config/sway/config.d/`. pl
 
 ### how can I enable screen-share in chromium(-alike) browsers?
 
-enable [this flag](chrome://flags/#enable-webrtc-pipewire-capturer)
+enable `chrome://flags/#enable-webrtc-pipewire-capturer`
 
 ### how can I log in inside a virtual machine?
 
