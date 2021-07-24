@@ -33,6 +33,7 @@ mesa-vdpau
 opencl-mesa
 open-vm-tools
 primus
+qemu-guest-agent
 bumblebee
 nvidia-prime
 gtkmm3
