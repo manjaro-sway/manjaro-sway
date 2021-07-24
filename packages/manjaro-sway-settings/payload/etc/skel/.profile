@@ -13,6 +13,9 @@ export QT_QPA_PLATFORM="wayland"
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 
+#Java XWayland blank screens fix
+_JAVA_AWT_WM_NONREPARENTING=1
+
 # set default shell and terminal
 export SHELL=/usr/bin/zsh
 export TERMINAL_COMMAND=foot
