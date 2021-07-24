@@ -65,7 +65,6 @@ if you like our distribution and have some bucks to spare, please consider contr
 
 - for sway and wlroots, consider [Drew DeVault](https://drewdevault.com/donate)
 - for waybar, consider [Alexis Rouillard](https://github.com/sponsors/Alexays)
-- for wofi, consider [Scoopta](https://liberapay.com/Scoopta)
 
 ## Contributors ✨
 
