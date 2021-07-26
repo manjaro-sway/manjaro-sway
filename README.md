@@ -9,7 +9,7 @@
 
 ## description
 
-[![watch it in action](https://yt-embed.herokuapp.com/embed?v=34DIO61GxAE)](https://www.youtube.com/watch?v=34DIO61GxAE "watch it in action")
+[![watch it in action](https://img.youtube.com/vi/34DIO61GxAE/0.jpg)](https://www.youtube.com/watch?v=34DIO61GxAE "watch it in action")
 
 this is an approach to create a regular manjaro sway built - with to following paradigms:
 
