@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # https://github.com/francma/wob/wiki/wob-wrapper-script
+#$1 - accent color. $2 - background color. $3 - new value
 # returns 0 (success) if $1 is running and is attached to this sway session; else 1
 is_running_on_this_screen() {
     pkill -0 $1 || return 1
@@ -12,9 +13,7 @@ is_running_on_this_screen() {
     return 1
 }
 
-new_value=$1 # null or a percent; no checking!!
-
-color=${2:-16a085}
+new_value=$3 # null or a percent; no checking!!
 
 wob_pipe=~/.cache/$( basename $SWAYSOCK ).wob
 
@@ -22,7 +21,7 @@ wob_pipe=~/.cache/$( basename $SWAYSOCK ).wob
 
 # wob does not appear in $(swaymsg -t get_msg), so:
 is_running_on_this_screen wob || {
-    tail -f $wob_pipe | wob --border-color "#FF${color}" --bar-color "#FF${color}" --background-color '#FF000000' --anchor top --anchor center --margin 20 &
+    tail -f $wob_pipe | wob --border-color $1 --bar-color $1 --background-color $2 --anchor top --anchor center --margin 20 &
 }
 
 [[ "$new_value" ]] && echo $new_value > $wob_pipe

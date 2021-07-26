@@ -1,11 +1,11 @@
-set $mode_screenshot "<span foreground='$base0A'>󰄄</span>  \
-<span foreground='$base05'><b>Everything</b></span> <span foreground='$base0A'>(<b>e</b>)</span> \
-<span foreground='$base01'>—</span> \
-<span foreground='$base05'><b>Window</b></span> <span foreground='$base0A'>(<b>w</b>)</span> \
-<span foreground='$base01'>—</span> \
-<span foreground='$base05'><b>Screen</b></span> <span foreground='$base0A'>(<b>s</b>)</span> \
-<span foreground='$base01'>—</span> \
-<span foreground='$base05'><b>Area</b></span> <span foreground='$base0A'>(<b>a</b>)</span>"
+set $mode_screenshot "<span foreground='$color10'>󰄄</span>  \
+<span foreground='$color5'><b>Everything</b></span> <span foreground='$color10'>(<b>e</b>)</span> \
+<span foreground='$color1'>—</span> \
+<span foreground='$color5'><b>Window</b></span> <span foreground='$color10'>(<b>w</b>)</span> \
+<span foreground='$color1'>—</span> \
+<span foreground='$color5'><b>Screen</b></span> <span foreground='$color10'>(<b>s</b>)</span> \
+<span foreground='$color1'>—</span> \
+<span foreground='$color5'><b>Area</b></span> <span foreground='$color10'>(<b>a</b>)</span>"
 
 set $grimshot /usr/share/sway/scripts/grimshot
 

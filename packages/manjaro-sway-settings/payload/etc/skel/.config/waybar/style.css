@@ -1,3 +1,4 @@
+
 /* =============================================================================
  *
  * Waybar configuration
@@ -7,7 +8,6 @@
  * =========================================================================== */
 
 /* import css definitions for current theme */
-@import url("theme.css");
 
 /* -----------------------------------------------------------------------------
  * Keyframes
@@ -15,22 +15,22 @@
 
 @keyframes blink-warning {
     70% {
-        color: @text_color;
+        color: @wm_icon_bg;
     }
 
     to {
-        color: @text_color;
+        color: @wm_icon_bg;
         background-color: @warning_color;
     }
 }
 
 @keyframes blink-critical {
     70% {
-      color: @text_color;
+      color: @wm_icon_bg;
     }
 
     to {
-        color: @text_color;
+        color: @wm_icon_bg;
         background-color: @error_color;
     }
 }
@@ -52,8 +52,8 @@
 
 /* The whole bar */
 #waybar {
-    background: @background_color;
-    color: @text_color;
+    background: @theme_bg_color;
+    color: @wm_icon_bg;
     font-size: 14px;
 }
 
@@ -84,7 +84,7 @@
  * -------------------------------------------------------------------------- */
 
 #custom-scratchpad {
-    background-color: @accent_color;
+    background-color: @theme_selected_bg_color;
 }
 
 #battery {
@@ -113,7 +113,7 @@
 
 #clock {
     font-weight: bold;
-    background-color: @accent_color;
+    background-color: @theme_selected_bg_color;
 }
 
 #cpu {
@@ -129,7 +129,7 @@
 }
 
 #custom-menu {
-    background-color: @accent_color;
+    background-color: @theme_selected_bg_color;
 }
 
 #memory {
@@ -184,7 +184,7 @@
 #window {
     font-weight: bold;
     margin-right: 25px;
-    color: @accent_color;
+    color: @theme_selected_bg_color;
 }
 
 #workspaces button {
@@ -193,13 +193,13 @@
     padding-bottom: 2px;
     padding-left: 10px;
     padding-right: 10px;
-    color: @accent_color;
+    color: @theme_selected_bg_color;
 }
 
 #workspaces button.focused {
-    border-color: @accent_color;
-    color: @text_color;
-    background-color: @accent_color;
+    border-color: @theme_selected_bg_color;
+    color: @wm_icon_bg;
+    background-color: @theme_selected_bg_color;
 }
 
 #workspaces button.urgent {

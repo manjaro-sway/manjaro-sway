@@ -20,22 +20,20 @@ set $unbindsym unbindsym --to-code
 # background
 set $background /usr/share/backgrounds/manjaro-sway/gruvbox-dark-manjarosway-3840x2160.png
 
-# styles - matcha-green or matcha-blue
-set $theme /usr/share/sway/themes/matcha-green
-
 # Your preferred terminal emulator
 set $term foot
 set $term_float footclient -a floating_shell
 set $term_float_portrait footclient -a floating_shell_portrait
 
 # Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
-set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command  "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "Roboto Nerd Fonts Mono 14" -lines 10 -width 35
+set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command  "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "$gui-font" -lines 10 -width 35 -color-normal "$background-color, $text-color, $background-color, $accent-color, $text-color" -color-window "$background-color, $selection-color"
 
 ### Lockscreen configuration
-#
-set $locking swaylock --daemonize --config $theme/swaylock
+set $locking swaylock --daemonize --color $selection-color --inside-color $selection-color --inside-clear-color $text-color --ring-color $color2 --ring-clear-color $color11 --ring-ver-color $color13 --show-failed-attempts --fade-in 0.2 --grace 2 --effect-vignette 0.5:0.5 --effect-blur 7x5 --ignore-empty-password --screenshots --clock
+
+###Notification daemon configuration
+set $notifications mako --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000
+
 
 ### Idle configuration
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -60,11 +58,10 @@ set $shutdown wlogout --buttons-per-row 3
 set $pulseaudio $term_float pulsemixer
 
 # help command
-set $help $term_float "man $HOME/.config/sway/help.man"
+set $help "$term_float man $HOME/.config/sway/help.man"
 
 # onscreen bar
-set $onscreen_bar bash /usr/share/sway/scripts/wob.sh
-
+set $onscreen_bar bash /usr/share/sway/scripts/wob.sh "$accent-colorFF" "$background-colorFF" 
 # calendar application
 set $calendar $term_float "khal interactive"
 

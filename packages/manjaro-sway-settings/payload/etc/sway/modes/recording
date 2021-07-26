@@ -1,14 +1,14 @@
-set $mode_recording "<span foreground='$base0A'>󰃽</span>  \
-<span foreground='$base05'><b>Screen</b></span> <span foreground='$base0A'>(<b>w</b>)</span> \
-<span foreground='$base01'>—</span> \
-<span foreground='$base05'><b>Screen (+ Mic)</b></span> <span foreground='$base0A'>(<b>Shift+w</b>)</span> \
-<span foreground='$base01'>—</span> \
-<span foreground='$base05'><b>Region</b></span> <span foreground='$base0A'>(<b>r</b>)</span> \
-<span foreground='$base01'>—</span> \
-<span foreground='$base05'><b>Region (+ Mic)</b></span> <span foreground='$base0A'>(<b>Shift+r</b>)</span>"
+set $mode_recording "<span foreground='$color10'>󰃽</span>  \
+<span foreground='$color5'><b>Screen</b></span> <span foreground='$color10'>(<b>w</b>)</span> \
+<span foreground='$color1'>—</span> \
+<span foreground='$color5'><b>Screen (+ Mic)</b></span> <span foreground='$color10'>(<b>Shift+w</b>)</span> \
+<span foreground='$color1'>—</span> \
+<span foreground='$color5'><b>Region</b></span> <span foreground='$color10'>(<b>r</b>)</span> \
+<span foreground='$color1'>—</span> \
+<span foreground='$color5'><b>Region (+ Mic)</b></span> <span foreground='$color10'>(<b>Shift+r</b>)</span>"
 
-set $mode_recording_on "<span foreground='$base0A'>壘</span>  \
-<span foreground='$base05'><b>Exit</b></span> <span foreground='$base0A'>(<b>ESC</b>)</span>"
+set $mode_recording_on "<span foreground='$color10'>壘</span>  \
+<span foreground='$color5'><b>Exit</b></span> <span foreground='$color10'>(<b>ESC</b>)</span>"
 
 mode --pango_markup $mode_recording_on {
     $bindsym Escape exec killall -s SIGINT wf-recorder, mode "default"

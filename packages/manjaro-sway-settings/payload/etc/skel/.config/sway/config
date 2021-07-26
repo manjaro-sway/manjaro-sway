@@ -4,6 +4,12 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+# styles - set the folder for your theme defination file
+set $theme /usr/share/sway/themes/matcha-green
+
+#theme variables
+include $theme/definitions
+
 # global variables
 include /etc/sway/definitions
 

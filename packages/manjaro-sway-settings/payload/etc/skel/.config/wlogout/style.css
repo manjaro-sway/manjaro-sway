@@ -1,15 +1,13 @@
 /* import css definitions for current theme */
-@import url("theme.css");
-
 * {
     background-image: none;
 }
 window {
-    background-color: @transparent_background_color;
+    background-color: @theme_bg_color;
 }
 button {
-    color: @text_color;
-    background-color: @background_color;
+    color: @wm_icon_bg;
+    background-color: @theme_bg_color;
     border-style: solid;
     border-width: 2px;
     background-repeat: no-repeat;
@@ -18,7 +16,7 @@ button {
 }
 
 button:focus, button:active, button:hover {
-    background-color: @accent_color;
+    background-color: @theme_selected_bg_color;
     outline-style: none;
 }
 
@@ -45,3 +43,4 @@ button:focus, button:active, button:hover {
 #reboot {
     background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
 }
+

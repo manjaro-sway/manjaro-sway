@@ -25,19 +25,19 @@ $bindsym $mod+Shift+c reload
 $bindsym $mod+Shift+e exec $shutdown
 
 ## Action // Increase volume of Master ##
-$bindsym XF86AudioRaiseVolume exec $onscreen_bar $(amixer sset Master 5%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1) $base0C
+$bindsym XF86AudioRaiseVolume exec $onscreen_bar $(amixer sset Master 5%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1)
 
 ## Action // Decrease volume of Master ##
-$bindsym XF86AudioLowerVolume exec $onscreen_bar $(amixer sset Master 5%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1) $base0C
+$bindsym XF86AudioLowerVolume exec $onscreen_bar $(amixer sset Master 5%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1)
 
 ## Action // Mute volume of Master ##
-$bindsym XF86AudioMute exec $onscreen_bar $(amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1) $base0C
+$bindsym XF86AudioMute exec $onscreen_bar $(amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1)
 
 ## Action // Increase brightness ##
-$bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1) $base0C
+$bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
 ## Action // Decrease brightness ##
-$bindsym XF86MonBrightnessDown exec light -U 5 && $onscreen_bar $(light -G | cut -d'.' -f1) $base0C
+$bindsym XF86MonBrightnessDown exec light -U 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
 $bindsym XF86PowerOff exec $shutdown
 
