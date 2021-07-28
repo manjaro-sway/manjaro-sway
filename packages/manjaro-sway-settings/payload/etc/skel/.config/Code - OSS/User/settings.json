@@ -1,4 +1,4 @@
 {
-  "editor.fontFamily": "'Droid Sans Mono', 'RobotoMono Nerd Font', monospace, 'Droid Sans Fallback'",
-  "terminal.integrated.fontFamily": "'RobotoMono Nerd Font', 'Noto Color Emoji', 'Material Design Icons', monospace"
+  "editor.fontFamily": "'RobotoMono Nerd Font', 'Droid Sans Mono',  monospace, 'Droid Sans Fallback'",
+  "terminal.integrated.fontFamily": "'RobotoMono Nerd Font', monospace"
 }
