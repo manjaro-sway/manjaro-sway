@@ -2,6 +2,15 @@
 
 ## shortcuts
 
+### how can I unzip the multi-part zip (.zip + .z01)?
+
+if you archive manger doesn't support multipart zips already, you can just merge the two files using cat:
+
+```bash
+cat *.z* >tmp.zip
+unzip tmp.zip
+```
+
 ### how can I list the predefined shortcuts?
 
 you can reach a quick introduction pressing `Super + Shift + ?`
