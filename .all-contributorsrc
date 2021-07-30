@@ -107,6 +107,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "MuratovAS",
+      "name": "Алексей Муратов ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50487552?v=4",
+      "profile": "http://MuratovAS.github.io",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
