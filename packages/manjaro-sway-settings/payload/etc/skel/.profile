@@ -19,7 +19,3 @@ _JAVA_AWT_WM_NONREPARENTING=1
 # set default shell and terminal
 export SHELL=/usr/bin/zsh
 export TERMINAL_COMMAND=foot
-
-# sway-launcher-desktop with material icons
-export GLYPH_DESKTOP="󰄶 "
-export GLYPH_COMMAND="󰆍 "
