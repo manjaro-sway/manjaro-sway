@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #Startup function
 function start(){
@@ -15,8 +15,10 @@ function start(){
 	if [ "${location}" = "on" ]; 
 	then
 		CONTENT=$(curl -s https://freegeoip.app/json/)
-		longitude=${$(echo $CONTENT | jq '.longitude // empty'):-"${longitude}"}
-		latitude=${$(echo $CONTENT | jq '.latitude // empty'):-"${latitude}"}
+		content_longitude=$(echo $CONTENT | jq '.longitude // empty')
+        longitude=${content_longitude:-"${longitude}"}
+        content_latitude=$(echo $CONTENT | jq '.latitude // empty')
+        latitude=${content_latitude:-"${latitude}"}
 		wlsunset -l $latitude -L $longitude -t $temp_low -T $temp_high -d $duration &
 	else
 		wlsunset -t $temp_low -T $temp_high -d $duration -S $sunrise -s $sunset &

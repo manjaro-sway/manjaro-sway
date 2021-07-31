@@ -27,20 +27,19 @@
         "sway/window"
     ],
     "modules-right": [
+        "custom/help",
         "network",
         "bluetooth",
         "cpu",
         "memory",
         "battery",
         "temperature",
-        "backlight",
         "idle_inhibitor",
         "custom/sunset",
         "pulseaudio",
         "custom/pacman",
-        "tray",
         "sway/language",
-        "custom/help",
+        "tray",
         "clock",
     ],
 
@@ -54,17 +53,10 @@
             "warning": 30,
             "critical": 15
         },
-        "format-charging": "󰂄{capacity}%", // Icon: bolt
-        "format": "{icon}{capacity}%",
-        "format-icons": [
-            "󰂃",
-	        "󰁺", // Icon: battery-empty
-            "󰁻", // Icon: battery-quarter
-            "󰁽", // Icon: battery-half
-            "󰂀", // Icon: battery-three-quarters
-            "󰁹"  // Icon: battery-full
-        ],
-        "tooltip": false,
+        "format-charging": "",
+        "format": "{icon}",
+        "format-icons": ["","","","","",""],
+        "tooltip": true,
         "bat": "BAT0"
     },
 
@@ -78,7 +70,7 @@
 
     "cpu": {
         "interval": 5,
-        "format": "󰘚{usage}%", // Icon: microchip
+        "format": "﬙",
         "states": {
             "warning": 70,
             "critical": 90
@@ -88,7 +80,7 @@
 
     "memory": {
         "interval": 5,
-        "format": "󰍛{}%", // Icon: memory
+        "format": "",
         "states": {
             "warning": 70,
             "critical": 90
@@ -98,10 +90,10 @@
 
     "network": {
         "interval": 5,
-        "format-wifi": "󰖩 {essid} ({signalStrength}%)", // Icon: wifi
-        "format-ethernet": "󰈀 {ifname}", // Icon: ethernet
-        "format-disconnected": "󱘖",
-        "tooltip-format": "{ifname}: {ipaddr}",
+        "format-wifi": " ",
+        "format-ethernet": "",
+        "format-disconnected": "睊",
+        "tooltip-format": "{ifname} ({essid}): {ipaddr}",
         "on-click": "swaymsg exec \\$term_float nmtui"
     },
 
@@ -112,50 +104,41 @@
 
     "sway/window": {
         "format": "{}",
-        "max-length": 120
-    },
-
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-down": "light -A 1",
-        "on-scroll-up": "light -U 1"
+        "max-length": 80
     },
 
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "󰒳",
-            "deactivated": "󰒲"
+            "activated": "零",
+            "deactivated": "鈴"
         }
     },
 
     "pulseaudio": {
-        //"scroll-step": 1,
-        "format": "{icon}{volume}%  󰍬{format_source}",
-        "format-bluetooth": "{icon}󰂰 {volume}%  󰍬{format_source}",
-        "format-muted": "󰖁",
+        "scroll-step": 5,
+        "format": "{icon} {volume}% {format_source}",
+        "format-muted": "婢 {format_source}",
+        "format-source": "{volume}%",
+        "format-source-muted": "",
         "format-icons": {
-            "headphones": "󰋋",
-            "handsfree": "󱋿",
-            "headset": "󰋎",
-            "phone": "󰏲",
-            "portable": "󰄝",
-            "car": "󰄋",
-            "default": ["󰕿", "󰖀", "󰕾"]
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["奄", "奔", "墳"]
         },
+        "tooltip-format": "{icon} {volume}% {format_source}",
         "on-click": "swaymsg exec \\$pulseaudio"
     },
 
     "temperature": {
       "critical-threshold": 90,
       "interval": 5,
-      "format": "{icon}{temperatureC}°C",
-      "format-icons": [
-          "󱃃",
-          "󰔏", // Icon: temperature ok
-	      "󰔐"  // Icon: temperature not ok
-      ],
+      "format": "{icon}",
+      "format-icons": ["","",""],
       "tooltip": true,
       "on-click": "swaymsg exec \"\\$term_float watch sensors\""
     },
@@ -166,7 +149,7 @@
     },
 
     "custom/pacman": {
-        "format": "󰀼 {}",
+        "format": " {}",
         "interval": 3600,
         "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
         "exec": "pamac checkupdates -q | wc -l",
@@ -174,13 +157,13 @@
     },
 
     "custom/menu": {
-        "format": "󱘊",
+        "format": "",
         "on-click": "swaymsg exec \\$menu",
         "tooltip": false
     },
 
     "custom/help": {
-        "format": "󰑪",
+        "format": "",
         "on-click": "swaymsg exec \\$help",
         "tooltip": false
     },
@@ -189,19 +172,20 @@
         "format": "{icon}",
         "interval": 30,
         "format-icons": {
-            "enabled": "󰂯",
-            "disabled": "󰂲"
+            "enabled": "",
+            "disabled": ""
         },
         "on-click": "blueberry",
         "tooltip-format": "{}"
     },
+
     "custom/scratchpad": {
         "interval": 1,
         "return-type": "json",
         "format" : "{icon}",
         "format-icons": {
-            "one": "󰀿",
-            "many": "󰪴"
+            "one": "类",
+            "many": "缾"
         },
         "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
         "on-click": "swaymsg 'scratchpad show'"

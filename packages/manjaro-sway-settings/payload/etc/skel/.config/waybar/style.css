@@ -73,10 +73,11 @@
 #temperature,
 #idle_inhibitor,
 #backlight,
+#language,
 #custom-sunset,
 #tray {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 

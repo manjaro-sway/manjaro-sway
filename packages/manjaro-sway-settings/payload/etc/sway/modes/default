@@ -33,6 +33,9 @@ $bindsym XF86AudioLowerVolume exec $onscreen_bar $(amixer sset Master 5%- | sed 
 ## Action // Mute volume of Master ##
 $bindsym XF86AudioMute exec $onscreen_bar $(amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1)
 
+## Action // Mute volume of Master Input ##
+$bindsym XF86AudioMicMute exec $onscreen_bar $(amixer set Capture toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1)
+
 ## Action // Increase brightness ##
 $bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
