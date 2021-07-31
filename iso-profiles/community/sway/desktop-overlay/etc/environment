@@ -5,3 +5,5 @@
 #
 XDG_SESSION_TYPE=wayland
 XDG_CURRENT_DESKTOP=sway
+# avoid iterating over all libseat backends
+LIBSEAT_BACKEND=logind
