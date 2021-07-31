@@ -35,6 +35,7 @@
         "temperature",
         "backlight",
         "idle_inhibitor",
+        "custom/sunset",
         "pulseaudio",
         "custom/pacman",
         "tray",
@@ -204,5 +205,19 @@
         },
         "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
         "on-click": "swaymsg 'scratchpad show'"
-    }
+    },
+    
+    "custom/sunset": {
+        "interval": 2,
+        "tooltip": false,
+        "return-type": "json",
+        "format" : "{icon}",
+        "format-icons": {
+            "on": "ﯦ" ,
+            "off": "ﯧ" 
+        },
+        "exec": "/usr/share/sway/scripts/sunset.sh",
+        "on-click": "/usr/share/sway/scripts/sunset.sh toggle",
+        "exec-if": "/usr/share/sway/scripts/sunset.sh check"
+    },
 }
