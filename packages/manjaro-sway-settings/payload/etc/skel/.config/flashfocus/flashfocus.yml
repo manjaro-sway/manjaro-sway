@@ -22,7 +22,7 @@ ntimepoints: 20
 flash-on-focus: true
 
 # Set this to false if you don't want fullscreen windows to flash.
-flash-fullscreen: true
+flash-fullscreen: false
 
 # Whether or not to flash windows if they are the only window on the desktop.
 # Possible values:
