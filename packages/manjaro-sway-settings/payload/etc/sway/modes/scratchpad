@@ -5,8 +5,8 @@
 # You can send windows there and get them back later.
 
 ## Action // Move the currently focused window to the scratchpad ##
-$bindsym $mod+Shift+minus move scratchpad, exec "pkill -RTMIN+8 waybar"
+$bindsym $mod+Shift+minus move scratchpad, exec "pkill -RTMIN+7 waybar"
 
 # If there are multiple scratchpad windows, this command cycles through them.
 ## Action // Show the next scratchpad window or hide the focused scratchpad window. ##
-$bindsym $mod+minus scratchpad show, exec "pkill -RTMIN+8 waybar"
+$bindsym $mod+minus scratchpad show, exec "pkill -RTMIN+7 waybar"

@@ -40,6 +40,7 @@
         "bluetooth",
 
         // media
+        "custom/playerctl",
         "idle_inhibitor",
         "pulseaudio",
         "backlight",
@@ -128,10 +129,10 @@
 
     "pulseaudio": {
         "scroll-step": 5,
-        "format": "{icon}{volume}% {format_source}",
+        "format": "{icon}{volume}%{format_source}",
         "format-muted": "婢 {format_source}",
-        "format-source": "{volume}%",
-        "format-source-muted": "",
+        "format-source": "",
+        "format-source-muted": " ",
         "format-icons": {
             "headphone": "",
             "headset": "",
@@ -160,8 +161,8 @@
         "interval": 3600,
         "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
         "exec": "pamac checkupdates -q | wc -l",
-        "on-click": "pamac-manager --updates; pkill -RTMIN+8 waybar",
-        "signal": 8
+        "on-click": "pamac-manager --updates; pkill -RTMIN+4 waybar",
+        "signal": 4
     },
 
     "custom/menu": {
@@ -197,7 +198,7 @@
         },
         "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
         "on-click": "swaymsg 'scratchpad show'",
-        "signal": 8
+        "signal": 7
     },
     
     "custom/sunset": {
@@ -210,9 +211,9 @@
             "off": "" 
         },
         "exec": "/usr/share/sway/scripts/sunset.sh",
-        "on-click": "/usr/share/sway/scripts/sunset.sh toggle; pkill -RTMIN+8 waybar",
+        "on-click": "/usr/share/sway/scripts/sunset.sh toggle; pkill -RTMIN+6 waybar",
         "exec-if": "/usr/share/sway/scripts/sunset.sh check",
-        "signal": 8
+        "signal": 6
     },
 
     "custom/wf-recorder": {
@@ -234,5 +235,22 @@
         "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
         "exec-if": "command -v gh >/dev/null && gh auth status 2>&1 | grep -q -m 1 'Logged in' && gh api '/notifications' -q 'length' | grep -q -m 1 '0' ; test $? -eq 1",
         "on-click": "xdg-open https://github.com/notifications"
-    }
+    },
+
+    "custom/playerctl": {
+        "interval": "once",
+        "tooltip": true,
+        "return-type": "json",
+        "format" : "{icon}",
+        "format-icons": {
+            "Playing": "奈",
+            "Paused": ""
+        },
+        "exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
+        "on-click": "playerctl play-pause; pkill -RTMIN+5 waybar",
+        "on-click-right": "playerctl next; pkill -RTMIN+5 waybar",
+        "on-scroll-up": "playerctl position 10+; pkill -RTMIN+5 waybar",
+        "on-scroll-down": "playerctl position 10-; pkill -RTMIN+5 waybar",
+        "signal": 5
+    },
 }

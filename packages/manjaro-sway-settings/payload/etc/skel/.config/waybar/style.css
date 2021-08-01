@@ -75,9 +75,10 @@
 #backlight,
 #language,
 #custom-sunset,
+#custom-playerctl,
 #tray {
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -118,10 +119,6 @@
     background-color: @theme_selected_bg_color;
 }
 
-#cpu {
-  /* No styles */
-}
-
 #cpu.warning {
     color: @warning_color;
 }
@@ -156,33 +153,16 @@
     background: @background_color;
 }
 
-#network {
-    /* No styles */
-}
-
 #network.disconnected {
     color: @warning_color;
 }
 
-#pulseaudio {
-    /* No styles */
-}
-
 #pulseaudio.muted {
-    /* No styles */
     color: @warning_color;
-}
-
-#temperature {
-    /* No styles */
 }
 
 #temperature.critical {
     color: @error_color;
-}
-
-#tray {
-    /* No styles */
 }
 
 #window {
