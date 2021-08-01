@@ -32,7 +32,7 @@ then
     countdown
     (sleep 0.5 && pkill -RTMIN+8 waybar) &
 
-    if [ "$1" == "--audio" ]; then
+    if [ "$1" == "-a" ]; then
         file="$target_path/$timestamp.mp4"
         wf-recorder --audio -g "$area" --file="$file"
     else
