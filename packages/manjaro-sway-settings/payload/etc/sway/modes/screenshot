@@ -1,35 +1,20 @@
-set $mode_screenshot "<span foreground='$color10'>󰄄</span>  \
-<span foreground='$color5'><b>Everything</b></span> <span foreground='$color10'>(<b>e</b>)</span> \
-<span foreground='$color1'>—</span> \
-<span foreground='$color5'><b>Window</b></span> <span foreground='$color10'>(<b>w</b>)</span> \
-<span foreground='$color1'>—</span> \
-<span foreground='$color5'><b>Screen</b></span> <span foreground='$color10'>(<b>s</b>)</span> \
-<span foreground='$color1'>—</span> \
-<span foreground='$color5'><b>Area</b></span> <span foreground='$color10'>(<b>a</b>)</span>"
-
-set $grimshot /usr/share/sway/scripts/grimshot
+set $mode_screenshot "<span foreground='$color10'></span>  \
+<span foreground='$color5'><b>Pick</b></span> <span foreground='$color10'>(<b>p</b>)</span> \
+<span foreground='$color5'><b>Output</b></span> <span foreground='$color10'>(<b>o</b>)</span> \
+<span foreground='$color7'>+ [<span foreground='$color10'><b>Shift</b></span> for ]</span>"
 
 mode --pango_markup $mode_screenshot {
-
-    # screen = all outputs
-    $bindsym e exec $grimshot --notify copy screen
-    $bindsym Shift+e exec $grimshot --notify save screen
-
-    $bindsym w exec $grimshot --notify copy window
-    $bindsym Shift+w exec $grimshot --notify save window
-
     # output = currently active output
-    $bindsym s exec $grimshot --notify copy output
-    $bindsym Shift+s exec $grimshot --notify save output
-    
-    # User can pick the area to screenshot
-    $bindsym a exec $grimshot --notify copy area
-    $bindsym Shift+a exec $grimshot --notify save area
+    $bindsym o mode "default", exec $screenshot_screen_clipboard
+    $bindsym Shift+o mode "default", exec $screenshot_screen_file
+
+    # pick the region to screenshot
+    $bindsym p mode "default", exec $screenshot_selection_clipboard
+    $bindsym Shift+p mode "default", exec $screenshot_selection_file
 
     # Return to default mode.
     $bindsym Escape mode "default"
-    $bindsym Return mode "default"
 }
 
 ## Launch // Screenshot Mode ##
-$bindsym $mod+Shift+s mode $mode_screenshot
+$bindsym Print mode $mode_screenshot

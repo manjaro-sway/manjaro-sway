@@ -217,6 +217,7 @@
     color: @warning_color;
 }
 
-#custom-help {
-    padding-bottom: 2px;
+#custom-wf-recorder {
+    color: @error_color;
+    padding-right: 10px;
 }

@@ -20,25 +20,34 @@
     "modules-left": [
         "custom/menu",
         "sway/workspaces",
-        "custom/scratchpad",
-        "sway/mode"
+        "custom/scratchpad"
     ],
     "modules-center": [
-        "sway/window"
+        "custom/wf-recorder",
+        "sway/mode"
     ],
     "modules-right": [
+        // informational
+        "sway/language",
         "custom/help",
-        "network",
-        "bluetooth",
         "cpu",
         "memory",
         "battery",
         "temperature",
+
+        // connecting
+        "network",
+        "bluetooth",
+
+        // media
         "idle_inhibitor",
-        "custom/sunset",
         "pulseaudio",
+        "backlight",
+
+        // system
+        "custom/sunset",
         "custom/pacman",
-        "sway/language",
+
         "tray",
         "clock",
     ],
@@ -53,8 +62,8 @@
             "warning": 30,
             "critical": 15
         },
-        "format-charging": "",
-        "format": "{icon}",
+        "format-charging": " {capacity}%",
+        "format": "{icon} {capacity}%",
         "format-icons": ["","","","","",""],
         "tooltip": true,
         "bat": "BAT0"
@@ -70,7 +79,7 @@
 
     "cpu": {
         "interval": 5,
-        "format": "﬙",
+        "format": "﬙ {usage}%",
         "states": {
             "warning": 70,
             "critical": 90
@@ -80,7 +89,7 @@
 
     "memory": {
         "interval": 5,
-        "format": "",
+        "format": " {}%",
         "states": {
             "warning": 70,
             "critical": 90
@@ -102,11 +111,6 @@
         "tooltip": false
     },
 
-    "sway/window": {
-        "format": "{}",
-        "max-length": 80
-    },
-
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -115,19 +119,22 @@
         }
     },
 
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", ""],
+        "on-scroll-up": "light -A 1",
+        "on-scroll-down": "light -U 1"
+    },
+
     "pulseaudio": {
         "scroll-step": 5,
-        "format": "{icon} {volume}% {format_source}",
+        "format": "{icon}{volume}% {format_source}",
         "format-muted": "婢 {format_source}",
         "format-source": "{volume}%",
         "format-source-muted": "",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
+            "headphone": "",
             "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
             "default": ["奄", "奔", "墳"]
         },
         "tooltip-format": "{icon} {volume}% {format_source}",
@@ -137,7 +144,7 @@
     "temperature": {
       "critical-threshold": 90,
       "interval": 5,
-      "format": "{icon}",
+      "format": "{icon} {temperatureC}°C",
       "format-icons": ["","",""],
       "tooltip": true,
       "on-click": "swaymsg exec \"\\$term_float watch sensors\""
@@ -153,7 +160,8 @@
         "interval": 3600,
         "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
         "exec": "pamac checkupdates -q | wc -l",
-        "on-click": "pamac-manager --updates; pkill -SIGRTMIN+8 waybar",
+        "on-click": "pamac-manager --updates; pkill -RTMIN+8 waybar",
+        "signal": 8
     },
 
     "custom/menu": {
@@ -180,7 +188,7 @@
     },
 
     "custom/scratchpad": {
-        "interval": 1,
+        "interval": "once",
         "return-type": "json",
         "format" : "{icon}",
         "format-icons": {
@@ -188,20 +196,33 @@
             "many": "缾"
         },
         "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
-        "on-click": "swaymsg 'scratchpad show'"
+        "on-click": "swaymsg 'scratchpad show'",
+        "signal": 8
     },
     
     "custom/sunset": {
-        "interval": 2,
+        "interval": "once",
         "tooltip": false,
         "return-type": "json",
         "format" : "{icon}",
         "format-icons": {
-            "on": "ﯦ" ,
-            "off": "ﯧ" 
+            "on": "" ,
+            "off": "" 
         },
         "exec": "/usr/share/sway/scripts/sunset.sh",
-        "on-click": "/usr/share/sway/scripts/sunset.sh toggle",
-        "exec-if": "/usr/share/sway/scripts/sunset.sh check"
+        "on-click": "/usr/share/sway/scripts/sunset.sh toggle; pkill -RTMIN+8 waybar",
+        "exec-if": "/usr/share/sway/scripts/sunset.sh check",
+        "signal": 8
     },
+
+    "custom/wf-recorder": {
+        "interval": "once",
+        "return-type": "json",
+        "format" : "{}",
+        "tooltip-format": "{tooltip}",
+        "exec": "echo '{\"class\": \"recording\",\"text\":\"雷\",\"tooltip\":\"press $mod+Esc to stop recording\"}'",
+        "exec-if": "pgrep wf-recorder",
+        "on-click": "killall -s SIGINT wf-recorder",
+        "signal": 8
+	}
 }

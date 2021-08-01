@@ -51,9 +51,6 @@ set $idle swayidle -w \
 set $statusbar waybar
 set $waybar_position top
 
-# shutdown command
-set $shutdown wlogout --buttons-per-row 3
-
 # pulseaudio command
 set $pulseaudio $term_float pulsemixer
 
@@ -76,3 +73,11 @@ set $ws7 number 7
 set $ws8 number 8
 set $ws9 number 9
 set $ws10 number 10
+
+# screenshot 
+
+set $grimshot /usr/share/sway/scripts/grimshot
+set $screenshot_screen_clipboard $grimshot --notify copy output
+set $screenshot_screen_file $grimshot --notify save output
+set $screenshot_selection_clipboard $grimshot --notify copy window
+set $screenshot_selection_file $grimshot --notify save window

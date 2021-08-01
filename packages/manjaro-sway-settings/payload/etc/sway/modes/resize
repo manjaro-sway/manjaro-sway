@@ -1,8 +1,6 @@
 set $mode_resize "<span foreground='$color10'></span>  \
 <span foreground='$color5'><b>Resize</b></span> <span foreground='$color10'>(<b>h/j/k/l</b>)</span> \
-<span foreground='$color1'>—</span> \
 <span foreground='$color5'><b>Increase Gaps</b></span> <span foreground='$color10'>(<b>+</b>)</span> \
-<span foreground='$color1'>—</span> \
 <span foreground='$color5'><b>Decrease Gaps</b></span> <span foreground='$color10'>(<b>-</b>)</span>"
 
 mode --pango_markup $mode_resize {

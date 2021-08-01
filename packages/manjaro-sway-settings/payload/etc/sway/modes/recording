@@ -1,34 +1,19 @@
-set $mode_recording "<span foreground='$color10'>󰃽</span>  \
-<span foreground='$color5'><b>Screen</b></span> <span foreground='$color10'>(<b>w</b>)</span> \
-<span foreground='$color1'>—</span> \
-<span foreground='$color5'><b>Screen (+ Mic)</b></span> <span foreground='$color10'>(<b>Shift+w</b>)</span> \
-<span foreground='$color1'>—</span> \
-<span foreground='$color5'><b>Region</b></span> <span foreground='$color10'>(<b>r</b>)</span> \
-<span foreground='$color1'>—</span> \
-<span foreground='$color5'><b>Region (+ Mic)</b></span> <span foreground='$color10'>(<b>Shift+r</b>)</span>"
+set $mode_recording "<span foreground='$color10'></span>  \
+<span foreground='$color5'><b>Record</b></span> <span foreground='$color10'>(<b>r</b>)</span> \
+<span foreground='$color5'>+ [<span foreground='$color10'><b>Shift</b></span> for ]</span>"
 
-set $mode_recording_on "<span foreground='$color10'>壘</span>  \
-<span foreground='$color5'><b>Exit</b></span> <span foreground='$color10'>(<b>ESC</b>)</span>"
-
-mode --pango_markup $mode_recording_on {
-    $bindsym Escape exec killall -s SIGINT wf-recorder, mode "default"
-}
+set $recorder /usr/share/sway/scripts/recorder.sh
 
 mode --pango_markup $mode_recording {
-    $bindsym w exec killall -s SIGINT wf-recorder || wf-recorder --audio=0 -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
-            -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
-    $bindsym Shift+w exec killall -s SIGINT wf-recorder || wf-recorder --audio -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') \
-            -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
-    $bindsym r exec killall -s SIGINT wf-recorder || wf-recorder --audio=0 -g "$(slurp -d)" \
-            -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
-    $bindsym Shift+r exec killall -s SIGINT wf-recorder || wf-recorder --audio -g "$(slurp -d)" \
-            -f ~/Videos/recording-$(date +'%Y-%m-%d-%H%M%S').mp4, mode $mode_recording_on
+        $bindsym r exec $recorder, mode "default"
+        $bindsym Shift+r exec $recorder -a, mode "default"
 
-    # Return to default mode.
-    $bindsym Escape mode "default"
-    $bindsym Return mode "default"
+        # Return to default mode.
+        $bindsym Escape mode "default"
 }
 
 ## Launch // Recording Mode ##
 $bindsym $mod+Shift+r mode $mode_recording
 
+## Launch // Stop Recording Mode ##
+$bindsym $mod+Escape exec killall -s SIGINT wf-recorder
