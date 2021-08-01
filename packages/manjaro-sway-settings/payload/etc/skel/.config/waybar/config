@@ -29,7 +29,7 @@
     "modules-right": [
         // informational
         "sway/language",
-        "custom/help",
+        "custom/github",
         "cpu",
         "memory",
         "battery",
@@ -224,5 +224,15 @@
         "exec-if": "pgrep wf-recorder",
         "on-click": "killall -s SIGINT wf-recorder",
         "signal": 8
-	}
+	},
+
+    "custom/github": {
+        "interval": 300,
+        "tooltip": false,
+        "return-type": "json",
+        "format" : " {}",
+        "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
+        "exec-if": "command -v gh >/dev/null && gh auth status 2>&1 | grep -q -m 1 'Logged in' && gh api '/notifications' -q 'length' | grep -q -m 1 '0' ; test $? -eq 1",
+        "on-click": "xdg-open https://github.com/notifications"
+    }
 }
