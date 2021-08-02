@@ -1,19 +1,16 @@
 # base config for oh my zsh
 source /usr/share/oh-my-zsh/zshrc
 
-# oh my zsh overrides
-plugins=(
-    archlinux
-    git
-)
-
-ZSH_THEME="agnoster"
-
-[ -d ~/.config/zsh/config.d/ ] && source ~/.config/zsh/config.d/*
-
-source $ZSH/oh-my-zsh.sh
+#p10k instant prompt to make terminal open a bit snappier
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 # Source manjaro config
 source ~/.zshrc
 
+# user-defined overrides
+[ -d ~/.config/zsh/config.d/ ] && source ~/.config/zsh/config.d/*
+
+# Fix for foot terminfo not installed on most servers
 alias ssh="TERM=xterm-256color ssh"
