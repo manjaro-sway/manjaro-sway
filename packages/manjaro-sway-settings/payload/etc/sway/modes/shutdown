@@ -11,16 +11,16 @@ set $mode_shutdown "\
 
 mode --pango_markup $mode_shutdown {
     # lock
-    $bindsym l exec $locking
+    $bindsym l mode "default", exec $locking
 
     # logout
     $bindsym e exec loginctl terminate-user $USER
 
     # suspend
-    $bindsym u exec systemctl suspend
+    $bindsym u mode "default", exec systemctl suspend
 
     # hibernate
-    $bindsym h exec systemctl hibernate
+    $bindsym h mode "default", exec systemctl hibernate
 
     # shutdown
     $bindsym s exec systemctl poweroff
