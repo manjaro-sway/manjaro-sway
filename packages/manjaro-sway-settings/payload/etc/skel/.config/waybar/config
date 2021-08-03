@@ -181,7 +181,12 @@
         "on-click": "blueberry",
         "tooltip-format": "{}"
     },
-
+    
+    "sway/language": {
+        "format": " {}",
+        "min-length": 5,
+    },
+    
     "custom/scratchpad": {
         "interval": "once",
         "return-type": "json",
