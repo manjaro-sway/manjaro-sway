@@ -74,17 +74,19 @@ $bindsym $mod+8 workspace $ws8
 $bindsym $mod+9 workspace $ws9
 $bindsym $mod+0 workspace $ws10
 
+set $focus_ws [ $focus_after_move == 'true' ] && swaymsg workspace
+
 ## Action // Move focussed window to workspace // $mod + Shift + [number] ##
-$bindsym $mod+Shift+1 move container to workspace $ws1
-$bindsym $mod+Shift+2 move container to workspace $ws2
-$bindsym $mod+Shift+3 move container to workspace $ws3
-$bindsym $mod+Shift+4 move container to workspace $ws4
-$bindsym $mod+Shift+5 move container to workspace $ws5
-$bindsym $mod+Shift+6 move container to workspace $ws6
-$bindsym $mod+Shift+7 move container to workspace $ws7
-$bindsym $mod+Shift+8 move container to workspace $ws8
-$bindsym $mod+Shift+9 move container to workspace $ws9
-$bindsym $mod+Shift+0 move container to workspace $ws10
+$bindsym $mod+Shift+1 move container to workspace $ws1, exec $focus_ws $ws1
+$bindsym $mod+Shift+2 move container to workspace $ws2, exec $focus_ws $ws2
+$bindsym $mod+Shift+3 move container to workspace $ws3, exec $focus_ws $ws3
+$bindsym $mod+Shift+4 move container to workspace $ws4, exec $focus_ws $ws4
+$bindsym $mod+Shift+5 move container to workspace $ws5, exec $focus_ws $ws5
+$bindsym $mod+Shift+6 move container to workspace $ws6, exec $focus_ws $ws6
+$bindsym $mod+Shift+7 move container to workspace $ws7, exec $focus_ws $ws7
+$bindsym $mod+Shift+8 move container to workspace $ws8, exec $focus_ws $ws8
+$bindsym $mod+Shift+9 move container to workspace $ws9, exec $focus_ws $ws9
+$bindsym $mod+Shift+0 move container to workspace $ws10, exec $focus_ws $ws10
 
 #
 # Layout stuff:

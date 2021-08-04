@@ -8,3 +8,4 @@ e.g.:
 * change the background image: `set $background /usr/share/wallpapers/manjaro-nudes.png`
 * change waybar position: `set $waybar_position bottom`
 * make a foot client instance the default terminal for even faster terminal windows: `set $term footclient`
+* follow windows after moving them: `set $focus_after_move true`
