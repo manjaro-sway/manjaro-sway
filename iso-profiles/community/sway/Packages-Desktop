@@ -43,6 +43,7 @@ ranger
 pcmanfm-gtk3
 gvfs
 >extra file-roller
+>extra p7zip
 
 # Sound, video and bluetooth
 pulsemixer
