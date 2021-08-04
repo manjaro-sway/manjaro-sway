@@ -12,7 +12,7 @@ manjaro-sway/manjaro-sway-settings
 
 # Wayland support
 xorg-xwayland # xorg-wayland bridge
->extra wdisplays # graphical display management like arandr
+>extra wlay # graphical display management like arandr
 qt5-wayland
 gnome-keyring # unlock keyring on login
 polkit-gnome # polkit for visual superuser access
