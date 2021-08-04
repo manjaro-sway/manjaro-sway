@@ -1,3 +1,2 @@
-config.d/*
+*.d/*.conf
 help.man
-!00-user.conf
