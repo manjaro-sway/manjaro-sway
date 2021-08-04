@@ -147,7 +147,7 @@
       "interval": 5,
       "format": "{icon} {temperatureC}°C",
       "format-icons": ["","",""],
-      "tooltip": true,
+      "tooltip": false,
       "on-click": "swaymsg exec \"\\$term_float watch sensors\""
     },
 
@@ -185,6 +185,7 @@
     "sway/language": {
         "format": " {}",
         "min-length": 5,
+        "tooltip": false
     },
     
     "custom/scratchpad": {
@@ -233,7 +234,8 @@
         "format" : " {}",
         "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
         "exec-if": "command -v gh >/dev/null && gh auth status 2>&1 | grep -q -m 1 'Logged in' && gh api '/notifications' -q 'length' | grep -q -m 1 '0' ; test $? -eq 1",
-        "on-click": "xdg-open https://github.com/notifications"
+        "on-click": "xdg-open https://github.com/notifications && sleep 30 && pkill -RTMIN+4 waybar",
+        "signal": 4
     },
 
     "custom/playerctl": {
