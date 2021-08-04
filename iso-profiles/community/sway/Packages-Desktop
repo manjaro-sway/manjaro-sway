@@ -59,6 +59,7 @@ blueberry
 
 # Network
 avahi
+nss-mdns
 firewalld
 networkmanager
 >extra networkmanager-openconnect
