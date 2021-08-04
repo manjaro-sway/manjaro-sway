@@ -14,7 +14,7 @@ include $theme/definitions
 include /etc/sway/definitions
 
 # user variables
-include $HOME/.config/sway/definitions
+include $HOME/.config/sway/definitions.d/*.conf
 
 include /etc/sway/inputs/*
 include /etc/sway/outputs/*
@@ -29,4 +29,4 @@ include /etc/sway/modes/*
 include /etc/sway/config.d/*
 
 # user config
-include $HOME/.config/sway/config.d/*
+include $HOME/.config/sway/config.d/*.conf
