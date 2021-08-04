@@ -1,6 +1,6 @@
 .\" Manpage for manjaro-sway.
 
-.TH man 8 "27 Dec 2020" "1.1" "Manjaro Sway Edition man page"
+.TH man 8 "4 Aug 2021" "1.2" "Manjaro Sway Edition man page"
 
 .SH NAME
 Manjaro Sway Edition
@@ -29,7 +29,9 @@ file manager
 
 .SH EXTEND
 
-Logic should be injected into ~/.config/sway/config.d/
+Override definitions by creating .conf files in ~/.config/sway/definitions.d/
+
+Overriding Logic should be injected into .conf files in ~/.config/sway/config.d/
 
 .SH AUTHOR
 Jonas Strassel (info@jonas-strassel.de)
