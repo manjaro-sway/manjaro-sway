@@ -129,7 +129,7 @@
 
     "pulseaudio": {
         "scroll-step": 5,
-        "format": "{icon}{volume}%{format_source}",
+        "format": "{icon} {volume}%{format_source}",
         "format-muted": "婢 {format_source}",
         "format-source": "",
         "format-source-muted": " ",
