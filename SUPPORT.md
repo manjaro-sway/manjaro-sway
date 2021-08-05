@@ -69,8 +69,8 @@ major changes specific to this flavor of manjaro are mostly being done in the [d
 
 ### how can I customize sway without loosing my customizations after an upgrade?
 
-you can easily add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints.
-f
+you can add variable overrides in `~/.config/sway/definitions.d/` and add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints. Make sure the files in either location end in .conf for them to be loaded.
+
 ## setup and configuration
 
 ### how can I enable screen-share in chromium(-alike) browsers?
