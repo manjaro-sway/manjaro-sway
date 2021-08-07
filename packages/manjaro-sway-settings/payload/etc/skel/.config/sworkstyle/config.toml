@@ -35,7 +35,7 @@ fallback = ''
 'Brave-browser' = ''
 
 ## default applications
-'foot' = ''
+'/foot/' = ''
 'pcmanfm' = ''
 'pamac-manager' = ''
 '/Bluetooth/' = ''
