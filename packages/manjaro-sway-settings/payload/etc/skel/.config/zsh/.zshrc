@@ -9,6 +9,9 @@ fi
 # Source manjaro config
 source ~/.zshrc
 
+# fix for comment color on manjaro zsh theme
+ZSH_HIGHLIGHT_STYLES[comment]='fg=blue'
+
 # user-defined overrides
 [ -d ~/.config/zsh/config.d/ ] && source ~/.config/zsh/config.d/*
 
