@@ -19,13 +19,13 @@ you can reach a quick introduction pressing `Super + Shift + ?`
 
 add your $bindsym lines to a file in `~/.config/sway/config.d/`:
 
-```
+```bash
 $bindsym $mod+Shift+e exec $shutdown
 ```
 
 to remove existing shortcuts (for example to reuse them elsewhere) you can `$unbindsym` them:
 
-```
+```bash
 $unbindsym $mod+w
 ```
 
@@ -35,7 +35,7 @@ $unbindsym $mod+w
 
 after upgrading packages, you will sometimes need to update your skeleton:
 
-```
+```bash
 cp -rf /etc/skel/.config/* ~/.config
 ```
 
@@ -44,14 +44,6 @@ keep in mind that this could cause problems with customizations you made. backup
 ### why are pacman downloads so slow?
 
 fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
-
-### why does pacman complain about an unknown public key for manjaro-sway?
-
-the public key used to sign our package repo is not yet inside the manjaro keyring. until we are, allow our key manually:
-
-```
-pacman-key --keyserver keys.openpgp.org --recv-key A44C644D792767CED7941AFEABB2075D5F310CF8
-```
 
 ### how can I update the manjaro-sway-settings package (and all other packages from manjaro-sway)?
 
@@ -70,6 +62,18 @@ major changes specific to this flavor of manjaro are mostly being done in the [d
 ### how can I customize sway without loosing my customizations after an upgrade?
 
 you can add variable overrides in `~/.config/sway/definitions.d/` and add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints. Make sure the files in either location end in .conf for them to be loaded.
+
+### how can I customize waybar without loosing my customization after an upgrade?
+
+copy over and edit the customization template, it will get picked up automatically:
+
+```bash
+cp ~/.config/waybar/config.jsonc.example ~/.config/waybar/config.jsonc
+```
+
+### how can I add my own and override existing sworkstyle icons?
+
+just place them into a new file `~/.config/sworkstyle/config.toml`
 
 ## setup and configuration
 
@@ -99,7 +103,7 @@ if you have a keyboard layout other then basic `us`, [add your keyboard settings
 
 ### how do I disable the window focus flashing animation?
 
-```
+```bash
 pacman -R flashfocus
 ```
 
@@ -113,18 +117,18 @@ greetd, our login messenger, is not supported by the manjaro installer. refer [h
 
 ### how can I disable the night light feature?
 
-```
+```bash
 pacman -R wlsunset
 ```
 
 ### how can I disable the dynamic workspace icons?
 
-```
+```bash
 pacman -R sworkstyle
 ```
 
 ### how can I disable the window auto-tiling?
 
-```
+```bash
 pacman -R autotiling
 ```
