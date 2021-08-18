@@ -17,7 +17,7 @@ qt5-wayland
 gnome-keyring # unlock keyring on login
 polkit-gnome # polkit for visual superuser access
 >extra xdg-desktop-portal-wlr
->extra libpipewire02
+manjaro-pipewire
 
 # Greeter
 greetd
@@ -52,9 +52,7 @@ alsa-firmware
 bluez
 bluez-utils
 pulseaudio-alsa
-pulseaudio-bluetooth
 pulseaudio-ctl
-pulseaudio-zeroconf
 playerctl
 blueberry
 
