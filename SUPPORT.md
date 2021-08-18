@@ -89,9 +89,7 @@ While it seems to work out of the box in some kvm/qemu environments (Gnome Boxes
 
 [set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
 
-### how do I get an active bluetooth after login?
-
-auto enable bluetooth on boot: `echo "AutoEnable=true" >> /etc/bluetooth/main.conf`
+### [how do I get an active bluetooth after login](https://wiki.archlinux.org/title/Bluetooth#Auto_power-on_after_boot)?
 
 ### how can I add more keyboard layouts to sway?
 
