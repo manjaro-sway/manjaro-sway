@@ -155,4 +155,4 @@ else:
     for config in docsList:
         result = result + [{'category': config.category,
                             'action': config.action, 'keybinding': config.keybinding}]
-    print(getDocsList(json.dumps(result)))
+    print(json.dumps(result))
