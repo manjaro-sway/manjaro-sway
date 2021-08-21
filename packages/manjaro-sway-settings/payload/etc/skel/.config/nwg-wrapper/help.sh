@@ -1,2 +1,2 @@
 #!/bin/sh
-man $HOME/.config/sway/help.man | col -b | grep 'Help\|Terminal\|Launcher\|Toggle\|Exit\|Kill\|Switch\|Move\|Scratchpad' | awk '{$1=$1}1' | sort
+/usr/share/sway/scripts/sbdp.py $HOME/.config/sway/config | jq --raw-output 'sort_by(.category) | .[] | .action + ": <b>" + .keybinding + "</b>"' 

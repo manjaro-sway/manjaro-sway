@@ -8,8 +8,8 @@ window {
 }
 
 #box-inner {
-        background-color: rgba (23, 53, 63, 0.0);
-        border-radius: 5px;
+    background-color: rgba (23, 53, 63, 0.0);
+    border-radius: 5px;
 	border-style: dotted;
 	border-width: 1px;
 	border-color: rgba (156, 142, 122, 0.0);
