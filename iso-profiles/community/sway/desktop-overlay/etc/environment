@@ -7,3 +7,5 @@ XDG_SESSION_TYPE=wayland
 XDG_CURRENT_DESKTOP=sway
 # avoid iterating over all libseat backends
 LIBSEAT_BACKEND=logind
+# allow software renderers in sway
+WLR_RENDERER_ALLOW_SOFTWARE=1
