@@ -39,7 +39,6 @@ xcursor-breeze
 grub-theme-manjaro
 
 # File systems access
-ranger
 pcmanfm-gtk3
 gvfs
 >extra file-roller
@@ -47,8 +46,6 @@ gvfs
 
 # Sound, video and bluetooth
 pulsemixer
-alsa-utils
-alsa-firmware
 bluez
 bluez-utils
 pulseaudio-alsa
@@ -59,13 +56,8 @@ blueberry
 # Network
 avahi
 nss-mdns
-firewalld
 networkmanager
->extra networkmanager-openconnect
 >extra networkmanager-openvpn
->extra networkmanager-pptp
->extra networkmanager-vpnc
->extra modemmanager
 dhclient
 manjaro-hotfixes
 >extra manjaro-settings-samba
@@ -75,13 +67,10 @@ manjaro-hotfixes
 >extra mplayer # multimedia player
 >extra ffmpeg
 >extra ffmpegthumbnailer
->extra mediainfo
 >extra zathura
 >extra zathura-pdf-poppler
 >extra gnome-epub-thumbnailer
->extra ueberzug # thumbs on the cli
 >extra imv
->extra tumbler
 
 # Package Management
 >extra yay
@@ -92,7 +81,6 @@ pamac-gtk
 >extra apparmor
 >extra xdg-user-dirs
 >extra manjaro-printer
->extra atool
 >extra manjaro-settings-manager
 
 # CLI tools
