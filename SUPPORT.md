@@ -71,9 +71,17 @@ copy over and edit the customization template, it will get picked up automatical
 cp ~/.config/waybar/config.jsonc.example ~/.config/waybar/config.jsonc
 ```
 
+### how can I customize the foot terminal without loosing my customization after an upgrade?
+
+copy over and edit the customization template, it will get picked up automatically:
+
+```bash
+cp ~/.config/foot/foot.ini.example ~/.config/foot/foot.ini
+```
+
 ### how can I add my own and override existing sworkstyle icons?
 
-just place them into a new file `~/.config/sworkstyle/config.toml`
+just place them into a new file `~/.config/sworkstyle/config.toml` - it will extend and override the default configuration.
 
 ## setup and configuration
 
