@@ -14,6 +14,7 @@ this is an approach to create a regular manjaro sway built - with to following p
 
 - try to use a decent cli solution whenever available and commonly acceptable
 - always use convention that can be overridden by configuration
+- allow opt outs for all tooling and configuration
 - build everything in automation (iso images, packages)
 
 ## where can I download an iso?
@@ -55,7 +56,7 @@ password: manjaro
 ## credits
 
 - initial inspiration came from the [sway branch in the manjaro iso profiles repo](https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/-/tree/sway)
-- most of the work is (with some modifications) copied from the [manjaro sway arm overlay](https://gitlab.manjaro.org/manjaro-arm/applications/arm-profiles/-/tree/master/overlays/sway)
+- initially a lot of work got copied from the [manjaro sway arm overlay](https://gitlab.manjaro.org/manjaro-arm/applications/arm-profiles/-/tree/master/overlays/sway)
 - the background image is [beautifully made by reddit user u/atlas-ark](https://www.reddit.com/r/wallpaper/comments/kmh680/1920x1080_all_resolutions_available_dark_light/?utm_source=share&utm_medium=web2x&context=3)
 
 ## donations
