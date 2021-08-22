@@ -10,26 +10,30 @@ jobs:
   prepare-release:
     runs-on: ubuntu-20.04
     steps:
-      - 
-        uses: styfle/cancel-workflow-action@0.9.1
+      - uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
-      - 
-        id: time
+      - id: time
         uses: nanzm/get-time-action@v1.1
         with:
           format: 'YYYYMMDDHHmm'
+      - id: receive
+        uses: boredland/kernel-info@main
     outputs:
       release_tag: ${{ steps.time.outputs.time }}
+      longterm: ${{ steps.receive.outputs.longterm-pkg }}
+      stable: ${{ steps.receive.outputs.stable-pkg }}
   build-release:
     runs-on: ubuntu-20.04
     needs: [prepare-release]
     strategy:
       matrix:
-        EDITION: [sway]
-        BRANCH: [stable]
-        SCOPE: [full]
-        KERNEL: [linux510, linux514]
+        edition: [sway]
+        branch: [stable]
+        scope: [full]
+        kernel: 
+          - ${{ needs.prepare-release.outputs.longterm }}
+          - ${{ needs.prepare-release.outputs.stable }}
     steps:
       - uses: styfle/cancel-workflow-action@0.9.1
         with:
