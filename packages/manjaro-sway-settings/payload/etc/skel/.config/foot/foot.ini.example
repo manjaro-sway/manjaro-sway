@@ -1,0 +1,3 @@
+# rename to foot.user.ini and add your custom foot overrides here
+
+include=/usr/share/sway/templates/foot.ini
