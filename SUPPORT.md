@@ -91,7 +91,7 @@ enable `chrome://flags/#enable-webrtc-pipewire-capturer`
 
 ### how can I log in inside a virtual machine?
 
-While it seems to work out of the box in some kvm/qemu environments (Gnome Boxes seems to work), you need to enable 3D acceleration in most of them. Refer [here](https://github.com/Manjaro-Sway/manjaro-sway/issues/56) for further information and feedback.
+While it seems to work out of the box in some kvm/qemu/libvirt environments (f.e. Gnome Boxes), you need to enable 3D acceleration in VirtualBox.
 
 ### how can I use the amazing mps-youtube?
 
