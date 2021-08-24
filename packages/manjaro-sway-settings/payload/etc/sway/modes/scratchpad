@@ -4,9 +4,9 @@
 # Sway has a "scratchpad", which is a bag of holding for windows.
 # You can send windows there and get them back later.
 
-## Action // Move the currently focused window to the scratchpad ##
+## Action // Move window to scratchpad ##
 $bindsym $mod+Shift+minus move scratchpad, exec "pkill -RTMIN+7 waybar"
 
 # If there are multiple scratchpad windows, this command cycles through them.
-## Action // Show the next scratchpad window or hide the focused scratchpad window. ##
+## Action // Toggle scratchpad ##
 $bindsym $mod+minus scratchpad show, exec "pkill -RTMIN+7 waybar"

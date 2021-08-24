@@ -75,38 +75,46 @@ def getSymbolDict(lines: list[str]):
 
 translations = {
     'Mod1': "Alt",
-    'Mod2': "NumLock",
-    'Mod3': "CapsLock",
-    'Mod4': "Super",
+    'Mod2': "",
+    'Mod3': "בּ",
+    'Mod4': "",
     'Mod5': "Scroll",
-    'XF86AudioRaiseVolume': "Volume+",
-    'XF86AudioLowerVolume': "Volume-",
-    'XF86AudioMute': "Mute",
-    'XF86MonBrightnessUp': "Brightness+",
-    'XF86MonBrightnessDown': "Brightness-",
-    'XF86PowerOff': "Power off",
+    'question': "?",
+    #'Shift': "וּ",
+    'space': "␣",
+    'minus': "-",
+    'plus': '+',
+    'Return': "",
+    'XF86AudioRaiseVolume': "ﱛ",
+    'XF86AudioLowerVolume': "ﱜ",
+    'XF86AudioMute': "ﱝ",
+    'XF86AudioMicMute': '',
+    'XF86MonBrightnessUp': "",
+    'XF86MonBrightnessDown': "",
+    'XF86PowerOff': "襤",
     'XF86TouchpadToggle': "Toggle Touchpad"
 }
 
+def translate(word: Text, dictionary: dict):
+    try:
+        return dictionary[word.strip()]
+    except:
+        return word.strip()
 
-def replaceFromMap(binding: Text, dictionary: dict):
+
+def replaceBindingFromMap(binding: Text, dictionary: dict):
     elements = binding.split('+')
     resultElements = []
     for el in elements:
-        try:
-            cancidate = dictionary[el.strip()]
-            try:
-                resultElements = resultElements + [translations[cancidate]]
-            except:
-                resultElements = resultElements + [cancidate]
-        except:
-            resultElements = resultElements + [el]
+        translation = translate(translate(el, dictionary), translations)
+        resultElements = resultElements + [translation]
+    
     return " + ".join(resultElements)
 
 
 def sanitize(configs: list[DocsConfig], symbolDict: dict):
     for index, config in enumerate(configs):
-        config.keybinding = replaceFromMap(config.keybinding, symbolDict)
+        config.keybinding = replaceBindingFromMap(config.keybinding, symbolDict)
         configs[index] = config
     return configs
 
