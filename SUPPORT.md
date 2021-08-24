@@ -142,3 +142,12 @@ pacman -R sworkstyle
 ```bash
 pacman -R autotiling
 ```
+
+### how can I enable github notifications?
+
+install and authenticate with the github cli:
+
+```bash
+pacman -S github-cli
+gh auth login
+```
