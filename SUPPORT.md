@@ -81,7 +81,11 @@ cp ~/.config/foot/foot.ini.example ~/.config/foot/foot.ini
 
 ### how can I add my own and override existing sworkstyle icons?
 
-just place them into a new file `~/.config/sworkstyle/config.toml` - it will extend and override the default configuration.
+copy over and edit the customization template, it will get picked up automatically:
+
+```bash
+cp ~/.config/sworkstyle/config.toml.example ~/.config/sworkstyle/config.toml
+```
 
 ## setup and configuration
 
