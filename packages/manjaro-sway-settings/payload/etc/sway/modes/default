@@ -21,23 +21,34 @@ floating_modifier $mod normal
 ## Action // Reload Sway Configuration ##
 $bindsym $mod+Shift+c reload
 
+set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d " " -f 6 | sed 's/%//'
+set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d " " -f 6 | sed 's/%//'
+
 ## Action // Increase volume of Master ##
-$bindsym XF86AudioRaiseVolume exec $onscreen_bar $(amixer sset Master 5%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1)
+$bindsym XF86AudioRaiseVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume)
 
 ## Action // Decrease volume of Master ##
-$bindsym XF86AudioLowerVolume exec $onscreen_bar $(amixer sset Master 5%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1)
+$bindsym XF86AudioLowerVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume)
 
 ## Action // Mute volume of Master ##
-$bindsym XF86AudioMute exec $onscreen_bar $(amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1)
+$bindsym XF86AudioMute exec $onscreen_bar $(pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En "/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p")
 
 ## Action // Mute volume of Master Input ##
-$bindsym XF86AudioMicMute exec $onscreen_bar $(amixer set Capture toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1)
+$bindsym XF86AudioMicMute exec $onscreen_bar $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
 
 ## Action // Increase brightness ##
 $bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
 ## Action // Decrease brightness ##
 $bindsym XF86MonBrightnessDown exec light -U 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
+
+$bindsym XF86AudioPlay exec playerctl play-pause
+
+$bindsym XF86AudioNext exec playerctl next
+
+$bindsym XF86AudioPrev exec playerctl previous
+
+$bindsym XF86Search exec $menu
 
 $bindsym XF86PowerOff exec $shutdown
 

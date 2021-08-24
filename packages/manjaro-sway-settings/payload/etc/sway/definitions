@@ -45,6 +45,7 @@ set $idle swayidle -w \
     timeout 300 'exec $locking' \
     timeout 600 'swaymsg "output * dpms off"' \
     resume 'swaymsg "output * dpms on"' \
+    before-sleep 'playerctl pause' \
     before-sleep 'exec $locking'
 
 # statusbar command
