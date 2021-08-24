@@ -24,22 +24,16 @@ $bindsym $mod+Shift+c reload
 set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d " " -f 6 | sed 's/%//'
 set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d " " -f 6 | sed 's/%//'
 
-## Action // Increase volume of Master ##
 $bindsym XF86AudioRaiseVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume)
 
-## Action // Decrease volume of Master ##
 $bindsym XF86AudioLowerVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume)
 
-## Action // Mute volume of Master ##
 $bindsym XF86AudioMute exec $onscreen_bar $(pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En "/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p")
 
-## Action // Mute volume of Master Input ##
 $bindsym XF86AudioMicMute exec $onscreen_bar $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
 
-## Action // Increase brightness ##
 $bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
-## Action // Decrease brightness ##
 $bindsym XF86MonBrightnessDown exec light -U 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
 $bindsym XF86AudioPlay exec playerctl play-pause
@@ -120,7 +114,7 @@ $bindsym $mod+f fullscreen
 ## Action // Toggle floating ##
 $bindsym $mod+Shift+space floating toggle
 
-## Navigation // Swap focus between the tiling area and the floating area ##
+## Navigation // Toggle focus between tiling and floating ##
 $bindsym $mod+space focus mode_toggle
 
 ## Navigation // Swap focus to the parent window ##

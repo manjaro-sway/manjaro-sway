@@ -80,7 +80,6 @@ translations = {
     'Mod4': "",
     'Mod5': "Scroll",
     'question': "?",
-    #'Shift': "וּ",
     'space': "␣",
     'minus': "-",
     'plus': '+',
@@ -95,6 +94,7 @@ translations = {
     'XF86TouchpadToggle': "Toggle Touchpad"
 }
 
+
 def translate(word: Text, dictionary: dict):
     try:
         return dictionary[word.strip()]
@@ -108,13 +108,14 @@ def replaceBindingFromMap(binding: Text, dictionary: dict):
     for el in elements:
         translation = translate(translate(el, dictionary), translations)
         resultElements = resultElements + [translation]
-    
+
     return " + ".join(resultElements)
 
 
 def sanitize(configs: list[DocsConfig], symbolDict: dict):
     for index, config in enumerate(configs):
-        config.keybinding = replaceBindingFromMap(config.keybinding, symbolDict)
+        config.keybinding = replaceBindingFromMap(
+            config.keybinding, symbolDict)
         configs[index] = config
     return configs
 
@@ -135,7 +136,8 @@ def getManConfigs(docs: list[DocsConfig]):
             '.I ' + doc.keybinding
         ]
         try:
-            manConfigs[doc.category] = manConfigs[doc.category] + ['\n'.join(current)]
+            manConfigs[doc.category] = manConfigs[doc.category] + \
+                ['\n'.join(current)]
         except:
             manConfigs[doc.category] = current
     return dict(manConfigs)
