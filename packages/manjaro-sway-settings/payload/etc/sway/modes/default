@@ -21,9 +21,6 @@ floating_modifier $mod normal
 ## Action // Reload Sway Configuration ##
 $bindsym $mod+Shift+c reload
 
-set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d " " -f 6 | sed 's/%//'
-set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d " " -f 6 | sed 's/%//'
-
 $bindsym XF86AudioRaiseVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume)
 
 $bindsym XF86AudioLowerVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume)

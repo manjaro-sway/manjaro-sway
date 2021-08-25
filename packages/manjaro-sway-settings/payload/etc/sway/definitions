@@ -55,6 +55,10 @@ set $waybar_position top
 # pulseaudio command
 set $pulseaudio $term_float pulsemixer
 
+# get-volume commands
+set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
+set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
+
 # help command
 set $help "$term_float man $HOME/.config/sway/help.man"
 
