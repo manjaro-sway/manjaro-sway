@@ -118,6 +118,16 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "hakanyi",
+      "name": "Hakan Yilmaz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33870649?v=4",
+      "profile": "http://www.mscneuro.uni-freiburg.de/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
