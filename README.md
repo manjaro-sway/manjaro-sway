@@ -21,7 +21,7 @@ this is an approach to create a regular manjaro sway built - with to following p
 
 ## where can I download an iso?
 
-images are build and uploaded in a relatively regular interval to [github releases](https://github.com/manjaro-sway/manjaro-sway/releases)
+images are built nightly for the latest stable and lts kernels and available on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases)
 
 ## questions?
 
