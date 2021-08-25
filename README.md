@@ -1,6 +1,7 @@
 # manjaro sway edition
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg)](#contributors-)<!-- ALL-CONTRIBUTORS-BADGE:END -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![repo_build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
 [![iso_build](https://github.com/manjaro-sway/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/manjaro-sway/actions)
 ![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=downloads&cache=3600&query=count&url=https%3A%2F%2Freleases-download-count.vercel.app%2Fapi%2Fmanjaro-sway%2Fmanjaro-sway%3Fsuffix%3Diso%2Czip)
@@ -97,6 +98,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Chrysostomus"><img src="https://avatars.githubusercontent.com/u/12002226?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Matti Hyttinen</b></sub></a><br /><a href="#ideas-Chrysostomus" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/FallenChromium"><img src="https://avatars.githubusercontent.com/u/43214067?v=4?s=100" width="100px;" alt=""/><br /><sub><b>FallenChromium</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=FallenChromium" title="Code">💻</a> <a href="#ideas-FallenChromium" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="http://MuratovAS.github.io"><img src="https://avatars.githubusercontent.com/u/50487552?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Алексей Муратов </b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/issues?q=author%3AMuratovAS" title="Bug reports">🐛</a> <a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=MuratovAS" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.mscneuro.uni-freiburg.de/"><img src="https://avatars.githubusercontent.com/u/33870649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hakan Yilmaz</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/issues?q=author%3Ahakanyi" title="Bug reports">🐛</a> <a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=hakanyi" title="Code">💻</a></td>
   </tr>
 </table>
 
