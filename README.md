@@ -15,10 +15,10 @@
 
 this is an approach to create a regular manjaro sway built - with to following paradigms:
 
-- try to use a decent cli solution whenever available and commonly acceptable
-- always use convention that can be overridden by configuration
-- allow opt outs for all tooling and configuration
-- build everything in automation (iso images, packages)
+- use a decent cli/tui solution
+- convention overrideable by configuration
+- prepare opt out
+- build everything in automation
 
 ## where can I download an iso?
 
