@@ -41,6 +41,7 @@ grub-theme-manjaro
 # File systems access
 pcmanfm-gtk3
 gvfs
+>extra gvfs-mtp
 >extra file-roller
 >extra p7zip
 
