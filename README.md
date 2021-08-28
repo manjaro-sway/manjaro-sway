@@ -11,7 +11,7 @@
 
 [![watch it in action](https://img.youtube.com/vi/34DIO61GxAE/0.jpg)](https://www.youtube.com/watch?v=34DIO61GxAE "watch it in action")
 
-this is an approach to create a regular manjaro sway built - with to following paradigms:
+we're building a manjaro sway edition - with the following principles:
 
 - use a decent cli/tui solution
 - convention overrideable by configuration
