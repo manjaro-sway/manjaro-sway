@@ -60,7 +60,7 @@ set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d
 set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
 
 # help command
-set $help "$term_float man $HOME/.config/sway/help.man"
+set $help /usr/share/sway/scripts/help.sh
 
 # onscreen bar
 set $onscreen_bar bash /usr/share/sway/scripts/wob.sh "$accent-colorFF" "$background-colorFF" 

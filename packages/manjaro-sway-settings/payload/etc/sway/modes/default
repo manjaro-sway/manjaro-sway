@@ -117,7 +117,7 @@ $bindsym $mod+space focus mode_toggle
 ## Navigation // Swap focus to the parent window ##
 $bindsym $mod+a focus parent
 
-## Launch // Help ##
+## Launch // Toggle Help ##
 $bindsym $mod+question exec $help
 
 default_border pixel 1

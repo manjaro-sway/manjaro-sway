@@ -127,42 +127,10 @@ def getDocsList(lines: list[str]):
     return sanitizedConfig
 
 
-def getManConfigs(docs: list[DocsConfig]):
-    manConfigs = {}
-    for doc in docs:
-        current = [
-            '',
-            '.B ' + doc.action + ': ',
-            '.I ' + doc.keybinding
-        ]
-        try:
-            manConfigs[doc.category] = manConfigs[doc.category] + \
-                ['\n'.join(current)]
-        except:
-            manConfigs[doc.category] = current
-    return dict(manConfigs)
-
-
-def parseManPageConfig(manContent: dict):
-    elements = []
-    for key in manContent:
-        elements = elements + ["", '.SS ' + key, ""]
-        value = manContent[key]
-        for line in value:
-            elements = elements + [line]
-    result = '\n'.join(elements)
-    print(result)
-
-
 docsList = getDocsList(lines)
 
-if len(sys.argv) >= 3 and sys.argv[2] == 'man':
-    print('man')
-    manContent = getManConfigs(docsList)
-    manPage = parseManPageConfig(manContent)
-else:
-    result = []
-    for config in docsList:
-        result = result + [{'category': config.category,
-                            'action': config.action, 'keybinding': config.keybinding}]
-    print(json.dumps(result))
+result = []
+for config in docsList:
+    result = result + [{'category': config.category,
+                        'action': config.action, 'keybinding': config.keybinding}]
+print(json.dumps(result))
