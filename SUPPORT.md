@@ -105,7 +105,13 @@ While it seems to work out of the box in some kvm/qemu/libvirt environments (f.e
 
 ### how can I add more keyboard layouts to sway?
 
-if you have a keyboard layout other then basic `us`, [add your keyboard settings](https://wiki.archlinux.org/title/Sway#Keymap) to a userspace configuration file (e.g. `~/.config/sway/config.d/01-keyboard.conf`).
+copy over our configuration example:
+
+```bash
+cp ~/.config/sway/config.d/XX-keyboard.conf.example ~/.config/sway/config.d/01-keyboard.conf
+```
+
+refer to `man sway-input` and the [arch wiki](https://wiki.archlinux.org/title/Sway#Keymap) for more pointers.
 
 ### why doesn't it start with nvidia drivers?
 
