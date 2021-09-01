@@ -89,6 +89,19 @@ cp ~/.config/sworkstyle/config.toml.example ~/.config/sworkstyle/config.toml
 
 ## setup and configuration
 
+### how can I move the waybar from top to bottom?
+
+change the waybar position by creating or updating your `~/.config/waybar/config.jsonc`:
+
+```jsonc
+{
+    "include": [
+        "/usr/share/sway/templates/waybar/config.jsonc"
+    ],
+    "position": "bottom"
+}
+```
+
 ### how can I enable screen-share in chromium(-alike) browsers?
 
 enable `chrome://flags/#enable-webrtc-pipewire-capturer`
