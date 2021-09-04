@@ -30,7 +30,7 @@ images are built nightly for the latest stable and lts kernels and available on 
 
 ## Questions?
 
-Have a look [here](SUPPORT.md) for any questions.
+Check [here](SUPPORT.md) for any questions.
 
 ## Sources
 
