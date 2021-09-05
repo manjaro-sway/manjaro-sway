@@ -49,17 +49,10 @@ You can add fasttrack mirrors using this command:
 sudo pacman-mirrors --geoip && sudo pacman -Syyu
 ```
 
-### How can I update the manjaro-sway-settings package (and all other packages from manjaro-sway)?
 
-Just prefix the repository using this command: 
+### Why are your packages not in the regular Manjaro Repositories?
 
-```bash
-pacman -S manjaro-sway/manjaro-sway-settings
-```
-
-### Why are your packages not in the regular manjaro repos?
-
-We're working on getting them added to the main Manjaro repo. Submissions to them are partly manual and our signing key isn't yet officially part of the manjaro-keyring.
+Submissions to the Manjaro Repositories are partly manual and thus hard to align with our release process. On the contrary, we try to remove our packages from the official package sources again.
 
 ### How can I track updates?
 
