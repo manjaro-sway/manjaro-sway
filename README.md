@@ -1,4 +1,4 @@
-# manjaro sway edition
+# Manjaro Sway Edition
 [![All Contributors](https://img.shields.io/badge/dynamic/json?color=important&label=contributors&query=%24.contributors.length&url=https%3A%2F%2Fraw.githubusercontent.com%2FManjaro-Sway%2Fmanjaro-sway%2Fmain%2F.all-contributorsrc)](#contributors-)
 [![repo_build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
 [![iso_build](https://github.com/manjaro-sway/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/manjaro-sway/actions)
@@ -7,7 +7,7 @@
 ![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)
 ![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)
 
-## description
+## Description
 
 [![watch it in action](https://img.youtube.com/vi/34DIO61GxAE/0.jpg)](https://www.youtube.com/watch?v=34DIO61GxAE "watch it in action")
 
@@ -18,31 +18,35 @@ we're building a manjaro sway edition - with the following principles:
 - prepare opt out
 - build everything in automation
 
-## where can I download an iso?
+## Where can I download an ISO file?
 
 images are built nightly for the latest stable and lts kernels and available on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases)
 
-## caveats
+## Caveats
 
 - nvidia proprietary drivers are not supported by sway
 - nvidia open source drivers (noveau) are [known to cause problems](https://github.com/Manjaro-Sway/manjaro-sway/issues/140), refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Sway_v1.6_shows_garbage_or_blank_screen_when_using_nouveau)
 - vmware player is [known to cause problems similar to nouveau](https://github.com/Manjaro-Sway/manjaro-sway/issues/139) - you could use gnome boxes or virtualbox instead - refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Virtualization) 
 
-## questions?
+## Questions?
 
-have a look [here](SUPPORT.md)
+Check [here](SUPPORT.md) for any questions.
 
-## sources
+## Sources
 
 - [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway)
 - [desktop settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway)
 
-## building
+## How to Build
 
-1. check out the iso profile
-2. `buildiso -p sway`
+1. Check out the ISO profile
+2. Run this command in the root directory
 
-## screenshots
+```bash
+buildiso -p sway
+```
+
+## Screenshots
 
 ![desktop](docs/_includes/desktop.png?raw=true)
 ![autotiling](docs/_includes/autotiling.png?raw=true)
@@ -53,21 +57,21 @@ have a look [here](SUPPORT.md)
 ![pamac](docs/_includes/pamac.png?raw=true)
 ![youtube](docs/_includes/youtube.png?raw=true)
 
-## credentials
+## Credentials
 
 ```
 user: manjaro
 password: manjaro
 ```
 
-## credits
+## Credits
 
 - initial inspiration came from the [sway branch in the manjaro iso profiles repo](https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/-/tree/sway)
 - initially a lot of work got copied from the [manjaro sway arm overlay](https://gitlab.manjaro.org/manjaro-arm/applications/arm-profiles/-/tree/master/overlays/sway)
 - the background image is [beautifully made by reddit user u/atlas-ark](https://www.reddit.com/r/wallpaper/comments/kmh680/1920x1080_all_resolutions_available_dark_light/?utm_source=share&utm_medium=web2x&context=3)
 - the logo is a contribution by [André Vallestero](https://github.com/AndreVallestero)
 
-## donations
+## Conations
 
 if you like our distribution and have some bucks to spare, please consider contributions to the projects and developers we rely on the most:
 

@@ -1,23 +1,23 @@
 # FAQ
 
-## shortcuts
+## Shortcuts
 
-### how can I unzip the multi-part zip (.zip + .z01)?
+### How can I unzip the multi-part zip (.zip + .z01)?
 
-if you archive manger doesn't support multipart zips already, you can just merge the two files using cat:
+If your archive manger doesn't support multipart zips already, you can just merge the two files using cat:
 
 ```bash
 cat *.z* >tmp.zip
 unzip tmp.zip
 ```
 
-### how can I list the predefined shortcuts?
+### How can I list the predefined shortcuts?
 
-you can reach a quick introduction pressing `Super + Shift + ?`
+You can reach a quick introduction pressing `Super + Shift + ?`
 
-### how can I (re-)declare shortcuts?
+### How can I (re-)declare shortcuts?
 
-add your $bindsym lines to a file in `~/.config/sway/config.d/`:
+You can add your $bindsym lines to a file in `~/.config/sway/config.d/`:
 
 ```bash
 $bindsym $mod+Shift+e exec $shutdown
@@ -29,11 +29,11 @@ to remove existing shortcuts (for example to reuse them elsewhere) you can `$unb
 $unbindsym $mod+w
 ```
 
-## upgrades
+## Upgrades
 
 ### how do I upgrade the ~/.config after an update?
 
-after upgrading packages, you will sometimes need to update your skeleton:
+After upgrading packages, you will sometimes need to update your skeleton:
 
 ```bash
 cp -rf /etc/skel/.config/* ~/.config
@@ -41,57 +41,58 @@ cp -rf /etc/skel/.config/* ~/.config
 
 keep in mind that this could cause problems with customizations you made. backup!
 
-### why are pacman downloads so slow?
+### Why are pacman downloads so slow?
 
-fasttrack mirrors: `sudo pacman-mirrors --geoip && sudo pacman -Syyu`
+You can add fasttrack mirrors using this command:
 
-### how can I update the manjaro-sway-settings package (and all other packages from manjaro-sway)?
+```bash
+sudo pacman-mirrors --geoip && sudo pacman -Syyu
+```
 
-just prefix the repository: `pacman -S manjaro-sway/manjaro-sway-settings`
 
-### why are your packages not in the regular manjaro repos?
+### Why are your packages not in the regular Manjaro Repositories?
 
-we're working on it. submissions to them are partly manual and our signing key isn't yet officially part of the manjaro-keyring.
+Submissions to the Manjaro Repositories are partly manual and thus hard to align with our release process. On the contrary, we try to remove our packages from the official package sources again.
 
-### how can I track updates?
+### How can I track updates?
 
-major changes specific to this flavor of manjaro are mostly being done in the [desktop-settings repo](https://github.com/Manjaro-Sway/desktop-settings).
+Major changes specific to this flavor of manjaro are mostly being done in the [desktop-settings repo](https://github.com/Manjaro-Sway/desktop-settings).
 
-## customizing
+## Customizing
 
-### how can I customize sway without loosing my customizations after an upgrade?
+### How can I customize sway without losing my customizations after an upgrade?
 
-you can add variable overrides in `~/.config/sway/definitions.d/` and add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints. Make sure the files in either location end in .conf for them to be loaded.
+You can add variable overrides in `~/.config/sway/definitions.d/` and add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints. Make sure the files in either location end in .conf for them to be loaded.
 
-### how can I customize waybar without loosing my customization after an upgrade?
+### How can I customize waybar without losing my customization after an upgrade?
 
-copy over and edit the customization template, it will get picked up automatically:
+Copy over and edit the customization template, it will get picked up automatically:
 
 ```bash
 cp ~/.config/waybar/config.jsonc.example ~/.config/waybar/config.jsonc
 ```
 
-### how can I customize the foot terminal without loosing my customization after an upgrade?
+### How can I customize the foot terminal without losing my customization after an upgrade?
 
-copy over and edit the customization template, it will get picked up automatically:
+Copy over and edit the customization template, it will get picked up automatically:
 
 ```bash
 cp ~/.config/foot/foot.ini.example ~/.config/foot/foot.ini
 ```
 
-### how can I add my own and override existing sworkstyle icons?
+### How can I add my own and override existing sworkstyle icons?
 
-copy over and edit the customization template, it will get picked up automatically:
+Copy over and edit the customization template, it will get picked up automatically:
 
 ```bash
 cp ~/.config/sworkstyle/config.toml.example ~/.config/sworkstyle/config.toml
 ```
 
-## setup and configuration
+## Setup and configuration
 
-### how can I move the waybar from top to bottom?
+### How can I move the waybar from top to bottom?
 
-change the waybar position by creating or updating your `~/.config/waybar/config.jsonc`:
+Change the waybar position by creating or updating your `~/.config/waybar/config.jsonc`:
 
 ```jsonc
 {
@@ -102,23 +103,25 @@ change the waybar position by creating or updating your `~/.config/waybar/config
 }
 ```
 
-### how can I enable screen-share in chromium(-alike) browsers?
+### How can I enable screen-share in chromium(-alike) browsers?
 
-enable `chrome://flags/#enable-webrtc-pipewire-capturer`
+Enable `chrome://flags/#enable-webrtc-pipewire-capturer`
 
-### how can I log in inside a virtual machine?
+### How can I log in inside a virtual machine?
 
 While it seems to work out of the box in some kvm/qemu/libvirt environments (f.e. Gnome Boxes), you need to enable 3D acceleration in VirtualBox.
 
-### how can I use the amazing mps-youtube?
+### How can I use the amazing mps-youtube?
 
 [set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
 
-### [how do I get an active bluetooth after login](https://wiki.archlinux.org/title/Bluetooth#Auto_power-on_after_boot)?
+### How do I get an active bluetooth after login?
 
-### how can I add more keyboard layouts to sway?
+Refer to this [link](https://wiki.archlinux.org/title/Bluetooth#Auto_power-on_after_boot)
 
-copy over our configuration example:
+### How can I add more keyboard layouts to sway?
+
+Copy over our configuration example:
 
 ```bash
 cp ~/.config/sway/config.d/XX-keyboard.conf.example ~/.config/sway/config.d/01-keyboard.conf
@@ -126,43 +129,43 @@ cp ~/.config/sway/config.d/XX-keyboard.conf.example ~/.config/sway/config.d/01-k
 
 refer to `man sway-input` and the [arch wiki](https://wiki.archlinux.org/title/Sway#Keymap) for more pointers.
 
-### why doesn't it start with nvidia drivers?
+### Why doesn't it start with nvidia drivers?
 
 [perhaps you're using the proprietary ones](https://github.com/swaywm/sway/issues/490).
 
-### how do I disable the window focus flashing animation?
+### How do I disable the window focus flashing animation?
 
 ```bash
 pacman -R flashfocus
 ```
 
-### why do my keyboard settings from the installer have no effect?
+### Why do my keyboard settings from the installer have no effect?
 
 Manjaro installer controls keyboard settings using xkb, sway doesn't support it. Please refer [here](https://wiki.archlinux.org/title/Sway#Keymap) for help.
 
-### why do my auto-login settings from the installer have no effect?
+### Why do my auto-login settings from the installer have no effect?
 
 greetd, our login messenger, is not supported by the manjaro installer. refer [here](https://wiki.archlinux.org/title/Greetd#Autologin) for help.
 
-### how can I disable the night light feature?
+### How can I disable the night light feature?
 
 ```bash
 pacman -R wlsunset
 ```
 
-### how can I disable the dynamic workspace icons?
+### How can I disable the dynamic workspace icons?
 
 ```bash
 pacman -R sworkstyle
 ```
 
-### how can I disable the window auto-tiling?
+### How can I disable the window auto-tiling?
 
 ```bash
 pacman -R autotiling
 ```
 
-### how can I enable github notifications?
+### How can I enable github notifications?
 
 install and authenticate with the github cli:
 
