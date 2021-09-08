@@ -7,7 +7,7 @@ function start(){
 	temp_high=${temp_high:-"6500"}
 	duration=${duration:-"900"}
 	sunrise=${sunrise:-"07:00"}
-	sunset=${sunset:-"23:00"}
+	sunset=${sunset:-"19:00"}
 	longitude=${longitude:-65}
 	latitude=${latitude:-65}
 	location=${location:-"off"}
