@@ -137,6 +137,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "vncsna",
+      "name": "Vinicius Aguiar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4673693?v=4",
+      "profile": "https://github.com/vncsna",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
