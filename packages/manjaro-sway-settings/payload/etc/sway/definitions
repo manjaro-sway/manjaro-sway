@@ -26,7 +26,7 @@ set $term_float footclient -a floating_shell
 set $term_float_portrait footclient -a floating_shell_portrait
 
 # Your preferred application launcher
-set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command  "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "$gui-font" -lines 10 -width 35 -color-normal "$background-color, $text-color, $background-color, $accent-color, $text-color" -color-window "$background-color, $selection-color"
+set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "Roboto 11" -lines 10 -width 35 -theme-str "* {lightbg: $background-color; background: $background-color; lightfg: $accent-color; foreground: $text-color;}"
 
 ### Lockscreen configuration
 set $locking swaylock --daemonize --color "$selection-color" --inside-color "$selection-color" --inside-clear-color "$text-color" --ring-color "$color2" --ring-clear-color "$color11" --ring-ver-color "$color13" --show-failed-attempts --fade-in 0.2 --grace 2 --effect-vignette 0.5:0.5 --effect-blur 7x5 --ignore-empty-password --screenshots --clock
