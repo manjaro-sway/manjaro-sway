@@ -55,7 +55,7 @@ $bindsym $mod+Down focus down
 $bindsym $mod+Up focus up
 $bindsym $mod+Right focus right
 
-## Navigation // Move focussed window // $mod + Shift + ↑ ↓ ← → ##
+## Navigation // Move focused window // $mod + Shift + ↑ ↓ ← → ##
 $bindsym $mod+Shift+Left move left
 $bindsym $mod+Shift+Down move down
 $bindsym $mod+Shift+Up move up
@@ -78,7 +78,7 @@ $bindsym $mod+0 workspace $ws10
 
 set $focus_ws [ $focus_after_move == 'true' ] && swaymsg workspace
 
-## Action // Move focussed window to workspace // $mod + Shift + [number] ##
+## Action // Move focused window to workspace // $mod + Shift + [number] ##
 $bindsym $mod+Shift+1 move container to workspace $ws1, exec $focus_ws $ws1
 $bindsym $mod+Shift+2 move container to workspace $ws2, exec $focus_ws $ws2
 $bindsym $mod+Shift+3 move container to workspace $ws3, exec $focus_ws $ws3
