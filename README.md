@@ -7,46 +7,31 @@
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
-## Description
-
 [![watch it in action](https://img.youtube.com/vi/34DIO61GxAE/0.jpg)](https://www.youtube.com/watch?v=34DIO61GxAE "watch it in action")
 
-we're building a manjaro sway edition - with the following principles:
+We are building a manjaro sway edition - with the following principles:
 
 - use a decent cli/tui solution
 - convention overrideable by configuration
-- prepare opt out
-- build everything in automation
+- prepare opt-out
+- build everything automatically
 
-## Where can I download an ISO file?
+## Setup
 
-images are built nightly for the latest stable and lts kernels and available on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases)
+Nightly ISO images with the latest stable and LTS kernels are available on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases).
+Note that you need to download both the `z01` and the `zip` file and then [combine them](https://github.com/Manjaro-Sway/manjaro-sway/blob/main/SUPPORT.md#how-can-i-unzip-the-multi-part-zip-zip--z01).
 
-## Caveats
+See [here](SUPPORT.md) for any questions.
+
+### Caveats
 
 - nvidia proprietary drivers are not supported by sway
-- nvidia open source drivers (noveau) are [known to cause problems](https://github.com/Manjaro-Sway/manjaro-sway/issues/140), refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Sway_v1.6_shows_garbage_or_blank_screen_when_using_nouveau)
-- vmware player is [known to cause problems similar to nouveau](https://github.com/Manjaro-Sway/manjaro-sway/issues/139) - you could use gnome boxes or virtualbox instead - refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Virtualization) 
+- nvidia open source drivers (noveau) are [known to cause problems](https://github.com/Manjaro-Sway/manjaro-sway/issues/140),
+  refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Sway_v1.6_shows_garbage_or_blank_screen_when_using_nouveau)
+- vmware player is [known to cause problems similar to nouveau](https://github.com/Manjaro-Sway/manjaro-sway/issues/139) -
+  you could use gnome boxes or virtualbox instead - refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Virtualization) 
 
-## Questions?
-
-Check [here](SUPPORT.md) for any questions.
-
-## Sources
-
-- [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway)
-- [desktop settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway)
-
-## How to Build
-
-1. Check out the ISO profile
-2. Run this command in the root directory
-
-```bash
-buildiso -p sway
-```
-
-## Screenshots
+### Screenshots
 
 ![desktop](docs/_includes/desktop.png?raw=true)
 ![autotiling](docs/_includes/autotiling.png?raw=true)
@@ -57,28 +42,44 @@ buildiso -p sway
 ![pamac](docs/_includes/pamac.png?raw=true)
 ![youtube](docs/_includes/youtube.png?raw=true)
 
-## Credentials
+### Credentials
 
 ```
 user: manjaro
 password: manjaro
 ```
 
-## Credits
+## Development
+
+### Sources
+
+- [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway)
+- [desktop settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway)
+
+### How to Build
+
+1. Check out the ISO profile
+2. Run this command in the root directory
+
+```bash
+buildiso -p sway
+```
+
+### Credits
 
 - initial inspiration came from the [sway branch in the manjaro iso profiles repo](https://gitlab.manjaro.org/profiles-and-settings/iso-profiles/-/tree/sway)
 - initially a lot of work got copied from the [manjaro sway arm overlay](https://gitlab.manjaro.org/manjaro-arm/applications/arm-profiles/-/tree/master/overlays/sway)
 - the background image is [beautifully made by reddit user u/atlas-ark](https://www.reddit.com/r/wallpaper/comments/kmh680/1920x1080_all_resolutions_available_dark_light/?utm_source=share&utm_medium=web2x&context=3)
 - the logo is a contribution by [André Vallestero](https://github.com/AndreVallestero)
 
-## Conations
+### Conations
 
-if you like our distribution and have some bucks to spare, please consider contributions to the projects and developers we rely on the most:
+If you like our distribution and have some bucks to spare, please consider contributions to the projects and developers we rely on the most:
 
 - for sway and wlroots, consider [Drew DeVault](https://drewdevault.com/donate)
 - for waybar, consider [Alexis Rouillard](https://github.com/sponsors/Alexays)
 
-## Contributors ✨
+### Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
