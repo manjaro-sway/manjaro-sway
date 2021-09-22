@@ -71,7 +71,7 @@ set $help /usr/share/sway/scripts/help.sh
 # onscreen bar
 set $onscreen_bar bash /usr/share/sway/scripts/wob.sh "$accent-colorFF" "$background-colorFF" 
 # calendar application
-set $calendar $term_float "khal interactive"
+set $calendar $term_float khal interactive
 
 # workspace names
 set $ws1 number 1
