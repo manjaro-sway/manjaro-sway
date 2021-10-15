@@ -25,8 +25,8 @@ See [here](SUPPORT.md) for any questions.
 
 ### Caveats
 
-- nvidia proprietary drivers under version 470 are not supported by sway.
-- nvidia's 470 drivers and the 5.14 Kernal have just added sway support for proprietary drivers.
+- nvidia proprietary drivers <470 are not supported by sway.
+- nvidia's 470 drivers and the 5.14 Kernel have just added sway support for proprietary drivers and are known to cause problems.
 - nvidia open source drivers (noveau) are [known to cause problems](https://github.com/Manjaro-Sway/manjaro-sway/issues/140),
   refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Sway_v1.6_shows_garbage_or_blank_screen_when_using_nouveau)
 - vmware player is [known to cause problems similar to nouveau](https://github.com/Manjaro-Sway/manjaro-sway/issues/139) -
