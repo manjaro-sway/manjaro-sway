@@ -4,7 +4,7 @@
 
 ### How can I unzip the multi-part zip (.zip + .z01)?
 
-If your archive manger doesn't support multipart zips already, you can just merge the two files using cat:
+If your archive manger doesn't support multipart zips already (p7zip installed), you can just merge the two files using cat:
 
 ```bash
 cat *.z* >tmp.zip
