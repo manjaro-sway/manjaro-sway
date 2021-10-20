@@ -192,7 +192,7 @@ $bindsym $mod+Shift+s layout stacking
 # unassign the window tabbing menu from $mod+s
 $unbindsym $mod+w
 # assign the tabbing mode to whatever you like
-$bindsym $mod+Shift+w layout stacking
+$bindsym $mod+Shift+w layout tabbed
 
 # assign the directional keys
 set $left a
