@@ -173,3 +173,30 @@ install and authenticate with the github cli:
 pacman -S github-cli
 gh auth login
 ```
+
+### How can I use w/a/s/d for directional navigation?
+
+create a new file `~/.config/sway/config.d/02-directional.conf`
+
+```bash
+# unassign the rofi menu from $mod+d
+$unbindsym $mod+d
+# assign the menu to whatever you like
+$bindsym $mod+Shift+d exec $menu
+
+# unassign the window stacking menu from $mod+s
+$unbindsym $mod+s
+# assign the stacking mode to whatever you like
+$bindsym $mod+Shift+s layout stacking
+
+# unassign the window tabbing menu from $mod+s
+$unbindsym $mod+w
+# assign the tabbing mode to whatever you like
+$bindsym $mod+Shift+w layout tabbed
+
+# assign the directional keys
+set $left a
+set $down s
+set $up w
+set $right d
+```
