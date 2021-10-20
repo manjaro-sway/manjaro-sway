@@ -3,19 +3,17 @@
 # Logo key. Use Mod1 for Alt and Mod4 for Super.
 set $mod Mod4
 
-# Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right l
-
+# Direction keys
+set $left Left
+set $down Down
+set $up Up
+set $right Right
 
 # Add --to-code to bindsym, support for non-latin layouts
 set $bindsym bindsym --to-code
 
 # For user's convenience, the same for unbindsym
 set $unbindsym unbindsym --to-code
-
 
 # background
 set $background /usr/share/backgrounds/manjaro-sway/gruvbox-dark-manjarosway-3840x2160.png
@@ -39,7 +37,6 @@ set $locking swaylock --daemonize --color "$selection-color" --inside-color "$se
 
 ###Notification daemon configuration
 set $notifications mako --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000
-
 
 ### Idle configuration
 # This will lock your screen after 300 seconds of inactivity, then turn off
