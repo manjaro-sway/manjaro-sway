@@ -24,7 +24,8 @@
     ],
     "modules-center": [
         "custom/wf-recorder",
-        "sway/mode"
+        "sway/mode",
+        "custom/weather"
     ],
     "modules-right": [
         // informational
@@ -262,5 +263,14 @@
         "on-click": "swaymsg -q exec '$clipboard'",
         "exec": "printf '{\"tooltip\":\"%s\"}' $(cliphist list | wc -l)",
         "exec-if": "[ $(cliphist list | wc -l) -gt 0 ]"
+    },
+    "custom/weather": {
+        "icon-size": 42,
+        "format": "{}",
+        "tooltip": true,
+        "interval": 3600,
+        // accepts a location as an argument (in quotes)
+        "exec": "/usr/share/sway/scripts/weather.py", 
+        "return-type": "json"
     }
 }
