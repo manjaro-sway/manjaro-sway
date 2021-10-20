@@ -194,7 +194,7 @@ $unbindsym $mod+w
 # assign the tabbing mode to whatever you like
 $bindsym $mod+Shift+w layout stacking
 
-# assign the positional keys
+# assign the directional keys
 set $left a
 set $down s
 set $up w
