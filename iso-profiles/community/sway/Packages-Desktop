@@ -84,6 +84,9 @@ pamac-gtk
 >extra manjaro-printer
 >extra manjaro-settings-manager
 
+# extra fonts
+>extra wqy-microhei
+
 # CLI tools
 neovim
 curl
