@@ -106,6 +106,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/ahoneybun"><img src="https://avatars.githubusercontent.com/u/4884946?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aaron Honeycutt</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=ahoneybun" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/vncsna"><img src="https://avatars.githubusercontent.com/u/4673693?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vinicius Aguiar</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/issues?q=author%3Avncsna" title="Bug reports">🐛</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Zeioth"><img src="https://avatars.githubusercontent.com/u/3357792?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zeioth</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=Zeioth" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
