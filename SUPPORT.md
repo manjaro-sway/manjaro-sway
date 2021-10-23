@@ -170,6 +170,11 @@ pacman -R autotiling
 ```bash
 pacman -R cliphist
 ```
+### How can I delete the clipboard history?
+
+```bash
+Middle click on the icon on waybar
+```
 
 ### How can I purge the clipboard history on logout?
 
