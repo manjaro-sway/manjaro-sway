@@ -236,7 +236,7 @@
         "return-type": "json",
         "format" : " {}",
         "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
-        "exec-if": "command -v gh >/dev/null && gh auth status 2>&1 | grep -q -m 1 'Logged in' && gh api '/notifications' -q 'length' | grep -q -m 1 '0' ; test $? -eq 1",
+        "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in' && gh api '/notifications' -q 'length' | grep -q -m 1 '0' ; test $? -eq 1",
         "on-click": "xdg-open https://github.com/notifications && sleep 30 && pkill -RTMIN+4 waybar",
         "signal": 4
     },
@@ -259,10 +259,13 @@
     },
     "custom/clipboard": {
         "format": "",
+        "interval": "once",
         "return-type": "json",
-        "on-click": "swaymsg -q exec '$clipboard'",
+        "on-click": "swaymsg -q exec '$clipboard'; pkill -RTMIN+9 waybar",
+        "on-click-middle": "rm -f ~/.cache/cliphist/db; pkill -RTMIN+9 waybar",
         "exec": "printf '{\"tooltip\":\"%s\"}' $(cliphist list | wc -l)",
-        "exec-if": "[ $(cliphist list | wc -l) -gt 0 ]"
+        "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list | wc -l) -gt 0 ]",
+        "signal": 9
     },
     "custom/weather": {
         "icon-size": 42,
