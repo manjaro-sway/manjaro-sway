@@ -165,6 +165,28 @@ pacman -R sworkstyle
 pacman -R autotiling
 ```
 
+### How can I disable the clipboard history?
+
+```bash
+pacman -R cliphist
+```
+
+### How can I purge the clipboard history on logout?
+
+add a definition `~/.config/sway/definitions.d/cliphist.conf`:
+
+```
+set $purge_cliphist_logout true
+```
+
+### How can I follow the windows as I move them?
+
+add a definition `~/.config/sway/definitions.d/window-follow.conf`:
+
+```
+set $focus_after_move true
+```
+
 ### How can I enable github notifications?
 
 install and authenticate with the github cli:
