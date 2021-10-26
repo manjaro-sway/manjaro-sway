@@ -17,16 +17,8 @@
     "height": 30,
     "position": "top",
 
-    "modules-left": [
-        "custom/menu",
-        "sway/workspaces",
-        "custom/scratchpad"
-    ],
-    "modules-center": [
-        "custom/wf-recorder",
-        "sway/mode",
-        "custom/weather"
-    ],
+    "modules-left": ["custom/menu", "sway/workspaces", "custom/scratchpad"],
+    "modules-center": ["custom/wf-recorder", "sway/mode", "custom/weather"],
     "modules-right": [
         // informational
         "sway/language",
@@ -67,7 +59,7 @@
         },
         "format-charging": " {capacity}%",
         "format": "{icon} {capacity}%",
-        "format-icons": ["","","","","",""],
+        "format-icons": ["", "", "", "", "", ""],
         "tooltip": true,
         "bat": "BAT0"
     },
@@ -145,12 +137,12 @@
     },
 
     "temperature": {
-      "critical-threshold": 90,
-      "interval": 5,
-      "format": "{icon} {temperatureC}°C",
-      "format-icons": ["","",""],
-      "tooltip": false,
-      "on-click": "swaymsg exec \"\\$term_float watch sensors\""
+        "critical-threshold": 90,
+        "interval": 5,
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": ["", "", ""],
+        "tooltip": false,
+        "on-click": "swaymsg exec \"\\$term_float watch sensors\""
     },
 
     "tray": {
@@ -183,18 +175,18 @@
         "on-click": "blueberry",
         "tooltip-format": "{}"
     },
-    
+
     "sway/language": {
         "format": " {}",
         "min-length": 5,
         "tooltip": false,
         "on-click": "swaymsg input $(swaymsg -t get_inputs --raw | jq '[.[] | select(.type == \"keyboard\")][0] | .identifier') xkb_switch_layout next"
     },
-    
+
     "custom/scratchpad": {
         "interval": "once",
         "return-type": "json",
-        "format" : "{icon}",
+        "format": "{icon}",
         "format-icons": {
             "one": "类",
             "many": "缾"
@@ -203,15 +195,15 @@
         "on-click": "swaymsg 'scratchpad show'",
         "signal": 7
     },
-    
+
     "custom/sunset": {
         "interval": "once",
         "tooltip": false,
         "return-type": "json",
-        "format" : "{icon}",
+        "format": "{icon}",
         "format-icons": {
-            "on": "" ,
-            "off": "" 
+            "on": "",
+            "off": ""
         },
         "exec": "/usr/share/sway/scripts/sunset.sh",
         "on-click": "/usr/share/sway/scripts/sunset.sh toggle; pkill -RTMIN+6 waybar",
@@ -222,19 +214,19 @@
     "custom/wf-recorder": {
         "interval": "once",
         "return-type": "json",
-        "format" : "{}",
+        "format": "{}",
         "tooltip-format": "{tooltip}",
         "exec": "echo '{\"class\": \"recording\",\"text\":\"雷\",\"tooltip\":\"press $mod+Esc to stop recording\"}'",
         "exec-if": "pgrep wf-recorder",
         "on-click": "killall -s SIGINT wf-recorder",
         "signal": 8
-	},
+    },
 
     "custom/github": {
         "interval": 300,
         "tooltip": false,
         "return-type": "json",
-        "format" : " {}",
+        "format": " {}",
         "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
         "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in' && gh api '/notifications' -q 'length' | grep -q -m 1 '0' ; test $? -eq 1",
         "on-click": "xdg-open https://github.com/notifications && sleep 30 && pkill -RTMIN+4 waybar",
@@ -245,7 +237,7 @@
         "interval": "once",
         "tooltip": true,
         "return-type": "json",
-        "format" : "{icon}",
+        "format": "{icon}",
         "format-icons": {
             "Playing": "奈",
             "Paused": ""
@@ -257,6 +249,7 @@
         "on-scroll-down": "playerctl position 10-; pkill -RTMIN+5 waybar",
         "signal": 5
     },
+
     "custom/clipboard": {
         "format": "",
         "interval": "once",
@@ -268,13 +261,35 @@
         "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list | wc -l) -gt 0 ]",
         "signal": 9
     },
+
     "custom/weather": {
         "icon-size": 42,
-        "format": "{}",
+        "format": "{icon} {}",
         "tooltip": true,
         "interval": 3600,
         // accepts a location as an argument (in quotes)
-        "exec": "/usr/share/sway/scripts/weather.py", 
-        "return-type": "json"
+        "exec": "/usr/share/sway/scripts/weather.py",
+        "return-type": "json",
+        "format-icons": {
+            "Unknown": "",
+            "Cloudy": "摒",
+            "Fog": "",
+            "HeavyRain": "",
+            "HeavyShowers": "",
+            "HeavySnow": "",
+            "HeavySnowShowers": "ﰕ",
+            "LightRain": "",
+            "LightShowers": "",
+            "LightSleet": "",
+            "LightSleetShowers": "",
+            "LightSnow": "",
+            "LightSnowShowers": "ﭽ",
+            "PartlyCloudy": "",
+            "Sunny": "",
+            "ThunderyHeavyRain": "ﭼ",
+            "ThunderyShowers": "",
+            "ThunderySnowShowers": "",
+            "VeryCloudy": ""
+        }
     }
 }

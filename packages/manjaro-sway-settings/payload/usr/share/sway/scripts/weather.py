@@ -8,55 +8,77 @@ import sys
 import urllib.parse
 from datetime import datetime
 
-WEATHER_CODES = {
-    '113': '☀️',
-    '116': '⛅️',
-    '119': '☁️',
-    '122': '☁️',
-    '143': '🌫',
-    '176': '🌦',
-    '179': '🌧',
-    '182': '🌧',
-    '185': '🌧',
-    '200': '⛈',
-    '227': '🌨',
-    '230': '❄️',
-    '248': '🌫',
-    '260': '🌫',
-    '263': '🌦',
-    '266': '🌦',
-    '281': '🌧',
-    '284': '🌧',
-    '293': '🌦',
-    '296': '🌦',
-    '299': '🌧',
-    '302': '🌧',
-    '305': '🌧',
-    '308': '🌧',
-    '311': '🌧',
-    '314': '🌧',
-    '317': '🌧',
-    '320': '🌨',
-    '323': '🌨',
-    '326': '🌨',
-    '329': '❄️',
-    '332': '❄️',
-    '335': '❄️',
-    '338': '❄️',
-    '350': '🌧',
-    '353': '🌦',
-    '356': '🌧',
-    '359': '🌧',
-    '362': '🌧',
-    '365': '🌧',
-    '368': '🌨',
-    '371': '❄️',
-    '374': '🌧',
-    '377': '🌧',
-    '386': '⛈',
-    '389': '🌩',
-    '392': '⛈',
-    '395': '❄️'
+WEATHER_SYMBOL = {
+    "Unknown":             "✨",
+    "Cloudy":              "☁️",
+    "Fog":                 "🌫",
+    "HeavyRain":           "🌧",
+    "HeavyShowers":        "🌧",
+    "HeavySnow":           "❄️",
+    "HeavySnowShowers":    "❄️",
+    "LightRain":           "🌦",
+    "LightShowers":        "🌦",
+    "LightSleet":          "🌧",
+    "LightSleetShowers":   "🌧",
+    "LightSnow":           "🌨",
+    "LightSnowShowers":    "🌨",
+    "PartlyCloudy":        "⛅️",
+    "Sunny":               "☀️",
+    "ThunderyHeavyRain":   "🌩",
+    "ThunderyShowers":     "⛈",
+    "ThunderySnowShowers": "⛈",
+    "VeryCloudy": "☁️",
+}
+
+WWO_CODE = {
+    "113": "Sunny",
+    "116": "PartlyCloudy",
+    "119": "Cloudy",
+    "122": "VeryCloudy",
+    "143": "Fog",
+    "176": "LightShowers",
+    "179": "LightSleetShowers",
+    "182": "LightSleet",
+    "185": "LightSleet",
+    "200": "ThunderyShowers",
+    "227": "LightSnow",
+    "230": "HeavySnow",
+    "248": "Fog",
+    "260": "Fog",
+    "263": "LightShowers",
+    "266": "LightRain",
+    "281": "LightSleet",
+    "284": "LightSleet",
+    "293": "LightRain",
+    "296": "LightRain",
+    "299": "HeavyShowers",
+    "302": "HeavyRain",
+    "305": "HeavyShowers",
+    "308": "HeavyRain",
+    "311": "LightSleet",
+    "314": "LightSleet",
+    "317": "LightSleet",
+    "320": "LightSnow",
+    "323": "LightSnowShowers",
+    "326": "LightSnowShowers",
+    "329": "HeavySnow",
+    "332": "HeavySnow",
+    "335": "HeavySnowShowers",
+    "338": "HeavySnow",
+    "350": "LightSleet",
+    "353": "LightShowers",
+    "356": "HeavyShowers",
+    "359": "HeavyRain",
+    "362": "LightSleetShowers",
+    "365": "LightSleetShowers",
+    "368": "LightSnowShowers",
+    "371": "HeavySnowShowers",
+    "374": "LightSleetShowers",
+    "377": "LightSleet",
+    "386": "ThunderyShowers",
+    "389": "ThunderyHeavyRain",
+    "392": "ThunderySnowShowers",
+    "395": "HeavySnowShowers",
 }
 
 data = {}
@@ -96,8 +118,8 @@ def format_chances(hour):
     return ", ".join(conditions)
 
 
-data['text'] = WEATHER_CODES[weather['current_condition'][0]['weatherCode']] + \
-    " "+weather['current_condition'][0]['FeelsLikeC']+"°"
+data['text'] = weather['current_condition'][0]['FeelsLikeC']+"°"
+data['alt'] = WWO_CODE[weather['current_condition'][0]['weatherCode']]
 
 data['tooltip'] = f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0]['temp_C']}°</b>\n"
 data['tooltip'] += f"Feels like: {weather['current_condition'][0]['FeelsLikeC']}°\n"
@@ -116,7 +138,7 @@ for i, day in enumerate(weather['weather']):
         if i == 0:
             if int(format_time(hour['time'])) < datetime.now().hour-2:
                 continue
-        data['tooltip'] += f"{format_time(hour['time'])} {WEATHER_CODES[hour['weatherCode']]} {format_temp(hour['FeelsLikeC'])} {hour['weatherDesc'][0]['value']}, {format_chances(hour)}\n"
+        data['tooltip'] += f"{format_time(hour['time'])} {WEATHER_SYMBOL[WWO_CODE[hour['weatherCode']]]} {format_temp(hour['FeelsLikeC'])} {hour['weatherDesc'][0]['value']}, {format_chances(hour)}\n"
 
 
 print(json.dumps(data))
