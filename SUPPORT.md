@@ -1,6 +1,6 @@
 # FAQ
 
-## Shortcuts
+## Install
 
 ### How can I unzip the multi-part zip (.zip + .z01)?
 
@@ -10,6 +10,14 @@ If your archive manger doesn't support multipart zips already (p7zip installed),
 cat *.z* >tmp.zip
 unzip tmp.zip
 ```
+
+### How can I restart the installer?
+
+```bash
+sudo -E calamares
+```
+
+## Shortcuts
 
 ### How can I list the predefined shortcuts?
 
@@ -48,7 +56,6 @@ You can add fasttrack mirrors using this command:
 ```bash
 sudo pacman-mirrors --geoip && sudo pacman -Syyu
 ```
-
 
 ### Why are your packages not in the regular Manjaro Repositories?
 
