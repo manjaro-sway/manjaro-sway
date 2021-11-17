@@ -55,6 +55,7 @@ sudo
 sysfsutils
 systemd
 systemd-fsck-silent
+systemd-sysvcompat
 texinfo
 tlp
 usbutils
