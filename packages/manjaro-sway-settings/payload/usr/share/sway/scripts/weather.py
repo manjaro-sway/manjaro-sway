@@ -121,7 +121,8 @@ def format_chances(hour):
 data['text'] = weather['current_condition'][0]['FeelsLikeC']+"°"
 data['alt'] = WWO_CODE[weather['current_condition'][0]['weatherCode']]
 
-data['tooltip'] = f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0]['temp_C']}°</b>\n"
+data['tooltip'] = f"Weather in <b>{weather['nearest_area'][0]['areaName'][0]['value']}</b>:\n"
+data['tooltip'] += f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0]['temp_C']}°</b>\n"
 data['tooltip'] += f"Feels like: {weather['current_condition'][0]['FeelsLikeC']}°\n"
 data['tooltip'] += f"Wind: {weather['current_condition'][0]['windspeedKmph']}Km/h\n"
 data['tooltip'] += f"Humidity: {weather['current_condition'][0]['humidity']}%\n"
