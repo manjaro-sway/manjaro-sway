@@ -1,8 +1,3 @@
-exec_always {
-   # set the sway keyboard layout and variant to the current X11 setting once and watch changes thereafter
-   '/usr/share/sway/scripts/setkeyboard.sh && watch -n1 "watch -d -t -g ls -lR ls -lR /etc/X11/xorg.conf.d/00-keyboard.conf && sh /usr/share/sway/scripts/setkeyboard.sh"'
-}
-
 for_window [class="calamares"] floating enable
 set $installer sudo -E calamares -d &
 set $mod Mod4
