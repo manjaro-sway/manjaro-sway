@@ -28,7 +28,7 @@ set $rofi_theme "* {lightbg: $background-color; background: $background-color; l
 
 # clipboard history
 set $clipboard cliphist list | rofi -dmenu -font "Roboto 11" -p "Select item to copy" -lines 10 -width 35 -theme-str $rofi_theme | cliphist decode | wl-copy
-set $clipboard-del cliphist list | rofi -dmenu -font "Roboto 11" -p "Select item to delete" -lines 10 -width 35 -theme-str $rofi_theme | cliphist delete-stdin
+set $clipboard-del cliphist list | rofi -dmenu -font "Roboto 11" -p "Select item to delete" -lines 10 -width 35 -theme-str $rofi_theme | cliphist delete
 
 # Your preferred application launcher
 set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "Roboto 11" -lines 10 -width 35 -theme-str $rofi_theme
