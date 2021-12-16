@@ -73,7 +73,7 @@ buildiso -p sway
 - the background image is [beautifully made by reddit user u/atlas-ark](https://www.reddit.com/r/wallpaper/comments/kmh680/1920x1080_all_resolutions_available_dark_light/?utm_source=share&utm_medium=web2x&context=3)
 - the logo is a contribution by [André Vallestero](https://github.com/AndreVallestero)
 
-### Conations
+### Donations
 
 If you like our distribution and have some bucks to spare, please consider contributions to the projects and developers we rely on the most:
 
