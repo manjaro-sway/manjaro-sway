@@ -28,6 +28,7 @@ mesa-vdpau
 >nonfree_x86_64 KERNEL-nvidia-470xx
 >nonfree_x86_64 KERNEL-nvidia
 >nonfree_default nvidia-390xx-utils
+>nonfree_default libxnvctrl-390xx
 >nonfree_x86_64 nvidia-470xx-utils
 >nonfree_x86_64 libxnvctrl-470xx
 >nonfree_x86_64 nvidia-utils
