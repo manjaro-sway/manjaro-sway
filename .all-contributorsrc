@@ -155,6 +155,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "xeruf",
+      "name": "Janek",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13354331?v=4",
+      "profile": "https://github.com/xeruf",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
