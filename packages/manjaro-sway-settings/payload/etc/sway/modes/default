@@ -32,9 +32,9 @@ $bindsym XF86AudioMute exec $onscreen_bar $(pactl set-sink-mute @DEFAULT_SINK@ t
 
 $bindsym XF86AudioMicMute exec $onscreen_bar $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
 
-$bindsym XF86MonBrightnessUp exec light -A 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
+$bindsym XF86MonBrightnessUp exec light -r -A 1 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
-$bindsym XF86MonBrightnessDown exec light -U 5 && $onscreen_bar $(light -G | cut -d'.' -f1)
+$bindsym XF86MonBrightnessDown exec light -r -U 1 && $onscreen_bar $(light -G | cut -d'.' -f1)
 
 $bindsym XF86AudioPlay exec playerctl play-pause
 
