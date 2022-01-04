@@ -116,8 +116,8 @@
     "backlight": {
         "format": "{icon} {percent}%",
         "format-icons": ["", "", ""],
-        "on-scroll-up": "light -r -A 1",
-        "on-scroll-down": "light -r -U 1"
+        "on-scroll-up": "swaymsg exec \\$brightness_up",
+        "on-scroll-down": "swaymsg exec \\$brightness_down"
     },
 
     "pulseaudio": {

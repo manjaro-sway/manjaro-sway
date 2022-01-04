@@ -23,6 +23,11 @@ set $term /usr/share/sway/scripts/foot.sh
 set $term_float footclient -a floating_shell
 set $term_float_portrait footclient -a floating_shell_portrait
 
+# brightness control
+set $brightness_step bash -c 'echo $(( $(light -Mr) / 100 * 5 < 1 ? 1 : $(( $(light -Mr) / 100 * 5 )) ))'
+set $brightness_up light -r -A $($brightness_step) 
+set $brightness_down light -r -U $($brightness_step)
+
 # rofi theme
 set $rofi_theme "* {lightbg: $background-color; background: $background-color; lightfg: $accent-color; foreground: $text-color;}"
 
