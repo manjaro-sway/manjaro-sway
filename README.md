@@ -109,6 +109,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/Zeioth"><img src="https://avatars.githubusercontent.com/u/3357792?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zeioth</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=Zeioth" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/xeruf"><img src="https://avatars.githubusercontent.com/u/13354331?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Janek</b></sub></a><br /><a href="#maintenance-xeruf" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/fraunos"><img src="https://avatars.githubusercontent.com/u/6673521?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michał Wołoszyn</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=fraunos" title="Code">💻</a></td>
   </tr>
 </table>
 
