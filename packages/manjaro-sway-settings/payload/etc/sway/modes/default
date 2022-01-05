@@ -24,17 +24,17 @@ floating_modifier $mod normal
 ## Action // Reload Sway Configuration ##
 $bindsym $mod+Shift+c reload
 
-$bindsym XF86AudioRaiseVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink_volume)
+$bindsym XF86AudioRaiseVolume exec $volume_up
 
-$bindsym XF86AudioLowerVolume exec $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume)
+$bindsym XF86AudioLowerVolume exec $volume_down
 
-$bindsym XF86AudioMute exec $onscreen_bar $(pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En "/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p")
+$bindsym XF86AudioMute exec $volume_mute
 
-$bindsym XF86AudioMicMute exec $onscreen_bar $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
+$bindsym XF86AudioMicMute exec $mic_mute
 
-$bindsym XF86MonBrightnessUp exec $brightness_up && $onscreen_bar $(light -G | cut -d'.' -f1)
+$bindsym XF86MonBrightnessUp exec $brightness_up
 
-$bindsym XF86MonBrightnessDown exec $brightness_down && $onscreen_bar $(light -G | cut -d'.' -f1)
+$bindsym XF86MonBrightnessDown exec $brightness_down
 
 $bindsym XF86AudioPlay exec playerctl play-pause
 

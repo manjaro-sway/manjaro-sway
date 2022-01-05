@@ -132,7 +132,9 @@
             "default": ["奄", "奔", "墳"]
         },
         "tooltip-format": "{icon} {volume}% {format_source}",
-        "on-click": "swaymsg exec \\$pulseaudio"
+        "on-click": "swaymsg exec \\$pulseaudio",
+        "on-scroll-up": "swaymsg exec \\$volume_up",
+        "on-scroll-down": "swaymsg exec \\$volume_down"
     },
 
     "temperature": {
