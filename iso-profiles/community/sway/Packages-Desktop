@@ -10,6 +10,7 @@ manjaro-sway/manjaro-sway-settings
 >extra sworkstyle # dynamic workspace icons in waybar
 >extra manjaro-sway/nerd-fonts-roboto-mono # default terminal font
 >extra swaycwd # determines the cwd of a sway container
+>extra zeit # command line time tracker
 
 # Wayland support
 xorg-xwayland # xorg-wayland bridge
