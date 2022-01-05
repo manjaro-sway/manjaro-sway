@@ -3,7 +3,8 @@
 # Basics:
 #
 ## Launch // Terminal ##
-$bindsym $mod+Return exec $term
+$bindsym $mod+Return exec $term_cwd
+$bindsym $mod+Shift+Return exec $term
 
 ## Action // Kill focused window ##
 $bindsym $mod+Shift+q kill
