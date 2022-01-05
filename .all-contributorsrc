@@ -164,6 +164,15 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "fraunos",
+      "name": "Michał Wołoszyn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6673521?v=4",
+      "profile": "https://github.com/fraunos",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
