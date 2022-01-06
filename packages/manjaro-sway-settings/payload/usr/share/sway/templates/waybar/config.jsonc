@@ -240,8 +240,8 @@
         "return-type": "json",
         "format": "{icon}",
         "format-icons": {
-            "Playing": "奈",
-            "Paused": ""
+            "Playing": "",
+            "Paused": "奈"
         },
         "exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
         "on-click": "playerctl play-pause; pkill -RTMIN+5 waybar",
