@@ -26,7 +26,7 @@ then
 
     if [[ "$task" == "" ]] || [[ "$project" == "" ]]
     then
-        notify-send "You did not select a task\!"
+        notify-send "You did not select a task!"
         exit 1
     fi
 
