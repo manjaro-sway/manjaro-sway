@@ -82,6 +82,7 @@ pamac-gtk
 >extra appimagelauncher
 >extra libpamac-snap-plugin
 >extra libpamac-flatpak-plugin
+>extra web-installer-url-handler
 
 # extra
 >extra apparmor
