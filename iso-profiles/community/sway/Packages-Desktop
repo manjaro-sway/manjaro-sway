@@ -79,6 +79,9 @@ manjaro-hotfixes
 >extra yay
 >extra manjaro-aur-support
 pamac-gtk
+>extra appimagelauncher
+>extra libpamac-snap-plugin
+>extra libpamac-flatpak-plugin
 
 # extra
 >extra apparmor
