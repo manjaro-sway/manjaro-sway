@@ -24,6 +24,7 @@
         "sway/language",
         "custom/github",
         "custom/clipboard",
+        "custom/zeit",
         "cpu",
         "memory",
         "battery",
@@ -292,5 +293,19 @@
             "ThunderySnowShowers": "",
             "VeryCloudy": ""
         }
+    },
+
+    "custom/zeit": {
+        "return-type": "json",
+        "interval": "once",
+        "format": "{icon}",
+        "format-icons": {
+            "tracking": "華",
+            "stopped": ""
+        },
+        "exec": "/bin/sh /usr/share/sway/scripts/zeit.sh status",
+        "on-click": "/bin/sh /usr/share/sway/scripts/zeit.sh click; pkill -RTMIN+10 waybar",
+        "exec-if": "[ -x \"$(command -v zeit)\" ]",
+        "signal": 10
     }
 }

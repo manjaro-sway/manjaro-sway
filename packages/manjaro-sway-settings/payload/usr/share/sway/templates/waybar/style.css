@@ -64,6 +64,7 @@
 #custom-scratchpad,
 #custom-github,
 #custom-clipboard,
+#custom-zeit,
 #bluetooth,
 #battery,
 #clock,
@@ -90,6 +91,10 @@
 
 #custom-scratchpad {
     background-color: @theme_selected_bg_color;
+}
+
+#custom-zeit.tracking {
+    background-color: @warning_color;
 }
 
 #battery {
