@@ -29,8 +29,8 @@ jobs:
     strategy:
       matrix:
         edition: [sway]
-        branch: [stable]
-        scope: [full]
+        branch: [stable, unstable]
+        scope: [full, minimal]
         kernel: 
           - ${{ needs.prepare-release.outputs.longterm }}
           - ${{ needs.prepare-release.outputs.stable }}
