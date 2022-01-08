@@ -21,7 +21,8 @@ We are building a manjaro sway edition - with the following principles:
 You can find the weekly ISO images on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases).
 To extract the regular images, download both the `z01` and the `zip` files, and run the command:
 
-    cat *.z* >tmp.zip && unzip tmp.zip
+```bash
+cat *.z* >tmp.zip && unzip tmp.zip
 
 You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/). 
 Check our [FAQ](SUPPORT.md) for additional hints.
