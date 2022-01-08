@@ -1,7 +1,7 @@
 name: iso_build
 on:
   schedule:
-    - cron:  '2 2 * * *'
+    - cron:  '30 2 * * 0'
   workflow_dispatch:
   repository_dispatch:
     types: [iso_profile_update]
