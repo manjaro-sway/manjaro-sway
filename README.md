@@ -24,7 +24,7 @@ To extract the regular images, download both the `z01` and the `zip` files, and 
     cat *.z* >tmp.zip && unzip tmp.zip
 
 You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/). 
-Check our [FAQ](SUPPORT.md).
+Check our [FAQ](SUPPORT.md) for additional hints.
 
 ## Known issues
 
