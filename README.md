@@ -16,14 +16,18 @@ We are building a manjaro sway edition - with the following principles:
 - prepare opt-out
 - build everything automatically
 
-## Setup
+## How to install
 
-Nightly ISO images with the latest stable and LTS kernels are available on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases).
-Note that you need to download both the `z01` and the `zip` file and then [combine them](https://github.com/Manjaro-Sway/manjaro-sway/blob/main/SUPPORT.md#how-can-i-unzip-the-multi-part-zip-zip--z01).
+### Download the ISO
+You can find the daily ISO images on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases).
+To extract the image, download both the `z01` and the `zip` files, and run the command:
 
-See [here](SUPPORT.md) for any questions.
+    cat *.z* >tmp.zip && unzip tmp.zip
 
-### Caveats
+Then you can create the bootable USB by using the image with [Etcher](https://www.balena.io/etcher/). 
+Check our [FAQ](SUPPORT.md).
+
+## Known issues
 
 - nvidia proprietary drivers <470 are not supported by sway.
 - nvidia's 470 drivers and the 5.14 Kernel have just added sway support for proprietary drivers and are known to cause problems.
