@@ -27,6 +27,7 @@ util-linux
 xz
 
 # Manjaro
+>multilib gcc-libs-multilib
 acpi
 acpid
 amd-ucode
@@ -72,6 +73,7 @@ mhwd
 mhwd-db
 mkinitcpio-openswap
 nano
+nano-syntax-highligting
 nfs-utils
 ntfs-3g
 os-prober
@@ -79,6 +81,7 @@ perl
 reiserfsprogs
 rsync
 s-nail
+sof-firmware
 spectre-meltdown-checker
 sudo
 sysfsutils
