@@ -1,3 +1,32 @@
+# Base
+bash
+bzip2
+coreutils
+file
+filesystem
+findutils
+gawk
+gcc-libs
+gettext
+glibc
+grep
+gzip
+iproute2
+iputils
+licenses
+pacman
+pciutils
+procps-ng
+psmisc
+sed
+shadow
+systemd
+systemd-sysvcompat
+tar
+util-linux
+xz
+
+# Manjaro
 acpi
 acpid
 amd-ucode
@@ -19,7 +48,7 @@ dosfstools
 e2fsprogs
 ecryptfs-utils
 efibootmgr
-exfatprogs
+exfat-utils
 f2fs-tools
 glibc-locales
 grub
@@ -32,11 +61,11 @@ less
 logrotate
 lvm2
 man-db
-man-pages
 manjaro-firmware
 manjaro-release
 manjaro-system
 manjaro-zsh-config
+man-pages
 mdadm
 memtest86+
 mhwd
@@ -63,3 +92,4 @@ wget
 which
 wpa_supplicant
 xfsprogs
+
