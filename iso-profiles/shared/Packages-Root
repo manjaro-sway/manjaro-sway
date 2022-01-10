@@ -88,7 +88,6 @@ sysfsutils
 systemd
 systemd-fsck-silent
 texinfo
-tlp
 usbutils
 vi
 wget
