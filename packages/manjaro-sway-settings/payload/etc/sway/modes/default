@@ -25,6 +25,9 @@ floating_modifier $mod normal
 ## Action // Reload Sway Configuration ##
 $bindsym $mod+Shift+c reload
 
+## Action // Toggle Waybar ##
+$bindsym $mod+Shift+b exec pkill -SIGUSR1 waybar
+
 $bindsym XF86AudioRaiseVolume exec $volume_up
 
 $bindsym XF86AudioLowerVolume exec $volume_down
