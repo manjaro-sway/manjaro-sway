@@ -115,6 +115,9 @@ $bindsym $mod+e layout toggle split
 ## Action // Toggle fullscreen ##
 $bindsym $mod+f fullscreen
 
+## Action // Toggle global fullscreen ##
+$bindsym $mod+Shift+f fullscreen global
+
 ## Action // Toggle floating ##
 $bindsym $mod+Shift+space floating toggle
 
