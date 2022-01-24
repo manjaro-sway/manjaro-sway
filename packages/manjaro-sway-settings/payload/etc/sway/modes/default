@@ -36,9 +36,9 @@ $bindsym XF86AudioMute exec $volume_mute
 
 $bindsym XF86AudioMicMute exec $mic_mute
 
-$bindsym XF86MonBrightnessUp exec $brightness_up
+$bindsym --locked XF86MonBrightnessUp exec $brightness_up
 
-$bindsym XF86MonBrightnessDown exec $brightness_down
+$bindsym --locked XF86MonBrightnessDown exec $brightness_down
 
 $bindsym XF86AudioPlay exec playerctl play-pause
 
