@@ -20,7 +20,7 @@ set $background /usr/share/backgrounds/manjaro-sway/gruvbox-dark-manjarosway-384
 
 # Your preferred terminal emulator
 set $term /usr/share/sway/scripts/foot.sh
-set $term_cwd $term -D $(swaycwd 2>/dev/null || echo $HOME)
+set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
 set $term_float footclient -a floating_shell
 set $term_float_portrait footclient -a floating_shell_portrait
 
