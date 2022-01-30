@@ -164,7 +164,8 @@
     "custom/menu": {
         "format": "",
         "on-click": "swaymsg exec \\$menu",
-        "tooltip": false
+        "tooltip": false,
+        "rotate": 180
     },
 
     "bluetooth": {
