@@ -84,9 +84,9 @@ pamac-gtk
 >extra libpamac-flatpak-plugin
 >extra web-installer-url-handler
 
-# extra
+# utils
 >extra apparmor
->extra xdg-user-dirs
+xdg-user-dirs
 >extra manjaro-printer
 >extra manjaro-settings-manager
 
@@ -101,5 +101,5 @@ jq
 oh-my-zsh
 tlp
 wget
->extra wl-clipboard # wayland clipboard application
->extra cliphist # clipboard history application
+wl-clipboard # wayland clipboard application
+cliphist # clipboard history application
