@@ -25,14 +25,16 @@ floating_modifier $mod normal
 ## Action // Reload Sway Configuration ##
 $bindsym $mod+Shift+c reload
 
-## Action // Toggle Waybar ##
+## Action // Toggle Waybar ##    
+# --locked flags allow the buttons to be used whilst the screen is locked.
+
 $bindsym $mod+Shift+b exec pkill -SIGUSR1 waybar
 
-$bindsym XF86AudioRaiseVolume exec $volume_up
+$bindsym --locked XF86AudioRaiseVolume exec $volume_up
 
-$bindsym XF86AudioLowerVolume exec $volume_down
+$bindsym --locked XF86AudioLowerVolume exec $volume_down
 
-$bindsym XF86AudioMute exec $volume_mute
+$bindsym --locked XF86AudioMute exec $volume_mute
 
 $bindsym XF86AudioMicMute exec $mic_mute
 
@@ -40,7 +42,7 @@ $bindsym --locked XF86MonBrightnessUp exec $brightness_up
 
 $bindsym --locked XF86MonBrightnessDown exec $brightness_down
 
-$bindsym XF86AudioPlay exec playerctl play-pause
+$bindsym --locked XF86AudioPlay exec playerctl play-pause
 
 $bindsym XF86AudioNext exec playerctl next
 
@@ -52,7 +54,6 @@ $bindsym XF86PowerOff exec $shutdown
 
 $bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
 
-#
 # Moving around:
 #
 # Move your focus around
