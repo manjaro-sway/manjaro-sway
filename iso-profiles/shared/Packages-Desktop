@@ -9,7 +9,7 @@ manjaro-hotfixes
 mesa-utils
 mobile-broadband-provider-info
 modemmanager
->multilib lib32-mesa-demos
+>multilib lib32-mesa-utils
 nss-mdns
 numlockx
 powertop
