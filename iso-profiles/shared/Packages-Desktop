@@ -6,7 +6,7 @@ alsa-firmware
 dmidecode
 inxi
 manjaro-hotfixes
-mesa-demos
+mesa-utils
 mobile-broadband-provider-info
 modemmanager
 >multilib lib32-mesa-demos
