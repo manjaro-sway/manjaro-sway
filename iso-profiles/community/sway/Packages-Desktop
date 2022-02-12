@@ -32,6 +32,7 @@ firefox-ublock-origin
 # Themes
 qt5ct
 kvantum-qt5
+kvantum-theme-matcha
 >extra lxappearance
 gtk3-nocsd
 matcha-gtk-theme
