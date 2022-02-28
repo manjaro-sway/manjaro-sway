@@ -44,7 +44,7 @@ bumblebee
 nvidia-prime
 gtkmm3
 spice-vdagent
-virtualbox-guest-utils
+#virtualbox-guest-utils
 vulkan-radeon
 >multilib lib32-vulkan-radeon
 vulkan-intel

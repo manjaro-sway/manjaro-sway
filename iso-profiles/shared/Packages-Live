@@ -7,4 +7,4 @@ manjaro-live-systemd
 mkinitcpio-nfs-utils
 nbd
 clonezilla
-virtualbox-guest-utils
+#virtualbox-guest-utils
