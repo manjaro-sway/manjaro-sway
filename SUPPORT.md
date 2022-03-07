@@ -177,6 +177,7 @@ pacman -R autotiling
 ```bash
 pacman -R cliphist
 ```
+
 ### How can I delete the clipboard history?
 
 ```bash
@@ -233,4 +234,12 @@ set $left a
 set $down s
 set $up w
 set $right d
+```
+
+### How can I change the wallpaper/background image?
+
+Add a config file to definitions e.g. `.config/sway/definitions.d/01-background.conf`:
+
+```
+set $background /usr/share/backgrounds/whatever/file/you/like.png
 ```
