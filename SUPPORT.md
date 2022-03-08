@@ -243,3 +243,11 @@ Add a config file to definitions e.g. `.config/sway/definitions.d/01-background.
 ```
 set $background /usr/share/backgrounds/whatever/file/you/like.png
 ```
+
+### How can I take a ScreenShot  (Easy way)
+it's very easy to take a full screenshot on Manjaro Sway as the process for this is little different than other out of the box 
+```
+Press printscreen button on your keyboard , after that you will see some options on waybar , just press - Shift +o (small o) in your keyborad together and you will see an screenshot hasbeen taken by Manjaro Sway
+
+Enjoy your Manjaro :)
+```
