@@ -42,12 +42,8 @@ Check our [FAQ](SUPPORT.md) for additional hints.
 
 ![desktop](docs/_includes/desktop.png?raw=true)
 ![autotiling](docs/_includes/autotiling.png?raw=true)
-![help menu](docs/_includes/help.png?raw=true)
-![htop](docs/_includes/htop.png?raw=true)
 ![launcher](docs/_includes/launcher.png?raw=true)
 ![nmtui](docs/_includes/nmtui.png?raw=true)
-![pamac](docs/_includes/pamac.png?raw=true)
-![youtube](docs/_includes/youtube.png?raw=true)
 
 ### Credentials
 
