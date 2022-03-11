@@ -65,6 +65,14 @@ Submissions to the Manjaro Repositories are partly manual and thus hard to align
 
 Major changes specific to this flavor of manjaro are mostly being done in the [desktop-settings repo](https://github.com/Manjaro-Sway/desktop-settings).
 
+### I installed the minimal version, can I install all the extras afterwards?
+
+Sure, just run this:
+
+```bash
+curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/Packages-Desktop | grep -oP '(?<=>extra )[^ ]*' | sudo pacman -S --noconfirm -
+```
+
 ## Customizing
 
 ### How can I customize sway without losing my customizations after an upgrade?
