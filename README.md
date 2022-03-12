@@ -42,12 +42,8 @@ Check our [FAQ](SUPPORT.md) for additional hints.
 
 ![desktop](docs/_includes/desktop.png?raw=true)
 ![autotiling](docs/_includes/autotiling.png?raw=true)
-![help menu](docs/_includes/help.png?raw=true)
-![htop](docs/_includes/htop.png?raw=true)
 ![launcher](docs/_includes/launcher.png?raw=true)
 ![nmtui](docs/_includes/nmtui.png?raw=true)
-![pamac](docs/_includes/pamac.png?raw=true)
-![youtube](docs/_includes/youtube.png?raw=true)
 
 ### Credentials
 
@@ -71,6 +67,18 @@ password: manjaro
 ```bash
 buildiso -p sway
 ```
+
+### Contributing
+
+There are lots of ways to contribute. 
+
+- Give us a ⭐ here on github to increase our visibility
+- Help collecting implementation ideas in [discussions](https://github.com/Manjaro-Sway/manjaro-sway/discussions)
+- Implement ideas in our [desktop-settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway) and [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway) and create pull requests
+- Contribute to the documentation and help others in our chat
+- Get in [touch](https://forum.manjaro.org/) with the broader Manjaro community.
+- use the distribution on a daily basis, find and share solutions to problems you have. 
+- get the manjaro packages before they are released to the general public by [switching to our "unstable" or "testing" branch](https://wiki.manjaro.org/index.php/Switching_Branches#Changing_to_another_branch) and report issues you face early on.
 
 ### Credits
 
