@@ -30,18 +30,16 @@ jobs:
       fail-fast: false
       matrix:
         edition: [sway]
-        branch: [stable, unstable]
+        branch: [stable]
         scope: [full, minimal]
         kernel: 
           - ${{ needs.prepare-release.outputs.longterm }}
-        exclude:
-          - branch: unstable
-            scope: minimal
-          - branch: unstable
-            kernel: ${{ needs.prepare-release.outputs.longterm }}
         include:
-          - branch: unstable
+          - edition: sway
+            branch: unstable
+            scope: full
             kernel: ${{ needs.prepare-release.outputs.stable }}
+            experimental: true
     steps:
       - uses: styfle/cancel-workflow-action@0.9.1
         with:
