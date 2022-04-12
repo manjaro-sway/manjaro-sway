@@ -30,10 +30,13 @@ jobs:
       fail-fast: false
       matrix:
         edition: [sway]
-        branch: [stable]
+        branch: [stable, unstable]
         scope: [full, minimal]
         kernel: 
           - ${{ needs.prepare-release.outputs.longterm }}
+        exclude:
+          - branch: unstable
+            scope: minimal
         include:
           - branch: unstable
             kernel: ${{ needs.prepare-release.outputs.stable }}
