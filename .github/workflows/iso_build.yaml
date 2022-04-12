@@ -52,9 +52,15 @@ jobs:
           kernel: ${{ matrix.kernel }}
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
           additional-trusted-gpg: ${{ secrets.GPG_KEYID }}
+  rollback:
+    runs-on: ubuntu-20.04
+    needs: [build-release]
+    if: ${{ failure() || cancelled() }}
+    steps:
       - name: rollback
-        if: ${{ failure() || cancelled() }}
         run: |
           echo ${{ github.token }} | gh auth login --with-token
+          ASSET_COUNT=$(gh release view ${{ needs.prepare-release.outputs.release_tag }} --json "assets" --jq '.assets | length')
+          if [ "$ASSET_COUNT" -gt "2" ]; then exit 0;fi
           gh release delete ${{ needs.prepare-release.outputs.release_tag }} -y --repo ${{ github.repository }}
           git push --delete origin ${{ needs.prepare-release.outputs.release_tag }}
