@@ -30,7 +30,7 @@ jobs:
       fail-fast: false
       matrix:
         edition: [sway]
-        branch: [stable, unstable]
+        branch: [stable]
         scope: [full, minimal]
         kernel: 
           - ${{ needs.prepare-release.outputs.longterm }}
