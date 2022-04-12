@@ -37,10 +37,11 @@ jobs:
         exclude:
           - branch: unstable
             scope: minimal
+          - branch: unstable
+            kernel: ${{ needs.prepare-release.outputs.longterm }}
         include:
           - branch: unstable
             kernel: ${{ needs.prepare-release.outputs.stable }}
-            experimental: true
     steps:
       - uses: styfle/cancel-workflow-action@0.9.1
         with:
