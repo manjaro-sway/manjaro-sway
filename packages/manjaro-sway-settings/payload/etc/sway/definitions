@@ -86,7 +86,7 @@ set $waybar_position top
 set $pulseaudio $term_float pulsemixer
 
 # help command
-set $help /usr/share/sway/scripts/help.sh
+set $help /usr/share/sway/scripts/help.sh --toggle
 
 # calendar application
 set $calendar $term_float khal interactive

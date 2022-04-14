@@ -1,24 +1,16 @@
 #!/bin/sh
-set -x 
+set -x
 # toggles the help wrapper state
 
-STATE_FILE=$HOME/.config/nwg-wrapper/help.state
-PID_FILE=$HOME/.config/nwg-wrapper/help.pid
+OUTPUTS=$(swaymsg -t get_outputs --raw | jq -r '.[].name')
+VISIBILITY_SIGNAL=30
+QUIT_SIGNAL=31
 
-PID=$(cat $PID_FILE 2>/dev/null) 
-STATE=$(cat $STATE_FILE 2>/dev/null)
-
-if  [[ $STATE == 'true' && "$1" != "--restore" ]] || [[ "$1" == "--restore" && $STATE == 'false' ]]
-then
-    if kill -0 $PID; then
-        kill -9 $PID
-        rm -rf $PID_FILE
-    fi
-    echo "false" > $STATE_FILE
+if [[ "$1" == "--toggle" ]]; then
+    pkill -f -${VISIBILITY_SIGNAL} nwg-wrapper
 else
-    if ! kill -0 $PID; then
-        nwg-wrapper -s help.sh -p left -a end &
-        echo $! > $PID_FILE
-    fi
-    echo "true" > $STATE_FILE
+    pkill -f -${QUIT_SIGNAL} nwg-wrapper
+    for o in "$OUTPUTS"; do
+        nwg-wrapper -o $o -sv ${VISIBILITY_SIGNAL} -sq ${QUIT_SIGNAL} -s help.sh -p left -a end &
+    done
 fi
