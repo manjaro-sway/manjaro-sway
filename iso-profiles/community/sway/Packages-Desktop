@@ -90,6 +90,7 @@ xdg-user-dirs
 >extra manjaro-printer
 >extra manjaro-settings-manager
 dex
+>extra poweralertd
 
 # extra fonts
 >extra wqy-microhei
