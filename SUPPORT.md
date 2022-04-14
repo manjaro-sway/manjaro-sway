@@ -254,4 +254,4 @@ set $background /usr/share/backgrounds/whatever/file/you/like.png
 
 ### How can I take a Screenshot?
 
-Press the print-screen button on your keyboard and you will be presented with some options on the waybar. Depending on what you would like to take a screenshot of, you have to press a combination of keys. To take a full screenshot of the current screen just press - `Shift + o` on your keyboard.
+Press the `Print` button on your keyboard and you will be presented with some options on the waybar. Depending on what you would like to take a screenshot of, you have to press a combination of keys. To take a full screenshot of the current screen just press - `Shift + o` on your keyboard.
