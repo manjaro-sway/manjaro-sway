@@ -154,6 +154,12 @@ refer to `man sway-input` and the [arch wiki](https://wiki.archlinux.org/title/S
 pacman -R flashfocus
 ```
 
+### How can I disable the help onscreen menu permanently?
+
+```bash
+rm $HOME/.config/nwg-wrapper/help.sh
+```
+
 ### Why do my keyboard settings from the installer have no effect?
 
 Manjaro installer controls keyboard settings using xkb, sway doesn't support it. Please refer [here](https://wiki.archlinux.org/title/Sway#Keymap) for help.
