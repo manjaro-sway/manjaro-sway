@@ -6,6 +6,10 @@ on:
   repository_dispatch:
     types: [iso_profile_update]
 
+concurrency: 
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   prepare-release:
     runs-on: ubuntu-20.04
