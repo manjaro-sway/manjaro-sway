@@ -51,7 +51,7 @@
 }
 
 /* The whole bar */
-#waybar {
+window#waybar {
     background: @theme_bg_color;
     color: @wm_icon_bg;
     font-size: 14px;
@@ -170,12 +170,6 @@
 
 #temperature.critical {
     color: @error_color;
-}
-
-#window {
-    font-weight: bold;
-    margin-right: 25px;
-    color: @theme_selected_bg_color;
 }
 
 #workspaces button {
