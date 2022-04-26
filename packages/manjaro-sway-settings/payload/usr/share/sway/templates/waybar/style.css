@@ -136,8 +136,8 @@
 
 #custom-menu {
     background-color: @theme_selected_bg_color;
-    padding-left: 10px;
-    padding-right: 14px;
+    padding-left: 12px;
+    padding-right: 10px;
 }
 
 #memory {
