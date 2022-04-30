@@ -49,7 +49,7 @@ dosfstools
 e2fsprogs
 ecryptfs-utils
 efibootmgr
-exfat-utils
+exfatprogs
 f2fs-tools
 glibc-locales
 grub
