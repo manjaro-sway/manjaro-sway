@@ -168,13 +168,10 @@
     },
 
     "bluetooth": {
-        "format": "{icon}",
-        "interval": 30,
-        "format-icons": {
-            "enabled": "",
-            "disabled": ""
-        },
+        "format": "",
+        "format-disabled": "",
         "on-click": "blueberry",
+        "on-click-right": "rfkill toggle bluetooth",
         "tooltip-format": "{}"
     },
 
