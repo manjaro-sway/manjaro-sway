@@ -39,8 +39,7 @@ Check our [FAQ](SUPPORT.md) for additional hints.
   you could use gnome boxes or virtualbox instead - refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Virtualization) 
 
 ### Screenshots
-
-![desktop](docs/_includes/desktop.png?raw=true)
+![desktop](https://user-images.githubusercontent.com/4662748/170871420-91dab56f-1451-40ff-9b00-8a1a0f37b0a3.png)
 ![autotiling](docs/_includes/autotiling.png?raw=true)
 ![launcher](docs/_includes/launcher.png?raw=true)
 ![nmtui](docs/_includes/nmtui.png?raw=true)
