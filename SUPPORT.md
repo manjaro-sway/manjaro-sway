@@ -124,7 +124,7 @@ Enable `chrome://flags/#enable-webrtc-pipewire-capturer`
 
 ### How can I log in inside a virtual machine?
 
-While it seems to work out of the box in some kvm/qemu/libvirt environments (f.e. Gnome Boxes), you need to enable 3D acceleration in VirtualBox.
+While it seems to work out of the box in some kvm/qemu/libvirt environments, you need to enable 3D acceleration at least in VirtualBox and Gnome Boxes.
 
 ### How can I use the amazing mps-youtube?
 
