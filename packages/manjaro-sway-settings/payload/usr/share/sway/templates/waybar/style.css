@@ -135,8 +135,8 @@ window#waybar {
 }
 
 #custom-menu {
-    padding-left: 12px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 13px;
 }
 
 #memory {
