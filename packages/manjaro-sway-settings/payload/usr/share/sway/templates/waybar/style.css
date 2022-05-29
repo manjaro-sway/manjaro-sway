@@ -89,7 +89,8 @@ window#waybar {
  * Module styles
  * -------------------------------------------------------------------------- */
 
-#custom-scratchpad {
+#custom-scratchpad, #custom-menu, #workspaces button.focused, #clock  {
+    color: @theme_bg_color;
     background-color: @theme_selected_bg_color;
 }
 
@@ -123,7 +124,6 @@ window#waybar {
 
 #clock {
     font-weight: bold;
-    background-color: @theme_selected_bg_color;
 }
 
 #cpu.warning {
@@ -135,7 +135,6 @@ window#waybar {
 }
 
 #custom-menu {
-    background-color: @theme_selected_bg_color;
     padding-left: 12px;
     padding-right: 10px;
 }
@@ -183,8 +182,6 @@ window#waybar {
 
 #workspaces button.focused {
     border-color: @theme_selected_bg_color;
-    color: @wm_icon_bg;
-    background-color: @theme_selected_bg_color;
 }
 
 #workspaces button.urgent {
