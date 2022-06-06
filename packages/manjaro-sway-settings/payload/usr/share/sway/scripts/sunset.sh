@@ -14,7 +14,7 @@ function start() {
 
     if [ "${location}" = "on" ]; then
         if [[ -z ${longitude+x} ]] || [[ -z ${latitude+x} ]]; then
-            GEO_CONTENT=$(curl -L https://freegeoip.app/json/)
+            GEO_CONTENT=$(curl -sL https://freegeoip.app/json/)
         fi
         longitude=${longitude:-$(echo $GEO_CONTENT | jq '.longitude // empty')}
         longitude=${longitude:-$fallback_longitude}
