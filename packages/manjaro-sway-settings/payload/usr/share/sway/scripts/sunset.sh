@@ -1,10 +1,5 @@
 #!/bin/bash
 
-function get_geo() {
-    GEO_CONTENT=${GEO_CONTENT:-$(curl -sL https://freegeoip.app/json/)}
-    echo $GEO_CONTENT
-}
-
 #Startup function
 function start() {
     [[ -f "$HOME/.config/wlsunset/config" ]] && source "$HOME/.config/wlsunset/config"
@@ -18,9 +13,12 @@ function start() {
     fallback_latitude=${fallback_latitude:-"50.1"}
 
     if [ "${location}" = "on" ]; then
-        longitude=${longitude:-$(get_geo | jq '.longitude // empty')}
+        if [[ -z ${longitude+x} ]] || [[ -z ${latitude+x} ]]; then
+            GEO_CONTENT=$(curl -L https://freegeoip.app/json/)
+        fi
+        longitude=${longitude:-$(echo $GEO_CONTENT | jq '.longitude // empty')}
         longitude=${longitude:-$fallback_longitude}
-        latitude=${latitude:-$(get_geo | jq '.latitude // empty')}
+        latitude=${latitude:-$(echo $GEO_CONTENT | jq '.latitude // empty')}
         latitude=${latitude:-$fallback_latitude}
 
         echo longitude: $longitude latitude: $latitude
