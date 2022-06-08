@@ -192,6 +192,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "heapifyman",
+      "name": "heapifyman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/274236?v=4",
+      "profile": "https://github.com/heapifyman",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
