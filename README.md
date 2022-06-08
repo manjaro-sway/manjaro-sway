@@ -125,6 +125,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://annuel.nl"><img src="https://avatars.githubusercontent.com/u/4148154?v=4?s=100" width="100px;" alt=""/><br /><sub><b>annuel</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=nnuel" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/aboettger"><img src="https://avatars.githubusercontent.com/u/206222?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andreas Böttger</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/issues?q=author%3Aaboettger" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/AdriandMartin"><img src="https://avatars.githubusercontent.com/u/22200464?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrian Martin</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=AdriandMartin" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/heapifyman"><img src="https://avatars.githubusercontent.com/u/274236?v=4?s=100" width="100px;" alt=""/><br /><sub><b>heapifyman</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/issues?q=author%3Aheapifyman" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
