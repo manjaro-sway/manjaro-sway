@@ -9,10 +9,10 @@ $bindsym $mod+Shift+Return exec $term
 ## Action // Kill focused window ##
 $bindsym $mod+Shift+q kill
 
-## Launch // Launcher ##
+## Launch // Open launcher ##
 $bindsym $mod+d exec $menu
 
-## Launch // Clipboard ##
+## Launch // Open clipboard ##
 $bindsym $mod+Shift+p exec $clipboard
 
 # Drag floating windows by holding down $mod and left mouse button.
