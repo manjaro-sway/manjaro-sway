@@ -251,7 +251,7 @@ gh auth login
 
 ### How can I use w/a/s/d for directional navigation?
 
-create a new file `~/.config/sway/config.d/02-directional.conf`
+create a new file `~/.config/sway/definitions.d/02-directional.conf`
 
 ```bash
 # unassign the rofi menu from $mod+d
