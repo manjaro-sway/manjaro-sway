@@ -26,11 +26,9 @@ floating_modifier $mod normal
 $bindsym $mod+Shift+c reload
 
 ## Action // Toggle Waybar ##    
-
-# --locked flags allow the buttons to be used whilst the screen is locked.
-
 $bindsym $mod+Shift+b exec pkill -SIGUSR1 waybar
 
+# --locked flags allow the buttons to be used whilst the screen is locked.
 $bindsym --locked XF86AudioRaiseVolume exec $volume_up
 
 $bindsym --locked XF86AudioLowerVolume exec $volume_down
