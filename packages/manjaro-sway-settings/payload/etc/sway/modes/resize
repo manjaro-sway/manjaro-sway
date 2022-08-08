@@ -12,10 +12,10 @@ mode --pango_markup $mode_resize {
     $bindsym $down resize grow height 10px
     $bindsym $up resize shrink height 10px
     $bindsym $right resize grow width 10px
-    $bindsym Shift+$left resize shrink width 20px
-    $bindsym Shift+$down resize grow height 20px
-    $bindsym Shift+$up resize shrink height 20px
-    $bindsym Shift+$right resize grow width 20px
+    $bindsym Shift+$left resize shrink width 50px
+    $bindsym Shift+$down resize grow height 50px
+    $bindsym Shift+$up resize shrink height 50px
+    $bindsym Shift+$right resize grow width 50px
 
     ## Resize // Window Gaps // + - ##
     $bindsym minus gaps inner current minus 5px
