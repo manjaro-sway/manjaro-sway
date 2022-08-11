@@ -9,6 +9,12 @@ set $down Down
 set $up Up
 set $right Right
 
+# Alternative direction keys
+set $left_alt h
+set $down_alt j
+set $up_alt k
+set $right_alt l
+
 # Add --to-code to bindsym, support for non-latin layouts
 set $bindsym bindsym --to-code
 
