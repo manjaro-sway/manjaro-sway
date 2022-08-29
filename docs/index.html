@@ -11,20 +11,16 @@
   }
 
   fetch(
-    "https://api.github.com/repos/manjaro-sway/manjaro-sway/releases/latest"
+    "https://manjaro-sway.download/assets.json"
   )
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      const links = data.assets
-        .filter(asset => !asset.browser_download_url.endsWith('.z01'))
+      const links = data
         .map(
           (asset) => {
-            if (asset.browser_download_url.endsWith('.zip')) asset.size += 167735804
-            const filename = asset.name.replace('.zip', '');
-            const url = `https://manjaro-sway.download/${filename}`
-            return `<p><a href="${url}">${filename}</a><span> (${formatBytes(asset.size)})</span></p>`
+            return `<p><a href="${asset.publishedUrl}">${asset.name}</a><span> (${formatBytes(asset.size)})</span></p>`
           })
         .join("</br>");
       document.getElementById(

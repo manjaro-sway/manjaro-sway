@@ -21,20 +21,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: download
+    - name: download default iso
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      shell: bash
       run: |
         LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
-        gh release download ${LATEST_RELEASE} --dir docs
+        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/latest/\(.name)" | select(.name | contains("minimal") or contains("unstable") | not)]' >docs/assets.json
+        
+        mkdir -p docs/latest
+        cat docs/assets.json | jq '.[].url' | xargs wget -q -P docs/latest
+        
+        sudo apt-get update
+        sudo apt-get install mktorrent
 
-        for file in docs/*.iso.zip; do 
-          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d docs/
-        done
-        rm -f docs/*.zip docs/*.z01
+        mktorrent -v -a udp://tracker.opentrackr.org:1337 -l 21 -n "manjaro-sway" -w https://manjaro-sway.download/latest/ -o docs/latest/manjaro-sway.torrent docs/latest
+        
         ls -l docs/*
-    - name: upload to github pages
+    - name: upload github pages
       uses: actions/upload-pages-artifact@v1.0.3
       with:
         path: './docs'
