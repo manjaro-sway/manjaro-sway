@@ -22,9 +22,9 @@
         .map(
           (asset) => {
             if (asset.browser_download_url.endsWith('.zip')) asset.size += 167735804
-            const filename = new URL(asset.browser_download_url).pathname.split('/').pop().replace('.zip', '');
+            const filename = asset.name.replace('.zip', '');
             const url = `https://manjaro-sway.download/${filename}`
-            return `<p><a href="${url}">${asset.name}</a><span> (${formatBytes(asset.size)})</span></p>`
+            return `<p><a href="${url}">${filename}</a><span> (${formatBytes(asset.size)})</span></p>`
           })
         .join("</br>");
       document.getElementById(
