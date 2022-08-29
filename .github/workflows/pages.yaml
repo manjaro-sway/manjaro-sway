@@ -21,20 +21,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: download
+    - name: download default iso
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      shell: bash
       run: |
         LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
-        gh release download ${LATEST_RELEASE} --dir docs
+        gh release view ${LATEST_RELEASE} --json assets --jq '.assets.[].url' | grep -vE 'unstable|minimal' | xargs wget -q -P docs
 
-        for file in docs/*.iso.zip; do 
+        for file in docs/*.iso.zip; do
           zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d docs/
         done
         rm -f docs/*.zip docs/*.z01
         ls -l docs/*
-    - name: upload to github pages
+    - name: upload github pages
       uses: actions/upload-pages-artifact@v1.0.3
       with:
         path: './docs'

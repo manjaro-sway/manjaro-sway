@@ -18,6 +18,7 @@
     })
     .then(function (data) {
       const links = data.assets
+        .filter(asset => !asset.contains('unstable') && !asset.contains('minimal'))
         .filter(asset => !asset.browser_download_url.endsWith('.z01'))
         .map(
           (asset) => {
