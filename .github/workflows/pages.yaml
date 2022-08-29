@@ -33,6 +33,7 @@ jobs:
           zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip
         done
         rm -f docs/*.zip docs/*.z01
+        ls -l docs/*
     - name: upload to github pages
       uses: actions/upload-pages-artifact@v1.0.3
       with:
