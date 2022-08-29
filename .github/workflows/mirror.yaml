@@ -1,0 +1,42 @@
+name: gh pages deployment
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+    - build_pages
+
+concurrency: 
+  group: "pages-deployment"
+  cancel-in-progress: true
+  
+jobs:
+  pages:
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: download
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      shell: bash
+      run: |
+        LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
+        gh release download ${LATEST_RELEASE} --dir docs
+
+        for file in docs/*.iso.zip; do 
+          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip
+        done
+        rm -f docs/*.zip docs/*.z01
+    - name: upload to github pages
+      uses: actions/upload-pages-artifact@v1.0.3
+      with:
+        path: './docs'
+    - name: deploy github pages
+      id: deployment
+      uses: actions/deploy-pages@v1.0.10

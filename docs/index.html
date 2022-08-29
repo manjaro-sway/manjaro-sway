@@ -1,5 +1,4 @@
 ---
----
 
 <script type="text/javascript" language="javascript">
   function formatBytes(a, b = 2, k = 1024) {
@@ -22,11 +21,13 @@
     .then(function (data) {
       const links = data.assets
         .map(
-          (asset) =>
-            `<p><a href="${asset.browser_download_url}">${
+          (asset) => {
+            const filename = new URL(asset.browser_download_url).pathname.split('/').pop();
+            const url = `https://manjaro-sway.download/${filename}`
+            return `<p><a href="${url}">${
               asset.name
             }</a><span> (${formatBytes(asset.size)})</span></p>`
-        )
+          })
         .join("</br>");
       document.getElementById(
         "links"
