@@ -60,6 +60,10 @@ jobs:
           kernel: ${{ matrix.kernel }}
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
           additional-trusted-gpg: ${{ secrets.GPG_KEYID }}
+  trigger-mirror:
+    runs-on: ubuntu-20.04
+    needs: [build-release]
+    steps:
       - uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.DISPATCH }}
