@@ -1,4 +1,4 @@
-name: gh pages deployment
+name: gh pages
 
 on:
   workflow_dispatch:

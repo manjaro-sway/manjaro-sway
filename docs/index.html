@@ -1,5 +1,3 @@
----
-
 <script type="text/javascript" language="javascript">
   function formatBytes(a, b = 2, k = 1024) {
     with (Math) {
@@ -20,13 +18,13 @@
     })
     .then(function (data) {
       const links = data.assets
+        .filter(asset => !asset.browser_download_url.endsWith('.z01'))
         .map(
           (asset) => {
-            const filename = new URL(asset.browser_download_url).pathname.split('/').pop();
+            if (asset.browser_download_url.endsWith('.zip')) asset.size += 167735804
+            const filename = new URL(asset.browser_download_url).pathname.split('/').pop().replace('.zip', '');
             const url = `https://manjaro-sway.download/${filename}`
-            return `<p><a href="${url}">${
-              asset.name
-            }</a><span> (${formatBytes(asset.size)})</span></p>`
+            return `<p><a href="${url}">${asset.name}</a><span> (${formatBytes(asset.size)})</span></p>`
           })
         .join("</br>");
       document.getElementById(
