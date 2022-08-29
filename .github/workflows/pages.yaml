@@ -9,7 +9,7 @@ on:
 concurrency: 
   group: "pages-deployment"
   cancel-in-progress: true
-  
+
 jobs:
   pages:
     permissions:
@@ -30,7 +30,7 @@ jobs:
         gh release download ${LATEST_RELEASE} --dir docs
 
         for file in docs/*.iso.zip; do 
-          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip
+          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d docs/
         done
         rm -f docs/*.zip docs/*.z01
         ls -l docs/*
