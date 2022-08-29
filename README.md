@@ -3,6 +3,7 @@
 [![Matrix](https://img.shields.io/matrix/manjaro-sway:matrix.org)](https://matrix.to/#/#manjaro-sway:matrix.org)
 [![repo_build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
 [![iso_build](https://github.com/manjaro-sway/manjaro-sway/workflows/iso_build/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/manjaro-sway/actions)
+[![mirror](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/pages.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/pages.yaml)
 [![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=manjaro-sway&cache=3600&query=count&url=https%3A%2F%2Fstats.jonas-strassel.de%2Freleases%3Frepo%3Dmanjaro-sway%26owner%3Dmanjaro-sway%26suffixes%3Dzip%252Ciso)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![settings release (latest by date)](https://img.shields.io/github/v/release/manjaro-sway/desktop-settings)](https://github.com/Manjaro-Sway/desktop-settings/releases/latest)
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
