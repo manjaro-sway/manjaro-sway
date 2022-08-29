@@ -60,7 +60,7 @@ jobs:
           kernel: ${{ matrix.kernel }}
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
           additional-trusted-gpg: ${{ secrets.GPG_KEYID }}
-      - uses: peter-evans/repository-dispatch@v1
+      - uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.DISPATCH }}
           repository: manjaro-sway/manjaro-sway
