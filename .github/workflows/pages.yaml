@@ -26,15 +26,18 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
-        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/latest/\(.name)" | select(.name | contains("minimal") or contains("unstable") | not)]' >docs/assets.json
+        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/manjaro-sway/\(.name)" | select(.name | contains("minimal") or contains("unstable") | not)]' >docs/assets.json
         
-        mkdir -p docs/latest
-        cat docs/assets.json | jq '.[].url' | xargs wget -q -P docs/latest
+        mkdir -p docs/manjaro-sway
+        cat docs/assets.json | jq '.[].url' | xargs wget -q -P docs/manjaro-sway
         
         sudo apt-get update
         sudo apt-get install mktorrent
 
-        mktorrent -v -a udp://tracker.opentrackr.org:1337 -l 21 -n "manjaro-sway" -w https://manjaro-sway.download/latest/ -o docs/latest/manjaro-sway.torrent docs/latest
+        mktorrent -v -a udp://tracker.opentrackr.org:1337 -l 21 \
+          -n "manjaro-sway" -w https://manjaro-sway.download/ \
+          -o docs/manjaro-sway/manjaro-sway.torrent \
+          docs/manjaro-sway
         
         ls -l docs/*
     - name: upload github pages
