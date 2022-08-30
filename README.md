@@ -129,6 +129,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/AdriandMartin"><img src="https://avatars.githubusercontent.com/u/22200464?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrian Martin</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=AdriandMartin" title="Code">💻</a> <a href="https://github.com/Manjaro-Sway/manjaro-sway/issues?q=author%3AAdriandMartin" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/heapifyman"><img src="https://avatars.githubusercontent.com/u/274236?v=4?s=100" width="100px;" alt=""/><br /><sub><b>heapifyman</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/issues?q=author%3Aheapifyman" title="Bug reports">🐛</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Lyr-7D1h"><img src="https://avatars.githubusercontent.com/u/23296032?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ivo</b></sub></a><br /><a href="https://github.com/Manjaro-Sway/manjaro-sway/commits?author=Lyr-7D1h" title="Code">💻</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->
