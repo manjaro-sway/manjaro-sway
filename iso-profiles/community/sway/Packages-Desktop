@@ -66,7 +66,6 @@ manjaro-hotfixes
 >extra manjaro-settings-samba
 
 # Multimedia
->extra mps-youtube # cli youtube player
 >extra mplayer # multimedia player
 >extra ffmpeg
 >extra ffmpegthumbnailer
