@@ -59,10 +59,8 @@ playerctl
 avahi
 nss-mdns
 networkmanager
->extra networkmanager-openvpn
 dhclient
 manjaro-hotfixes
->extra manjaro-settings-samba
 
 # Multimedia
 >extra mplayer # multimedia player
@@ -78,7 +76,6 @@ manjaro-hotfixes
 >extra manjaro-aur-support
 pamac-gtk
 >extra appimagelauncher
->extra libpamac-snap-plugin
 >extra libpamac-flatpak-plugin
 >extra web-installer-url-handler
 
@@ -87,14 +84,12 @@ pamac-gtk
 xdg-user-dirs
 >extra manjaro-printer
 >extra manjaro-settings-manager
-dex
 >extra poweralertd
 
 # extra fonts
 >extra wqy-microhei
 
 # CLI tools
-neovim
 curl
 htop
 jq
