@@ -76,13 +76,11 @@ manjaro-hotfixes
 >extra manjaro-aur-support
 pamac-gtk
 >extra appimagelauncher
->extra libpamac-flatpak-plugin
 >extra web-installer-url-handler
 
 # utils
 >extra apparmor
 xdg-user-dirs
->extra manjaro-printer
 >extra manjaro-settings-manager
 >extra poweralertd
 
@@ -91,10 +89,8 @@ xdg-user-dirs
 
 # CLI tools
 curl
-htop
 jq
 oh-my-zsh
-tlp
 wget
 wl-clipboard # wayland clipboard application
 cliphist # clipboard history application
