@@ -55,7 +55,6 @@ bluez-utils
 pulseaudio-alsa
 pulseaudio-ctl
 playerctl
-blueberry
 
 # Network
 avahi
