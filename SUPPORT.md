@@ -287,3 +287,8 @@ set $background /usr/share/backgrounds/whatever/file/you/like.png
 ### How can I take a Screenshot?
 
 Press the `Print` button on your keyboard and you will be presented with some options on the waybar. Depending on what you would like to take a screenshot of, you have to press a combination of keys. To take a full screenshot of the current screen just press - `Shift + o` on your keyboard.
+
+### I get weird screen distortions (with an intel iGPU)
+
+Try to disable Panel Self Refresh (PSR), a power saving feature used by Intel iGPUs.
+A temporary solution is to disable this feature using the [kernel parameter](https://wiki.archlinux.org/title/Kernel_parameters) i915.enable_psr=0.
