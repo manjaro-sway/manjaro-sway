@@ -24,8 +24,8 @@
           })
         .join("</br>");
       document.getElementById(
-        "links"
-      ).innerHTML = `<pre id="links">${links}</pre>`;
+        "direct-links"
+      ).innerHTML = `<pre id="direct-links">${links}</pre>`;
     })
     .catch(function (err) {
       console.warn("Something went wrong.", err);
@@ -116,7 +116,8 @@
       </h1>
     </div>
     <div id="container">
-      <pre id="links">...loading...</pre>
+      <pre id="direct-links">...loading...</pre>
+      <pre id="release-links"><br/><a href="https://github.com/Manjaro-Sway/manjaro-sway/releases/latest">more ...</a></pre>
     </div>
   </body>
 </html>
