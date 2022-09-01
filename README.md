@@ -21,8 +21,7 @@ We are building a manjaro sway edition - with the following principles:
 
 ## How to install
 
-You can find the weekly ISO images on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases).
-To extract the regular images from multipart zip archive, download both the `z01` and the `zip` files, and run the command:
+You can find the weekly ISO images on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases). Depending on their size (due to a 2GB limit for github releases), the iso *may* be split into a multipart zip archive. To extract the regular images from multipart zip archive, download both the `z01` and the `zip` files, and run the command:
 
 ```bash
 zip -FF manjaro-sway-*.zip --out manjaro-full.zip && unzip manjaro-full.zip
