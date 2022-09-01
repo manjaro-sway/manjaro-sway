@@ -49,6 +49,12 @@ cp -rf /etc/skel/.config/* ~/.config
 
 keep in mind that this could cause problems with customizations you made. backup!
 
+### how do I upgrade the greeter configuration?
+
+```bash
+sudo curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/desktop-overlay/etc/greetd/config.toml -o /etc/greetd/config.toml
+```
+
 ### Why are pacman downloads so slow?
 
 You can add fasttrack mirrors using this command:
@@ -146,7 +152,7 @@ refer to `man sway-input` and the [arch wiki](https://wiki.archlinux.org/title/S
 
 ### Why doesn't it start with nvidia drivers?
 
-[perhaps you're using the proprietary ones](https://github.com/swaywm/sway/issues/490).
+Likely you're using proprietary drivers, unsupported by sway. You can try it anyway by pressing `F3` in the greeter and selecting `Sway (unsupported GPU)`.
 
 ### How do I disable the window focus flashing animation?
 
