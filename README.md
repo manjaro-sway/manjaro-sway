@@ -90,7 +90,7 @@ There are lots of ways to contribute.
 
 If you like our distribution and have some bucks to spare, please consider contributions to the projects and developers we rely on the most:
 
-- for sway and wlroots, consider [Drew DeVault](https://drewdevault.com/donate)
+- for sway and wlroots, consider [Drew DeVault](https://drewdevault.com/)
 - for waybar, consider [Alexis Rouillard](https://github.com/sponsors/Alexays)
 
 ### Contributors ✨
