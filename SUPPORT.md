@@ -124,10 +124,6 @@ Change the waybar position by creating or updating your `~/.config/waybar/config
 }
 ```
 
-### How can I enable screen-share in chromium(-alike) browsers?
-
-Enable `chrome://flags/#enable-webrtc-pipewire-capturer`
-
 ### How can I log in inside a virtual machine?
 
 While it seems to work out of the box in some kvm/qemu/libvirt environments, you need to enable 3D acceleration at least in VirtualBox and Gnome Boxes.
