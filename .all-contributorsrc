@@ -1,6 +1,6 @@
 {
   "projectName": "manjaro-sway",
-  "projectOwner": "Manjaro-Sway",
+  "projectOwner": "manjaro-sway",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -220,6 +220,15 @@
       "profile": "https://github.com/Lyr-7D1h",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "arkaitz-dev",
+      "name": "Arkaitz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56298377?v=4",
+      "profile": "https://arkaitz.dev/",
+      "contributions": [
+        "bug"
       ]
     }
   ],
