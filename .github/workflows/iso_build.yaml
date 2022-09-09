@@ -40,6 +40,7 @@ jobs:
         include:
           - edition: sway
             branch: unstable
+            scope: full
             kernel: ${{ needs.prepare-release.outputs.stable }}
             experimental: true
     steps:
