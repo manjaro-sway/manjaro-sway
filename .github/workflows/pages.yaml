@@ -26,10 +26,16 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
-        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/manjaro-sway/\(.name)" | select(.name | contains("minimal") or contains("unstable") | not)]' >docs/assets.json
+        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/manjaro-sway/\(.name)" | select(.name | contains("minimal") | not)]' >docs/assets.json
         
         mkdir -p docs/manjaro-sway
         cat docs/assets.json | jq '.[].url' | xargs wget -q -P docs/manjaro-sway
+        
+        for file in docs/manjaro-sway/*.iso.zip; do 
+          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d docs/manjaro-sway/
+        done
+        rm -f docs/manjaro-sway/*.zip docs/manjaro-sway/*.z01
+        find docs/manjaro-sway/ -depth -name '*unstable*' -execdir bash -c 'mv -i "$1" "${1//unstable/latest}"' bash {} \;
         
         sudo apt-get update
         sudo apt-get install mktorrent
