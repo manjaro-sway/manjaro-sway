@@ -26,17 +26,26 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
-        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/manjaro-sway/\(.name)"]' >docs/assets.json
+        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[]]' >docs/assets.json
         
         mkdir -p docs/manjaro-sway
         cat docs/assets.json | jq '.[].url' | xargs wget -q -P docs/manjaro-sway
         
+        # unzip files
         for file in docs/manjaro-sway/*.iso.zip; do 
           zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d docs/manjaro-sway/
         done
-        rm -f docs/manjaro-sway/*.zip docs/manjaro-sway/*.z01
+        ## remove unzipped files
+        rm -f docs/manjaro-sway/*.zip || echo ok
+        rm -f docs/manjaro-sway/*.z01 || echo ok
+        ## rename unstable to latest
         find docs/manjaro-sway/ -depth -name '*unstable*' -execdir bash -c 'mv -i "$1" "${1//unstable/latest}"' bash {} \;
-        
+
+        ## create release filelist
+        (cd docs/manjaro-sway && ls -l *iso*) | \
+          jq -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://manjaro-sway.download/manjaro-sway/\(.[-1])" }]' \
+          > docs/release.json
+
         sudo apt-get update
         sudo apt-get install mktorrent
 

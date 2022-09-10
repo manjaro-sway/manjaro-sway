@@ -11,7 +11,7 @@
   }
 
   fetch(
-    "https://manjaro-sway.download/assets.json"
+    "https://manjaro-sway.download/release.json"
   )
     .then(function (response) {
       return response.json();
@@ -20,7 +20,7 @@
       const links = data
         .map(
           (asset) => {
-            return `<p><a href="${asset.publishedUrl}">${asset.name}</a><span> (${formatBytes(asset.size)})</span></p>`
+            return `<p><a href="${asset.url}">${asset.name}</a><span> (${formatBytes(asset.size)})</span></p>`
           })
         .join("</br>");
       document.getElementById(

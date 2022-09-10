@@ -3,4 +3,7 @@ manjaro-tools
 pkg-cache
 iso-profiles
 iso
-landing
+docs/manjaro-sway/*
+docs/assets.json
+docs/release.json
+manjaro-full.zip
