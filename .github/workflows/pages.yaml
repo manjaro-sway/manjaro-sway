@@ -26,7 +26,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
-        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/manjaro-sway/\(.name)" | select(.name | contains("minimal") | not)]' >docs/assets.json
+        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[] | .publishedUrl = "https://manjaro-sway.download/manjaro-sway/\(.name)"]' >docs/assets.json
         
         mkdir -p docs/manjaro-sway
         cat docs/assets.json | jq '.[].url' | xargs wget -q -P docs/manjaro-sway
