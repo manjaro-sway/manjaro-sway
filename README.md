@@ -5,8 +5,8 @@
 [![repo build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
 [![iso build](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml)
 [![mirror](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/pages.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/pages.yaml)
-[![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=manjaro-sway&cache=3600&query=count&url=https%3A%2F%2Fstats.jonas-strassel.de%2Freleases%3Frepo%3Dmanjaro-sway%26owner%3Dmanjaro-sway%26suffixes%3Dzip%252Ciso)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
-[![settings release (latest by date)](https://img.shields.io/github/v/release/manjaro-sway/desktop-settings)](https://github.com/Manjaro-Sway/desktop-settings/releases/latest)
+[![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=downloads&cache=3600&query=count&url=https%3A%2F%2Fstats.jonas-strassel.de%2Freleases%3Frepo%3Dmanjaro-sway%26owner%3Dmanjaro-sway%26suffixes%3Dzip%252Ciso)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
+[![settings release](https://img.shields.io/github/v/release/manjaro-sway/desktop-settings)](https://github.com/Manjaro-Sway/desktop-settings/releases/latest)
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
@@ -27,7 +27,7 @@ You can find the latest images on [manjaro-sway.download](https://manjaro-sway.d
 zip -FF manjaro-sway-*.zip --out manjaro-full.zip && unzip manjaro-full.zip
 ```
 
-You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/). 
+You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/).
 Check our [FAQ](SUPPORT.md) for additional hints.
 
 ## What image to choose?
