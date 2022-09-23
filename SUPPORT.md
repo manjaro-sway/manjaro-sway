@@ -41,13 +41,9 @@ $unbindsym $mod+w
 
 ### how do I upgrade the ~/.config after an update?
 
-After upgrading packages, you will sometimes need to update your skeleton:
+After upgrading packages, you will sometimes need to update your skeleton: `skel`
 
-```bash
-cp -rf /etc/skel/.config/* ~/.config
-```
-
-keep in mind that this could cause problems with customizations you made. backup!
+This has the potential to override your customizations (even though we try to not do that). You will find a backup as `~/.config-backup-xxx` in case you messed it up!
 
 ### how do I upgrade the greeter configuration?
 
