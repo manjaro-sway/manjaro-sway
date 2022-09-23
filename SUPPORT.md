@@ -81,6 +81,16 @@ curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/communi
 
 You can add variable overrides in `~/.config/sway/definitions.d/` and add more sway configuration inside `~/.config/sway/config.d/`. please refer to the [arch wiki](https://wiki.archlinux.org/title/Sway) and the [sway wiki](https://github.com/swaywm/sway/wiki) for lots of ideas and hints. Make sure the files in either location end in .conf for them to be loaded.
 
+### How can I create my own color theme?
+
+Best you start off with a copy of the current theme.
+
+```bash
+cp /usr/share/sway/themes/matcha-green/definitions ~/.config/sway/definitiond.d/theme.conf
+```
+
+Do your customizations in `~/.config/sway/definitiond.d/theme.conf`.
+
 ### How can I customize waybar without losing my customization after an upgrade?
 
 Copy over and edit the customization template, it will get picked up automatically:
