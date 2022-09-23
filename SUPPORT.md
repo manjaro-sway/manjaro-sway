@@ -86,7 +86,7 @@ You can add variable overrides in `~/.config/sway/definitions.d/` and add more s
 Best you start off with a copy of the current theme.
 
 ```bash
-cp /usr/share/sway/themes/matcha-green/definitions ~/.config/sway/definitiond.d/theme.conf
+cp /usr/share/sway/themes/matcha-green/definitions ~/.config/sway/definitions.d/theme.conf
 ```
 
 Do your customizations in `~/.config/sway/definitiond.d/theme.conf`.
