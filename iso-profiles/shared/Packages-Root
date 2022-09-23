@@ -62,7 +62,7 @@ less
 logrotate
 lvm2
 man-db
-manjaro-firmware
+#manjaro-firmware
 manjaro-release
 manjaro-system
 manjaro-zsh-config
