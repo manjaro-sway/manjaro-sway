@@ -61,4 +61,4 @@ jobs:
         path: './docs'
     - name: deploy github pages
       id: deployment
-      uses: actions/deploy-pages@v1.2.0
+      uses: actions/deploy-pages@v1.2.1
