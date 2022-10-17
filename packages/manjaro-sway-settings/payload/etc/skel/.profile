@@ -22,3 +22,7 @@ export TERMINAL_COMMAND=/usr/share/sway/scripts/foot.sh
 
 # add default location for zeit.db
 export ZEIT_DB=~/.config/zeit.db
+
+# Disable hardware cursors. This might fix issues with
+# disappearing cursors
+export WLR_NO_HARDWARE_CURSORS=1
