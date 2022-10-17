@@ -78,6 +78,15 @@ $bindsym $mod+Shift+$down_alt move down
 $bindsym $mod+Shift+$up_alt move up
 $bindsym $mod+Shift+$right_alt move right
 
+## Navigation // List all open windows in last-recently-used order ##
+$bindsym $mod+p exec env RUST_BACKTRACE=1 swayr switch-window &>> /tmp/swayr.log
+
+## Navigation // Switch to the last recently used window ##
+$bindsym Mod1+Tab exec env RUST_BACKTRACE=1 swayr switch-to-urgent-or-lru-window &>> /tmp/swayr.log
+
+## Navigation // Switch to the last recently used workspace ##
+$bindsym $mod+Tab workspace back_and_forth
+
 #
 # Workspaces:
 #
