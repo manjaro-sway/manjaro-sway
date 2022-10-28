@@ -18,7 +18,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
       - id: time
-        uses: boredland/get-time-action@2.0.0
+        uses: boredland/get-time-action@dbc808befb89eb33fee64f5f4abce4d2a5fa7cfd # tag=2.0.0
         with:
           format: 'YYYYMMDDHHmm'
       - id: receive
