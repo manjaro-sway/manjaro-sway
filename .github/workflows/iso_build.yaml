@@ -14,11 +14,11 @@ jobs:
   prepare-release:
     runs-on: ubuntu-20.04
     steps:
-      - uses: styfle/cancel-workflow-action@0.11.0
+      - uses: styfle/cancel-workflow-action@b173b6ec0100793626c2d9e6b90435061f4fc3e5 # tag=0.11.0
         with:
           access_token: ${{ github.token }}
       - id: time
-        uses: nanzm/get-time-action@v1.1
+        uses: nanzm/get-time-action@5fb6a88787f272aeb246a10ebb8fabeb5f3c7b9c # tag=v1.1
         with:
           format: 'YYYYMMDDHHmm'
       - id: receive
@@ -44,7 +44,7 @@ jobs:
             kernel: ${{ needs.prepare-release.outputs.stable }}
             experimental: true
     steps:
-      - uses: styfle/cancel-workflow-action@0.11.0
+      - uses: styfle/cancel-workflow-action@b173b6ec0100793626c2d9e6b90435061f4fc3e5 # tag=0.11.0
         with:
           access_token: ${{ github.token }}
       - name: import sway key
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: [build-release]
     steps:
-      - uses: peter-evans/repository-dispatch@v2
+      - uses: peter-evans/repository-dispatch@f2696244ec00ed5c659a5cc77f7138ad0302dffb # tag=v2
         with:
           token: ${{ secrets.DISPATCH }}
           repository: manjaro-sway/manjaro-sway

@@ -20,7 +20,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
     - name: download default iso
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -56,9 +56,9 @@ jobs:
         
         ls -l docs/*
     - name: upload github pages
-      uses: actions/upload-pages-artifact@v1.0.4
+      uses: actions/upload-pages-artifact@a597aecd27af1cf14095ccaa29169358e3d91e28 # tag=v1.0.4
       with:
         path: './docs'
     - name: deploy github pages
       id: deployment
-      uses: actions/deploy-pages@v1.2.2
+      uses: actions/deploy-pages@69a62cdfa4c32e0d925268597986261876cac577 # tag=v1.2.2
