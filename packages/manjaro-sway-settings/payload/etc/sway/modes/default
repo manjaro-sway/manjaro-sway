@@ -161,5 +161,8 @@ $bindsym $mod+a focus parent
 ## Launch // Toggle Help ##
 $bindsym $mod+question exec $help
 
+## Launch // Open Support ##
+$bindsym $mod+Shift+s exec xdg-open https://github.com/Manjaro-Sway/manjaro-sway/blob/main/SUPPORT.md
+
 default_border pixel 1
 hide_edge_borders smart
