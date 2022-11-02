@@ -69,7 +69,7 @@ manjaro-zsh-config
 man-pages
 mdadm
 memtest86+
-memtest86+-efi
+#memtest86+-efi # not there yet in stable branch
 mhwd
 mhwd-db
 mkinitcpio-openswap
