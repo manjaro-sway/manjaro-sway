@@ -56,7 +56,7 @@ jobs:
         
         ls -l docs/*
     - name: upload github pages
-      uses: actions/upload-pages-artifact@a597aecd27af1cf14095ccaa29169358e3d91e28 # tag=v1.0.4
+      uses: actions/upload-pages-artifact@4506126207ed04f7c31e67d0b20154fc373f2505 # v1.0.5
       with:
         path: './docs'
     - name: deploy github pages
