@@ -31,7 +31,7 @@ set $term_float footclient -a floating_shell
 set $term_float_portrait footclient -a floating_shell_portrait
 
 # onscreen bar
-set $onscreen_bar bash /usr/share/sway/scripts/wob.sh "$accent-colorFF" "$background-colorFF"
+set $onscreen_bar bash /usr/share/sway/scripts/wob.sh "$accent-color" "$background-color"
 
 # brightness control
 set $brightness_step bash -c 'echo $(( $(light -Mr) / 100 * 5 < 1 ? 1 : $(( $(light -Mr) / 100 * 5 )) ))'
