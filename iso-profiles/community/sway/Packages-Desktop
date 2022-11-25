@@ -1,7 +1,11 @@
-# Base
+# Manjaro Sway
+
+## Base
+
 manjaro-sway/manjaro-sway-settings
 
-# Sway Extras
+## Sway Extras
+
 swaybg # background switcher
 >extra flashfocus # nicer flashing on focus change
 swaylock-effects # swaylock with nicer effects
@@ -13,7 +17,8 @@ swaylock-effects # swaylock with nicer effects
 >extra swaycwd # determines the cwd of a sway container
 >extra zeit # command line time tracker
 
-# Wayland support
+## Wayland support
+
 xorg-xwayland # xorg-wayland bridge
 >extra wlay # graphical display management like arandr
 qt5-wayland
@@ -22,14 +27,17 @@ polkit-gnome # polkit for visual superuser access
 >extra xdg-desktop-portal-wlr
 manjaro-pipewire
 
-# Greeter
+## Greeter
+
 greetd
 greetd-tuigreet
 
-# Browser
+## Browser
+
 firefox
 
-# Themes
+## Themes
+
 qt5ct
 kvantum-qt5
 kvantum-theme-matcha
@@ -38,14 +46,16 @@ matcha-gtk-theme
 papirus-maia-icon-theme
 xcursor-breeze
 
-# File systems access
+## File systems access
+
 pcmanfm-gtk3
 gvfs
 >extra gvfs-mtp
 >extra file-roller
 >extra p7zip
 
-# Sound, video and bluetooth
+## Sound, video and bluetooth
+
 pulsemixer
 bluez
 bluez-utils
@@ -53,14 +63,16 @@ pulseaudio-alsa
 pulseaudio-ctl
 playerctl
 
-# Network
+## Network
+
 avahi
 nss-mdns
 networkmanager
 dhclient
 manjaro-hotfixes
 
-# Multimedia
+## Multimedia
+
 >extra mplayer # multimedia player
 >extra ffmpeg
 >extra ffmpegthumbnailer
@@ -69,23 +81,27 @@ manjaro-hotfixes
 >extra gnome-epub-thumbnailer
 >extra imv
 
-# Package Management
+## Package Management
+
 >extra yay
 >extra manjaro-aur-support
 pamac-gtk
 >extra appimagelauncher
 >extra web-installer-url-handler
 
-# utils
+## Utils
+
 >extra apparmor
 xdg-user-dirs
 >extra manjaro-settings-manager
 >extra poweralertd
 
-# extra fonts
+## Extra fonts
+
 >extra wqy-microhei
 
-# CLI tools
+## CLI tools
+
 curl
 jq
 oh-my-zsh
