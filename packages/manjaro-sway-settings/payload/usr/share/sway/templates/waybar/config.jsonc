@@ -143,7 +143,7 @@
     "temperature": {
         "critical-threshold": 90,
         "interval": 5,
-        "format": "{icon} {temperatureC}°C",
+        "format": "{icon} {temperatureC}°",
         "format-icons": ["", "", ""],
         "tooltip": false,
         "on-click": "swaymsg exec \"\\$term_float watch sensors\""
@@ -268,7 +268,7 @@
         "format": "{icon} {}",
         "tooltip": true,
         "interval": 3600,
-        // accepts a location as an argument (in quotes)
+        // accepts -c/--city <city> -t/--temperature <C/F> -d/--distance <km/miles>
         "exec": "/usr/share/sway/scripts/weather.py",
         "return-type": "json",
         "format-icons": {
