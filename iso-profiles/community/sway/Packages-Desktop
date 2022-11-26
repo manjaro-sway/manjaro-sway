@@ -92,6 +92,7 @@ pamac-gtk
 >extra apparmor
 xdg-user-dirs
 >extra manjaro-settings-manager
+>extra manjaro-settings-manager-notifier
 >extra poweralertd
 
 ## Extra fonts
