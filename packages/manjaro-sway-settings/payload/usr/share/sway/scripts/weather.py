@@ -136,7 +136,7 @@ def format_time(time):
     return time.replace("00", "").zfill(2)
 
 def format_temp(temp):
-    return (hour[feelsLike]+"°").ljust(3)
+    return (f"{hour[feelsLike]}°{temperature}").ljust(3)
 
 def format_chances(hour):
     chances = {
@@ -156,12 +156,12 @@ def format_chances(hour):
             conditions.append(chances[event]+" "+hour[event]+"%")
     return ", ".join(conditions)
 
-data['text'] = weather['current_condition'][0][feelsLike]+"°"
+data['text'] = f"{weather['current_condition'][0][feelsLike]}°{temperature}"
 data['alt'] = WWO_CODE[weather['current_condition'][0]['weatherCode']]
 
 data['tooltip'] = f"Weather in <b>{weather['nearest_area'][0]['areaName'][0]['value']}</b>:\n"
-data['tooltip'] += f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0][temp]}°</b>\n"
-data['tooltip'] += f"Feels like: {weather['current_condition'][0][feelsLike]}°\n"
+data['tooltip'] += f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0][temp]}°{temperature}</b>\n"
+data['tooltip'] += f"Feels like: {weather['current_condition'][0][feelsLike]}°{temperature}\n"
 data['tooltip'] += f"Wind: {weather['current_condition'][0][windspeed]}{distance}/h\n"
 data['tooltip'] += f"Humidity: {weather['current_condition'][0]['humidity']}%\n"
 for i, day in enumerate(weather['weather']):
@@ -171,7 +171,7 @@ for i, day in enumerate(weather['weather']):
     if i == 1:
         data['tooltip'] += "Tomorrow, "
     data['tooltip'] += f"{day['date']}</b>\n"
-    data['tooltip'] += f"⬆️ {day[maxTemp]}° ⬇️ {day[minTemp]}° "
+    data['tooltip'] += f"⬆️ {day[maxTemp]}°{temperature} ⬇️ {day[minTemp]}°{temperature} "
     data['tooltip'] += f"🌅 {day['astronomy'][0]['sunrise']} 🌇 {day['astronomy'][0]['sunset']}\n"
     for hour in day['hourly']:
         if i == 0:
