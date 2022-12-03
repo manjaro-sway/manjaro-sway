@@ -27,7 +27,6 @@ util-linux
 xz
 
 # Manjaro
->multilib gcc-libs-multilib
 acpi
 acpid
 amd-ucode
