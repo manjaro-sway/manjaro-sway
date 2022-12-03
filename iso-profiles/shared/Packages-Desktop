@@ -27,7 +27,6 @@ ttf-droid
 ttf-inconsolata
 ttf-indic-otf
 ttf-liberation
-xdg-su
 xdg-utils
 xf86-input-elographics
 xf86-input-evdev
@@ -35,7 +34,5 @@ xf86-input-evdev
 xf86-input-libinput
 #xf86-input-mouse # deprecated
 xf86-input-void
-xorg-server-utils
 xorg-twm
-xorg-utils
 xorg-xinit
