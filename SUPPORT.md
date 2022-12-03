@@ -115,6 +115,8 @@ Copy over and edit the customization template, it will get picked up automatical
 cp ~/.config/sworkstyle/config.toml.example ~/.config/sworkstyle/config.toml
 ```
 
+You can find missing icons in the sworkstyle logs, `/tmp/sworkstyle.log`.
+
 ## Setup and configuration
 
 ### How can I move the waybar from top to bottom?
@@ -167,10 +169,6 @@ pacman -R flashfocus
 ```bash
 rm $HOME/.config/nwg-wrapper/help.sh
 ```
-
-### Why do my keyboard settings from the installer have no effect?
-
-Manjaro installer controls keyboard settings using xkb, sway doesn't support it. Please refer [here](https://wiki.archlinux.org/title/Sway#Keymap) for help.
 
 ### Why do my auto-login settings from the installer have no effect?
 
@@ -246,6 +244,20 @@ add a definition `~/.config/sway/definitions.d/window-follow.conf`:
 
 ```
 set $focus_after_move true
+```
+
+### How can I determine the app_id for a running application?
+
+This lists all ids of the opened applications:
+
+```
+smaymsg -t get_tree | grep app_id
+```
+
+### How can I assign a window to a specific workspace?
+
+```
+assign [class="Emacs"] workspace number 1
 ```
 
 ### How can I enable github notifications?
