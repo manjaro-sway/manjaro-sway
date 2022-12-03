@@ -36,7 +36,6 @@ btrfs-progs
 bzip2
 coreutils
 cpupower
-crda
 cronie
 cryptsetup
 device-mapper
@@ -93,6 +92,6 @@ usbutils
 vi
 wget
 which
+wireless-regdb
 wpa_supplicant
 xfsprogs
-

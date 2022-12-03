@@ -6,7 +6,6 @@ bash
 btrfs-progs
 bzip2
 coreutils
-crda
 dbus-x11
 dhclient
 diffutils
@@ -90,5 +89,6 @@ util-linux
 vi
 wget
 which
+wireless-regdb
 xfsprogs
 zsh
