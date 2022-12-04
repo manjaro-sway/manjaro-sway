@@ -116,8 +116,7 @@ set $ws10 number 10
 set $grimshot /usr/share/sway/scripts/grimshot
 set $pipe_output $grimshot save output -
 set $pipe_selection $grimshot save window -
-set $save_notification notify-send "screenshot saved to $HOME/Screenshots"
-set $swappy swappy -f - && $save_notification 
+set $swappy swappy -f -
 set $swappy_pipe swappy -f - -o -
 set $upload_pipe curl -s -F "file=@-;filename=.png" https://x0.at/ | tee >(wl-copy) >(xargs notify-send)
 
