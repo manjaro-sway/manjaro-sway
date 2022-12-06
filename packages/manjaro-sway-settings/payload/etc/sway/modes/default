@@ -166,3 +166,6 @@ $bindsym $mod+Shift+s exec xdg-open https://github.com/Manjaro-Sway/manjaro-sway
 
 default_border pixel 1
 hide_edge_borders smart
+
+# allow to kill focused floating shell windows using Esc
+$bindsym Escape [app_id="floating_shell" con_id=__focused__] kill
