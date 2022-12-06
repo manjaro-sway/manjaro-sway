@@ -112,7 +112,10 @@
         "format-icons": {
             "activated": "零",
             "deactivated": "鈴"
-        }
+        },
+        "tooltip": true,
+        "tooltip-format-activated": "power-saving disabled",
+        "tooltip-format-deactivated": "power-saving enabled"
     },
 
     "backlight": {
