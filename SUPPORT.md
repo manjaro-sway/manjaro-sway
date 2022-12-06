@@ -272,7 +272,7 @@ set $focus_after_move true
 This lists all ids of the opened applications:
 
 ```
-smaymsg -t get_tree | grep app_id
+swaymsg -t subscribe -m '[ "window" ]' | jq -r --unbuffered .container.app_id
 ```
 
 ### How can I assign a window to a specific workspace?
