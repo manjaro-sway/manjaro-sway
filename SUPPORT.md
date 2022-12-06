@@ -160,8 +160,10 @@ Likely you're using proprietary drivers, unsupported by sway. You can try it any
 
 ### How do I disable the window focus flashing animation?
 
-```bash
-pacman -R flashfocus
+add this to `.config/sway/definitions.d/autostart.conf`:
+
+```
+set $flashfocus ""
 ```
 
 ### How can I disable the help onscreen menu permanently?
@@ -176,8 +178,10 @@ greetd, our login messenger, is not supported by the manjaro installer. refer [h
 
 ### How can I disable the night light feature?
 
-```bash
-pacman -R wlsunset
+add this to `.config/sway/definitions.d/autostart.conf`:
+
+```
+set $wlsunset ""
 ```
 
 ### How can I set a fixed geo location for the night-light feature?
@@ -208,20 +212,37 @@ Update the waybar module by creating or updating your `~/.config/waybar/config.j
 
 ### How can I disable the dynamic workspace icons?
 
-```bash
-pacman -R sworkstyle
+add this to `.config/sway/definitions.d/autostart.conf`:
+
+```
+set $workspace_icons ""
 ```
 
 ### How can I disable the window auto-tiling?
 
-```bash
-pacman -R autotiling
+add this to `.config/sway/definitions.d/autostart.conf`:
+
+```
+set $autotiling ""
 ```
 
 ### How can I disable the clipboard history?
 
-```bash
-pacman -R cliphist
+add this to `.config/sway/definitions.d/autostart.conf`:
+
+```
+set $cliphist_watch ""
+set $cliphist_store ""
+```
+
+### How can I remove an auto-starting application?
+
+Refer to the autostart section of our [definitions](https://github.com/Manjaro-Sway/desktop-settings/blob/b43c6733b2830157a57097216c132891d93c7e4f/community/sway/etc/sway/definitions) to find the variables.
+
+Add an entry to `.config/sway/definitions.d/autostart.conf` for each command you'd like to disable:
+
+```
+set $flashfocus ""
 ```
 
 ### How can I delete the clipboard history?
