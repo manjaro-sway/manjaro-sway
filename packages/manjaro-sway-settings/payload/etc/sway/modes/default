@@ -168,4 +168,4 @@ default_border pixel 1
 hide_edge_borders smart
 
 # allow to kill focused floating shell windows using Esc
-# $bindsym Escape [app_id="floating_shell" con_id=__focused__] kill
+$bindsym --release Escape [app_id="floating_shell" con_id=__focused__] kill
