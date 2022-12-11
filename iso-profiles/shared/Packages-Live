@@ -1,4 +1,7 @@
+btrfs-assistant
 calamares
+clonezilla
+gparted
 grub-theme-live-manjaro
 gsmartcontrol
 #manjaro-architect
@@ -6,5 +9,5 @@ manjaro-live-skel
 manjaro-live-systemd
 mkinitcpio-nfs-utils
 nbd
-clonezilla
+snapper-gui
 virtualbox-guest-utils
