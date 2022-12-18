@@ -1,3 +1,6 @@
+# make xdg user dirs available
+source ~/.config/user-dirs.dirs
+
 # base config for oh my zsh
 source /usr/share/oh-my-zsh/zshrc
 
@@ -17,3 +20,4 @@ ZSH_HIGHLIGHT_STYLES[comment]='fg=blue'
 
 # Fix for foot terminfo not installed on most servers
 alias ssh="TERM=xterm-256color ssh"
+source ~/.config/user-dirs.dirs

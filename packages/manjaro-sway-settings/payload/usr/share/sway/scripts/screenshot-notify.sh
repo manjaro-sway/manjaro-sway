@@ -1,10 +1,8 @@
 #!/bin/sh
 
 set -e
-DIR=~/Screenshots/
-
-mkdir -p $DIR
+DIR=${XDG_SCREENSHOTS_DIR:-$HOME/Screenshots}
 
 while true; do
-    inotifywait -q -e create $DIR --format '%w%f' | xargs notify-send "Screenshot saved"
+    mkdir -p $DIR && inotifywait -q -e create $DIR --format '%w%f' | xargs notify-send "Screenshot saved"
 done
