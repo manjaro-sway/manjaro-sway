@@ -26,3 +26,7 @@ export ZEIT_DB=~/.config/zeit.db
 # Disable hardware cursors. This might fix issues with
 # disappearing cursors
 export WLR_NO_HARDWARE_CURSORS=1
+
+set -a
+source $HOME/.config/user-dirs.dirs
+set +a
