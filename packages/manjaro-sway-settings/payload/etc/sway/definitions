@@ -134,6 +134,7 @@ set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info
 set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && pcmanfm -d'
 # restart kanshi https://github.com/emersion/kanshi/issues/43#issuecomment-531679213
 set $kanshi '[ -x "$(command -v kanshi)" ] && pkill kanshi; exec kanshi'
+set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
 # apply the keyboard layout from localectl if no keyboard layout has been set via config.d
 set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /usr/share/sway/scripts/keyboard.sh'
 
