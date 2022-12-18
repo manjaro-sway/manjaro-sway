@@ -1,6 +1,3 @@
-# make xdg user dirs available
-source ~/.config/user-dirs.dirs
-
 # base config for oh my zsh
 source /usr/share/oh-my-zsh/zshrc
 
