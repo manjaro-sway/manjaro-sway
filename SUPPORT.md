@@ -168,7 +168,7 @@ set $flashfocus ""
 
 ### How can I extend the zsh configuration?
 
-You can add you own zsh configuration to `.config/zsh/config.d/`.
+You can add you own zsh configuration to `~/.config/zsh/config.d/`.
 
 ### How can I disable the help onscreen menu permanently?
 
