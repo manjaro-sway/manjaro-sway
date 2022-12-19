@@ -30,3 +30,5 @@ export WLR_NO_HARDWARE_CURSORS=1
 set -a
 source $HOME/.config/user-dirs.dirs
 set +a
+
+source $HOME/.config/profile.d/*
