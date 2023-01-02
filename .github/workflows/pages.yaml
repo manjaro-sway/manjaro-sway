@@ -38,8 +38,6 @@ jobs:
         ## remove unzipped files
         rm -f docs/manjaro-sway/*.zip || echo ok
         rm -f docs/manjaro-sway/*.z01 || echo ok
-        ## rename unstable to latest
-        find docs/manjaro-sway/ -depth -name '*unstable*' -execdir bash -c 'mv -i "$1" "${1//unstable/latest}"' bash {} \;
 
         ## create release filelist
         (cd docs/manjaro-sway && ls -l *iso*) | \
