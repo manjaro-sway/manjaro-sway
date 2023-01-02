@@ -1,4 +1,4 @@
-name: gh pages
+name: pages deployment
 
 on:
   workflow_dispatch:
@@ -17,7 +17,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.url }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3
@@ -53,10 +53,12 @@ jobs:
           docs/manjaro-sway
         
         ls -l docs/*
-    - name: upload github pages
-      uses: actions/upload-pages-artifact@253fd476ed429e83b7aae64a92a75b4ceb1a17cf # v1.0.7
-      with:
-        path: './docs'
-    - name: deploy github pages
+    - name: publish to cloudflare
       id: deployment
-      uses: actions/deploy-pages@20a4baa1095bad40ba7d6ca0d9abbc220b76603f # v1.2.3
+      uses: cloudflare/pages-action@v1
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: cd1e88db5a44de0f45317275cbcef879
+        projectName: manjaro-sway
+        directory: './docs'
+        gitHubToken: ${{ secrets.DISPATCH }}
