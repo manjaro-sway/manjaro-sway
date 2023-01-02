@@ -41,18 +41,38 @@ jobs:
 
         ## create release filelist
         (cd docs/manjaro-sway && ls -l *iso*) | \
-          jq -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://manjaro-sway.download/manjaro-sway/\(.[-1])" }]' \
+          jq -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://manjaro-sway.s3.fr-par.scw.cloud/\(.[-1])" }]' \
           > docs/release.json
+
+        cat docs/release.json
 
         sudo apt-get update
         sudo apt-get install mktorrent
 
         mktorrent -v -a udp://tracker.opentrackr.org:1337 -l 21 \
-          -n "manjaro-sway" -w https://manjaro-sway.download/ \
+          -n "manjaro-sway" -w https://manjaro-sway.s3.fr-par.scw.cloud/ \
           -o docs/manjaro-sway/manjaro-sway.torrent \
           docs/manjaro-sway
         
         ls -l docs/*
+    - name: s3 prune
+      uses: remyleone/scw-s3-action@v0.0.2
+      with:
+        args: s3 rm s3://manjaro-sway/*
+      env:
+        SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+        SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+        SCW_REGION: "fr-par"
+    - name: s3 upload
+      uses: remyleone/scw-s3-action@v0.0.2
+      with:
+        args: s3 cp ./docs/manjaro-sway s3://manjaro-sway/ --recursive
+      env:
+        SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+        SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+        SCW_REGION: "fr-par"
+    - name: cleanup upload dir
+      run: rm docs/manjaro-sway/*iso*
     - name: upload github pages
       uses: actions/upload-pages-artifact@253fd476ed429e83b7aae64a92a75b4ceb1a17cf # v1.0.7
       with:
