@@ -30,13 +30,6 @@ zip -FF manjaro-sway-*.zip --out manjaro-full.zip && unzip manjaro-full.zip
 You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/).
 Check our [FAQ](SUPPORT.md) for additional hints.
 
-## What image to choose?
-
-We currently release two images:
-
-- a conservative image: lts kernel, "stable" packages
-- an arch-like image: stable kernel, latest/"unstable" packages
-
 ## Known issues
 
 - nvidia proprietary drivers <470 are not supported by sway.
