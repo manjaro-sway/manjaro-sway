@@ -55,7 +55,7 @@ jobs:
         ls -l docs/*
     - name: publish to cloudflare
       id: deployment
-      uses: cloudflare/pages-action@v1
+      uses: cloudflare/pages-action@c2ad89679f0dee1ff4bcf9b8bbe1cf52d176cb29 # v1
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: cd1e88db5a44de0f45317275cbcef879
