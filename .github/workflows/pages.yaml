@@ -56,7 +56,7 @@ jobs:
         
         ls -l docs/*
     - name: s3 prune
-      uses: remyleone/scw-s3-action@v0.0.2
+      uses: remyleone/scw-s3-action@ac8ffd44c45b626ccf50b1de5758cd1ed64ff925 # v0.0.2
       with:
         args: s3 rm s3://manjaro-sway/*
       env:
@@ -64,7 +64,7 @@ jobs:
         SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
         SCW_REGION: "fr-par"
     - name: s3 upload
-      uses: remyleone/scw-s3-action@v0.0.2
+      uses: remyleone/scw-s3-action@ac8ffd44c45b626ccf50b1de5758cd1ed64ff925 # v0.0.2
       with:
         args: s3 cp ./docs/manjaro-sway s3://manjaro-sway/ --recursive
       env:
