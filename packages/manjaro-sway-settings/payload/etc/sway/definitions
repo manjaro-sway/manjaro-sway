@@ -94,7 +94,7 @@ set $pulseaudio $term_float pulsemixer
 set $help /usr/share/sway/scripts/help.sh --toggle
 
 # calendar application
-set $calendar $term_float cal -3
+set $calendar $term_float calcurse
 
 # workspace names
 set $ws1 number 1
@@ -145,4 +145,5 @@ set $poweralert '[ -x "$(command -v poweralertd)" ] && pkill poweralertd; powera
 set $swayr_daemon '[ -x "$(command -v swayrd)" ] && env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd &> /tmp/swayrd.log'
 set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch pkill -RTMIN+9 waybar'
 set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'
+set $calendar_daemon 'calcurse --daemon'
 set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill playerctl; playerctl -a metadata --format \'{{status}} {{title}}\' --follow | while read line; do pkill -RTMIN+5 waybar; done'
