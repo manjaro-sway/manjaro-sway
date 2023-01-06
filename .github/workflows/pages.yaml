@@ -69,7 +69,7 @@ jobs:
     - name: cleanup upload dir
       run: rm docs/manjaro-sway/*iso*
     - name: deploy cf pages
-      uses: cloudflare/wrangler-action@2.0.0
+      uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # 2.0.0
       with:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
