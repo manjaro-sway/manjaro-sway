@@ -1,4 +1,4 @@
-name: gh pages
+name: pages
 
 on:
   workflow_dispatch:
@@ -68,10 +68,9 @@ jobs:
         AWS_S3_ENDPOINT: https://cd1e88db5a44de0f45317275cbcef879.r2.cloudflarestorage.com
     - name: cleanup upload dir
       run: rm docs/manjaro-sway/*iso*
-    - name: upload github pages
-      uses: actions/upload-pages-artifact@253fd476ed429e83b7aae64a92a75b4ceb1a17cf # v1.0.7
+    - name: deploy cf pages
+      uses: cloudflare/wrangler-action@2.0.0
       with:
-        path: './docs'
-    - name: deploy github pages
-      id: deployment
-      uses: actions/deploy-pages@20a4baa1095bad40ba7d6ca0d9abbc220b76603f # v1.2.3
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        command: pages publish --project-name=manjaro-sway ./docs
