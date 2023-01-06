@@ -94,7 +94,7 @@ set $pulseaudio $term_float pulsemixer
 set $help /usr/share/sway/scripts/help.sh --toggle
 
 # calendar application
-set $calendar $term_float khal interactive
+set $calendar $term_float cal -3
 
 # workspace names
 set $ws1 number 1
