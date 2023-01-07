@@ -31,4 +31,6 @@ set -a
 source $HOME/.config/user-dirs.dirs
 set +a
 
-source $HOME/.config/profile.d/*
+for f in $HOME/.config/profile.d/*; do
+  source $f
+done
