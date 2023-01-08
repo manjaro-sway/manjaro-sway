@@ -31,6 +31,8 @@ set -a
 source $HOME/.config/user-dirs.dirs
 set +a
 
-for f in $HOME/.config/profile.d/*; do
-  source $f
-done
+if [ -n "$(ls $HOME/.config/profile.d 2>/dev/null)" ]; then
+    for f in $HOME/.config/profile.d/*; do
+        source $f
+    done
+fi
