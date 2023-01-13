@@ -13,6 +13,9 @@ concurrency:
   group: "pages-deployment"
   cancel-in-progress: true
 
+env:
+  download_dir: download/manjaro-sway
+
 jobs:
   pages:
     permissions:
@@ -31,19 +34,19 @@ jobs:
         LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
         gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[]]' >docs/assets.json
         
-        mkdir -p docs/manjaro-sway
-        cat docs/assets.json | jq '.[].url' | xargs wget -q -P docs/manjaro-sway
+        mkdir -p $download_dir
+        cat docs/assets.json | jq '.[].url' | xargs wget -q -P $download_dir
         
         # unzip files
-        for file in docs/manjaro-sway/*.iso.zip; do 
-          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d docs/manjaro-sway/
+        for file in $download_dir/*.iso.zip; do 
+          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d $download_dir/
         done
         ## remove unzipped files
-        rm -f docs/manjaro-sway/*.zip || echo ok
-        rm -f docs/manjaro-sway/*.z01 || echo ok
+        rm -f $download_dir/*.zip || echo ok
+        rm -f $download_dir/*.z01 || echo ok
 
         ## create release filelist
-        (cd docs/manjaro-sway && ls -l *iso*) | \
+        (cd $download_dir && ls -l *iso*) | \
           jq -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://mirror.manjaro-sway.download/\(.[-1])" }]' \
           > docs/release.json
 
@@ -55,13 +58,13 @@ jobs:
         sudo apt-get install mktorrent
 
         mktorrent -v -a udp://tracker.opentrackr.org:1337 -l 21 \
-          -n "manjaro-sway" -w https://mirror.manjaro-sway.download/ \
-          -o docs/manjaro-sway/manjaro-sway.torrent \
-          docs/manjaro-sway
+          -n "manjaro-sway" \
+          -w https://mirror.manjaro-sway.download/ \
+          -o $download_dir/manjaro-sway.torrent \
+          $download_dir
 
-        
-        
         ls -l docs/*
+        ls $download_dir
     - name: s3 sync
       uses: jakejarvis/s3-sync-action@master
       with:
@@ -71,10 +74,8 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
         AWS_REGION: 'auto'
-        SOURCE_DIR: './docs/manjaro-sway'
+        SOURCE_DIR: './download'
         AWS_S3_ENDPOINT: https://cd1e88db5a44de0f45317275cbcef879.r2.cloudflarestorage.com
-    - name: cleanup upload dir
-      run: rm docs/manjaro-sway/*iso*
     - name: deploy cf pages
       uses: cloudflare/wrangler-action@4c10c1822abba527d820b29e6333e7f5dac2cabd # 2.0.0
       with:
