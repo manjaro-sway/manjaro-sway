@@ -158,6 +158,10 @@ refer to `man sway-input` and the [arch wiki](https://wiki.archlinux.org/title/S
 
 Likely you're using proprietary drivers, unsupported by sway. You can try it anyway by pressing `F3` in the greeter and selecting `Sway (unsupported GPU)`.
 
+### How can I configure another path for the screenshots to be saved?
+
+By default screenshots are being stored in `$HOME/Screenshots`. If you'd like to change that, just add/change a line `XDG_SCREENSHOTS_DIR="$HOME/Screenshots"` in `~/.config/user-dirs.dirs`.
+
 ### How do I disable the window focus flashing animation?
 
 add this to `.config/sway/definitions.d/autostart.conf`:
