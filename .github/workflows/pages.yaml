@@ -55,7 +55,7 @@ jobs:
     - name: create release filelist
       run: |
         (cd $download_dir && ls -l *iso*) | \
-          jq -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://mirror.manjaro-sway.download/\(.[-1])" }]' \
+          jq -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://mirror.manjaro-sway.download/manjaro-sway/\(.[-1])" }]' \
           > docs/release.json
         cat docs/release.json
     - name: download background image
