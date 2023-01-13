@@ -1,6 +1,9 @@
 name: pages
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
   repository_dispatch:
     types:
@@ -46,6 +49,8 @@ jobs:
 
         cat docs/release.json
 
+        curl -s https://raw.githubusercontent.com/Manjaro-Sway/manjaro-sway-wallpapers/master/static/gruvbox-dark-manjarosway-3840x2160.png > docs/background.png
+
         sudo apt-get update
         sudo apt-get install mktorrent
 
@@ -53,6 +58,8 @@ jobs:
           -n "manjaro-sway" -w https://mirror.manjaro-sway.download/ \
           -o docs/manjaro-sway/manjaro-sway.torrent \
           docs/manjaro-sway
+
+        
         
         ls -l docs/*
     - name: s3 sync
