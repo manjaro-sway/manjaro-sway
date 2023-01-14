@@ -17,7 +17,7 @@ jobs:
   pages:
     environment:
       name: mirror
-      url: https://mirror.manjaro-sway.download/manjaro-sway
+      url: https://mirror.manjaro-sway.download/manjaro-sway/release.json
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
@@ -55,7 +55,7 @@ jobs:
       id: files
       run: |
         (cd $download_dir && ls -l *iso*) | \
-          jq --compact-output -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://mirror.manjaro-sway.download/manjaro-sway/\(.[-1])" }]' \
+          jq --compact-output -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://manjaro-sway.download/download?file=\(.[-1])" }]' \
           > $download_dir/release.json
     - name: s3 sync downloads
       uses: jakejarvis/s3-sync-action@master
@@ -68,8 +68,5 @@ jobs:
         AWS_REGION: 'auto'
         SOURCE_DIR: './download'
         AWS_S3_ENDPOINT: https://cd1e88db5a44de0f45317275cbcef879.r2.cloudflarestorage.com
-    - uses: peter-evans/repository-dispatch@26b39ed245ab8f31526069329e112ab2fb224588 # v2
-      with:
-        token: ${{ secrets.DISPATCH }}
-        repository: manjaro-sway/manjaro-sway
-        event-type: mirror_sync
+    - name: trigger cf pages build
+      run: curl -s -X POST ${{ secrets.CF_PAGES_WEBHOOK }}

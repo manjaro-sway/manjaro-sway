@@ -9,9 +9,6 @@
             ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][d];
     }
   }
-  function count() {
-    fetch("https://api.numeri.xyz/v1/3bc55102-fe06-4648-a6b3-4083a00efae8/increase")
-  }
 
   fetch(
     "https://manjaro-sway.download/release.json"
@@ -23,7 +20,7 @@
       const links = data
         .map(
           (asset) => {
-            return `<p><a ${asset.name.endsWith('.iso') ? 'onClick="count()"' : ''} href="${asset.url}">${asset.name}</a><span> (${formatBytes(asset.size)})</span></p>`
+            return `<p><a href="${asset.url}">${asset.name}</a><span> (${formatBytes(asset.size)})</span></p>`
           })
         .join("</br>");
       document.getElementById(
