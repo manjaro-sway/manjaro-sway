@@ -1,9 +1,6 @@
 name: pages
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
   repository_dispatch:
     types:
@@ -29,8 +26,6 @@ jobs:
     - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
     - name: install
       run: |
-        sudo pip3 install apt-mirror-updater
-        sudo apt-mirror-updater --auto-change-mirror
         sudo apt-get update
         sudo apt-get install mktorrent
     - name: download release
