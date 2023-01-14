@@ -4,7 +4,8 @@ on:
     - cron:  '30 2 * * 0'
   workflow_dispatch:
   repository_dispatch:
-    types: [iso_profile_update]
+    types:
+    - iso_profile_update
 
 concurrency: 
   group: ${{ github.workflow }}
@@ -68,7 +69,7 @@ jobs:
         with:
           token: ${{ secrets.DISPATCH }}
           repository: manjaro-sway/manjaro-sway
-          event-type: build_pages
+          event-type: new_release
   rollback:
     runs-on: ubuntu-20.04
     needs: [build-release]

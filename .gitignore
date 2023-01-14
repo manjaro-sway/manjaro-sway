@@ -7,3 +7,4 @@ docs/manjaro-sway/*
 docs/assets.json
 docs/release.json
 manjaro-full.zip
+docs/node_modules

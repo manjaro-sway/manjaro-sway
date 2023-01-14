@@ -1,0 +1,75 @@
+name: mirror
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+    - new_release
+
+concurrency: 
+  group: "mirror"
+  cancel-in-progress: true
+
+env:
+  download_dir: download/manjaro-sway
+
+jobs:
+  pages:
+    environment:
+      name: mirror
+      url: https://mirror.manjaro-sway.download/manjaro-sway
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3
+    - name: install
+      run: |
+        sudo apt-get update
+        sudo apt-get install mktorrent
+    - name: download release
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
+        gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[]]' >docs/assets.json
+        
+        mkdir -p $download_dir
+        cat docs/assets.json | jq '.[].url' | xargs wget -q -P $download_dir
+        
+        # unzip files
+        for file in $download_dir/*.iso.zip; do 
+          zip -FF $file --out manjaro-full.zip && unzip manjaro-full.zip -d $download_dir/
+        done
+        ## remove unzipped files
+        rm -f $download_dir/*.zip || echo ok
+        rm -f $download_dir/*.z01 || echo ok
+
+        ls $download_dir
+    - name: create torrent
+      run: |
+        mktorrent -v -a udp://tracker.opentrackr.org:1337 -l 21 \
+          -n "manjaro-sway" \
+          -w https://mirror.manjaro-sway.download/ \
+          -o $download_dir/manjaro-sway.torrent \
+          $download_dir
+    - name: create release filelist
+      id: files
+      run: |
+        (cd $download_dir && ls -l *iso*) | \
+          jq --compact-output -s -R 'split("\n") | [.[] | select(length > 0) | split(" ") | [.[] | select(. == "" | not)] | { size: .[4] | tonumber, name: .[-1], url: "https://mirror.manjaro-sway.download/manjaro-sway/\(.[-1])" }]' \
+          > $download_dir/release.json
+    - name: s3 sync downloads
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: 'manjaro-sway'
+        AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'auto'
+        SOURCE_DIR: './download'
+        AWS_S3_ENDPOINT: https://cd1e88db5a44de0f45317275cbcef879.r2.cloudflarestorage.com
+    - uses: peter-evans/repository-dispatch@26b39ed245ab8f31526069329e112ab2fb224588 # v2
+      with:
+        token: ${{ secrets.DISPATCH }}
+        repository: manjaro-sway/manjaro-sway
+        event-type: mirror_sync
