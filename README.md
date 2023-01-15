@@ -9,7 +9,7 @@
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
-![image](https://user-images.githubusercontent.com/4662748/212540452-aee72a06-49bd-4890-b579-7d34ad37ca9f.png)
+![image](https://user-images.githubusercontent.com/4662748/212540664-1445ae40-96d2-48b6-92e1-d9c0d350b420.png)
 
 We are building a manjaro sway edition - with the following principles:
 
