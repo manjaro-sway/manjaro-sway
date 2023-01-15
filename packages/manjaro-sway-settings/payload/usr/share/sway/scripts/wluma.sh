@@ -24,4 +24,4 @@ else
     text="static brightness"
 fi
 
-printf '{"alt":"%s","text":"%s"}\n' "$class" "$text"
+printf '{"alt":"%s","tooltip":"%s"}\n' "$class" "$text"

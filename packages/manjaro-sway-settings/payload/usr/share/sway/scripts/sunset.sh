@@ -53,4 +53,4 @@ else
     text="no gamma correction"
 fi
 
-printf '{"alt":"%s","text":"%s"}\n' "$class" "$text"
+printf '{"alt":"%s","tooltip":"%s"}\n' "$class" "$text"
