@@ -303,6 +303,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "EmptyLungs",
+      "name": "Dmitry Pavlenko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20727482?v=4",
+      "profile": "https://github.com/EmptyLungs",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
