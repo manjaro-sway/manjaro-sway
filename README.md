@@ -116,6 +116,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://andrius.mobi"><img src="https://avatars.githubusercontent.com/u/26776?v=4?s=100" width="100px;" alt="Andrius Kairiukstis"/><br /><sub><b>Andrius Kairiukstis</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Aandrius" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jagu-sayan"><img src="https://avatars.githubusercontent.com/u/1262860?v=4?s=100" width="100px;" alt="Jacob Zak"/><br /><sub><b>Jacob Zak</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Ajagu-sayan" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Galbar"><img src="https://avatars.githubusercontent.com/u/3595851?v=4?s=100" width="100px;" alt="Alessio Linares"/><br /><sub><b>Alessio Linares</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3AGalbar" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
