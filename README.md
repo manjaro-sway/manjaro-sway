@@ -109,6 +109,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://arkaitz.dev/"><img src="https://avatars.githubusercontent.com/u/56298377?v=4?s=100" width="100px;" alt="Arkaitz"/><br /><sub><b>Arkaitz</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Aarkaitz-dev" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tobip"><img src="https://avatars.githubusercontent.com/u/3918330?v=4?s=100" width="100px;" alt="Tobias Paar"/><br /><sub><b>Tobias Paar</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Atobip" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/2L3R4"><img src="https://avatars.githubusercontent.com/u/40668751?v=4?s=100" width="100px;" alt="2L3R4"/><br /><sub><b>2L3R4</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3A2L3R4" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dinkocar"><img src="https://avatars.githubusercontent.com/u/82665713?v=4?s=100" width="100px;" alt="dinkocar"/><br /><sub><b>dinkocar</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Adinkocar" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
