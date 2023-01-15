@@ -9,7 +9,7 @@
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
-[![watch it in action](https://img.youtube.com/vi/34DIO61GxAE/0.jpg)](https://www.youtube.com/watch?v=34DIO61GxAE "watch it in action")
+![image](https://user-images.githubusercontent.com/4662748/212540452-aee72a06-49bd-4890-b579-7d34ad37ca9f.png)
 
 We are building a manjaro sway edition - with the following principles:
 
@@ -20,35 +20,11 @@ We are building a manjaro sway edition - with the following principles:
 
 ## How to install
 
-You can find the latest images on [manjaro-sway.download](https://manjaro-sway.download/) and on [github releases](https://github.com/manjaro-sway/manjaro-sway/releases). Depending on their size, the iso *may* be split into a multipart zip archive. To extract the regular images from multipart zip archive, download both the `z01` and the `zip` files, and run the command:
+You can find the latest images on [manjaro-sway.download](https://manjaro-sway.download/).
 
-```bash
-zip -FF manjaro-sway-*.zip --out manjaro-full.zip && unzip manjaro-full.zip
-```
+You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/) or a similar tool.
 
-You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/).
-Check our [FAQ](SUPPORT.md) for additional hints.
-
-## Known issues
-
-- nvidia proprietary drivers <470 are not supported by sway.
-- nvidia's 470 drivers and the 5.14 Kernel have just added sway support for proprietary drivers and are known to cause problems.
-- nvidia open source drivers (noveau) are [known to cause problems](https://github.com/Manjaro-Sway/manjaro-sway/issues/140),
-  refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Sway_v1.6_shows_garbage_or_blank_screen_when_using_nouveau)
-- vmware player is [known to cause problems similar to nouveau](https://github.com/Manjaro-Sway/manjaro-sway/issues/139) -
-  you could use gnome boxes or virtualbox instead - refer to the [arch wiki for pointers](https://wiki.archlinux.org/title/Sway#Virtualization) 
-
-### Screenshots
-![desktop](https://user-images.githubusercontent.com/4662748/170871420-91dab56f-1451-40ff-9b00-8a1a0f37b0a3.png)
-![autotiling](https://user-images.githubusercontent.com/4662748/170871483-f27639db-4c2d-454e-aea5-aa057a2f11b7.png)
-![launcher](https://user-images.githubusercontent.com/4662748/170871502-57d6f5e3-6881-4d18-aa34-7b4f455b2091.png)
-
-### Credentials
-
-```
-user: manjaro
-password: manjaro
-```
+Check out our [FAQ](SUPPORT.md) for additional hints.
 
 ## Development
 
