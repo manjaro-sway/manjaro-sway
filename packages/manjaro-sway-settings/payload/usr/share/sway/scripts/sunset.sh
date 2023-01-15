@@ -31,14 +31,6 @@ function start() {
 
 #Accepts managing parameter
 case $1'' in
-'off')
-    pkill wlsunset
-    ;;
-
-'on')
-    start
-    ;;
-
 'toggle')
     if pkill -0 wlsunset; then
         pkill wlsunset
@@ -55,8 +47,10 @@ esac
 #Returns a string for Waybar
 if pkill -0 wlsunset; then
     class="on"
+    text="location-based gamma correction"
 else
     class="off"
+    text="no gamma correction"
 fi
 
-printf '{"alt":"%s"}\n' "$class"
+printf '{"alt":"%s","text":"%s"}\n' "$class" "$text"

@@ -202,7 +202,7 @@
 
     "custom/sunset": {
         "interval": "once",
-        "tooltip": false,
+        "tooltip": true,
         "return-type": "json",
         "format": "{icon}",
         "format-icons": {
