@@ -78,6 +78,7 @@ window#waybar {
 #idle_inhibitor,
 #backlight,
 #language,
+#custom-adaptive-light,
 #custom-sunset,
 #custom-playerctl,
 #tray {
