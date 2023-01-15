@@ -285,6 +285,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "jagu-sayan",
+      "name": "Jacob Zak",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1262860?v=4",
+      "profile": "https://github.com/jagu-sayan",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
