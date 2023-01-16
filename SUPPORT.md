@@ -170,6 +170,22 @@ add this to `.config/sway/definitions.d/autostart.conf`:
 set $flashfocus ""
 ```
 
+### How can I configure adaptive brightness?
+
+Install wluma:
+
+```sh
+pacman -S wluma
+```
+
+It may work out of the box. If it doesn't:
+
+```sh
+cp -r /etc/xdg/wluma ~/.config/
+```
+
+and [configure](https://github.com/maximbaz/wluma#configuration) `~/.config/wluma/config.toml` according to your needs.
+
 ### How can I extend the zsh configuration?
 
 You can add you own zsh configuration to `~/.config/zsh/config.d/`.
