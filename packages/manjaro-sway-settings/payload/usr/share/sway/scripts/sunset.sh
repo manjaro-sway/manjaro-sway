@@ -31,6 +31,12 @@ function start() {
 
 #Accepts managing parameter
 case $1'' in
+'off')
+    pkill wlsunset
+    ;;
+'on')
+    start
+    ;;
 'toggle')
     if pkill -0 wlsunset; then
         pkill wlsunset
