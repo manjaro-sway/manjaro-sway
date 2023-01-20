@@ -22,17 +22,17 @@ module Jekyll
         end
   
         if value >= filesize_tb
-          return "%s TB" % (value / filesize_tb).to_f.round(3)
+          return "%s&thinsp;TB" % (value / filesize_tb).to_f.round(3)
         elsif value >= filesize_gb
-          return "%s GB" % (value / filesize_gb).to_f.round(3)
+          return "%s&thinsp;GB" % (value / filesize_gb).to_f.round(3)
         elsif value >= filesize_mb
-          return "%s MB" % (value / filesize_mb).to_f.round(3)
+          return "%s&thinsp;MB" % (value / filesize_mb).to_f.round(3)
         elsif value >= filesize_kb
-          return "%s KB" % (value / filesize_kb).to_f.round(0)
+          return "%s&thinsp;KB" % (value / filesize_kb).to_f.round(0)
         elsif value == 1
-          return "1 byte"
+          return "1&thinsp;byte"
         else
-          return "%s bytes" % value.to_f.round(0)
+          return "%s&thinsp;bytes" % value.to_f.round(0)
         end
   
       end
