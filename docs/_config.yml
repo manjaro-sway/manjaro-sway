@@ -1,0 +1,22 @@
+title: Manjaro Sway Edition
+email: info@manjaro-sway.download
+url: "https://manjaro-sway.download"
+
+plugins:
+  - jekyll-get-json
+  - jekyll-webp
+
+webp:
+  enabled: true
+  formats: [".jpeg", ".jpg", ".png", ".tiff"]
+
+jekyll_get_json:
+  - data: release
+    json: 'https://mirror.manjaro-sway.download/manjaro-sway/release.json'
+
+exclude:
+  - node_modules/
+  - '*.json'
+  - yarn.lock
+  - '*.ts'
+  - functions/

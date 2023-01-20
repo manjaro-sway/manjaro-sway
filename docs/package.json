@@ -4,11 +4,6 @@
   "engines": {
     "node": "17"
   },
-  "scripts": {
-    "build": "run-p -l build:*",
-    "build:background": "curl -s https://raw.githubusercontent.com/Manjaro-Sway/manjaro-sway-wallpapers/master/static/gruvbox-dark-manjarosway-3840x2160.png > background.png",
-    "build:release-json": "curl -s https://mirror.manjaro-sway.download/manjaro-sway/release.json > _data/release.json"
-  },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
     "@types/node": "^18.11.18",
