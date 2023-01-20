@@ -6,7 +6,6 @@
   },
   "scripts": {
     "build": "run-p -l build:*",
-    "build:background": "curl -s https://raw.githubusercontent.com/Manjaro-Sway/manjaro-sway-wallpapers/master/static/gruvbox-dark-manjarosway-3840x2160.png > background.png",
     "build:release-json": "curl -s https://mirror.manjaro-sway.download/manjaro-sway/release.json > _data/release.json"
   },
   "devDependencies": {
