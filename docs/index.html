@@ -14,6 +14,12 @@
       height: 30px;
     }
 
+    .link {
+      margin-bottom: 10px;
+      font-family: monospace;
+      text-shadow: 2px 2px #282828;
+    }
+
     body {
       background-repeat: no-repeat;
       background-attachment: fixed;
@@ -53,7 +59,10 @@
   <head>
     <title>{{ site.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Experience a smooth and efficient desktop experience with Manjaro Sway - a Linux operating system that utilizes the power of the Sway tiling window manager. Designed for advanced users and developers.">
+    <meta
+      name="description"
+      content="Experience a smooth and efficient desktop experience with Manjaro Sway - a Linux operating system that utilizes the power of the Sway tiling window manager. Designed for advanced users and developers."
+    />
   </head>
 
   <body>
@@ -83,9 +92,11 @@
       </h1>
     </div>
     <div id="container">
-    <pre id="direct-links" style="text-shadow: 2px 2px #282828">
+      <pre id="direct-links" style="text-shadow: 2px 2px #282828">
     {% for asset in site.data.release %}
-    <a href="{{ asset.url }}" alt="{{ asset.name }}">{{ asset.name }} <i>{{ asset.size | filesize }}</i></a><br/>
+    <div class="link">
+      <a href="{{ asset.url }}" alt="{{ asset.name }}">{{ asset.name }} <i>{{ asset.size | filesize }}</i></a>
+    </div>
     {% endfor %}
     <a href="https://github.com/Manjaro-Sway/manjaro-sway/releases/latest" aria-label="find more downloads in our releases">more ...</a>
     </pre>
