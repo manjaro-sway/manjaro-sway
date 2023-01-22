@@ -85,11 +85,10 @@
     </div>
     <div id="container">
     {% for asset in site.data.release %}
-    <div class="link">
-      <a href="{{ asset.url }}" alt="{{ asset.name }}">{{ asset.name }} <i>{{ asset.size | filesize }}</i></a>
-    </div>
+      <div class="link">
+        <a href="{{ asset.url }}" alt="{{ asset.name }}">{{ asset.name }} <i>{{ asset.size | filesize }}</i></a>
+      </div>
     {% endfor %}
-    <a href="https://github.com/Manjaro-Sway/manjaro-sway/releases/latest" aria-label="find more downloads in our releases">more ...</a>
     </div>
   </body>
 </html>
