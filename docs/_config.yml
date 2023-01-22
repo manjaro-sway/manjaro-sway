@@ -2,9 +2,12 @@ title: Manjaro Sway Edition
 email: info@manjaro-sway.download
 url: "https://manjaro-sway.download"
 
+remote_theme: manjaro-sway/manjaro-sway
+
 plugins:
   - jekyll-get-json
   - jekyll-webp
+  - jekyll-remote-theme
 
 webp:
   enabled: true

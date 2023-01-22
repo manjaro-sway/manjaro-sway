@@ -43,15 +43,20 @@
     #content {
       margin: 20px;
     }
+
+    pre {
+      color: gray;
+    }
+
+    pre a {
+      color: white;
+    }
   </style>
 
   <head>
     <title>{{ site.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="{{ description }}"
-    />
+    <meta name="description" content="{{ description }}" />
   </head>
 
   <body>
@@ -80,8 +85,6 @@
         </a>
       </h1>
     </div>
-    <div id="content">
-      {{ content }}
-    </div>
+    <div id="content">{{ content }}</div>
   </body>
 </html>
