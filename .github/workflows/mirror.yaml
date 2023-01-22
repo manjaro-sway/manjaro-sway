@@ -44,13 +44,6 @@ jobs:
         rm -f $download_dir/*.z01 || echo ok
 
         ls $download_dir
-    - name: create torrent
-      run: |
-        mktorrent -v -a udp://tracker.opentrackr.org:1337 -l 21 \
-          -n "manjaro-sway" \
-          -w https://mirror.manjaro-sway.download/ \
-          -o $download_dir/manjaro-sway.torrent \
-          $download_dir
     - name: create release filelist
       id: files
       run: |
@@ -67,7 +60,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
         AWS_REGION: 'auto'
         SOURCE_DIR: './download/manjaro-sway'
-        DEST_DIR: './manjaro-sway'
+        DEST_DIR: 'manjaro-sway'
         AWS_S3_ENDPOINT: https://cd1e88db5a44de0f45317275cbcef879.r2.cloudflarestorage.com
     - name: trigger cf pages build
       run: curl -s -X POST ${{ secrets.CF_PAGES_WEBHOOK }}
