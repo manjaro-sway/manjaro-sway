@@ -13,7 +13,6 @@ swaylock-effects # swaylock with nicer effects
 >extra kanshi # automatically load matching output profiles
 >extra autotiling # automated tiling
 >extra sworkstyle # dynamic workspace icons in waybar
->extra manjaro-sway/nerd-fonts-roboto-mono # default terminal font
 >extra swaycwd # determines the cwd of a sway container
 >extra zeit # command line time tracker
 
