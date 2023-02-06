@@ -49,8 +49,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
       - name: import sway key
-        run: |
-          gpg --keyserver keys.openpgp.org --receive-keys ${{ secrets.GPG_KEYID }}
+        run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
       - name: image-build-upload
         uses: Manjaro/manjaro-iso-action@main
         with:
@@ -60,14 +59,14 @@ jobs:
           scope: ${{ matrix.scope }}
           kernel: ${{ matrix.kernel }}
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
-          additional-trusted-gpg: ${{ secrets.GPG_KEYID }}
+          additional-trusted-gpg: ${{ vars.GPG_KEYID }}
   trigger-mirror:
     runs-on: ubuntu-20.04
     needs: [build-release]
     steps:
       - uses: peter-evans/repository-dispatch@26b39ed245ab8f31526069329e112ab2fb224588 # v2
         with:
-          token: ${{ secrets.DISPATCH }}
+          token: ${{ secrets.DISPATCH_TOKEN }}
           repository: manjaro-sway/manjaro-sway
           event-type: new_release
   rollback:
