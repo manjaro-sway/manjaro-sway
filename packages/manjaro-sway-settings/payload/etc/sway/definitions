@@ -46,7 +46,7 @@ set $volume_mute $onscreen_bar $(pactl set-sink-mute @DEFAULT_SINK@ toggle && pa
 set $mic_mute $onscreen_bar $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
 
 # rofi theme
-set $rofi_theme "* {lightbg: $background-color; background: $background-color; lightfg: $accent-color; foreground: $text-color;}"
+set $rofi_theme "* {\nlightbg: $background-color;\nbackground: $background-color;\nlightfg: $accent-color;\nforeground: $text-color;\n}"
 
 # clipboard history
 set $clipboard cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to copy" -lines 10 -width 35 | cliphist decode | wl-copy
@@ -137,7 +137,8 @@ set $kanshi '[ -x "$(command -v kanshi)" ] && pkill kanshi; exec kanshi'
 set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
 # apply the keyboard layout from localectl if no keyboard layout has been set via config.d
 set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /usr/share/sway/scripts/keyboard.sh'
-set $update_rofi_theme mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/config.rasi
+set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
+set $create_rofi_config '[ ! -f $HOME/.config/rofi/config.rasi ] && echo '@import "Manjaro"' > $HOME/.config/rofi/config.rasi'
 
 # daemons
 set $mako '/usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
