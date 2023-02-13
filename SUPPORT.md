@@ -63,6 +63,16 @@ sudo pacman-mirrors --geoip && sudo pacman -Syyu
 
 Submissions to the Manjaro Repositories are partly manual and thus hard to align with our release process. On the contrary, we try to remove our packages from the official package sources again.
 
+### Can I switch Manjaro lifecycle branches?
+
+Switching between Manjaro lifecycle branches is easy: 
+
+```bash
+sudo pacman-mirrors --api --set-branch {branch}
+sudo manjaro-sway-mirrors
+sudo pacman -Syyu
+```
+
 ### How can I track updates?
 
 Major changes specific to this flavor of manjaro are mostly being done in the [desktop-settings repo](https://github.com/Manjaro-Sway/desktop-settings).
