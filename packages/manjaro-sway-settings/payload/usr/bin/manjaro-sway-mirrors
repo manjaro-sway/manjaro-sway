@@ -1,8 +1,14 @@
 #!/bin/sh
 
-pacman_conf=/etc/pacman.conf
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run as root/sudo"
+    exit 1
+fi
 
-curl -s https://pkg.manjaro-sway.download/$(pacman-mirrors -G)/ >/etc/pacman.d/manjaro-sway.repo.conf
+pacman_conf=/etc/pacman.conf
+custom_conf=/etc/pacman.d/manjaro-sway.repo.conf
+
+curl -s https://pkg.manjaro-sway.download/$(pacman-mirrors -G)/ >$custom_conf
 
 ## remove the classic repo config
 if grep -q "[manjaro-sway]" $pacman_conf; then
@@ -21,4 +27,4 @@ else
 fi
 
 echo "manjaro repo configured:"
-cat /etc/pacman.d/manjaro-sway.repo.conf
+cat $custom_conf
