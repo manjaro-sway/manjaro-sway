@@ -65,6 +65,7 @@ playerctl
 avahi
 nss-mdns
 networkmanager
+>extra network-manager-applet
 dhclient
 manjaro-hotfixes
 
