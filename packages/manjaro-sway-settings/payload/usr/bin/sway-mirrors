@@ -1,0 +1,24 @@
+#!/bin/sh
+
+pacman_conf=/etc/pacman.conf
+
+curl -s https://pkg.manjaro-sway.download/$(pacman-mirrors -G)/ >/etc/pacman.d/manjaro-sway.repo.conf
+
+## remove the classic repo config
+if grep -q "[manjaro-sway]" $pacman_conf; then
+    echo 'classic repo configuration not present in pacman.conf'
+else
+    sudo sed -i '/\[manjaro-sway\]/,+2 d' $pacman_conf
+    echo 'removed classic repo configuration from pacman.conf'
+fi
+
+## add a include line to the pacman.conf
+if grep -q "manjaro-sway.repo.conf" $pacman_conf; then
+    echo 'already referencing manjaro-sway.repo.conf from pacman.conf'
+else
+    sed -i '/^\[core\]/i \Include = /etc/pacman.d/manjaro-sway.repo.conf\n' $pacman_conf
+    echo 'now referencing manjaro-sway.repo.conf from pacman.conf'
+fi
+
+echo "manjaro repo configured:"
+cat /etc/pacman.d/manjaro-sway.repo.conf
