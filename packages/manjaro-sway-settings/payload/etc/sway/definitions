@@ -147,4 +147,5 @@ set $swayr_daemon '[ -x "$(command -v swayrd)" ] && pkill swayrd; RUST_BACKTRACE
 set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch pkill -RTMIN+9 waybar'
 set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'
 set $calendar_daemon 'calcurse --daemon'
+set $nm_applet '[ -x "$(command -v nm-applet)" ] && nm-applet'
 set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill playerctl; playerctl -a metadata --format \'{{status}} {{title}}\' --follow | while read line; do pkill -RTMIN+5 waybar; done'
