@@ -16,7 +16,7 @@ fi
 curl -s https://pkg.manjaro-sway.download/$(pacman-mirrors -G)/ >$custom_conf
 
 ## remove the classic repo config
-if grep -q "[manjaro-sway]" $pacman_conf; then
+if grep -q "\[manjaro-sway\]" $pacman_conf; then
     echo '## classic repo configuration not present in pacman.conf'
 else
     sudo sed -i '/\[manjaro-sway\]/,+2 d' $pacman_conf
