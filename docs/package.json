@@ -4,11 +4,22 @@
   "engines": {
     "node": "17"
   },
+  "author": {
+    "email": "info@jonas-strassel.de",
+    "name": "Jonas Strassel",
+    "url": "https://jonas-strassel.de"
+  },
+  "license": "MIT",
+  "scripts": {
+    "db:up": "wrangler d1 execute VISITOR_COUNT_STORE --file=./schema.sql"
+  },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
     "@types/node": "^18.11.18",
+    "better-sqlite3": "8.0.1",
     "npm-run-all": "^4.1.5",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "wrangler": "^2.10.0"
   },
   "dependencies": {
     "@octokit/auth-token": "^3.0.2",

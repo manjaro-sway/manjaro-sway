@@ -1,5 +1,6 @@
 export type Env = {
-	KV: KVNamespace;
+    KV: KVNamespace;
+    VISITOR_COUNT_STORE: D1Database;
 }
 type Context = EventContext<Env, any, Record<string, unknown>>
 

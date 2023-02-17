@@ -9,3 +9,4 @@ docs/release.json
 manjaro-full.zip
 docs/node_modules
 docs/_site
+docs/.wrangler
