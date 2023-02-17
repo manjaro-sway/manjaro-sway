@@ -1,5 +1,6 @@
 export type Env = {
-	KV: KVNamespace;
+    KV: KVNamespace;
+    VISITOR_COUNT_STORE: D1Database;
 }
 type Context = EventContext<Env, any, Record<string, unknown>>
 
@@ -11,4 +12,5 @@ export const getCount = async (context: Context) => {
 export const countUp = async (context: Context) => {
     const current = await getCount(context);
     await context.env.KV.put('count', (current + 1).toString());
+    return current + 1;
 }

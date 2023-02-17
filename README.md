@@ -1,13 +1,18 @@
 # Manjaro Sway Edition
 
-[![All Contributors](https://img.shields.io/badge/dynamic/json?color=important&label=contributors&query=%24.contributors.length&url=https%3A%2F%2Fraw.githubusercontent.com%2FManjaro-Sway%2Fmanjaro-sway%2Fmain%2F.all-contributorsrc)](#contributors-)
-[![Matrix](https://img.shields.io/matrix/manjaro-sway:matrix.org)](https://matrix.to/#/#manjaro-sway:matrix.org)
-[![repo build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
-[![iso build](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml)
-[![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=downloads&cache=3600&query=count&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
+[![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%88%91%20%E2%88%9E&cache=3600&query=count&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
+[![downloads last seven days](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%88%91%207d&cache=3600&query=sevenDays&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
+[![downloads per week](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%8C%80%20week&cache=3600&query=weeklyAverage&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
+
 [![settings release](https://img.shields.io/github/v/release/manjaro-sway/desktop-settings)](https://github.com/Manjaro-Sway/desktop-settings/releases/latest)
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
+
+[![repo build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
+[![iso build](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml)
+
+[![All Contributors](https://img.shields.io/badge/dynamic/json?color=important&label=contributors&query=%24.contributors.length&url=https%3A%2F%2Fraw.githubusercontent.com%2FManjaro-Sway%2Fmanjaro-sway%2Fmain%2F.all-contributorsrc)](#contributors-)
+[![Matrix](https://img.shields.io/matrix/manjaro-sway:matrix.org)](https://matrix.to/#/#manjaro-sway:matrix.org)
 
 ![image](https://user-images.githubusercontent.com/4662748/212540664-1445ae40-96d2-48b6-92e1-d9c0d350b420.png)
 
