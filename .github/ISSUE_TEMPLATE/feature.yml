@@ -1,0 +1,38 @@
+name: "💡 Feature Request"
+description: Create a new ticket for a new feature request
+title: "💡 <title>"
+labels: [
+  "idea"
+]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a brief explanation of the feature
+      placeholder: Describe in a few lines your feature idea
+    validations:
+      required: true
+  - type: textarea
+    id: drawbacks
+    attributes:
+      label: "Drawbacks"
+      description: What are the drawbacks/impacts of your feature request?
+      placeholder: Identify the drawbacks and impacts while being neutral on your feature request
+    validations:
+      required: true
+  - type: textarea
+    id: implementation_idea
+    attributes:
+      label: "Implementation idea"
+      description: How do you think this feature should be implemented?
+      placeholder: Specific implementation ideas.
+    validations:
+      required: false
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Will you be able to contribute a PR for this?
+      options:
+        - label: Yes I will be able to get that feature a *lot* quicker.
+          required: false

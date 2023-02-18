@@ -1,0 +1,69 @@
+name: "🐛 Bug Report"
+description: Create a new ticket for a bug.
+title: "🐛 <title>"
+labels: [
+  "bug"
+]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please make sure you update to the most recent version of `manjaro-sway-settings`:
+
+        `sudo pacman -Syyu manjaro-sway-settings` or `sudo pacman -Syyu manjaro-sway-settings-git`.
+
+        Please check, that you looked the issue up in our [SUPPORT.md](https://github.com/manjaro-sway/manjaro-sway/blob/main/SUPPORT.md).
+  - type: dropdown
+    id: lifecycle-branch
+    attributes:
+      label: "branch"
+      description: What manjaro lifecycle branch are you on (`pacman-mirrors -G`)?
+      multiple: false
+      options:
+        - stable
+        - testing
+        - unstable
+    validations:
+      required: true
+  - type: dropdown
+    id: arch
+    attributes:
+      label: "Architecture"
+      description: Is this issue occurring on the x86_64 edition?
+      options:
+        - x86_64
+        - aarch64
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Please enter an explicit description of your issue
+      placeholder: Short and explicit description of your incident...
+    validations:
+      required: true
+  - type: textarea
+    id: reprod
+    attributes:
+      label: "Reproduction steps"
+      description: Please enter an explicit description of your issue
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: "Screenshots"
+      description: If applicable, add screenshots to help explain your problem.
+      render: bash
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Logs"
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: bash
+    validations:
+      required: false

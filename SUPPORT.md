@@ -65,7 +65,7 @@ Submissions to the Manjaro Repositories are partly manual and thus hard to align
 
 ### Can I switch Manjaro lifecycle branches?
 
-Switching between Manjaro lifecycle branches is easy: 
+Switching between Manjaro lifecycle branches is easy:
 
 ```bash
 sudo pacman-mirrors --api --set-branch {branch}
