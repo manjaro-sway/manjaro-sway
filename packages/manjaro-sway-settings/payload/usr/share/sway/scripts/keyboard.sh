@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # script that sets the locale from current locale settings
 swaymsg input type:keyboard xkb_layout "$(localectl status | grep "X11 Layout" | sed -e "s/^.*X11 Layout://")"
 

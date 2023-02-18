@@ -1,28 +1,25 @@
-#!/bin/bash 
+#!/usr/bin/env sh
 set -x
 
-pid=`pgrep wf-recorder`
+pgrep wf-recorder
 status=$?
 
-gif=false
-
 countdown() {
-  notify "Recording in 3 seconds" -t 1000
-  sleep 1
-  notify "Recording in 2 seconds" -t 1000
-  sleep 1
-  notify "Recording in 1 seconds" -t 1000
-  sleep 1
+    notify "Recording in 3 seconds" -t 1000
+    sleep 1
+    notify "Recording in 2 seconds" -t 1000
+    sleep 1
+    notify "Recording in 1 seconds" -t 1000
+    sleep 1
 }
 
 notify() {
     line=$1
     shift
-    notify-send "Recording" "${line}" -i /usr/share/icons/Papirus-Dark/32x32/devices/camera-video.svg $*;
+    notify-send "Recording" "${line}" -i /usr/share/icons/Papirus-Dark/32x32/devices/camera-video.svg $*
 }
 
-if [ $status != 0 ]
-then
+if [ $status != 0 ]; then
     target_path=$(xdg-user-dir VIDEOS)
     timestamp=$(date +'recording_%Y%m%d-%H%M%S')
 
@@ -32,12 +29,12 @@ then
     countdown
     (sleep 0.5 && pkill -RTMIN+8 waybar) &
 
-    if [ "$1" == "-a" ]; then
+    if [ "$1" = "-a" ]; then
         file="$target_path/$timestamp.mp4"
         wf-recorder --audio -g "$area" --file="$file"
     else
         file="$target_path/$timestamp.webm"
-        wf-recorder -g "$area" -c libvpx --codec-param="qmin=0" --codec-param="qmax=25" --codec-param="crf=4" --codec-param="b:v=1M" --file="$file" 
+        wf-recorder -g "$area" -c libvpx --codec-param="qmin=0" --codec-param="qmax=25" --codec-param="crf=4" --codec-param="b:v=1M" --file="$file"
     fi
 
     pkill -RTMIN+8 waybar && notify "Finished recording ${file}"

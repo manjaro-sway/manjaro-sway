@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # wrapper script for foot
 
 USER_CONFIG_PATH="${HOME}/.config/foot/foot.ini"
