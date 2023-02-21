@@ -30,12 +30,12 @@ set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
 set $term_float footclient -a floating_shell
 
 # onscreen bar
-set $onscreen_bar bash /usr/share/sway/scripts/wob.sh "$accent-color" "$background-color"
+set $onscreen_bar /usr/share/sway/scripts/wob.sh "$accent-color" "$background-color"
 
 # brightness control
-set $brightness_step bash -c 'echo $(( $(light -Mr) / 100 * 5 < 1 ? 1 : $(( $(light -Mr) / 100 * 5 )) ))'
-set $brightness_up light -r -A $($brightness_step) && $onscreen_bar $(light -G | cut -d'.' -f1)
-set $brightness_down light -r -U $($brightness_step) && $onscreen_bar $(light -G | cut -d'.' -f1)
+set $brightness /usr/share/sway/scripts/brightness.sh
+set $brightness_up $brightness up | $onscreen_bar
+set $brightness_down $brightness down | $onscreen_bar
 
 # audio control
 set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
