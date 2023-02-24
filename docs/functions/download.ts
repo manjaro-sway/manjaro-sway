@@ -8,7 +8,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     url.pathname = `manjaro-sway/${url.searchParams.get('file')}`
     url.searchParams.forEach((_value, name) => url.searchParams.delete(name));
 
-    if (url.pathname.endsWith('.iso')) {
+    if (url.pathname.endsWith('.iso') && context.request.method === "GET") {
         await countUp(context)
     }
 
