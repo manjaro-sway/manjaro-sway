@@ -49,7 +49,6 @@ ecryptfs-utils
 efibootmgr
 exfatprogs
 f2fs-tools
-glibc-locales
 grub
 haveged
 inetutils
