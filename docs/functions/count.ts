@@ -15,7 +15,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	).bind(value, gain).run();
 
 	const weeklyAverage = await context.env.VISITOR_COUNT_STORE.prepare(
-		"SELECT AVG(gain) as weekly FROM (SELECT SUM(gain) as gain FROM visitor_statistics GROUP BY STRFTIME('%Y-%W', timestamp));"
+		"SELECT AVG(gain) as weekly FROM (SELECT SUM(gain) as gain FROM visitor_statistics WHERE timestamp > (SELECT DATETIME('now', '-7 day')) GROUP BY STRFTIME('%Y-%W', timestamp));"
 	).first<number>('weekly');
 
 	const sevenDays = await context.env.VISITOR_COUNT_STORE.prepare(
