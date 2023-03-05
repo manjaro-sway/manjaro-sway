@@ -149,6 +149,12 @@ $bindsym $mod+f fullscreen
 ## Action // Toggle global fullscreen ##
 $bindsym $mod+Shift+f fullscreen global
 
+## Action // Scale up  ##
+$bindsym $mod+alt_r+plus exec $scale_up
+
+## Action // Scale down  ##
+$bindsym $mod+alt_r+minus exec $scale_down
+
 ## Action // Toggle floating ##
 $bindsym $mod+Shift+space floating toggle
 

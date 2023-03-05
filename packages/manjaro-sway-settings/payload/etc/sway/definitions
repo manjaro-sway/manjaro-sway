@@ -37,6 +37,10 @@ set $brightness /usr/share/sway/scripts/brightness.sh
 set $brightness_up $brightness up | $onscreen_bar
 set $brightness_down $brightness down | $onscreen_bar
 
+# scaling
+set $scale_up /usr/share/sway/scripts/scale.sh up
+set $scale_down /usr/share/sway/scripts/scale.sh down
+
 # audio control
 set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
 set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
