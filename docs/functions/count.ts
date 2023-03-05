@@ -25,7 +25,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	const response = new Response(JSON.stringify({
 		count: numberFormat.format(value),
 		currentDay: numberFormat.format(gain),
-		weeklyAverage: numberFormat.format(weeklyAverage),
+		weeklyAverage: numberFormat.format(Math.round(weeklyAverage)),
 		sevenDays: numberFormat.format(sevenDays)
 	}));
 
