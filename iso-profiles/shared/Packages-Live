@@ -11,3 +11,4 @@ mkinitcpio-nfs-utils
 nbd
 snapper-gui
 virtualbox-guest-utils
+manjaro-rescue
