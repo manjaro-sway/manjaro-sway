@@ -367,3 +367,17 @@ Press the `Print` button on your keyboard and you will be presented with some op
 
 Try to disable Panel Self Refresh (PSR), a power saving feature used by Intel iGPUs.
 A temporary solution is to disable this feature using the [kernel parameter](https://wiki.archlinux.org/title/Kernel_parameters) i915.enable_psr=0.
+
+### How do I enable numlock on startup?
+
+Check the identifier for your keyboard:
+
+```bash
+swaymsg -t get_inputs | jq -r '.[].identifier' | grep -i keyboard
+```
+
+Add the following in your sway config:
+
+```
+input "1:1:AT_Translated_Set_2_keyboard" xkb_numlock enabled
+```
