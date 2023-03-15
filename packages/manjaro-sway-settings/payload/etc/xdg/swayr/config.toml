@@ -7,6 +7,7 @@ args = [
     '-no-case-sensitive',
     '-no-drun-use-desktop-cache',
     '-p','{prompt}',
+    '-font','Roboto 11',
 ]
 
 [format]
@@ -19,6 +20,8 @@ urgency_start = '<span background="darkred" foreground="yellow">'
 urgency_end = '</span>'
 html_escape = true
 icon_dirs = [
+    '/usr/share/icons/Papirus-Dark/64x64/apps',
+    '/usr/share/icons/Papirus-Dark/48x48/apps',
     '/usr/share/icons/hicolor/scalable/apps',
     '/usr/share/icons/hicolor/64x64/apps',
     '/usr/share/icons/hicolor/48x48/apps',
