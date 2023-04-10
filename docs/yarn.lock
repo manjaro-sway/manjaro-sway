@@ -409,9 +409,9 @@
     "@octokit/openapi-types" "^16.0.0"
 
 "@types/better-sqlite3@^7.6.0":
-  version "7.6.3"
-  resolved "https://registry.yarnpkg.com/@types/better-sqlite3/-/better-sqlite3-7.6.3.tgz#117c3c182e300799b84d1b7e1781c27d8d536505"
-  integrity sha512-YS64N9SNDT/NAvou3QNdzAu3E2om/W/0dhORimtPGLef+zSK5l1vDzfsWb4xgXOgfhtOI5ZDTRxnvRPb22AIVQ==
+  version "7.6.4"
+  resolved "https://registry.yarnpkg.com/@types/better-sqlite3/-/better-sqlite3-7.6.4.tgz#102462611e67aadf950d3ccca10292de91e6f35b"
+  integrity sha512-dzrRZCYPXIXfSR1/surNbJ/grU3scTaygS0OMzjlGf71i9sc2fGyHPXXiXmEvNIoE0cGwsanEFMVJxPXmco9Eg==
   dependencies:
     "@types/node" "*"
 
@@ -964,9 +964,9 @@ which@^2.0.1:
     isexe "^2.0.0"
 
 wrangler@^2.10.0:
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.14.0.tgz#3a40604d5537b6236670d84bdb9df10806b47b71"
-  integrity sha512-LTmSQ0jyd8c6bRhOAZZOh21Tr/HKkx7eWebCV2QmOHyacEeWLgc3Nu6KrOVBpqFVKCPCXHvcgqiN97I/nJHvFA==
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.15.0.tgz#b2cecbc0006e5cf9a54f9b9cc4e0d985f8291043"
+  integrity sha512-VCjmpztOXfY9h5vbkkcxVe0wCS3ZjEph9AG5tvO72bwAeX95eYGts/rQv6APjN5WFigrKKyvm92TDldW2XYEWA==
   dependencies:
     "@cloudflare/kv-asset-handler" "^0.2.0"
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
