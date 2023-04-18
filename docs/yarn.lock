@@ -836,9 +836,9 @@ semiver@^1.1.0:
   integrity sha512-QNI2ChmuioGC1/xjyYwyZYADILWyW6AmS1UH6gDj/SFUUUS4MBAWs/7mxnkRPc/F4iHezDP+O8t0dO8WHiEOdg==
 
 semver@^7.0.0, semver@^7.3.7:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.4.0.tgz#8481c92feffc531ab1e012a8ffc15bdd3a0f4318"
-  integrity sha512-RgOxM8Mw+7Zus0+zcLEUn8+JfoLpj/huFTItQy2hsM4khuC1HYRDp0cU482Ewn/Fcy6bCjufD8vAj7voC66KQw==
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.0.tgz#ed8c5dc8efb6c629c88b23d41dc9bf40c1d96cd0"
+  integrity sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==
   dependencies:
     lru-cache "^6.0.0"
 
@@ -964,9 +964,9 @@ which@^2.0.1:
     isexe "^2.0.0"
 
 wrangler@^2.10.0:
-  version "2.15.1"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.15.1.tgz#7b8b1357e2d28885c3b67171214ee0e57d571eb1"
-  integrity sha512-nGcvyE6rStlPFiK8Uz2sB+Z6DyaVfThLYvKa6LfCsM5rN1C/3+flb3qp3DeEkFs09lLdSW0nAeaZavGkZSczvA==
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.16.0.tgz#218aafccf14adac901086db5eb9715756f0f3a52"
+  integrity sha512-jhkOmEAF7jH58VvnGx7Uqjs2u2T17e/5r9W3OsqESyBjc/8ALUYuwqQ2gr8JsXFny/cE0ysJas0fdY9wggWMCw==
   dependencies:
     "@cloudflare/kv-asset-handler" "^0.2.0"
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
