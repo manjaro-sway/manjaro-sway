@@ -79,6 +79,17 @@ $bindsym $mod+Shift+$down_alt move down
 $bindsym $mod+Shift+$up_alt move up
 $bindsym $mod+Shift+$right_alt move right
 
+## Navigation // Move focused workspace // $mod + Alt + ↑ ↓ ← → ##
+$bindsym $mod+Alt+$right move workspace to output right
+$bindsym $mod+Alt+$left move workspace to output left
+$bindsym $mod+Alt+$down move workspace to output down
+$bindsym $mod+Alt+$up move workspace to output up
+
+$bindsym $mod+Alt+$right_alt move workspace to output right
+$bindsym $mod+Alt+$left_alt move workspace to output left
+$bindsym $mod+Alt+$down_alt move workspace to output down
+$bindsym $mod+Alt+$up_alt move workspace to output up
+
 ## Navigation // List all open windows in last-recently-used order ##
 $bindsym $mod+p exec env RUST_BACKTRACE=1 swayr switch-window &>> /tmp/swayr.log
 
