@@ -80,6 +80,7 @@ set $bluetooth $term_float bluetuith
 set $idle_timeout 240
 set $locking_timeout 300
 set $screen_timeout 600
+set $sleep_timeout 900
 set $sleep_delay 2
 
 # statusbar command
