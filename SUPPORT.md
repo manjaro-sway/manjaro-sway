@@ -281,9 +281,7 @@ set $flashfocus ""
 
 ### How can I delete the clipboard history?
 
-```bash
-Middle click on the icon on waybar
-```
+You can middle click on the icon on waybar or run `cliphist wipe` command inside your terminal.
 
 ### How can I purge the clipboard history on logout?
 
