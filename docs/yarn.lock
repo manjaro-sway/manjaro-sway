@@ -964,9 +964,9 @@ which@^2.0.1:
     isexe "^2.0.0"
 
 wrangler@^2.10.0:
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.18.0.tgz#acc250150d9fd523fa5e587531cab008f8c62199"
-  integrity sha512-e+WJ019AbioAf9u4YiOxjrfKqzOP8K3kDAM9v+lGQa+WKsae/UVcMb3Hn5iMIlIt2fc622WefZfuSNRpkAzrSA==
+  version "2.19.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.19.0.tgz#ce9cba04eb744ac63674049128a82418b2bd806a"
+  integrity sha512-/XykXkD7dtvBMWq2p84V/aHhkifZA15+HBD7nm/pV62s6MJrJ+DWd1QJB7CF2D7DqknBLxdWpmmZB6YCo0BtMw==
   dependencies:
     "@cloudflare/kv-asset-handler" "^0.2.0"
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
