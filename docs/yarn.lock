@@ -10,9 +10,9 @@
     mime "^3.0.0"
 
 "@cloudflare/workers-types@^4.20221111.1":
-  version "4.20230404.0"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-4.20230404.0.tgz#414dd2d79765c291ec247e501ed7cff85dd4eae4"
-  integrity sha512-fG3oaJX1icfsGV74nhx1+AC6opvZsGqnpx6FvrcVqQaBmCNkjKNqDRFrpasXWFiOIvysBXHKQAzsAJkBZgnM+A==
+  version "4.20230419.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-4.20230419.0.tgz#0d90e06d6ac3fcdd0c26e4c32817918811688c8b"
+  integrity sha512-MfNBlHrI/ekRkbLtdAo23D4hkXF+3QD92OCwuXxCUK73HtMHuBqkMp9T/8KFbKNRCnz7PzUderc7Jr5m3eeW3g==
 
 "@esbuild-plugins/node-globals-polyfill@^0.1.1":
   version "0.1.1"
