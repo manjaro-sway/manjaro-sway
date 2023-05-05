@@ -7,7 +7,7 @@ set $gtk-theme Matcha-dark-sea
 set $icon-theme Papirus-Dark-Maia
 set $cursor-theme xcursor-breeze
 set $gui-font Roboto 11
-set $term-font RobotoMono Nerd Font 14
+set $term-font JetBrainsMono Nerd Font 14
 set $gtk-color-scheme prefer-dark
 set $kvantum-theme Matcha-Dark
 

@@ -1,4 +1,3 @@
-
 /* =============================================================================
  *
  * Waybar configuration
@@ -26,7 +25,7 @@
 
 @keyframes blink-critical {
     70% {
-      color: @wm_icon_bg;
+        color: @wm_icon_bg;
     }
 
     to {
@@ -34,7 +33,6 @@
         background-color: @error_color;
     }
 }
-
 
 /* -----------------------------------------------------------------------------
  * Base styles
@@ -47,7 +45,7 @@
     min-height: 0;
     margin: 0;
     padding: 0;
-    font-family: "RobotoMono Nerd Font", "Roboto Mono", sans-serif;
+    font-family: "JetBrainsMono Nerd Font", "Roboto Mono", sans-serif;
 }
 
 /* The whole bar */
@@ -86,12 +84,14 @@ window#waybar {
     padding-right: 10px;
 }
 
-
 /* -----------------------------------------------------------------------------
  * Module styles
  * -------------------------------------------------------------------------- */
 
-#custom-scratchpad, #custom-menu, #workspaces button.focused, #clock  {
+#custom-scratchpad,
+#custom-menu,
+#workspaces button.focused,
+#clock {
     color: @theme_bg_color;
     background-color: @theme_selected_bg_color;
 }
