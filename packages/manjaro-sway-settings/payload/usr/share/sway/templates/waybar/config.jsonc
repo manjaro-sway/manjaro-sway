@@ -60,9 +60,9 @@
             "warning": 30,
             "critical": 15
         },
-        "format-charging": " {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
         "format": "{icon} {capacity}%",
-        "format-icons": ["", "", "", "", "", ""],
+        "format-icons": ["󱃍", "󰁺", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "tooltip": true
     },
 
@@ -135,7 +135,7 @@
         "format-icons": {
             "headphone": "",
             "headset": "",
-            "default": ["奄", "奔", "墳"]
+            "default": ["󰕿", "󰖀", "󰕾"]
         },
         "tooltip-format": "{icon} {volume}% {format_source}",
         "on-click": "swaymsg exec \\$pulseaudio",
@@ -174,8 +174,8 @@
     },
 
     "bluetooth": {
-        "format": "",
-        "format-disabled": "",
+        "format": "󰂯",
+        "format-disabled": "󰂲",
         "on-click": "swaymsg exec \\$bluetooth",
         "on-click-right": "rfkill toggle bluetooth",
         "tooltip-format": "{}"
@@ -207,8 +207,8 @@
         "return-type": "json",
         "format": "{icon}",
         "format-icons": {
-            "on": "",
-            "off": ""
+            "on": "󰌵",
+            "off": "󰌶"
         },
         "exec": "fallback_latitude=50.1 fallback_longitude=8.7 latitude= longitude= /usr/share/sway/scripts/sunset.sh",
         "on-click": "/usr/share/sway/scripts/sunset.sh toggle; pkill -RTMIN+6 waybar",
@@ -231,7 +231,7 @@
         "interval": 300,
         "tooltip": false,
         "return-type": "json",
-        "format": " {}",
+        "format": " {}",
         "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
         "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in' && gh api '/notifications' -q 'length' | grep -q -m 1 '0' ; test $? -eq 1",
         "on-click": "xdg-open https://github.com/notifications && sleep 30 && pkill -RTMIN+4 waybar",
@@ -256,7 +256,7 @@
     },
 
     "custom/clipboard": {
-        "format": "",
+        "format": "󰨸",
         "interval": "once",
         "return-type": "json",
         "on-click": "swaymsg -q exec '$clipboard'; pkill -RTMIN+9 waybar",
@@ -304,7 +304,7 @@
         "format": "{icon}",
         "format-icons": {
             "tracking": "華",
-            "stopped": ""
+            "stopped": "󰋣"
         },
         "exec": "/bin/sh /usr/share/sway/scripts/zeit.sh status",
         "on-click": "/bin/sh /usr/share/sway/scripts/zeit.sh click; pkill -RTMIN+10 waybar",
@@ -317,8 +317,8 @@
         "return-type": "json",
         "format": "{}{icon}",
         "format-icons": {
-            "default": "",
-            "dnd": "ﮡ"
+            "default": "󰚢",
+            "dnd": "󰚣"
         },
         "on-click": "makoctl mode | grep 'do-not-disturb' && makoctl mode -r do-not-disturb || makoctl mode -a do-not-disturb; pkill -RTMIN+11 waybar",
         "on-click-right": "makoctl restore",
