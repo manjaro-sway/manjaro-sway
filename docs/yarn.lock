@@ -416,9 +416,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "18.16.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.3.tgz#6bda7819aae6ea0b386ebc5b24bdf602f1b42b01"
-  integrity sha512-OPs5WnnT1xkCBiuQrZA4+YAV4HEJejmHneyraIaxsbev5yCEr6KMwINNFP9wQeFIw8FWcoTqF3vQsa5CDaI+8Q==
+  version "20.1.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.1.1.tgz#afc492e8dbe7f672dd3a13674823522b467a45ad"
+  integrity sha512-uKBEevTNb+l6/aCQaKVnUModfEMjAl98lw2Si9P5y4hLu9tm6AlX2ZIoXZX6Wh9lJueYPrGPKk5WMCNHg/u6/A==
 
 "@types/stack-trace@0.0.29":
   version "0.0.29"
@@ -964,9 +964,9 @@ which@^2.0.1:
     isexe "^2.0.0"
 
 wrangler@^2.10.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.19.0.tgz#ce9cba04eb744ac63674049128a82418b2bd806a"
-  integrity sha512-/XykXkD7dtvBMWq2p84V/aHhkifZA15+HBD7nm/pV62s6MJrJ+DWd1QJB7CF2D7DqknBLxdWpmmZB6YCo0BtMw==
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-2.20.0.tgz#c4e2b18933f21b73fe5f1a9dd9406755aebae85d"
+  integrity sha512-UdKJ2LD7qgDxDvll/GkR1HnRP+bcEdqi/HJjDI+7eF4lv9V940jmm3orxCkSEosGyE14q0q6dBRM95+fBI8tdQ==
   dependencies:
     "@cloudflare/kv-asset-handler" "^0.2.0"
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
