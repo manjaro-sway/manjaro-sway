@@ -31,11 +31,13 @@ jobs:
   build-release:
     runs-on: ubuntu-20.04
     needs: [prepare-release]
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         edition: [sway]
         branch: [stable]
         scope: [full]
+        experimental: [false]
         kernel: 
           - ${{ needs.prepare-release.outputs.longterm }}
         include:
