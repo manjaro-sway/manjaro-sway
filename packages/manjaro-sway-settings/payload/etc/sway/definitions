@@ -136,7 +136,7 @@ set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
 set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex --autostart'
 set $flashfocus '[ -x "$(command -v flashfocus)" ] && flashfocus'
 set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
-set $autotiling '[ -x "$(command -v autotiling)" ] && autotiling'
+set $autotiling '[ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
 set $foot_server '[ -x "$(command -v foot)" ] && /usr/share/sway/scripts/foot.sh --server'
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
 set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info &> /tmp/sworkstyle.log'
