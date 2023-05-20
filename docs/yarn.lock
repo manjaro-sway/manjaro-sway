@@ -248,9 +248,9 @@
     universal-user-agent "^6.0.0"
 
 "@octokit/rest@^19.0.5":
-  version "19.0.9"
-  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-19.0.9.tgz#3d10e8b9ddd3b1a9d6af51495712325e71147bd1"
-  integrity sha512-JcXmyeFTtXPoINyrvTlpxWqgs/4yshHAfcukOvwTBRpJP35A5AfZDA87CbEt/uWJ+Olgph42d9jWI+TKzwizwQ==
+  version "19.0.10"
+  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-19.0.10.tgz#b3d904de01b8f29a4d9d2f9ff6be6c75e6742575"
+  integrity sha512-+HxOf2GRHRRsKGc1FN6+ULC09BhBGUr1EOvQYAnvVV7DUXyY7MLdHSqOSSvf7Lqnry8YzHTSGgRGYIy/cT0hAg==
   dependencies:
     "@octokit/core" "^4.1.0"
     "@octokit/plugin-paginate-rest" "^6.1.0"
