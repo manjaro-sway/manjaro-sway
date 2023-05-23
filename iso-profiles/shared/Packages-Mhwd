@@ -7,12 +7,12 @@
 KERNEL-bbswitch
 KERNEL-broadcom-wl
 #KERNEL-r8168
-KERNEL-zfs
-zfs-utils
+#KERNEL-zfs
+#zfs-utils # only used for architect which we don't ship
 #KERNEL-rt3562sta
 #KERNEL-virtualbox-guest-modules
 KERNEL-headers
-zfs-dkms
+#zfs-dkms
 libva-intel-driver
 libva-mesa-driver
 libva-vdpau-driver
