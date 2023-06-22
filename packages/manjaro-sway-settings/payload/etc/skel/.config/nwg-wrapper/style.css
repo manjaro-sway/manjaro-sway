@@ -1,19 +1,20 @@
 window {
-	background-color: rgba (0, 0, 0, 0.0);
-	font-size: medium;
-	text-shadow: 2px 2px 4px #282828
+    background-color: rgba (0, 0, 0, 0);
+    font-size: medium;
+    text-shadow: 2px 2px 4px #282828;
+    font-family: "JetBrainsMono Nerd Font";
 }
 
 #box-outer {
-	/* Define attributes of the box surrounding icons here */
-	background-color: rgba (255, 255, 255, 0.0);
+    /* Define attributes of the box surrounding icons here */
+    background-color: rgba (255, 255, 255, 0);
 }
 
 #box-inner {
-	background-color: rgba (23, 53, 63, 0.0);
-	border-radius: 5px;
-	border-style: dotted;
-	border-width: 1px;
-	border-color: rgba (156, 142, 122, 0.0);
-	padding: 10px;
+    background-color: rgba (23, 53, 63, 0);
+    border-radius: 5px;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: rgba (156, 142, 122, 0);
+    padding: 10px;
 }
