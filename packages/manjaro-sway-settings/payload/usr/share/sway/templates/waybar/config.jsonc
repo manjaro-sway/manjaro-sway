@@ -81,7 +81,7 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float htop",
+        "on-click": "swaymsg exec \\$once \\$term_float htop",
         "tooltip": true
     },
 
@@ -92,7 +92,7 @@
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float htop",
+        "on-click": "swaymsg exec \\$once \\$term_float htop",
         "tooltip": true
     },
 
@@ -106,7 +106,7 @@
         "tooltip-format-wifi": "{icon} {ifname} ({essid}): {ipaddr}",
         "tooltip-format-disconnected": "{icon} disconnected",
         "tooltip-format-disabled": "{icon} disabled",
-        "on-click": "swaymsg exec \\$term_float nmtui"
+        "on-click": "swaymsg exec \\$once \\$term_float nmtui"
     },
 
     "sway/mode": {
@@ -157,7 +157,7 @@
         "tooltip-format": "{temperatureC}°C",
         "format-icons": ["", "", ""],
         "tooltip": true,
-        "on-click": "swaymsg exec \"\\$term_float watch sensors\""
+        "on-click": "swaymsg exec \"\\$once \\$term_float watch sensors\""
     },
 
     "tray": {

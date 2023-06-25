@@ -25,6 +25,9 @@ set $unbindsym unbindsym --to-code
 # background
 set $background /usr/share/backgrounds/manjaro-sway/gruvbox-dark-manjarosway-3840x2160.png
 
+# once-script
+set $once /usr/share/sway/scripts/once.sh
+
 # Your preferred terminal emulator
 set $term /usr/share/sway/scripts/foot.sh
 set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
@@ -70,7 +73,7 @@ set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command "
 set $locking swaylock --daemonize --color "$selection-color" --inside-color "$selection-color" --inside-clear-color "$text-color" --ring-color "$color2" --ring-clear-color "$color11" --ring-ver-color "$color13" --show-failed-attempts --fade-in 0.2 --grace 2 --effect-vignette 0.5:0.5 --effect-blur 7x5 --ignore-empty-password --screenshots --clock
 
 # bluetooth menu
-set $bluetooth $term_float bluetuith
+set $bluetooth $once $term_float bluetuith
 
 ### Idle configuration
 # This will lock your screen after 300 seconds of inactivity, then turn off
