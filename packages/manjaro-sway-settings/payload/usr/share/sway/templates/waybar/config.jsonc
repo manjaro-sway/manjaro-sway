@@ -26,9 +26,9 @@
         "custom/clipboard",
         "custom/zeit",
         "cpu",
+        "temperature",
         "memory",
         "battery",
-        "temperature",
 
         // connecting
         "network",
@@ -75,23 +75,25 @@
     },
 
     "cpu": {
-        "interval": 5,
-        "format": "﬙ {usage}%",
+        "interval": 10,
+        "format": "﬙",
         "states": {
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float htop"
+        "on-click": "swaymsg exec \\$term_float htop",
+        "tooltip": true
     },
 
     "memory": {
-        "interval": 5,
-        "format": " {}%",
+        "interval": 10,
+        "format": "",
         "states": {
             "warning": 70,
             "critical": 90
         },
-        "on-click": "swaymsg exec \\$term_float htop"
+        "on-click": "swaymsg exec \\$term_float htop",
+        "tooltip": true
     },
 
     "network": {
@@ -137,7 +139,7 @@
             "headset": "",
             "default": ["󰕿", "󰖀", "󰕾"]
         },
-        "tooltip-format": "{icon} {volume}% {format_source}",
+        "tooltip-format": "{icon}  {volume}% {format_source}",
         "on-click": "swaymsg exec \\$pulseaudio",
         "on-click-middle": "swaymsg exec \\$volume_mute",
         "on-scroll-up": "swaymsg exec \\$volume_up",
@@ -147,9 +149,10 @@
     "temperature": {
         "critical-threshold": 90,
         "interval": 5,
-        "format": "{icon} {temperatureC}°",
+        "format": "{icon}",
+        "tooltip-format": "{temperatureC}°C",
         "format-icons": ["", "", ""],
-        "tooltip": false,
+        "tooltip": true,
         "on-click": "swaymsg exec \"\\$term_float watch sensors\""
     },
 
