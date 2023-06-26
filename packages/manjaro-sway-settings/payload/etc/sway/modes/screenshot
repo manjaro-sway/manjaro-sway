@@ -1,4 +1,4 @@
-set $mode_screenshot "<span foreground='$color10'></span>  \
+set $mode_screenshot "<span foreground='$color10'>󰄄</span>  \
 <span foreground='$color5'><b>Pick</b></span> <span foreground='$color10'>(<b>p</b>)</span> \
 <span foreground='$color5'><b>Output</b></span> <span foreground='$color10'>(<b>o</b>)</span> \
 <span foreground='$color7'>+ <span foreground='$color10'><b>Shift</b></span> for </span>"

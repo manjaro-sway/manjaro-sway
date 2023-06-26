@@ -1,6 +1,6 @@
 set $mode_recording "<span foreground='$color10'></span>  \
 <span foreground='$color5'><b>Record</b></span> <span foreground='$color10'>(<b>r</b>)</span> \
-<span foreground='$color5'>+ [<span foreground='$color10'><b>Shift</b></span> for ]</span>"
+<span foreground='$color5'>+ [<span foreground='$color10'><b>Shift</b></span> for 󰍮]</span>"
 
 set $recorder /usr/share/sway/scripts/recorder.sh
 

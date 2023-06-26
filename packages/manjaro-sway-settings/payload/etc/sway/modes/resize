@@ -1,4 +1,4 @@
-set $mode_resize "<span foreground='$color10'></span>  \
+set $mode_resize "<span foreground='$color10'>󰉸</span>  \
 <span foreground='$color5'><b>Resize</b></span> <span foreground='$color10'>(<b>↑ ↓ ← →</b>)</span> \
 <span foreground='$color5'><b>Increase Gaps</b></span> <span foreground='$color10'>(<b>+</b>)</span> \
 <span foreground='$color5'><b>Decrease Gaps</b></span> <span foreground='$color10'>(<b>-</b>)</span>"

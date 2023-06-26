@@ -76,7 +76,7 @@
 
     "cpu": {
         "interval": 10,
-        "format": "﬙",
+        "format": "󰘚",
         "states": {
             "warning": 70,
             "critical": 90
@@ -87,7 +87,7 @@
 
     "memory": {
         "interval": 10,
-        "format": "",
+        "format": "󰍛",
         "states": {
             "warning": 70,
             "critical": 90
@@ -99,8 +99,8 @@
     "network": {
         "interval": 5,
         "format-wifi": " ",
-        "format-ethernet": "",
-        "format-disconnected": "睊",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰖪",
         "tooltip-format": "{icon} {ifname}: {ipaddr}",
         "tooltip-format-ethernet": "{icon} {ifname}: {ipaddr}",
         "tooltip-format-wifi": "{icon} {ifname} ({essid}): {ipaddr}",
@@ -117,8 +117,8 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "零",
-            "deactivated": "鈴"
+            "activated": "󰒳",
+            "deactivated": "󰒲"
         },
         "tooltip": true,
         "tooltip-format-activated": "power-saving disabled",
@@ -127,7 +127,7 @@
 
     "backlight": {
         "format": "{icon} {percent}%",
-        "format-icons": ["", "", ""],
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
         "on-scroll-up": "swaymsg exec \\$brightness_up",
         "on-scroll-down": "swaymsg exec \\$brightness_down"
     },
@@ -135,12 +135,12 @@
     "pulseaudio": {
         "scroll-step": 5,
         "format": "{icon} {volume}%{format_source}",
-        "format-muted": "婢 {format_source}",
+        "format-muted": "󰖁 {format_source}",
         "format-source": "",
-        "format-source-muted": " ",
+        "format-source-muted": " 󰍭",
         "format-icons": {
-            "headphone": "",
-            "headset": "",
+            "headphone": "󰋋",
+            "headset": "󰋎",
             "default": ["󰕿", "󰖀", "󰕾"]
         },
         "tooltip-format": "{icon}  {volume}% {format_source}",
@@ -166,7 +166,7 @@
     },
 
     "custom/pacman": {
-        "format": " {}",
+        "format": "󰀼 {}",
         "interval": 3600,
         "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
         "exec": "pamac checkupdates -q | wc -l",
@@ -200,8 +200,8 @@
         "return-type": "json",
         "format": "{icon}",
         "format-icons": {
-            "one": "类",
-            "many": "缾"
+            "one": "󰖯",
+            "many": "󰖲"
         },
         "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
         "on-click": "swaymsg 'scratchpad show'",
@@ -228,7 +228,7 @@
         "return-type": "json",
         "format": "{}",
         "tooltip-format": "{tooltip}",
-        "exec": "echo '{\"class\": \"recording\",\"text\":\"雷\",\"tooltip\":\"press $mod+Esc to stop recording\"}'",
+        "exec": "echo '{\"class\": \"recording\",\"text\":\"󰑊\",\"tooltip\":\"press $mod+Esc to stop recording\"}'",
         "exec-if": "pgrep wf-recorder",
         "on-click": "killall -s SIGINT wf-recorder",
         "signal": 8
@@ -251,8 +251,8 @@
         "return-type": "json",
         "format": "{icon}",
         "format-icons": {
-            "Playing": "",
-            "Paused": "奈"
+            "Playing": "󰏦",
+            "Paused": "󰐍"
         },
         "exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
         "on-click": "playerctl play-pause; pkill -RTMIN+5 waybar",
@@ -284,21 +284,21 @@
         "return-type": "json",
         "format-icons": {
             "Unknown": "",
-            "Cloudy": "摒",
+            "Cloudy": "󰖐",
             "Fog": "",
             "HeavyRain": "",
             "HeavyShowers": "",
             "HeavySnow": "",
-            "HeavySnowShowers": "ﰕ",
+            "HeavySnowShowers": "󰜗",
             "LightRain": "",
             "LightShowers": "",
             "LightSleet": "",
             "LightSleetShowers": "",
             "LightSnow": "",
-            "LightSnowShowers": "ﭽ",
+            "LightSnowShowers": "󰙿",
             "PartlyCloudy": "",
             "Sunny": "",
-            "ThunderyHeavyRain": "ﭼ",
+            "ThunderyHeavyRain": "󰙾",
             "ThunderyShowers": "",
             "ThunderySnowShowers": "",
             "VeryCloudy": ""
@@ -310,7 +310,7 @@
         "interval": "once",
         "format": "{icon}",
         "format-icons": {
-            "tracking": "華",
+            "tracking": "󰖷",
             "stopped": "󰋣"
         },
         "exec": "/bin/sh /usr/share/sway/scripts/zeit.sh status",
@@ -339,8 +339,8 @@
         "return-type": "json",
         "format": "{icon}",
         "format-icons": {
-            "on": "",
-            "off": ""
+            "on": "󰃡",
+            "off": "󰃠"
         },
         "exec": "/usr/share/sway/scripts/wluma.sh",
         "on-click": "/usr/share/sway/scripts/wluma.sh toggle; pkill -RTMIN+12 waybar",
