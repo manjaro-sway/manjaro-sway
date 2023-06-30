@@ -106,7 +106,7 @@
         "tooltip-format-wifi": "{icon} {ifname} ({essid}): {ipaddr}",
         "tooltip-format-disconnected": "{icon} disconnected",
         "tooltip-format-disabled": "{icon} disabled",
-        "on-click": "swaymsg exec \\$once \\$term_float nmtui"
+        "on-click": "swaymsg exec \\$once \\$term_float nmtui connect"
     },
 
     "sway/mode": {
