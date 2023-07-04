@@ -379,3 +379,20 @@ Add the following in your sway config:
 ```
 input "1:1:AT_Translated_Set_2_keyboard" xkb_numlock enabled
 ```
+
+### How do I enable `ssh-agent` on startup?
+
+1. Enable the `gcr-ssh-agent.socket` systemd user unit:
+
+   ```bash
+   systemctl --user enable gcr-ssh-agent.socket
+   ```
+2. Set `SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"` in your environment, for example by adding
+
+   ```bash
+   export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+   ```
+
+   to a file in `$HOME/.config/profile.d`
+
+See [the Arch Wiki](https://wiki.archlinux.org/title/GNOME/Keyring#gcr-ssh-agent) for more information.
