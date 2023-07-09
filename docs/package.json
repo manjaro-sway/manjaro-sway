@@ -2,7 +2,7 @@
   "name": "manjaro-downloads",
   "version": "1.0.0",
   "engines": {
-    "node": "17"
+    "node": "18"
   },
   "author": {
     "email": "info@jonas-strassel.de",
