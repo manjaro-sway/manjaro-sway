@@ -35,7 +35,7 @@
 # unset defaults to given values
 # names must match systemd service names
 # enable_systemd=('avahi-daemon' 'bluetooth' 'cronie' 'ModemManager' 'NetworkManager' 'cups' 'tlp' 'haveged' 'ufw' 'apparmor' 'snapd.apparmor' 'snapd')
-# enable_systemd_timers=('fstrim' 'pkgfile-update')
+# enable_systemd_timers=('fstrim' 'pacman-filesdb-refresh')
 # disable_systemd=('pacman-init')
 
 # unset defaults to given values
