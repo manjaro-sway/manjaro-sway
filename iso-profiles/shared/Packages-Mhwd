@@ -39,7 +39,7 @@ mesa-vdpau
 >nonfree_multilib lib32-nvidia-470xx-utils
 >nonfree_multilib lib32-nvidia-390xx-utils
 >nonfree_multilib lib32-nvidia-utils
-opencl-mesa
+#opencl-mesa
 open-vm-tools
 primus
 qemu-guest-agent
