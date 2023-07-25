@@ -25,7 +25,10 @@ export ZEIT_DB="$HOME/config/zeit.db"
 
 # Disable hardware cursors. This might fix issues with
 # disappearing cursors
-# export WLR_NO_HARDWARE_CURSORS=1
+if systemd-detect-virt -q; then
+    # if the system is running inside a virtual machine, disable hardware cursors
+    export WLR_NO_HARDWARE_CURSORS=1
+fi
 
 set -a
 . "$HOME/.config/user-dirs.dirs"
