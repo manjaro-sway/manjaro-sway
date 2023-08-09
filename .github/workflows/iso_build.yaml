@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   prepare-release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: styfle/cancel-workflow-action@b173b6ec0100793626c2d9e6b90435061f4fc3e5 # tag=0.11.0
         with:
@@ -29,7 +29,7 @@ jobs:
       longterm: ${{ steps.receive.outputs.longterm-pkg }}
       stable: ${{ steps.receive.outputs.stable-pkg }}
   build-release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [prepare-release]
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -63,7 +63,7 @@ jobs:
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
           additional-trusted-gpg: ${{ vars.GPG_KEYID }}
   trigger-mirror:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [build-release]
     steps:
       - uses: peter-evans/repository-dispatch@26b39ed245ab8f31526069329e112ab2fb224588 # v2
@@ -72,7 +72,7 @@ jobs:
           repository: manjaro-sway/manjaro-sway
           event-type: new_release
   rollback:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [build-release]
     if: ${{ failure() || cancelled() }}
     steps:
