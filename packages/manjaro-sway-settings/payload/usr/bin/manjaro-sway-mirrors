@@ -29,7 +29,11 @@ fi
 mkdir -p $pacman_d_dir
 
 if ! custom_conf_exists || ! custom_conf_on_branch; then
-    curl -s "https://pkg.manjaro-sway.download/$(pacman-mirrors -G)/" >$custom_conf
+    cat >$custom_conf <<EOL
+[manjaro-sway] 
+SigLevel = PackageRequired
+Server = https://pkg.manjaro-sway.download/$(pacman-mirrors -G)/\$arch 
+EOL
     echo "## updated $custom_conf"
 fi
 
