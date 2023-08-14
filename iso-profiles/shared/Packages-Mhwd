@@ -39,12 +39,8 @@ mesa-vdpau
 >nonfree_multilib lib32-nvidia-470xx-utils
 >nonfree_multilib lib32-nvidia-390xx-utils
 >nonfree_multilib lib32-nvidia-utils
-<<<<<<< HEAD
-#opencl-mesa
-=======
 opencl-clover-mesa
 opencl-rusticl-mesa
->>>>>>> 4085ea34 ([shared] update MHWD pkg list)
 open-vm-tools
 primus
 qemu-guest-agent
