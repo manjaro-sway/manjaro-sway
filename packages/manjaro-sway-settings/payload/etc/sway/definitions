@@ -95,6 +95,9 @@ set $swayidle swayidle -w \
     before-sleep 'playerctl pause' \
     before-sleep 'exec $locking & sleep $sleep_delay'
 
+# hide cursor while typing
+seat * hide_cursor when-typing enable
+
 # statusbar command
 set $statusbar waybar
 set $waybar_position top
