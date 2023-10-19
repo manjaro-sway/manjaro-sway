@@ -628,9 +628,9 @@ typescript@^5.0.0:
   integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
 
 undici@^5.22.1:
-  version "5.26.3"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.26.3.tgz#ab3527b3d5bb25b12f898dfd22165d472dd71b79"
-  integrity sha512-H7n2zmKEWgOllKkIUkLvFmsJQj062lSm3uA4EYApG8gLuiOM0/go9bIoC3HVaSnfg4xunowDE2i9p8drkXuvDw==
+  version "5.26.4"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.26.4.tgz#dc861c35fb53ae025a173a790d984aa9b2e279a1"
+  integrity sha512-OG+QOf0fTLtazL9P9X7yqWxQ+Z0395Wk6DSkyTxtaq3wQEjIroVe7Y4asCX/vcCxYpNGMnwz8F0qbRYUoaQVMw==
   dependencies:
     "@fastify/busboy" "^2.0.0"
 
@@ -651,9 +651,9 @@ workerd@1.20231016.0:
     "@cloudflare/workerd-windows-64" "1.20231016.0"
 
 wrangler@^3.0.0:
-  version "3.13.2"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.13.2.tgz#5a70263354907d80197139aa41a4a06806e06f71"
-  integrity sha512-Z/ZrAL2mJc7E4ialOV9c3wGry0qagp9DfPl5XVd67vtlFPeTSR+1pemtZ5+qI2BXi59kP3OGHBKrrIyG0d9csg==
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.14.0.tgz#352bfb3e488624fec55924a8ba980ff1e2cfbe92"
+  integrity sha512-4vzw11yG1/KXpYKbumvRJ61Iyhm/yKXb/ayOw/2xiIRdKdpsfN9/796d2l525+CDaGwZWswpLENe6ZMS0p/Ghg==
   dependencies:
     "@cloudflare/kv-asset-handler" "^0.2.0"
     "@esbuild-plugins/node-globals-polyfill" "^0.2.3"
