@@ -7,7 +7,7 @@ custom_conf_exists() {
     [ -f $custom_conf ]
 }
 custom_conf_on_branch() {
-    grep -q "/$(pacman-mirrors -G)" $custom_conf >/dev/null 2>&1
+    grep -q "/$(pacman-mirrors -G | tail -1)" $custom_conf >/dev/null 2>&1
 }
 custom_conf_referenced() {
     grep -q "Include[ ]*=[ ]*$custom_conf" $pacman_conf
