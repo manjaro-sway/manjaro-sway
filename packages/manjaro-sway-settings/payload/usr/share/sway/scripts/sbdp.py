@@ -2,6 +2,7 @@
 import sys
 import glob
 import re
+import os
 from typing import Text
 import json
 
@@ -26,6 +27,7 @@ def readFile(filePath):
     for line in allLines:
         if re.search(r'^include\s+(.+?)$', line):
             nextPath = re.findall(r'^include\s+(.+?)$', line)[0]
+            nextPath = os.path.expandvars(nextPath)
             finalLines = finalLines + readFile(nextPath)
         else:
             finalLines = finalLines + [line]
