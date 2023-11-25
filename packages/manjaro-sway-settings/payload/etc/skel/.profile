@@ -20,6 +20,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export SHELL=/usr/bin/zsh
 export TERMINAL_COMMAND=/usr/share/sway/scripts/foot.sh
 
+# default theme for gtk4
+export GTK_THEME=Matcha-dark-sea
+
 # add default location for zeit.db
 export ZEIT_DB="$HOME/config/zeit.db"
 
