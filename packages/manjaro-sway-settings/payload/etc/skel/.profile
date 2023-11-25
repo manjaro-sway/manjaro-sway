@@ -24,7 +24,7 @@ export TERMINAL_COMMAND=/usr/share/sway/scripts/foot.sh
 export GTK_THEME=Matcha-dark-sea
 
 # add default location for zeit.db
-export ZEIT_DB="$HOME/config/zeit.db"
+export ZEIT_DB="$HOME/.config/zeit.db"
 
 # Disable hardware cursors. This might fix issues with
 # disappearing cursors
