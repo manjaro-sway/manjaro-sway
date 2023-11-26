@@ -154,6 +154,7 @@ set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs
 set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /usr/share/sway/scripts/keyboard.sh'
 set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
 set $create_rofi_config '[ ! -f $HOME/.config/rofi/config.rasi ] && echo '@import \\"Manjaro\\"' > $HOME/.config/rofi/config.rasi'
+set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && noisetorch -i'
 
 # daemons
 set $mako '/usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
