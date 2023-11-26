@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir -p $HOME/.config/gtk-4.0
+
+/usr/bin/cp -rf /usr/share/themes/$(gsettings get org.gnome.desktop.interface gtk-theme | sed -e "s#'##g")/gtk-4.0/{assets,gtk.css,gtk-dark.css} $HOME/.config/gtk-4.0/
