@@ -33,6 +33,9 @@ if systemd-detect-virt -q; then
     export WLR_NO_HARDWARE_CURSORS=1
 fi
 
+# Disable warnings by OpenCV
+OPENCV_LOG_LEVEL=ERROR
+
 set -a
 . "$HOME/.config/user-dirs.dirs"
 set +a
