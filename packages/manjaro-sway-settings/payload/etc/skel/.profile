@@ -22,6 +22,7 @@ export TERMINAL_COMMAND=/usr/share/sway/scripts/foot.sh
 
 # default theme for gtk4
 export GTK_THEME=Matcha-dark-sea
+export ADW_DEBUG_COLOR_SCHEME=prefer-dark
 
 # add default location for zeit.db
 export ZEIT_DB="$HOME/.config/zeit.db"
