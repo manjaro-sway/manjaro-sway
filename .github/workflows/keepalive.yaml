@@ -1,0 +1,18 @@
+name: keepalive
+on:
+  schedule:
+    - cron:  '30 2 * * *'
+  workflow_dispatch:
+
+concurrency: 
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: check if any github actions got disabled due to inactivity
+        run: |
+          echo ${{ github.token }} | gh auth login --with-token
+          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --json name | jq --raw-output '.[] | .name'); do gh workflow list --repo manjaro-sway/$repo --all --json id,state --jq '.[] | select(.state == "disabled_inactivity")' | jq -c '.id' | xargs -I % && gh workflow enable --repo manjaro-sway/$repo %; done
