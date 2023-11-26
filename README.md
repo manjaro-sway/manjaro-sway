@@ -14,7 +14,7 @@
 [![All Contributors](https://img.shields.io/badge/dynamic/json?color=important&label=contributors&query=%24.contributors.length&url=https%3A%2F%2Fraw.githubusercontent.com%2FManjaro-Sway%2Fmanjaro-sway%2Fmain%2F.all-contributorsrc)](#contributors-)
 [![Matrix](https://img.shields.io/matrix/manjaro-sway:matrix.org)](https://matrix.to/#/#manjaro-sway:matrix.org)
 
-![image](https://user-images.githubusercontent.com/4662748/212540664-1445ae40-96d2-48b6-92e1-d9c0d350b420.png)
+![image](https://github.com/manjaro-sway/manjaro-sway/assets/4662748/a3bafc00-fa3f-40d3-98dd-86ffb17c3e42)
 
 We are building a manjaro sway edition - with the following principles:
 
