@@ -19,7 +19,9 @@ wob_pipe=~/.cache/$(basename "$SWAYSOCK").wob
 
 ini=~/.config/wob.ini
 
-if [ ! -f "$ini" ]; then
+refresh() {
+    pkill wob
+    rm $ini
     {
         echo "anchor = top center"
         echo "margin = 20"
@@ -27,6 +29,10 @@ if [ ! -f "$ini" ]; then
         echo "bar_color = $(echo "$1" | sed 's/#//')"
         echo "background_color = $(echo "$2" | sed 's/#//')"
     } >>$ini
+}
+
+if [ ! -f "$ini" ] || [ "$3" = "--refresh" ]; then
+   refresh "$1" "$2"
 fi
 
 # wob does not appear in $(swaymsg -t get_msg), so:
