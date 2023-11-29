@@ -1,0 +1,32 @@
+#!/bin/bash
+
+## theme switcher for manjaro sway
+THEME_DIR="/usr/share/sway/themes"
+
+prompt() {
+    read -p "->${1:+" ${1}."} Press enter to continue..."
+}
+
+echo "!!! Welcome to the Manjaro Sway Theme Selector !!!"
+
+prompt
+
+THEME="$(find ${THEME_DIR} -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | fzf --no-clear --header-first --header 'Please select a theme!' --prompt='Selected theme: ')"
+THEME_DIR="${THEME_DIR}/${THEME}"
+
+echo "> Selected theme ${THEME} (${THEME_DIR})"
+
+prompt "Installing theme requirements using yay"
+# shellcheck disable=SC2046
+[ -f  "$THEME_DIR/packages" ] && yay -S --needed $(cat "$THEME_DIR/packages")
+
+prompt "Copying the sway theme"
+# copy the sway theme
+[ -f  "$THEME_DIR/theme.conf" ] && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/"
+
+prompt "Copying the foot theme"
+# copy the foot theme
+[ -f  "$THEME_DIR/foot.ini" ] && /usr/bin/cp -v --backup "$THEME_DIR/foot.ini" "$HOME/.config/foot/" 
+
+prompt "Reloading sway"
+swaymsg reload

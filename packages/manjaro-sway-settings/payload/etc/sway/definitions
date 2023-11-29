@@ -22,9 +22,6 @@ set $bindsym bindsym --to-code
 # For user's convenience, the same for unbindsym
 set $unbindsym unbindsym --to-code
 
-# background
-set $background /usr/share/backgrounds/manjaro-sway/gruvbox-dark-manjarosway-3840x2160.png
-
 # once-script
 set $once /usr/share/sway/scripts/once.sh
 
@@ -143,7 +140,6 @@ set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.S
 set $flashfocus '[ -x "$(command -v flashfocus)" ] && flashfocus'
 set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
 set $autotiling '[ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
-set $foot_server '[ -x "$(command -v foot)" ] && /usr/share/sway/scripts/foot.sh --server'
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
 set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info &> /tmp/sworkstyle.log'
 set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && pcmanfm -d'
@@ -155,6 +151,7 @@ set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /us
 set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
 set $create_rofi_config '[ ! -f $HOME/.config/rofi/config.rasi ] && echo '@import \\"Manjaro\\"' > $HOME/.config/rofi/config.rasi'
 set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && noisetorch -i'
+set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --user enable foot-server.socket && systemctl --now --user enable foot-server'
 
 # daemons
 set $mako '/usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
@@ -165,4 +162,5 @@ set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliph
 set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'
 set $calendar_daemon 'calcurse --daemon'
 set $nm_applet '[ -x "$(command -v nm-applet)" ] && nm-applet'
+set $foot_server '[ -x "$(command -v foot)" ] && systemctl --user restart foot-server'
 set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill playerctl; playerctl -a metadata --format \'{{status}} {{title}}\' --follow | while read line; do pkill -RTMIN+5 waybar; done'

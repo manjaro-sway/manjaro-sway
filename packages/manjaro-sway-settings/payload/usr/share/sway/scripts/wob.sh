@@ -40,7 +40,7 @@ is_running_on_this_screen || {
     tail -f "$wob_pipe" | wob -c $ini &
 }
 
-if [ -n "$3" ]; then
+if [ -n "$3" ] && [ "$3" != "--refresh" ]; then
     echo "$3" >"$wob_pipe"
 else
     cat >"$wob_pipe"
