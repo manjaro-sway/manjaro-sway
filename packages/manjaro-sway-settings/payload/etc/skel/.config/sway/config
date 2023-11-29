@@ -8,7 +8,7 @@
 set $theme /usr/share/sway/themes/matcha-green
 
 # theme variables
-include $theme/definitions
+include $theme/theme.conf
 
 # user variables loaded before global definitions
 # so that global definitions can use user-variables
