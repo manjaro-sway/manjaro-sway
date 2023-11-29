@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 # wrapper script for mako
+pkill mako
 
 USER_CONFIG_PATH="${HOME}/.config/mako/config"
 
