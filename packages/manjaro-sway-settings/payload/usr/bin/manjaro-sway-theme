@@ -16,17 +16,14 @@ THEME_DIR="${THEME_DIR}/${THEME}"
 
 echo "> Selected theme ${THEME} (${THEME_DIR})"
 
-prompt "Installing theme requirements using yay"
+
 # shellcheck disable=SC2046
-[ -f  "$THEME_DIR/packages" ] && yay -S --needed $(cat "$THEME_DIR/packages")
+[ -f  "$THEME_DIR/packages" ] && prompt "Installing theme requirements using yay" && yay -S --needed $(cat "$THEME_DIR/packages")
 
-prompt "Copying the sway theme"
 # copy the sway theme
-[ -f  "$THEME_DIR/theme.conf" ] && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/"
+[ -f  "$THEME_DIR/theme.conf" ] && prompt "Copying the sway theme" && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/"
 
-prompt "Copying the foot theme"
 # copy the foot theme
-[ -f  "$THEME_DIR/foot.ini" ] && /usr/bin/cp -v --backup "$THEME_DIR/foot.ini" "$HOME/.config/foot/" 
+[ -f  "$THEME_DIR/foot.ini" ] && prompt "Copying the foot theme" && /usr/bin/cp -v --backup "$THEME_DIR/foot.ini" "$HOME/.config/foot/" 
 
-prompt "Reloading sway"
-swaymsg reload
+prompt "Reloading sway" && swaymsg reload
