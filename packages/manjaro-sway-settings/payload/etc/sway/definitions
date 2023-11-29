@@ -152,12 +152,12 @@ set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME
 set $create_rofi_config '[ ! -f $HOME/.config/rofi/config.rasi ] && echo '@import \\"Manjaro\\"' > $HOME/.config/rofi/config.rasi'
 set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && noisetorch -i'
 set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --user enable foot-server.socket && systemctl --now --user enable foot-server'
+set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now --user enable swayrd.service'
 
 # daemons
 set $mako '/usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
 set $swappy_notify '[ -x "$(command -v swappy)" ] && /usr/share/sway/scripts/screenshot-notify.sh'
 set $poweralert '[ -x "$(command -v poweralertd)" ] && pkill poweralertd; poweralertd -s -i "line power" &'
-set $swayr_daemon '[ -x "$(command -v swayrd)" ] && pkill swayrd; RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd &> /tmp/swayrd.log'
 set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch pkill -RTMIN+9 waybar'
 set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'
 set $calendar_daemon 'calcurse --daemon'
