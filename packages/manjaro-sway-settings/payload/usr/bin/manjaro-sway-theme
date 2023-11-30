@@ -9,26 +9,19 @@ prompt() {
 
 THEMES=$(find ${THEME_DIR} -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
 
-echo "!!! Welcome to the Manjaro Sway Theme Selector !!!"
-echo
-echo "Please select one of the themes below:"
-echo
-
-select THEME in $THEMES; do
-    THEME_DIR="${THEME_DIR}/${THEME}"
-    echo "> Selected theme ${THEME} (${THEME_DIR})"
-    echo
-    break;
-done
+THEME=$(echo "$THEMES" | rofi -dmenu -p "Select theme:")
+THEME_DIR="${THEME_DIR}/${THEME}"
 
 # shellcheck disable=SC2046
-[ -f  "$THEME_DIR/packages" ] && echo "> Installing theme requirements using yay" && echo && yay -S --needed $(cat "$THEME_DIR/packages")
+if ! pacman -Qi $(cat "$THEME_DIR/packages") >/dev/null; then
+    # shellcheck disable=SC2046
+    [ -f  "$THEME_DIR/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -S --needed $(cat "$THEME_DIR/packages")
+fi
 
 # copy the sway theme
-[ -f  "$THEME_DIR/theme.conf" ] && echo "> Copying the sway theme" && echo && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/"
+[ -f  "$THEME_DIR/theme.conf" ] && echo "> Copying the sway theme" && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/"
 
 # copy the foot theme
 [ -f  "$THEME_DIR/foot.ini" ] && echo "> Copying the foot theme" && echo && /usr/bin/cp -v --backup "$THEME_DIR/foot.ini" "$HOME/.config/foot/" 
 
-prompt "Reloading sway"
-swaymsg reload >/dev/null
+echo "> Reloading sway" && swaymsg reload
