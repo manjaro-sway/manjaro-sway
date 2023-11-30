@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" data-name="Layer 1" viewBox="0 0 1920 1080">
-  <path d="M0 0h1920v1080H0z" paint-order="stroke markers fill"/>
+  <path fill="#000" d="M0 0h1920v1080H0z" paint-order="stroke markers fill"/>
   <g fill="#fff">
     <path d="m1194.17 719.82 68.47 25.34 242.14-92.12v-33.56l-155.93-45.58-242.18 78.28v35.33l68.47 25.35 19.17-7.27z"/>
     <path d="M1281.19 716.1v36.07l67.62 25.08 242.35-89.74-.26-36.1z"/>
