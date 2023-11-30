@@ -26,4 +26,4 @@ echo "> Selected theme ${THEME} (${THEME_DIR})"
 # copy the foot theme
 [ -f  "$THEME_DIR/foot.ini" ] && prompt "Copying the foot theme" && /usr/bin/cp -v --backup "$THEME_DIR/foot.ini" "$HOME/.config/foot/" 
 
-prompt "Reloading sway" && swaymsg reload
+prompt "Reloading sway" && swaymsg reload &
