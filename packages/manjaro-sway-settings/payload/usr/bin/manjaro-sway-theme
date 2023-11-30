@@ -7,7 +7,7 @@ prompt() {
     read -p "->${1:+" ${1}."} Press enter to continue..."
 }
 
-THEMES=$(find ${THEME_DIR} -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
+THEMES=$(find ${THEME_DIR} -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
 
 echo "!!! Welcome to the Manjaro Sway Theme Selector !!!"
 echo
