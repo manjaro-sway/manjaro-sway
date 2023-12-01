@@ -93,13 +93,14 @@ You can add variable overrides in `~/.config/sway/definitions.d/` and add more s
 
 ### How can I create my own color theme?
 
-Best you start off with a copy of the current theme.
+Best you start off with one of the existing themes. Those can be activated using the `manjaro-sway-theme` utility.
 
-```bash
-cp /usr/share/sway/themes/matcha-green/definitions ~/.config/sway/definitions.d/theme.conf
-```
+Afterwards the primary files you'll need to edit are:
 
-Do your customizations in `~/.config/sway/definitiond.d/theme.conf`.
+- `~/.config/sway/definitiond.d/theme.conf`
+- `~/.config/foot/foot.ini`
+
+Feel free to contribute your themes and optimizations to our [themes directory](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway/usr/share/sway/themes).
 
 ### How can I customize waybar without losing my customization after an upgrade?
 
