@@ -15,7 +15,7 @@ THEME_DIR="${THEME_DIR}/${THEME}"
 # shellcheck disable=SC2046
 if ! pacman -Qi $(cat "$THEME_DIR/packages") >/dev/null; then
     # shellcheck disable=SC2046
-    [ -f  "$THEME_DIR/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -S --needed $(cat "$THEME_DIR/packages")
+    [ -f  "$THEME_DIR/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -Syy --needed $(cat "$THEME_DIR/packages")
 fi
 
 # copy the sway theme
