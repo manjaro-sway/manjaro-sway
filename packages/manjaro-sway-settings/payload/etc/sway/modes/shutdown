@@ -16,7 +16,7 @@ mode --pango_markup $mode_shutdown {
     $bindsym l mode "default", exec $locking
 
     # logout
-    $bindsym e exec $purge_cliphist; exec loginctl terminate-user $USER
+    $bindsym e exec $purge_cliphist; exec swaymsg exit
 
     # suspend
     $bindsym u mode "default", exec systemctl suspend
@@ -25,7 +25,7 @@ mode --pango_markup $mode_shutdown {
     $bindsym h mode "default", exec systemctl hibernate
 
     # shutdown
-    $bindsym s exec $purge_cliphist; exec swaymsg exit
+    $bindsym s exec $purge_cliphist; exec systemctl shutdown
 
     # reboot
     $bindsym r exec $purge_cliphist; exec systemctl reboot
