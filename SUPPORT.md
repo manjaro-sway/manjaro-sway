@@ -1,22 +1,5 @@
 # FAQ
 
-## Install
-
-### How can I unzip the multi-part zip (.zip + .z01)?
-
-If your archive manager doesn't support multipart zips already (p7zip installed), you can just merge the two files using cat:
-
-```bash
-cat *.z* >tmp.zip
-unzip tmp.zip
-```
-
-### How can I restart the installer?
-
-```bash
-sudo -E calamares
-```
-
 ## Shortcuts
 
 ### How can I list the predefined shortcuts?
