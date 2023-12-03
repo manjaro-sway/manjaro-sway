@@ -1,1 +1,1 @@
-set $idle echo "no idle"
+set $swayidle echo "no idle"
