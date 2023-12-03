@@ -27,6 +27,10 @@ polkit-gnome # polkit for visual superuser access
 >extra xdg-desktop-portal-wlr
 manjaro-pipewire
 
+## Btrfs
+grub-btrfs
+>extra timeshift-autosnap-manjaro
+
 ## Greeter
 
 greetd
