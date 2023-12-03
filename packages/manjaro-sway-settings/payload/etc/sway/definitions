@@ -99,7 +99,7 @@ set $swayidle swayidle -w \
 seat seat0 hide_cursor 5000
 
 # statusbar command
-set $statusbar waybar
+set $statusbar /usr/share/sway/scripts/waybar.sh
 set $waybar_position top
 
 # pulseaudio command
