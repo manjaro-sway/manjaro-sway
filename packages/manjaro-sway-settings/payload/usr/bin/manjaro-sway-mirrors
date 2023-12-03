@@ -32,7 +32,7 @@ if ! custom_conf_exists || ! custom_conf_on_branch; then
     cat >$custom_conf <<EOL
 [manjaro-sway] 
 SigLevel = PackageRequired
-Server = https://pkg.manjaro-sway.download/$(pacman-mirrors -G)/\$arch 
+Server = https://packages.manjaro-sway.download/$(pacman-mirrors -G)/\$arch 
 EOL
     echo "## updated $custom_conf"
 fi
