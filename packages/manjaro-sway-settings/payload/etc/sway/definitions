@@ -16,6 +16,9 @@ set $down_alt j
 set $up_alt k
 set $right_alt l
 
+# Default generated background
+set $background $HOME/.config/sway/generated_background.svg
+
 # Add --to-code to bindsym, support for non-latin layouts
 set $bindsym bindsym --to-code
 
