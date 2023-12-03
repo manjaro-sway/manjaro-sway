@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-set -u
+set -xu
 
 DEFAULT_CROWN="#00f"
 CROWN=$1

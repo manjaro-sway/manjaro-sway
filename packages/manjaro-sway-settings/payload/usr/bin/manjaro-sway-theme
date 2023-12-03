@@ -1,4 +1,5 @@
 #!/bin/bash
+set -xu
 
 ## theme switcher for manjaro sway
 THEME_DIR="/usr/share/sway/themes"
@@ -19,9 +20,7 @@ if ! pacman -Qi $(cat "$THEME_DIR/packages") >/dev/null; then
 fi
 
 # copy the sway theme
-[ -f  "$THEME_DIR/theme.conf" ] && echo "> Copying the sway theme" && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/"
+[ -f  "$THEME_DIR/theme.conf" ] && echo "> Copying the sway theme" && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/" && swaymsg reload
 
 # copy the foot theme
 [ -f  "$THEME_DIR/foot.ini" ] && echo "> Copying the foot theme" && echo && /usr/bin/cp -v --backup "$THEME_DIR/foot.ini" "$HOME/.config/foot/" 
-
-echo "> Reloading sway" && swaymsg reload
