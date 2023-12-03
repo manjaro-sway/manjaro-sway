@@ -56,7 +56,6 @@ body:
     attributes:
       label: "Screenshots"
       description: If applicable, add screenshots to help explain your problem.
-      render: bash
     validations:
       required: false
   - type: textarea
