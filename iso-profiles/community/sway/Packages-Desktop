@@ -108,3 +108,7 @@ oh-my-zsh
 wget
 wl-clipboard # wayland clipboard application
 cliphist # clipboard history application
+
+## Misc
+manjaro-hotfixes
+>basic squashfs-tools
