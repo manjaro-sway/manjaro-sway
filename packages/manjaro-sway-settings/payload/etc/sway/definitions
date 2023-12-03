@@ -152,7 +152,7 @@ set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs
 # apply the keyboard layout from localectl if no keyboard layout has been set via config.d
 set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /usr/share/sway/scripts/keyboard.sh'
 set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
-set $create_rofi_config '[ ! -f $HOME/.config/rofi/config.rasi ] && echo '@import \\"Manjaro\\"' > $HOME/.config/rofi/config.rasi'
+set $create_rofi_config 'mkdir -p $HOME/.config/rofi/ && cp -n /usr/share/sway/templates/rofi/config.rasi $HOME/.config/rofi/config.rasi'
 set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && noisetorch -i'
 set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --user enable foot-server.socket && systemctl --now --user enable foot-server'
 set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now --user enable swayrd'
