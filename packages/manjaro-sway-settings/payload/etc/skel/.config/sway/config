@@ -10,15 +10,13 @@ set $theme /usr/share/sway/themes/matcha-green
 # theme variables
 include $theme/theme.conf
 
-# user variables loaded before global definitions
-# so that global definitions can use user-variables
-include $HOME/.config/sway/definitions.d/*.conf
+# user theme variable can override the global theme
+include $HOME/.config/sway/definitions.d/theme.conf
 
 # global variables
 include /etc/sway/definitions
 
-# user variables loaded again
-# so they can override global definitions
+# user variables can override global definitions
 include $HOME/.config/sway/definitions.d/*.conf
 
 include /etc/sway/inputs/*
