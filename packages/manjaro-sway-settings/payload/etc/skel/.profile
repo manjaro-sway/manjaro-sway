@@ -31,7 +31,7 @@ if systemd-detect-virt -q; then
 fi
 
 # Disable warnings by OpenCV
-OPENCV_LOG_LEVEL=ERROR
+export OPENCV_LOG_LEVEL=ERROR
 
 set -a
 . "$HOME/.config/user-dirs.dirs"
