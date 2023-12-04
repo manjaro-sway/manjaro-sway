@@ -2,16 +2,10 @@
 set -xu
 
 rm -rfv /etc/pacman.d/gnupg /var/lib/pacman/sync/*
-sed -i  "/SigLevel =/c\SigLevel = Optional TrustAll" /etc/pacman.conf
-sed -i '/manjaro-sway.repo.conf/d' /etc/pacman.conf
-
 pacman-key --init
 pacman-key --populate archlinux
 pacman-key --populate manjaro
-pacman -Sy gnupg archlinux-keyring manjaro-keyring
-pacman -Syyu
 
-sed -i  "/SigLevel =/c\SigLevel = Required DatabaseOptional" /etc/pacman.conf
-manjaro-sway-mirrors
+pacman -Sy gnupg archlinux-keyring manjaro-keyring
 
 pacman -Syyu
