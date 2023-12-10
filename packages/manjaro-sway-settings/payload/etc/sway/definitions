@@ -62,9 +62,9 @@ set $clipboard cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to 
 set $clipboard-del cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to delete" -lines 10 | cliphist delete
 
 # zeit tracking
-set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | \
-    rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 | \
-    /usr/share/sway/scripts/zeit.sh track && \
+set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task |
+    rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 |
+    /usr/share/sway/scripts/zeit.sh track &&
     pkill -RTMIN+10 waybar
 
 # Your preferred application launcher
@@ -104,13 +104,13 @@ set $statusbar /usr/share/sway/scripts/waybar.sh
 set $waybar_position top
 
 # pulseaudio command
-set $pulseaudio $term_float pulsemixer
+set $pulseaudio $once $term_float pulsemixer
 
 # help command
 set $help /usr/share/sway/scripts/help.sh --toggle
 
 # calendar application
-set $calendar $term_float calcurse
+set $calendar $once $term_float calcurse
 
 # workspace names
 set $ws1 number 1
