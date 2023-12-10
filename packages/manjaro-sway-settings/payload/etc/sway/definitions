@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148,SC2086,SC2154,SC2046,SC2016
 ### Variables
 #
 # Logo key. Use Mod1 for Alt and Mod4 for Super.
@@ -95,7 +96,7 @@ set $swayidle swayidle -w \
     before-sleep 'playerctl pause' \
     before-sleep 'exec $locking & sleep $sleep_delay'
 
-# hide cursor after 5 seconds of inactivty 
+# hide cursor after 5 seconds of inactivty
 seat seat0 hide_cursor 5000
 
 # statusbar command
@@ -123,17 +124,17 @@ set $ws8 number 8
 set $ws9 number 9
 set $ws10 number 10
 
-# screenshot 
+# screenshot
 set $grimshot /usr/share/sway/scripts/grimshot
 set $pipe_output $grimshot save output -
 set $pipe_selection $grimshot save window -
-set $notify_paste  [[ $(wl-paste -l) == "image/png" ]] && notify-send "Screenshot copied to clipboard"
+set $notify_paste [[ $(wl-paste -l) == "image/png" ]] && notify-send "Screenshot copied to clipboard"
 set $swappy swappy -f -
 set $swappy_pipe swappy -f - -o -
 set $upload_pipe curl -s -F "file=@-;filename=.png" https://x0.at/ | tee >(wl-copy) >(xargs notify-send)
 
 set $screenshot_screen $pipe_output | $swappy && $notify_paste
-set $screenshot_screen_upload $pipe_output | $swappy_pipe | $upload_pipe 
+set $screenshot_screen_upload $pipe_output | $swappy_pipe | $upload_pipe
 
 set $screenshot_selection $pipe_selection | $swappy && $notify_paste
 set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
@@ -158,6 +159,7 @@ set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --us
 set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now --user enable swayrd'
 set $restart_foot_server '[ -x "$(command -v foot)" ] && systemctl --user restart foot-server'
 set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
+set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
 
 # daemons
 set $mako '[ -x "$(command -v mako)" ] && pkill mako; /usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
