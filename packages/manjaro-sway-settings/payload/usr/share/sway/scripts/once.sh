@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
-HASH="$(echo "$@" | shasum | cut -f1 -d" " | cut -c1-7)"
 
 mkdir -p "$HOME/.local/state"
+LOCKFILE="$HOME/.local/state/once.lock"
 
-flock --verbose -n "$HOME/.local/state/${HASH}.lock" "$@" 
+# Kills the process if it's already running
+lsof -Fp "$LOCKFILE" | sed 's/^p//' | xargs -r kill
+
+flock --verbose -n "$LOCKFILE" "$@"

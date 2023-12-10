@@ -62,9 +62,9 @@ set $clipboard cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to 
 set $clipboard-del cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to delete" -lines 10 | cliphist delete
 
 # zeit tracking
-set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task |
-    rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 |
-    /usr/share/sway/scripts/zeit.sh track &&
+set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | \
+    rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 | \
+    /usr/share/sway/scripts/zeit.sh track && \
     pkill -RTMIN+10 waybar
 
 # Your preferred application launcher
