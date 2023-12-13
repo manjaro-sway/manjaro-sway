@@ -25,6 +25,7 @@ efibootmgr
 exfatprogs
 f2fs-tools
 grub
+glibc-locales
 #haveged
 inetutils
 intel-ucode
