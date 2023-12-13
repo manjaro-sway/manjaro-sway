@@ -21,9 +21,6 @@ mode --pango_markup $mode_shutdown {
     # suspend
     $bindsym u mode "default", exec systemctl suspend
 
-    # hibernate
-    $bindsym h mode "default", exec systemctl hibernate
-
     # shutdown
     $bindsym s exec $purge_cliphist; exec systemctl poweroff
 
