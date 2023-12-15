@@ -140,7 +140,7 @@ set $screenshot_selection $pipe_selection | $swappy && $notify_paste
 set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
 
 # autostarts
-set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex --autostart'
+set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex -a -e SWAY'
 set $flashfocus '[ -x "$(command -v flashfocus)" ] && flashfocus'
 set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
 set $autotiling '[ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
@@ -160,7 +160,6 @@ set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now -
 set $restart_foot_server '[ -x "$(command -v foot)" ] && systemctl --user restart foot-server'
 set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
 set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
-set $disable_autostart_nm_applet '[ ! -f $HOME/.config/autostart/nm-applet.desktop ] && cp /etc/xdg/autostart/nm-applet.desktop $HOME/.config/autostart/nm-applet.desktop && echo "Hidden=true" >> $HOME/.config/autostart/nm-applet.desktop'
 
 # daemons
 set $mako '[ -x "$(command -v mako)" ] && pkill mako; /usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
