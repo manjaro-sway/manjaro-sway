@@ -1,0 +1,40 @@
+# autostarts
+set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex -a -e SWAY'
+set $flashfocus '[ -x "$(command -v flashfocus)" ] && flashfocus'
+set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
+set $autotiling '[ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
+set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
+set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info &> /tmp/sworkstyle.log'
+set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && pcmanfm -d'
+# restart kanshi https://github.com/emersion/kanshi/issues/43#issuecomment-531679213
+set $kanshi '[ -x "$(command -v kanshi)" ] && pkill kanshi; exec kanshi'
+set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
+# apply the keyboard layout from localectl if no keyboard layout has been set via config.d
+set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /usr/share/sway/scripts/keyboard.sh'
+set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
+set $create_rofi_config 'mkdir -p $HOME/.config/rofi/ && cp -n /usr/share/sway/templates/rofi/config.rasi $HOME/.config/rofi/config.rasi'
+set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && noisetorch -i'
+set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --user enable foot-server.socket && systemctl --now --user enable foot-server'
+set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now --user enable swayrd'
+set $restart_foot_server '[ -x "$(command -v foot)" ] && systemctl --user restart foot-server'
+set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
+set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
+set $swayidle swayidle -w \
+    timeout $idle_timeout 'light -O && light -S 10' \
+    resume 'light -I' \
+    timeout $locking_timeout 'exec $locking' \
+    timeout $screen_timeout 'light -s sysfs/leds/rgb:kbd_backlight -O && light -s sysfs/leds/rgb:kbd_backlight -S 0 && swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on" && light -s sysfs/leds/rgb:kbd_backlight -I' \
+    timeout $sleep_timeout_bat '[ "$(acpi -b | grep Discharging)" != "" ] && systemctl suspend' \
+    timeout $sleep_timeout_ac '[ "$(acpi -b | grep Discharging)" = "" ] && systemctl suspend' \
+    before-sleep 'playerctl pause' \
+    after-resume 'swaymsg "output * dpms on" && light -I && light -s sysfs/leds/rgb:kbd_backlight -I'
+
+# daemons
+set $mako '[ -x "$(command -v mako)" ] && pkill mako; /usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
+set $swappy_notify '[ -x "$(command -v swappy)" ] && /usr/share/sway/scripts/screenshot-notify.sh'
+set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch pkill -RTMIN+9 waybar'
+set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'
+set $calendar_daemon 'calcurse --daemon'
+set $nm_applet '[ -x "$(command -v nm-applet)" ] && nm-applet'
+set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill playerctl; playerctl -a metadata --format \"{{status}} {{title}}\" --follow | while read line; do pkill -RTMIN+5 waybar; done'
