@@ -84,17 +84,20 @@ set $bluetooth $once $term_float bluetuith
 set $idle_timeout 240
 set $locking_timeout 300
 set $screen_timeout 600
-set $sleep_timeout 900
+set $sleep_timeout_bat 900
+set $sleep_timeout_ac 10800
 set $sleep_delay 2
 
 set $swayidle swayidle -w \
-    timeout $idle_timeout 'light -G > /tmp/brightness && light -S 10' resume 'light -S $([ -f /tmp/brightness ] && cat /tmp/brightness || echo 100%)' \
+    timeout $idle_timeout 'light -O && light -S 10' \
+    resume 'light -I' \
     timeout $locking_timeout 'exec $locking' \
-    timeout $screen_timeout 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
-    timeout $sleep_timeout 'swaymsg "output * dpms on"; sleep $sleep_delay; systemctl suspend' \
+    timeout $screen_timeout 'light -s sysfs/leds/rgb:kbd_backlight -O && light -s sysfs/leds/rgb:kbd_backlight -S 0 && swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on" && light -s sysfs/leds/rgb:kbd_backlight -I' \
+    timeout $sleep_timeout_bat '[ "$(acpi -b | grep Discharging)" != "" ] && systemctl suspend' \
+    timeout $sleep_timeout_ac '[ "$(acpi -b | grep Discharging)" = "" ] && systemctl suspend' \
     before-sleep 'playerctl pause' \
-    before-sleep 'exec $locking & sleep $sleep_delay'
+    after-resume 'swaymsg "output * dpms on" && light -I && light -s sysfs/leds/rgb:kbd_backlight -I'
 
 # hide cursor after 5 seconds of inactivty
 seat seat0 hide_cursor 5000
