@@ -1,15 +1,20 @@
 # autostarts
+
 set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex -a -e SWAY'
 set $flashfocus '[ -x "$(command -v flashfocus)" ] && flashfocus'
 set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
-set $autotiling '[ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
+set $autotiling '[ -x "$(command -v autotiling)" ] && autotiling || [ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
 set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info &> /tmp/sworkstyle.log'
 set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && pcmanfm -d'
-# restart kanshi https://github.com/emersion/kanshi/issues/43#issuecomment-531679213
+
+# restart kanshi <https://github.com/emersion/kanshi/issues/43#issuecomment-531679213>
+
 set $kanshi '[ -x "$(command -v kanshi)" ] && pkill kanshi; exec kanshi'
 set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
+
 # apply the keyboard layout from localectl if no keyboard layout has been set via config.d
+
 set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /usr/share/sway/scripts/keyboard.sh'
 set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
 set $create_rofi_config 'mkdir -p $HOME/.config/rofi/ && cp -n /usr/share/sway/templates/rofi/config.rasi $HOME/.config/rofi/config.rasi'
@@ -31,6 +36,7 @@ set $swayidle swayidle -w \
     after-resume 'swaymsg "output * dpms on" && light -I && light -s sysfs/leds/rgb:kbd_backlight -I'
 
 # daemons
+
 set $mako '[ -x "$(command -v mako)" ] && pkill mako; /usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
 set $swappy_notify '[ -x "$(command -v swappy)" ] && /usr/share/sway/scripts/screenshot-notify.sh'
 set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch pkill -RTMIN+9 waybar'
