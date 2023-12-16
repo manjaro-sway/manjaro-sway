@@ -122,7 +122,8 @@
         },
         "tooltip": true,
         "tooltip-format-activated": "power-saving disabled",
-        "tooltip-format-deactivated": "power-saving enabled"
+        "tooltip-format-deactivated": "power-saving enabled",
+        "timeout": 60
     },
 
     "backlight": {
