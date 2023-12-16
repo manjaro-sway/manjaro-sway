@@ -6,7 +6,6 @@ manjaro-sway/manjaro-sway-settings
 
 ## Sway Extras
 
-swaybg # background switcher
 >extra flashfocus # nicer flashing on focus change
 swaylock-effects # swaylock with nicer effects
 >extra wlsunset # time & place based light temperature
