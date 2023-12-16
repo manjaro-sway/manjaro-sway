@@ -11,7 +11,7 @@ swaybg # background switcher
 swaylock-effects # swaylock with nicer effects
 >extra wlsunset # time & place based light temperature
 >extra kanshi # automatically load matching output profiles
->extra autotiling-rs # automated tiling
+>extra autotiling # automated tiling
 >extra sworkstyle # dynamic workspace icons in waybar
 >extra swaycwd # determines the cwd of a sway container
 >extra zeit # command line time tracker
@@ -28,6 +28,7 @@ polkit-gnome # polkit for visual superuser access
 manjaro-pipewire
 
 ## Btrfs
+
 grub-btrfs
 >extra timeshift-autosnap-manjaro
 
@@ -111,5 +112,6 @@ wl-clipboard # wayland clipboard application
 cliphist # clipboard history application
 
 ## Misc
+
 manjaro-hotfixes
 >basic squashfs-tools
