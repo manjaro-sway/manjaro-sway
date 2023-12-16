@@ -1,7 +1,6 @@
 set $mode_shutdown "\
 <span foreground='$color10'></span>  \
 <span foreground='$color5'> \
-<span foreground='$color10'>(<b>h</b>)</span>hibernate \
 <span foreground='$color10'>(<b>l</b>)</span>lock \
 <span foreground='$color10'>(<b>e</b>)</span>logout \
 <span foreground='$color10'>(<b>r</b>)</span>reboot \
