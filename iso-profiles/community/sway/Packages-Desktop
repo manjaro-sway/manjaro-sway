@@ -10,7 +10,7 @@ swaybg # background switcher
 >extra flashfocus # nicer flashing on focus change
 swaylock-effects # swaylock with nicer effects
 >extra wlsunset # time & place based light temperature
->extra kanshi # automatically load matching output profiles
+>extra way-displays # automatically arrange displays
 >extra autotiling # automated tiling
 >extra sworkstyle # dynamic workspace icons in waybar
 >extra swaycwd # determines the cwd of a sway container
