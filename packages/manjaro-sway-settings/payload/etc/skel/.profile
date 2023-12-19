@@ -23,6 +23,9 @@ export TERMINAL_COMMAND=/usr/share/sway/scripts/foot.sh
 # add default location for zeit.db
 export ZEIT_DB="$HOME/.config/zeit.db"
 
+# set ozone platform to wayland
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
 # Disable hardware cursors. This might fix issues with
 # disappearing cursors
 if systemd-detect-virt -q; then
