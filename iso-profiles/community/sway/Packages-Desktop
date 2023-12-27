@@ -96,6 +96,12 @@ xdg-user-dirs
 >extra manjaro-settings-manager
 >extra manjaro-settings-manager-notifier
 >extra poweralertd
+>extra laptop-mode-tools
+
+## lmt dependencies
+
+>extra python-pyqt5
+>extra ethtool
 
 ## Extra fonts
 
