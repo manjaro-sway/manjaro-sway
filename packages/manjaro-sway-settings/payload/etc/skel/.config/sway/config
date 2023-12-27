@@ -19,8 +19,6 @@ include /etc/sway/definitions
 # user variables can override global definitions
 include $HOME/.config/sway/definitions.d/*.conf
 
-include /etc/sway/autostart
-
 include /etc/sway/inputs/*
 include /etc/sway/outputs/*
 
