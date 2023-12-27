@@ -313,8 +313,18 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "hyperion-ak",
+      "name": "hyperion-ak",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9286384?v=4",
+      "profile": "https://github.com/hyperion-ak",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs"
 }
