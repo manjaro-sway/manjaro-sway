@@ -85,7 +85,7 @@ set $idle_timeout 240
 set $locking_timeout 300
 set $screen_timeout 600
 set $sleep_timeout_bat 900
-set $sleep_timeout_ac 10800
+set $sleep_timeout_ac 3600
 set $sleep_delay 2
 
 ### Autostart applications definition. Can be removed soon-ish as it is being imported in userspace.

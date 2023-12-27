@@ -31,6 +31,7 @@ set $swayidle swayidle -w \
     timeout $sleep_timeout_bat '[ "$(acpi -b | grep Discharging)" != "" ] && systemctl suspend' \
     timeout $sleep_timeout_ac '[ "$(acpi -b | grep Discharging)" = "" ] && systemctl suspend' \
     before-sleep 'playerctl pause' \
+    before-sleep 'exec $locking & sleep $sleep_delay' \
     after-resume 'swaymsg "output * dpms on" && light -I && light -s sysfs/leds/rgb:kbd_backlight -I'
 
 # daemons
