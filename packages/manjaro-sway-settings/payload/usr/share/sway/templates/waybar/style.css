@@ -64,6 +64,7 @@ window#waybar {
 #custom-clipboard,
 #custom-zeit,
 #custom-dnd,
+#custom-valent,
 #bluetooth,
 #battery,
 #clock,
@@ -203,4 +204,8 @@ window#waybar {
 #custom-wf-recorder {
     color: @error_color;
     padding-right: 10px;
+}
+
+#custom-valent.dangerously-empty {
+    color: @warning_color;
 }

@@ -33,6 +33,7 @@
         // connecting
         "network",
         "bluetooth",
+        "custom/valent",
 
         // media
         "custom/playerctl",
@@ -276,7 +277,6 @@
     },
 
     "custom/weather": {
-        "icon-size": 42,
         "format": "{icon} {}",
         "tooltip": true,
         "interval": 3600,
@@ -347,5 +347,24 @@
         "on-click": "/usr/share/sway/scripts/wluma.sh toggle; pkill -RTMIN+12 waybar",
         "exec-if": "/usr/share/sway/scripts/wluma.sh check",
         "signal": 12
+    },
+
+    "custom/valent": {
+        "format": "{icon}",
+        "tooltip": true,
+        "interval": 60,
+        "exec": "/usr/share/sway/scripts/valent.py",
+        "exec-if": "[ -x \"$(command -v valent)\" ]",
+        "return-type": "json",
+        "format-icons": {
+            "no-devices": "",
+            "dangerously-empty": "󰂃",
+            "no-signal": "󰞃",
+            "connected": "",
+            "disconnected": ""
+        },
+        "on-click": "valent",
+        "on-click-middle": "pkill -RTMIN+13 waybar",
+        "signal": 13
     }
 }
