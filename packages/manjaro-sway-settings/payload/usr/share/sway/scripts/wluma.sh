@@ -10,7 +10,7 @@ case $1'' in
     status && systemctl --user stop wluma || systemctl --user --now enable wluma
     ;;
 'check')
-    command -v wluma && light -L | grep -E /backlight
+    [ -x "$(command -v wluma)" ] && [ $(ls -A /sys/class/backlight/ | wc -l) -gt 0 ]
     exit $?
     ;;
 esac
