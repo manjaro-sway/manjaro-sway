@@ -44,7 +44,7 @@ sudo pacman-mirrors --geoip && sudo pacman -Syyu
 
 ### Why are your packages not in the regular Manjaro Repositories?
 
-Submissions to the Manjaro Repositories are partly manual and thus hard to align with our release process. On the contrary, we try to remove our packages from the official package sources again.
+Submissions to the Manjaro Repositories are partly manual and thus hard to align with our release process. Thus we provide the packages via our own package repository, if the packages in question aren't listed in the manjaro repositories.
 
 ### Can I switch Manjaro lifecycle branches?
 
@@ -59,14 +59,6 @@ sudo pacman -Syyu
 ### How can I track updates?
 
 Major changes specific to this flavor of manjaro are mostly being done in the [desktop-settings repo](https://github.com/Manjaro-Sway/desktop-settings).
-
-### I installed the minimal version, can I install all the extras afterwards?
-
-Sure, just run this:
-
-```bash
-curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/Packages-Desktop | grep -oP '(?<=>extra )[^ ]*' | sudo pacman -S --noconfirm -
-```
 
 ## Customizing
 
@@ -130,10 +122,6 @@ Change the waybar position by creating or updating your `~/.config/waybar/config
 
 While it seems to work out of the box in some kvm/qemu/libvirt environments, you need to enable 3D acceleration at least in VirtualBox and Gnome Boxes.
 
-### How can I use the amazing mps-youtube?
-
-[set your own api key in mps-youtube](https://github.com/mps-youtube/mps-youtube/wiki/Troubleshooting#youtube-error-403-the-request-cannot-be-completed-because-you-have-exceeded-your-quota)
-
 ### How do I get an active bluetooth after login?
 
 Refer to this [link](https://wiki.archlinux.org/title/Bluetooth#Auto_power-on_after_boot)
@@ -156,29 +144,13 @@ Likely you're using proprietary drivers, unsupported by sway. You can try it any
 
 By default screenshots are being stored in `$HOME/Screenshots`. If you'd like to change that, just add/change a line `XDG_SCREENSHOTS_DIR="$HOME/Screenshots"` in `~/.config/user-dirs.dirs`.
 
-### How do I disable the window focus flashing animation?
-
-add this to `.config/sway/definitions.d/autostart.conf`:
-
-```
-set $flashfocus ""
-```
-
 ### How can I configure adaptive brightness?
-
-Install wluma:
-
-```sh
-pacman -S wluma
-```
-
-It may work out of the box. If it doesn't:
 
 ```sh
 cp -r /etc/xdg/wluma ~/.config/
 ```
 
-and [configure](https://github.com/maximbaz/wluma#configuration) `~/.config/wluma/config.toml` according to your needs.
+and [configure](https://github.com/maximbaz/wluma#configuration) wluma `~/.config/wluma/config.toml` according to your needs.
 
 ### How can I extend the zsh configuration?
 
@@ -186,20 +158,18 @@ You can add you own zsh configuration to `~/.config/zsh/config.d/`.
 
 ### How can I disable the help onscreen menu permanently?
 
-```bash
-rm $HOME/.config/nwg-wrapper/help.sh
-```
+Disable it using the shortcut, the state should be persisted.
 
 ### Why do my auto-login settings from the installer have no effect?
 
-greetd, our login messenger, is not supported by the manjaro installer. refer [here](https://wiki.archlinux.org/title/Greetd#Autologin) for help.
+`greetd`, our login messenger, is not supported by the manjaro installer. refer [here](https://wiki.archlinux.org/title/Greetd#Autologin) for help.
 
 ### How can I disable the night light feature?
 
 add this to `.config/sway/definitions.d/autostart.conf`:
 
-```
-set $wlsunset ""
+```bash
+pacman -R wlsunset
 ```
 
 ### How can I set a fixed geo location for the night-light feature?
