@@ -36,6 +36,10 @@ set $auto_xdg_keyboard ""
 
 ## Upgrades
 
+### How can I align my setup with the current list of packages for a new iso?
+
+`manjaro-sway-align`
+
 ### how do I upgrade the ~/.config after an update?
 
 After upgrading packages, you will sometimes need to update your skeleton: `skel`
