@@ -31,7 +31,7 @@ Refer to the autostart section of our [definitions](https://github.com/manjaro-s
 Add an entry to `.config/sway/definitions.d/autostart.conf` for each command you'd like to disable:
 
 ```
-set $flashfocus ""
+set $auto_xdg_keyboard ""
 ```
 
 ## Upgrades
