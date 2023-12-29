@@ -119,6 +119,16 @@ You can find missing icons in the sworkstyle logs, `/tmp/sworkstyle.log`.
 
 ## Setup and configuration
 
+### How can I adapt the settings of my display?
+
+We're using the [way-displays](https://github.com/alex-courtis/way-displays) to manage our displays. If the initial settings don't fit your needs, a good starting point would be to use
+
+```bash
+way-displays -w
+```
+
+to write out your current configuration and adapt the configuration (`.config/way-displays/cfg.yaml`) going from there.
+
 ### How can I move the waybar from top to bottom?
 
 Change the waybar position by creating or updating your `~/.config/waybar/config.jsonc`:
