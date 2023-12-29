@@ -170,8 +170,9 @@
     "custom/pacman": {
         "format": "󰀼 {}",
         "interval": 3600,
+        "return-type": "json",
         "exec-if": "[ $(pamac checkupdates -q | wc -l) -gt 0 ]",
-        "exec": "pamac checkupdates -q | wc -l",
+        "exec": "printf '{\"text\":\"%s\",\"tooltip\":\"%s\"}' \"$(pamac checkupdates -q | wc -l)\" \"$(pamac checkupdates -q)\"",
         "on-click": "pamac-manager --updates; pkill -RTMIN+4 waybar",
         "signal": 4
     },
