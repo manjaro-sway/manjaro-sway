@@ -331,3 +331,16 @@ input "1:1:AT_Translated_Set_2_keyboard" xkb_numlock enabled
    to a file in `$HOME/.config/profile.d`
 
 See [the Arch Wiki](https://wiki.archlinux.org/title/GNOME/Keyring#gcr-ssh-agent) for more information.
+
+
+## Recommended tools
+
+Finding tools that work great on sway/wayland is hard. This aims at helping people to find the tools which "just work"™️.
+
+| purpose | package | description |
+|---|---|---|
+| discord | `aur/vencord-desktop-bin` | only discord client that works well with wayland _and_ allows to configure screen-share quality |
+| code | `aur/visual-studio-code-insiders-bin` | only the "insiders" version currently plays well on wayland |
+| arcade | `aur/highscore` + `libretro-` | dubbed "gnome games", this just works |
+| vm | `gnome-boxes` | just another vm player, but works well with design and all. |
+| system upgrade | `topgrade` | just upgrades _everything_ |
