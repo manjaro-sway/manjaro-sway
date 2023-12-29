@@ -316,8 +316,8 @@
             "tracking": "󰖷",
             "stopped": "󰋣"
         },
-        "exec": "/bin/sh /usr/share/sway/scripts/zeit.sh status",
-        "on-click": "/bin/sh /usr/share/sway/scripts/zeit.sh click; pkill -RTMIN+10 waybar",
+        "exec": "/usr/share/sway/scripts/zeit.sh status",
+        "on-click": "/usr/share/sway/scripts/zeit.sh click; pkill -RTMIN+10 waybar",
         "exec-if": "[ -x \"$(command -v zeit)\" ]",
         "signal": 10
     },
@@ -330,9 +330,9 @@
             "default": "󰚢",
             "dnd": "󰚣"
         },
-        "on-click": "makoctl mode | grep 'do-not-disturb' && makoctl mode -r do-not-disturb || makoctl mode -a do-not-disturb; pkill -RTMIN+11 waybar",
-        "on-click-right": "makoctl restore",
-        "exec": "printf '{\"alt\":\"%s\",\"tooltip\":\"mode: %s\"}' $(makoctl mode | grep -q 'do-not-disturb' && echo dnd || echo default) $(makoctl mode | tail -1)",
+        "on-click": "/usr/share/sway/scripts/dnd.sh toggle; pkill -RTMIN+11 waybar",
+        "on-click-right": "/usr/share/sway/scripts/dnd.sh restore",
+        "exec": "/usr/share/sway/scripts/dnd.sh status",
         "signal": 11
     },
 

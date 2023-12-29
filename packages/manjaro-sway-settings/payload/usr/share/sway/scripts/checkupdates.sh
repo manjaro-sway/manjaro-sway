@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 case $1'' in
 'status') 
     printf '{\"text\":\"%s\",\"tooltip\":\"%s\"}' "$(pamac checkupdates -q | wc -l)" "$(pamac checkupdates -q | awk 1 ORS='\\n' | sed 's/\\n$//')"
