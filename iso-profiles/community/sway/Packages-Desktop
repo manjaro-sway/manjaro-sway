@@ -111,11 +111,12 @@ xdg-user-dirs
 
 curl
 jq
-oh-my-zsh
+>extra oh-my-zsh
 wget
 wl-clipboard # wayland clipboard application
 cliphist # clipboard history application
-wluma # adaptive brightness
+>extra wluma # adaptive brightness
+>extra dex # starting .desktop files from the cli
 
 ## Misc
 
