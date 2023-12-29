@@ -20,6 +20,20 @@ to remove existing shortcuts (for example to reuse them elsewhere) you can `$unb
 $unbindsym $mod+w
 ```
 
+## Disabling integrations
+
+We tried to allow opt-outs of most tools by just not having them installed. All tools listed as `optdepends` in the [PKGBUILD](https://github.com/manjaro-sway/manjaro-sway-settings/blob/master/PKGBUILD) can be removed and re-installed at your discretion.
+
+### How can I remove an auto-starting application?
+
+Refer to the autostart section of our [definitions](https://github.com/manjaro-sway/desktop-settings/blob/sway/community/sway/etc/sway/autostart) to find the variables.
+
+Add an entry to `.config/sway/definitions.d/autostart.conf` for each command you'd like to disable:
+
+```
+set $flashfocus ""
+```
+
 ## Upgrades
 
 ### how do I upgrade the ~/.config after an update?
@@ -124,7 +138,7 @@ While it seems to work out of the box in some kvm/qemu/libvirt environments, you
 
 ### How do I get an active bluetooth after login?
 
-Refer to this [link](https://wiki.archlinux.org/title/Bluetooth#Auto_power-on_after_boot)
+Refer to this [guide](https://wiki.archlinux.org/title/Bluetooth#Auto_power-on_after_boot)
 
 ### How can I add more keyboard layouts to sway?
 
@@ -164,14 +178,6 @@ Disable it using the shortcut, the state should be persisted.
 
 `greetd`, our login messenger, is not supported by the manjaro installer. refer [here](https://wiki.archlinux.org/title/Greetd#Autologin) for help.
 
-### How can I disable the night light feature?
-
-add this to `.config/sway/definitions.d/autostart.conf`:
-
-```bash
-pacman -R wlsunset
-```
-
 ### How can I set a fixed geo location for the night-light feature?
 
 Update the waybar module by creating or updating your `~/.config/waybar/config.jsonc` with appropriate values for latitude and longitude:
@@ -196,41 +202,6 @@ Update the waybar module by creating or updating your `~/.config/waybar/config.j
         "signal": 6
     },
 }
-```
-
-### How can I disable the dynamic workspace icons?
-
-add this to `.config/sway/definitions.d/autostart.conf`:
-
-```
-set $workspace_icons ""
-```
-
-### How can I disable the window auto-tiling?
-
-add this to `.config/sway/definitions.d/autostart.conf`:
-
-```
-set $autotiling ""
-```
-
-### How can I disable the clipboard history?
-
-add this to `.config/sway/definitions.d/autostart.conf`:
-
-```
-set $cliphist_watch ""
-set $cliphist_store ""
-```
-
-### How can I remove an auto-starting application?
-
-Refer to the autostart section of our [definitions](https://github.com/Manjaro-Sway/desktop-settings/blob/b43c6733b2830157a57097216c132891d93c7e4f/community/sway/etc/sway/definitions) to find the variables.
-
-Add an entry to `.config/sway/definitions.d/autostart.conf` for each command you'd like to disable:
-
-```
-set $flashfocus ""
 ```
 
 ### How can I delete the clipboard history?
