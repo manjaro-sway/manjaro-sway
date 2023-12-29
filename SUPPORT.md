@@ -150,10 +150,6 @@ Change the waybar position by creating or updating your `~/.config/waybar/config
 
 While it seems to work out of the box in some kvm/qemu/libvirt environments, you need to enable 3D acceleration at least in VirtualBox and Gnome Boxes.
 
-### How do I get an active bluetooth after login?
-
-Refer to this [guide](https://wiki.archlinux.org/title/Bluetooth#Auto_power-on_after_boot)
-
 ### How can I add more keyboard layouts to sway?
 
 Copy over our configuration example:
