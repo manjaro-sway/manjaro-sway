@@ -173,7 +173,7 @@
         "return-type": "json",
         "exec-if": "/usr/share/sway/scripts/checkupdates.sh check",
         "exec": "/usr/share/sway/scripts/checkupdates.sh status",
-        "on-click": "pamac-manager --updates; pkill -RTMIN+14 waybar",
+        "on-click": "/usr/share/sway/scripts/checkupdates.sh check && pamac-manager --updates; pkill -RTMIN+14 waybar",
         "on-click-middle": "pkill -RTMIN+14 waybar",
         "signal": 14
     },
