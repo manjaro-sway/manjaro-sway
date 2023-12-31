@@ -131,4 +131,6 @@ set $screenshot_screen_upload $pipe_output | $swappy_pipe | $upload_pipe
 set $screenshot_selection $pipe_selection | $swappy && $notify_paste
 set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
 
+set $update-manager pamac-manager --updates
+
 include /etc/sway/autostart
