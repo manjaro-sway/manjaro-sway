@@ -245,7 +245,7 @@
         "format": " {}",
         "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
         "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in' && test $(gh api '/notifications' -q 'length') -ne 0",
-        "on-click": "xdg-open https://github.com/notifications && sleep 30 && pkill -RTMIN+4 waybar",
+        "on-click": "test $(gh api '/notifications' -q 'length') -ne 0 && xdg-open https://github.com/notifications && sleep 30 && pkill -RTMIN+4 waybar",
         "signal": 4
     },
 
