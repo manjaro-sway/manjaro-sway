@@ -331,6 +331,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "catlowlevel",
+      "name": "catlowlevel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72902682?v=4",
+      "profile": "https://github.com/catlowlevel",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
