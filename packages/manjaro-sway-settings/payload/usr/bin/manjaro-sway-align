@@ -3,7 +3,7 @@ set -xu
 
 echo "Install all the explicit regular dependencies for the sway iso"
 
-curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/Packages-Desktop | grep "^[^#>]" | sudo pacman -S --noconfirm -
+yay -S --needed $(curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/Packages-Desktop | grep "^[^#>]" | sed 's/\#.*//')
 
 echo "Install all the explicit extra dependencies for the sway iso"
-curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/Packages-Desktop | grep -oP '(?<=>extra )[^ ]*' | sudo pacman -S --noconfirm -
+yay -S --needed $(curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/Packages-Desktop | grep -oP '(?<=>extra )[^ ]*' | sed 's/\#.*//')
