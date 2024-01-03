@@ -117,6 +117,7 @@ wl-clipboard # wayland clipboard application
 cliphist # clipboard history application
 >extra wluma # adaptive brightness
 >extra dex # starting .desktop files from the cli
+>extra pacseek # lightweight tui package manager
 
 ## Misc
 
