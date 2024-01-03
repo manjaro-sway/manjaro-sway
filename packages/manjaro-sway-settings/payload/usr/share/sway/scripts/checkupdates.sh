@@ -8,4 +8,15 @@ case $1'' in
     [ $(pamac checkupdates -q | wc -l) -gt 0 ]
     exit $?
     ;;
+'upgrade')
+    if [ -x "$(command -v pacseek)" ]; then
+        xdg-terminal-exec pacseek -u
+    elif [ -x "$(command -v topgrade)" ]; then
+        xdg-terminal-exec topgrade
+    elif [ -x "$(command -v pamac-manager)" ]; then
+        pamac-manager --updates
+    else
+        xdg-terminal-exec pacman -Syu
+    fi
+    ;;
 esac
