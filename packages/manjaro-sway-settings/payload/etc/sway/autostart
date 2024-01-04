@@ -26,13 +26,13 @@ set $swayidle swayidle -w \
     timeout $idle_timeout 'light -O && light -S 10' \
     resume 'light -I' \
     timeout $locking_timeout 'exec $locking' \
-    timeout $screen_timeout 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"' \
+    timeout $screen_timeout '/usr/share/sway/scripts/keyboard-backlight-switch.sh off && swaymsg "output * dpms off"' \
+    resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on"' \
     timeout $sleep_timeout_bat '[ "$(acpi -b | grep Discharging)" != "" ] && systemctl suspend' \
     timeout $sleep_timeout_ac '[ "$(acpi -b | grep Discharging)" = "" ] && systemctl suspend' \
     before-sleep 'playerctl pause' \
     before-sleep 'exec $locking & sleep $sleep_delay' \
-    after-resume 'swaymsg "output * dpms on" && light -I'
+    after-resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on" && light -I'
 
 ## daemons
 
