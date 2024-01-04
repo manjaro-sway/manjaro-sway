@@ -130,6 +130,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/daiaji"><img src="https://avatars.githubusercontent.com/u/25875791?v=4?s=100" width="100px;" alt="daiaji"/><br /><sub><b>daiaji</b></sub></a><br /><a href="#ideas-daiaji" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/cmeessen"><img src="https://avatars.githubusercontent.com/u/14222414?v=4?s=100" width="100px;" alt="Christian Meeßen"/><br /><sub><b>Christian Meeßen</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Acmeessen" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pschyma"><img src="https://avatars.githubusercontent.com/u/2489928?v=4?s=100" width="100px;" alt="Peter Schyma"/><br /><sub><b>Peter Schyma</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Apschyma" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
