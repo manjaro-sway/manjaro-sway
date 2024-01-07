@@ -1,6 +1,4 @@
 #!/bin/sh
-set -xeu
-
 current_abs=$(brightnessctl get)
 current_rel() {
     echo "$(brightnessctl get) * 100 / $(brightnessctl max)" | bc 
@@ -14,13 +12,13 @@ case $1'' in
 'down')
     # if current value <= 3% and absolute value != 1, set brightness to absolute 1
     if [ "$(current_rel)" -le "$factor" ] && [ "$current_abs" -ge 0 ]; then
-        brightnessctl set 1
+        brightnessctl --quiet set 1
     else
-        brightnessctl set "${brightness_step}-"
+        brightnessctl --quiet set "${brightness_step}-"
     fi
     ;;
 'up')
-    brightnessctl set "${brightness_step}+"
+    brightnessctl --quiet set "${brightness_step}+"
     ;;
 esac
 
