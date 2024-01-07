@@ -1,18 +1,15 @@
 #!/usr/bin/env sh
 set -x
 
-# Get the backlight devices
-DEVICES="$(light -L | grep kbd_backlight)"
-
 case $1'' in
 'on')
     for device in $DEVICES; do
-        light -s $device -I
+        brightnessctl -r -d "*kbd_backlight"
     done
     ;;
 'off')
     for device in $DEVICES; do
-        light -s $device -O && light -s $device -S 0
+        brightnessctl -s -d "*kbd_backlight" && brightnessctl -d "*kbd_backlight" set 0
     done
     ;;
 esac

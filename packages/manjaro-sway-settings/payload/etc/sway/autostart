@@ -23,8 +23,8 @@ set $restart_foot_server '[ -x "$(command -v foot)" ] && systemctl --user restar
 set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
 set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
 set $swayidle swayidle -w \
-    timeout $idle_timeout 'light -O && light -S 10' \
-    resume 'light -I' \
+    timeout $idle_timeout 'brightnessctl -s && brightnessctl set 10' \
+    resume 'brightnessctl -r' \
     timeout $locking_timeout 'exec $locking' \
     timeout $screen_timeout '/usr/share/sway/scripts/keyboard-backlight-switch.sh off && swaymsg "output * dpms off"' \
     resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on"' \
@@ -32,7 +32,7 @@ set $swayidle swayidle -w \
     timeout $sleep_timeout_ac '[ "$(acpi -b | grep Discharging)" = "" ] && systemctl suspend' \
     before-sleep 'playerctl pause' \
     before-sleep 'exec $locking & sleep $sleep_delay' \
-    after-resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on" && light -I'
+    after-resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on" && brightnessctl -r'
 
 ## daemons
 

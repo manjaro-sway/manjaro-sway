@@ -1,10 +1,11 @@
 #!/bin/sh
+set -xeu
 
-current_abs=$(light -Gr)
+current_abs=$(brightnessctl get)
 current_rel() {
-    echo "($(light -G) + 0.5) / 1" | bc
+    echo "$(brightnessctl get) * 100 / $(brightnessctl max)" | bc 
 } 
-max=$(light -Mr)
+max=$(brightnessctl max)
 factor=3
 brightness_step=$((max * factor / 100 < 1 ? 1 : max * factor / 100))
 
@@ -12,14 +13,14 @@ case $1'' in
 '') ;;
 'down')
     # if current value <= 3% and absolute value != 1, set brightness to absolute 1
-    if [ "$(current_rel)" -le "$factor" ] && [ "$current_abs" -gt 0 ] && [ "$current_abs" -ne 1 ]; then
-        light -rS 1
+    if [ "$(current_rel)" -le "$factor" ] && [ "$current_abs" -ge 0 ]; then
+        brightnessctl set 1
     else
-        light -rU "$brightness_step"
+        brightnessctl set "${brightness_step}-"
     fi
     ;;
 'up')
-    light -rA "$brightness_step"
+    brightnessctl set "${brightness_step}+"
     ;;
 esac
 
