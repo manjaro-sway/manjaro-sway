@@ -182,6 +182,9 @@ $bindsym $mod+question exec $help
 ## Launch // Open Support ##
 $bindsym $mod+Shift+s exec xdg-open https://github.com/Manjaro-Sway/manjaro-sway/blob/main/SUPPORT.md
 
+## Launch // Inhibit Idle ##
+$bindsym $mod+Shift+i exec inhibit-idle interactive
+
 default_border pixel 1
 hide_edge_borders smart
 

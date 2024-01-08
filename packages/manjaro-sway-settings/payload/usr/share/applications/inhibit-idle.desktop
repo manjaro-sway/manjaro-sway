@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Inhibit Idle
+
+Comment=Lets you inhibit the idle daemon
+
+Exec=inhibit-idle interactive
+Icon=sleep
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;

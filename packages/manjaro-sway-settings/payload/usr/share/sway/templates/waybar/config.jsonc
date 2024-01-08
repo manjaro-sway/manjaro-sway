@@ -37,7 +37,7 @@
 
         // media
         "custom/playerctl",
-        "idle_inhibitor",
+        "custom/idle_inhibitor",
         "custom/dnd",
         "pulseaudio",
         "backlight",
@@ -113,18 +113,6 @@
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>",
         "tooltip": false
-    },
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "󰒳",
-            "deactivated": "󰒲"
-        },
-        "tooltip": true,
-        "tooltip-format-activated": "power-saving disabled",
-        "tooltip-format-deactivated": "power-saving enabled",
-        "timeout": 60
     },
 
     "backlight": {
@@ -368,5 +356,19 @@
         "on-click": "valent",
         "on-click-middle": "pkill -RTMIN+13 waybar",
         "signal": 13
+    },
+
+    "custom/idle_inhibitor": {
+        "interval": 60,
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "on": "󰒳",
+            "off": "󰒲"
+        },
+        "exec": "inhibit-idle",
+        "on-click": "inhibit-idle off; inhibit-idle interactive",
+        "on-click-middle": "inhibit-idle off",
+        "signal": 15
     }
 }
