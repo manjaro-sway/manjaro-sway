@@ -14,19 +14,8 @@ case $1'' in
     MINUTES=$(echo -e "1\n10\n15\n20\n30\n45\n60\n90\n120" | rofi -dmenu -p "Select how many minutes to inhibit idle:")
     inhibit $((MINUTES * 60))
     ;;
-'status')
-    status
-    exit $?
-    ;;
-'on')
-    if [ -z "$2" ]; then
-        echo "Usage: $0 on <seconds>"
-        exit 1
-    fi
-    inhibit $2
-    ;;
 'off')
-    pkill -f "systemd-inhibit --what=idle"
+    pkill -f "systemd-inhibit --what=idle" || true
     pkill -RTMIN+15 waybar
     ;;
 esac
