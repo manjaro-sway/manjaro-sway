@@ -35,9 +35,11 @@ start() {
 case $1'' in
 'off')
     pkill wlsunset
+    waybar-signal sunset
     ;;
 'on')
     start
+    waybar-signal sunset
     ;;
 'toggle')
     if pkill -0 wlsunset; then
@@ -45,6 +47,7 @@ case $1'' in
     else
         start
     fi
+    waybar-signal sunset
     ;;
 'check')
     command -v wlsunset

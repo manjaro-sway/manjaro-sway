@@ -27,7 +27,7 @@ if [ $status != 0 ]; then
     area=$(swaymsg -t get_tree | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | slurp)
 
     countdown
-    (sleep 0.5 && pkill -RTMIN+8 waybar) &
+    (sleep 0.5 && waybar-signal recorder) &
 
     if [ "$1" = "-a" ]; then
         file="$target_path/$timestamp.mp4"
@@ -37,8 +37,8 @@ if [ $status != 0 ]; then
         wf-recorder -g "$area" -c libvpx --codec-param="qmin=0" --codec-param="qmax=25" --codec-param="crf=4" --codec-param="b:v=1M" --file="$file"
     fi
 
-    pkill -RTMIN+8 waybar && notify "Finished recording ${file}"
+    waybar-signal recorder && notify "Finished recording ${file}"
 else
     pkill --signal SIGINT wf-recorder
-    pkill -RTMIN+8 waybar
+    waybar-signal recorder
 fi

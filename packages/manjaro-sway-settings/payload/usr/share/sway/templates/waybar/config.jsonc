@@ -162,7 +162,7 @@
         "exec-if": "/usr/share/sway/scripts/checkupdates.sh check",
         "exec": "/usr/share/sway/scripts/checkupdates.sh status",
         "on-click": "/usr/share/sway/scripts/checkupdates.sh check && swaymsg exec \\$update-manager",
-        "on-click-middle": "pkill -RTMIN+14 waybar",
+        "on-click-middle": "waybar-signal pacman",
         "signal": 14
     },
 
@@ -210,7 +210,7 @@
             "off": "󰌶"
         },
         "exec": "fallback_latitude=50.1 fallback_longitude=8.7 latitude= longitude= /usr/share/sway/scripts/sunset.sh",
-        "on-click": "/usr/share/sway/scripts/sunset.sh toggle; pkill -RTMIN+6 waybar",
+        "on-click": "/usr/share/sway/scripts/sunset.sh toggle",
         "exec-if": "/usr/share/sway/scripts/sunset.sh check",
         "signal": 6
     },
@@ -222,7 +222,7 @@
         "tooltip-format": "{tooltip}",
         "exec": "echo '{\"class\": \"recording\",\"text\":\"󰑊\",\"tooltip\":\"press $mod+Esc to stop recording\"}'",
         "exec-if": "pgrep wf-recorder",
-        "on-click": "killall -s SIGINT wf-recorder",
+        "on-click": "waybar-signal recorder",
         "signal": 8
     },
 
@@ -233,7 +233,7 @@
         "format": " {}",
         "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
         "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in' && test $(gh api '/notifications' -q 'length') -ne 0",
-        "on-click": "test $(gh api '/notifications' -q 'length') -ne 0 && xdg-open https://github.com/notifications && sleep 30 && pkill -RTMIN+4 waybar",
+        "on-click": "test $(gh api '/notifications' -q 'length') -ne 0 && xdg-open https://github.com/notifications && sleep 30 && waybar-signal github",
         "signal": 4
     },
 
@@ -247,10 +247,10 @@
             "Paused": "󰐍"
         },
         "exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
-        "on-click": "playerctl play-pause; pkill -RTMIN+5 waybar",
-        "on-click-right": "playerctl next; pkill -RTMIN+5 waybar",
-        "on-scroll-up": "playerctl position 10+; pkill -RTMIN+5 waybar",
-        "on-scroll-down": "playerctl position 10-; pkill -RTMIN+5 waybar",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-scroll-up": "playerctl position 10+",
+        "on-scroll-down": "playerctl position 10-",
         "signal": 5
     },
 
@@ -258,9 +258,9 @@
         "format": "󰨸",
         "interval": "once",
         "return-type": "json",
-        "on-click": "swaymsg -q exec '$clipboard'; pkill -RTMIN+9 waybar",
-        "on-click-right": "swaymsg -q exec '$clipboard-del'; pkill -RTMIN+9 waybar",
-        "on-click-middle": "rm -f ~/.cache/cliphist/db; pkill -RTMIN+9 waybar",
+        "on-click": "swaymsg -q exec '$clipboard'; waybar-signal clipboard",
+        "on-click-right": "swaymsg -q exec '$clipboard-del'; waybar-signal clipboard",
+        "on-click-middle": "rm -f ~/.cache/cliphist/db; waybar-signal clipboard",
         "exec": "printf '{\"tooltip\":\"%s\"}' $(cliphist list | wc -l)' item(s) in the clipboard\r(Mid click to clear)'",
         "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list | wc -l) -gt 0 ]",
         "signal": 9
@@ -305,7 +305,7 @@
             "stopped": "󰋣"
         },
         "exec": "/usr/share/sway/scripts/zeit.sh status",
-        "on-click": "/usr/share/sway/scripts/zeit.sh click; pkill -RTMIN+10 waybar",
+        "on-click": "/usr/share/sway/scripts/zeit.sh click; waybar-signal zeit",
         "exec-if": "[ -x \"$(command -v zeit)\" ]",
         "signal": 10
     },
@@ -318,7 +318,7 @@
             "default": "󰚢",
             "dnd": "󰚣"
         },
-        "on-click": "/usr/share/sway/scripts/dnd.sh toggle; pkill -RTMIN+11 waybar",
+        "on-click": "/usr/share/sway/scripts/dnd.sh toggle; waybar-signal dnd",
         "on-click-right": "/usr/share/sway/scripts/dnd.sh restore",
         "exec": "/usr/share/sway/scripts/dnd.sh status",
         "signal": 11
@@ -334,7 +334,7 @@
             "off": "󰃠"
         },
         "exec": "/usr/share/sway/scripts/wluma.sh",
-        "on-click": "/usr/share/sway/scripts/wluma.sh toggle; pkill -RTMIN+12 waybar",
+        "on-click": "/usr/share/sway/scripts/wluma.sh toggle",
         "exec-if": "/usr/share/sway/scripts/wluma.sh check",
         "signal": 12
     },
@@ -354,7 +354,7 @@
             "disconnected": ""
         },
         "on-click": "valent",
-        "on-click-middle": "pkill -RTMIN+13 waybar",
+        "on-click-middle": "waybar-signal valent",
         "signal": 13
     },
 

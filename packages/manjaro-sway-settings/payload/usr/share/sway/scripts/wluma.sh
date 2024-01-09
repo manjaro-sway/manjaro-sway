@@ -8,6 +8,7 @@ status() {
 case $1'' in
 'toggle')
     status && systemctl --user stop wluma || systemctl --user --now enable wluma
+    waybar-signal adaptive-brightness
     ;;
 'check')
     [ -x "$(command -v wluma)" ] && [ $(ls -A /sys/class/backlight/ | wc -l) -gt 0 ]

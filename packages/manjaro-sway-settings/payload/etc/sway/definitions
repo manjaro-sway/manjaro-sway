@@ -62,7 +62,7 @@ set $clipboard cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to 
 set $clipboard-del cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to delete" -lines 10 | cliphist delete
 
 # zeit tracking
-set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 | /usr/share/sway/scripts/zeit.sh track && pkill -RTMIN+10 waybar
+set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 | /usr/share/sway/scripts/zeit.sh track && waybar-signal zeit
 
 # Your preferred application launcher
 set $menu rofi -show combi -combi-modi "drun,run" -terminal $term -ssh-command "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "$gui-font" -lines 10
@@ -131,6 +131,6 @@ set $screenshot_screen_upload $pipe_output | $swappy_pipe | $upload_pipe
 set $screenshot_selection $pipe_selection | $swappy && $notify_paste
 set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
 
-set $update-manager '/usr/share/sway/scripts/checkupdates.sh upgrade; pkill -RTMIN+14 waybar'
+set $update-manager '/usr/share/sway/scripts/checkupdates.sh upgrade; waybar-signal pacman'
 
 include /etc/sway/autostart

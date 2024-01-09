@@ -6,7 +6,7 @@ status() {
 
 inhibit() {
     systemd-inhibit --what=idle --who=swayidle-inhibit --why=commanded --mode=block sleep $1 &
-    pkill -RTMIN+15 waybar
+    waybar-signal idle
 }
 
 case $1'' in
@@ -16,7 +16,7 @@ case $1'' in
     ;;
 'off')
     pkill -f "systemd-inhibit --what=idle" || true
-    pkill -RTMIN+15 waybar
+    waybar-signal idle
     ;;
 esac
 
