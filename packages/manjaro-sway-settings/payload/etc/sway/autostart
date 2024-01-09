@@ -43,4 +43,4 @@ set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliph
 set $clip-persist '[ -x "$(command -v wl-clip-persist)" ] && pkill wl-clip-persist; wl-clip-persist --clipboard both'
 set $calendar_daemon 'calcurse --daemon'
 set $nm_applet '[ -x "$(command -v nm-applet)" ] && nm-applet'
-set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill playerctl; playerctl -a metadata --format \"{{status}} {{title}}\" --follow | while read line; do pkill -RTMIN+5 waybar; done'
+set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill playerctl; playerctl -a metadata --format \"{{status}} {{title}}\" --follow | while read line; do pkill -RTMIN+5 waybar; pkill -RTMIN+15 waybar; done'
