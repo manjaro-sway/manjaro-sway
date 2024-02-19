@@ -339,7 +339,7 @@ Finding tools that work great on sway/wayland is hard. This aims at helping peop
 
 | purpose | package | description |
 |---|---|---|
-| discord | `aur/vencord-desktop-bin` | only discord client that works well with wayland _and_ allows to configure screen-share quality |
+| discord | `aur/vesktop-bin` | only discord client that works well with wayland _and_ allows to configure screen-share quality |
 | code | `aur/visual-studio-code-insiders-bin` | only the "insiders" version currently plays well on wayland |
 | arcade | `aur/highscore` + `libretro-` | dubbed "gnome games", this just works |
 | vm | `gnome-boxes` | just another vm player, but works well with design and all. |
