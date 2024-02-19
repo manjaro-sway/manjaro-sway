@@ -40,7 +40,7 @@ set $mako '[ -x "$(command -v mako)" ] && pkill mako; /usr/share/sway/scripts/ma
 set $swappy_notify '[ -x "$(command -v swappy)" ] && /usr/share/sway/scripts/screenshot-notify.sh'
 set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch waybar-signal clipboard'
 set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'
-set $clip-persist '[ -x "$(command -v wl-clip-persist)" ] && pkill wl-clip-persist; wl-clip-persist --clipboard both'
+set $clip-persist '[ -x "$(command -v wl-clip-persist)" ] && pkill wl-clip-persist; wl-clip-persist --clipboard regular'
 set $calendar_daemon 'calcurse --daemon'
 set $nm_applet '[ -x "$(command -v nm-applet)" ] && nm-applet'
 set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill playerctl; playerctl -a metadata --format \"{{status}} {{title}}\" --follow | while read line; do waybar-signal playerctl; waybar-signal idle; done'
