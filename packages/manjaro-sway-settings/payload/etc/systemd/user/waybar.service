@@ -1,0 +1,14 @@
+[Unit]
+Description=Highly customizable Wayland bar for Sway and Wlroots based compositors.
+Documentation=https://github.com/Alexays/Waybar/wiki/
+PartOf=sway-session.target
+After=sway-session.target
+Requisite=sway-session.target
+
+[Service]
+ExecStart=/usr/share/sway/scripts/waybar.sh
+ExecReload=kill -SIGUSR2 $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target
