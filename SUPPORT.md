@@ -344,3 +344,4 @@ Finding tools that work great on sway/wayland is hard. This aims at helping peop
 | arcade | `aur/highscore` + `libretro-` | dubbed "gnome games", this just works |
 | vm | `gnome-boxes` | just another vm player, but works well with design and all. |
 | system upgrade | `topgrade` | just upgrades _everything_ |
+| display arrangement | `way-displays` | auto-arranges displays and allows for a vast amount of configurations |
