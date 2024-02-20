@@ -14,5 +14,5 @@ jobs:
     steps:
       - name: check if any github actions got disabled due to inactivity
         run: |
-          echo ${{ github.token }} | gh auth login --with-token
+          echo ${{ secrets.GH_PAT_WORKFLOWS }} | gh auth login --with-token
           for repo in $(gh repo list manjaro-sway --no-archived --visibility public --json name | jq --raw-output '.[] | .name'); do gh workflow list --repo manjaro-sway/$repo --all --json id,state --jq '.[] | select(.state == "disabled_inactivity")' | jq -c '.id' | xargs -I % gh workflow enable --repo manjaro-sway/$repo %; done
