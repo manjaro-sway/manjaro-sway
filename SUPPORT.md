@@ -330,7 +330,7 @@ input "1:1:AT_Translated_Set_2_keyboard" xkb_numlock enabled
 
    to a file in `$HOME/.config/profile.d`
 
-See [the Arch Wiki](https://wiki.archlinux.org/title/GNOME/Keyring#gcr-ssh-agent) for more information.
+See [the Arch Wiki](https://wiki.archlinux.org/title/GNOME/Keyring#SSH_keys) for more information.
 
 
 ## Recommended tools
