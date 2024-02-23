@@ -19,7 +19,7 @@ esac
 #Returns data for Waybar
 if status; then
     class="on"
-    text="adative brightness"
+    text="adaptive brightness"
 else
     class="off"
     text="static brightness"
