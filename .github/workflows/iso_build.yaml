@@ -15,9 +15,6 @@ jobs:
   prepare-release:
     runs-on: ubuntu-22.04
     steps:
-      - uses: styfle/cancel-workflow-action@85880fa0301c86cca9da44039ee3bb12d3bedbfa # 0.12.1
-        with:
-          access_token: ${{ github.token }}
       - id: time
         uses: boredland/get-time-action@dbc808befb89eb33fee64f5f4abce4d2a5fa7cfd # tag=2.0.0
         with:
@@ -73,7 +70,7 @@ jobs:
           event-type: new_release
   rollback:
     runs-on: ubuntu-22.04
-    needs: [build-release]
+    needs: [build-release, prepare-release]
     if: ${{ failure() || cancelled() }}
     steps:
       - name: rollback

@@ -1,0 +1,48 @@
+name: image build
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '30 2 * * 1'
+
+concurrency:
+  group: ${{ github.repository }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        device: [rpi5]
+        edition: [sway]
+        branch: [unstable]
+    permissions:
+      contents: write
+    steps:
+      - id: time
+        uses: boredland/get-time-action@2.0.0
+        with:
+          format: 'YYYYMMDD'
+      - id: image-build
+        uses: manjaro-arm/rootfs@master
+        with:
+          device: ${{ matrix.device }}
+          edition: ${{ matrix.edition }}
+          branch: ${{ matrix.branch }}
+          version: ${{ steps.time.outputs.time }}
+          arm-profiles-repo: https://github.com/manjaro-sway/arm-profiles.git
+          overlay-repo: https://packages.manjaro-sway.download/${{ matrix.branch }}/aarch64/manjaro-sway.db
+      - name: Release assets
+        uses: softprops/action-gh-release@v0.1.15
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.time.outputs.time }}
+          name: Dev ${{ steps.time.outputs.time }}
+          draft: false
+          prerelease: true
+          files: |
+            ${{ env.FILE_PATH }}
+            ${{ env.FILE_SHA256 }}
+            ${{ env.FILE_TORRENT }}
+            ${{ env.FILE_PKG }}
