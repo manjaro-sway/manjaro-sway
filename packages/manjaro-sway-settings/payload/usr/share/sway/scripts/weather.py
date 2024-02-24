@@ -3,6 +3,7 @@
 # credits: @bjesus https://gist.github.com/bjesus/f8db49e1434433f78e5200dc403d58a3
 
 import json
+import locale
 import os
 import requests
 import sys
@@ -83,13 +84,13 @@ WWO_CODE = {
     "395": "HeavySnowShowers",
 }
 
+# see https://docs.python.org/3/library/locale.html#background-details-hints-tips-and-caveats
+locale.setlocale(locale.LC_ALL, '')
+current_locale, _ = locale.getlocale(locale.LC_CTYPE)
 data = {}
 city = ""
 temperature = "C"
 distance = "km"
-
-if os.environ['LC_MEASUREMENT']:
-    current_locale = os.environ['LC_MEASUREMENT'].split('.')[0]
 
 if current_locale == "en_US":
     temperature = "F"
