@@ -1,4 +1,4 @@
-name: iso build
+name: build
 on:
   schedule:
     - cron:  '30 2 * * 0'
@@ -25,7 +25,29 @@ jobs:
       release_tag: ${{ steps.time.outputs.time }}
       longterm: ${{ steps.receive.outputs.longterm-pkg }}
       stable: ${{ steps.receive.outputs.stable-pkg }}
-  build-release:
+  build-image:
+    runs-on: ubuntu-22.04
+    needs: [prepare-release]
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      matrix:
+        edition: [sway]
+        branch: [stable, unstable]
+        device: [rpi4]
+        experimental: [true]
+    steps:
+      - name: import sway key
+        run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
+      - name: arm build
+        uses: manjaro-contrib/action-buildarmimg@main
+        with:
+          device: rpi4
+          edition: ${{ matrix.edition }}
+          branch: ${{ matrix.branch }}
+          release-tag: ${{ needs.prepare-release.outputs.release_tag }}
+          arm-profiles-repo: https://github.com/manjaro-sway/arm-profiles.git
+          overlay-repo: https://packages.manjaro-sway.download/${{ matrix.branch }}/aarch64/manjaro-sway.db
+  build-iso:
     runs-on: ubuntu-22.04
     needs: [prepare-release]
     continue-on-error: ${{ matrix.experimental }}
@@ -33,23 +55,20 @@ jobs:
       matrix:
         edition: [sway]
         branch: [stable]
-        scope: [full]
         experimental: [false]
+        scope: [full]
         kernel: 
           - ${{ needs.prepare-release.outputs.longterm }}
         include:
           - edition: sway
             branch: unstable
+            experimental: true
             scope: full
             kernel: ${{ needs.prepare-release.outputs.stable }}
-            experimental: true
     steps:
-      - uses: styfle/cancel-workflow-action@85880fa0301c86cca9da44039ee3bb12d3bedbfa # 0.12.1
-        with:
-          access_token: ${{ github.token }}
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
-      - name: image-build-upload
+      - name: x86_64 build
         uses: Manjaro/manjaro-iso-action@main
         with:
           iso-profiles-repo: https://github.com/Manjaro-Sway/iso-profiles
@@ -61,7 +80,7 @@ jobs:
           additional-trusted-gpg: ${{ vars.GPG_KEYID }}
   trigger-mirror:
     runs-on: ubuntu-22.04
-    needs: [build-release]
+    needs: [build-iso, build-image]
     steps:
       - uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3
         with:
@@ -70,7 +89,7 @@ jobs:
           event-type: new_release
   rollback:
     runs-on: ubuntu-22.04
-    needs: [build-release, prepare-release]
+    needs: [build-iso, build-image, prepare-release]
     if: ${{ failure() || cancelled() }}
     steps:
       - name: rollback

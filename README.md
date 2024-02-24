@@ -9,7 +9,7 @@
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
 [![repo build](https://github.com/manjaro-sway/packages/workflows/repo-add/badge.svg?event=repository_dispatch)](https://github.com/manjaro-sway/packages/actions)
-[![iso build](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/iso_build.yaml)
+[![build](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/build.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/build.yaml)
 
 [![All Contributors](https://img.shields.io/badge/dynamic/json?color=important&label=contributors&query=%24.contributors.length&url=https%3A%2F%2Fraw.githubusercontent.com%2FManjaro-Sway%2Fmanjaro-sway%2Fmain%2F.all-contributorsrc)](#contributors-)
 [![Matrix](https://img.shields.io/matrix/manjaro-sway:matrix.org)](https://matrix.to/#/#manjaro-sway:matrix.org)

@@ -21,15 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-    - name: install
-      run: |
-        sudo apt-get update
-        sudo apt-get install mktorrent
-    - name: download release
+    - name: download release assets
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        LATEST_RELEASE=$(gh release list --limit 1 --exclude-drafts | sed -e 's/\s.*$//')
+        LATEST_RELEASE=$(gh release list --limit 2 --exclude-drafts | grep -v 'arm-' | sed -e 's/\s.*$//')
         gh release view ${LATEST_RELEASE} --json assets --jq '[.assets[]]' >docs/assets.json
         
         mkdir -p $download_dir
