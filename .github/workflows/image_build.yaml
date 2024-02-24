@@ -20,7 +20,7 @@ jobs:
       contents: write
     steps:
       - id: time
-        uses: boredland/get-time-action@2.0.0
+        uses: boredland/get-time-action@dbc808befb89eb33fee64f5f4abce4d2a5fa7cfd # 2.0.0
         with:
           format: 'YYYYMMDD'
       - id: image-build
@@ -33,7 +33,7 @@ jobs:
           arm-profiles-repo: https://github.com/manjaro-sway/arm-profiles.git
           overlay-repo: https://packages.manjaro-sway.download/${{ matrix.branch }}/aarch64/manjaro-sway.db
       - name: Release assets
-        uses: softprops/action-gh-release@v0.1.15
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v0.1.15
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
