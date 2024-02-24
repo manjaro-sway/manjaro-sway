@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        device: [rpi5]
+        device: [rpi4]
         edition: [sway]
         branch: [unstable]
     permissions:
@@ -42,7 +42,6 @@ jobs:
           draft: false
           prerelease: true
           files: |
-            ${{ env.FILE_PATH }}
-            ${{ env.FILE_SHA256 }}
-            ${{ env.FILE_TORRENT }}
-            ${{ env.FILE_PKG }}
+            ${{ steps.image-build.outputs.file-path }}
+            ${{ steps.image-build.outputs.file-sha256 }}
+            ${{ steps.image-build.outputs.file-pkg }}
