@@ -19,7 +19,7 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
-    "@octokit/auth-token": "^4.0.0",
+    "@octokit/auth-token": "^5.0.0",
     "@octokit/rest": "^20.0.0"
   }
 }
