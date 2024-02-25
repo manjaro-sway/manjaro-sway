@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix:
         edition: [sway]
-        branch: [stable, unstable]
+        branch: [unstable]
         device: [rpi4]
         experimental: [true]
     steps:
