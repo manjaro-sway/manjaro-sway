@@ -6,6 +6,7 @@ on:
   repository_dispatch:
     types:
     - iso_profile_update
+    - image_profile_update
 
 concurrency: 
   group: ${{ github.workflow }}
