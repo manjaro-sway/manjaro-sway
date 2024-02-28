@@ -7,7 +7,8 @@ custom_conf_exists() {
     [ -f $custom_conf ]
 }
 custom_conf_on_branch() {
-    grep -q "/$(pacman-mirrors -G)" $custom_conf >/dev/null 2>&1
+    branch=$(pacman-mirrors -G | sed -e "s/^arm-//")
+    grep -q "/${branch}" $custom_conf >/dev/null 2>&1
 }
 custom_conf_referenced() {
     grep -q "Include[ ]*=[ ]*$custom_conf" $pacman_conf
@@ -32,7 +33,7 @@ if ! custom_conf_exists || ! custom_conf_on_branch; then
     cat >$custom_conf <<EOL
 [manjaro-sway] 
 SigLevel = PackageRequired
-Server = https://packages.manjaro-sway.download/$(pacman-mirrors -G)/\$arch 
+Server = https://packages.manjaro-sway.download/$(pacman-mirrors -G | sed -e "s/^arm-//")/\$arch 
 EOL
     echo "## updated $custom_conf"
 fi
