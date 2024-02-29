@@ -198,14 +198,14 @@
   integrity sha512-tY/msAuJo6ARbK6SPIxZrPBms3xPbfwBrulZe0Wtr/DIY9lje2HeV1uoebShn6mx7SjCHif6EjMvoREj+gZ+SA==
 
 "@octokit/auth-token@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@octokit/auth-token/-/auth-token-5.0.0.tgz#16dfaf98154a28d44aa7f83229a08a0e01cc1aa3"
-  integrity sha512-JpQdKWTuu79A6YDaOfl9/HFvdhEwlRSTE/MFLGl8eU+XK6jIuqhxEftJNDpQjem1J7GLcs+4sapP1JXNPTDP/A==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@octokit/auth-token/-/auth-token-5.0.1.tgz#1b882a54587d9e58b7aebb5ae5b9a08522c822f0"
+  integrity sha512-RTmWsLfig8SBoiSdgvCht4BXl1CHU89Co5xiQ5JF19my/sIRDFCQ1RPrmK0exgqUZuNm39C/bV8+/83+MJEjGg==
 
 "@octokit/core@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-5.0.1.tgz#865da2b30d54354cccb6e30861ddfa0e24494780"
-  integrity sha512-lyeeeZyESFo+ffI801SaBKmCfsvarO+dgV8/0gD8u1d87clbEdWsP5yC+dSj3zLhb2eIf5SJrn6vDz9AheETHw==
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@octokit/core/-/core-5.1.0.tgz#81dacf0197ed7855e6413f128bd6dd9e121e7d2f"
+  integrity sha512-BDa2VAMLSh3otEiaMJ/3Y36GU4qf6GI+VivQ/P41NC6GHcdxpKlqV0ikSZ5gdQsmS3ojXeRx5vasgNTinF0Q4g==
   dependencies:
     "@octokit/auth-token" "^4.0.0"
     "@octokit/graphql" "^7.0.0"
