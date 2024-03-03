@@ -2,7 +2,7 @@
 vt = "next"
 
 [default_session]
-command = "tuigreet --user-menu --user-menu-min-uid 1000 --remember --remember-user-session --time --issue --asterisks"
+command = "tuigreet --user-menu --user-menu-min-uid 1000 --remember --cmd sway-user-service --time --issue --asterisks"
 user = "greeter"
  
 [initial_session]
