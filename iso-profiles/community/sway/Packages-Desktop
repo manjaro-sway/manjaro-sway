@@ -18,7 +18,7 @@ swaylock-effects # swaylock with nicer effects
 ## Wayland support
 
 xorg-xwayland # xorg-wayland bridge
->extra wlay # graphical display management like arandr
+>extra wdisplays # graphical display management like arandr
 qt5-wayland
 qt6-wayland
 gnome-keyring # unlock keyring on login
