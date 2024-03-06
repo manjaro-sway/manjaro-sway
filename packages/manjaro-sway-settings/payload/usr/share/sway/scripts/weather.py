@@ -86,7 +86,7 @@ WWO_CODE = {
 
 # see https://docs.python.org/3/library/locale.html#background-details-hints-tips-and-caveats
 locale.setlocale(locale.LC_ALL, '')
-current_locale, _ = locale.getlocale(locale.LC_CTYPE)
+current_locale, _ = locale.getlocale(locale.LC_NUMERIC)
 data = {}
 city = ""
 temperature = "C"
