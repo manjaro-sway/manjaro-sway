@@ -1,0 +1,15 @@
+[Service]
+ExecStart=/usr/share/sway/scripts/foot.sh --server=3
+UnsetEnvironment=LISTEN_PID LISTEN_FDS LISTEN_FDNAMES
+NonBlocking=true
+
+[Unit]
+Requires=%N.socket
+Description=Foot terminal server mode
+Documentation=man:foot(1)
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Install]
+WantedBy=graphical-session.target
