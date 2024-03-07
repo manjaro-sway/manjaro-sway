@@ -91,10 +91,6 @@ include /etc/sway/autostart
 # hide cursor after 5 seconds of inactivty
 seat seat0 hide_cursor 5000
 
-# statusbar command
-set $statusbar /usr/share/sway/scripts/waybar.sh
-set $waybar_position top
-
 # pulseaudio command
 set $pulseaudio $once $term_float pulsemixer
 
