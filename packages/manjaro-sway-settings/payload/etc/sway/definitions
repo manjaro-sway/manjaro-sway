@@ -127,6 +127,6 @@ set $screenshot_screen_upload $pipe_output | $swappy_pipe | $upload_pipe
 set $screenshot_selection $pipe_selection | $swappy && $notify_paste
 set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
 
-set $update-manager '/usr/share/sway/scripts/checkupdates.sh upgrade; waybar-signal pacman'
+set $update-manager '/usr/share/sway/scripts/checkupdates.sh upgrade'
 
 include /etc/sway/autostart

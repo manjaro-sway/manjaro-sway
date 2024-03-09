@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description =
+When = PostTransaction
+Exec = /usr/bin/sh -c 'waybar-signal pacman'
