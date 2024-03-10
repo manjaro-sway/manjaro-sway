@@ -73,7 +73,7 @@ dhclient
 
 ## Multimedia
 
->extra mplayer # multimedia player
+>extra celluloid # multimedia player
 >extra ffmpeg
 >extra ffmpegthumbnailer
 >extra zathura
