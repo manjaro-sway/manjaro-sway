@@ -6,7 +6,7 @@ set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset
 set $autotiling '[ -x "$(command -v autotiling)" ] && autotiling || [ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
 set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info &> /tmp/sworkstyle.log'
-set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && pcmanfm -d'
+set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && systemctl --now --user enable pcmanfm'
 set $kanshi '[ -x "$(command -v kanshi)" ] && pkill -x kanshi; exec kanshi'
 set $way_displays '[ -x "$(command -v way-displays)" ] && systemctl --now --user enable way-displays'
 set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
