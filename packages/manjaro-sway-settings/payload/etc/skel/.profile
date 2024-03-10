@@ -2,7 +2,7 @@
 export XDG_CONFIG_HOME=$HOME/.config
 
 # make default editor Neovim
-export EDITOR=nvim
+export EDITOR=helix
 
 # Most pure GTK3 apps use wayland by default, but some,
 # like Firefox, need the backend to be explicitely selected.
