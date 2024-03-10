@@ -7,7 +7,7 @@ set $autotiling '[ -x "$(command -v autotiling)" ] && autotiling || [ -x "$(comm
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
 set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info &> /tmp/sworkstyle.log'
 set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && pcmanfm -d'
-set $kanshi '[ -x "$(command -v kanshi)" ] && pkill kanshi; exec kanshi'
+set $kanshi '[ -x "$(command -v kanshi)" ] && pkill -x kanshi; exec kanshi'
 set $way_displays '[ -x "$(command -v way-displays)" ] && way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1'
 set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
 
@@ -38,7 +38,7 @@ set $disable_nm_applet_autostart '[ -x "$(command -v nm-applet)" ] && [ ! -f $HO
 
 ## daemons
 
-set $mako '[ -x "$(command -v mako)" ] && pkill mako; /usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
+set $mako '[ -x "$(command -v mako)" ] && pkill -x mako; /usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
 set $swappy_notify '[ -x "$(command -v swappy)" ] && /usr/share/sway/scripts/screenshot-notify.sh'
 set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch waybar-signal clipboard'
 set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'

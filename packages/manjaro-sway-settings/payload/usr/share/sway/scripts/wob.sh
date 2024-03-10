@@ -3,7 +3,7 @@
 #$1 - accent color. $2 - background color. $3 - new value
 # returns 0 (success) if $1 is running and is attached to this sway session; else 1
 is_running_on_this_screen() {
-    pkill -0 "wob" || return 1
+    pkill -x -0 "wob" || return 1
     for pid in $(pgrep "wob"); do
         WOB_SWAYSOCK="$(tr '\0' '\n' </proc/"$pid"/environ | awk -F'=' '/^SWAYSOCK/ {print $2}')"
         if [ "$WOB_SWAYSOCK" = "$SWAYSOCK" ]; then
@@ -20,7 +20,7 @@ wob_pipe=~/.cache/$(basename "$SWAYSOCK").wob
 ini=~/.config/wob.ini
 
 refresh() {
-    pkill wob
+    pkill -x wob
     rm $ini
     {
         echo "anchor = top center"
