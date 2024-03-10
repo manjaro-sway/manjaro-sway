@@ -8,7 +8,7 @@ set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wra
 set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && sworkstyle -d -l info &> /tmp/sworkstyle.log'
 set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && pcmanfm -d'
 set $kanshi '[ -x "$(command -v kanshi)" ] && pkill -x kanshi; exec kanshi'
-set $way_displays '[ -x "$(command -v way-displays)" ] && way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1'
+set $way_displays '[ -x "$(command -v way-displays)" ] && systemctl --now --user enable way-displays'
 set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
 
 ## apply the keyboard layout from localectl if no keyboard layout has been set via config.d

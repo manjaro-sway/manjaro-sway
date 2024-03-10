@@ -1,0 +1,14 @@
+[Unit]
+Description=Auto Manages Your Wayland Displays
+Documentation=https://github.com/alex-courtis/way-displays
+PartOf=sway-session.target
+After=sway-session.target
+Requisite=sway-session.target
+
+[Service]
+ExecStart=way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1
+ExecReload=kill -SIGUSR2 $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target
