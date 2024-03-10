@@ -30,7 +30,7 @@ set $unbindsym unbindsym --to-code
 set $once /usr/share/sway/scripts/once.sh
 
 # Your preferred terminal emulator
-set $term footclient -H -L
+set $term footclient -H
 set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
 set $term_float footclient --app-id floating_shell --window-size-chars 82x25
 
