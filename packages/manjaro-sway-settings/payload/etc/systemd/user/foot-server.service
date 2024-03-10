@@ -2,14 +2,17 @@
 ExecStart=/usr/share/sway/scripts/foot.sh --server=3
 UnsetEnvironment=LISTEN_PID LISTEN_FDS LISTEN_FDNAMES
 NonBlocking=true
+ExecReload=kill -SIGUSR2 $MAINPID
+Restart=on-failure
 
 [Unit]
 Requires=%N.socket
 Description=Foot terminal server mode
 Documentation=man:foot(1)
-PartOf=graphical-session.target
-After=graphical-session.target
+PartOf=sway-session.target
+After=sway-session.target
+Requisite=sway-session.target
 ConditionEnvironment=WAYLAND_DISPLAY
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=sway-session.target
