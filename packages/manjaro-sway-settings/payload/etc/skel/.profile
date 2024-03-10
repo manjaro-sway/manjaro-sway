@@ -20,7 +20,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # set default shell and terminal
 export SHELL=/usr/bin/zsh
-export TERMINAL_COMMAND=/usr/share/sway/scripts/foot.sh
+export TERMINAL_COMMAND=xdg-terminal-exec
 
 # add default location for zeit.db
 export ZEIT_DB="$HOME/.config/zeit.db"
