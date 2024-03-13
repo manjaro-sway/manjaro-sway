@@ -16,11 +16,11 @@ THEME_DIR="${THEME_DIR}/${THEME}"
 # shellcheck disable=SC2046
 if ! pacman -Qi $(cat "$THEME_DIR/packages") >/dev/null; then
     # shellcheck disable=SC2046
-    [ -f  "$THEME_DIR/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -Syy --needed $(cat "$THEME_DIR/packages")
+    [ -f "$THEME_DIR/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -Syy --needed $(cat "$THEME_DIR/packages")
 fi
 
 # copy the sway theme
-[ -f  "$THEME_DIR/theme.conf" ] && echo "> Copying the sway theme" && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/" && swaymsg reload
+[ -f "$THEME_DIR/theme.conf" ] && echo "> Copying the sway theme" && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/" && swaymsg reload
 
 # copy the foot theme
-[ -f  "$THEME_DIR/foot.ini" ] && echo "> Copying the foot theme" && echo && /usr/bin/cp -v --backup "$THEME_DIR/foot.ini" "$HOME/.config/foot/" 
+[ -f "$THEME_DIR/foot-theme.ini" ] && echo "> Copying the foot theme" && echo && /usr/bin/cp -v --backup "$THEME_DIR/foot-theme.ini" "$HOME/.config/foot/"
