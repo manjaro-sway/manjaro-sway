@@ -302,9 +302,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "20.11.26"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.26.tgz#3fbda536e51d5c79281e1d9657dcb0131baabd2d"
-  integrity sha512-YwOMmyhNnAWijOBQweOJnQPl068Oqd4K3OFbTc6AHJwzweUwwWG3GIFY74OKks2PJUDkQPeddOQES9mLn1CTEQ==
+  version "20.11.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.27.tgz#debe5cfc8a507dd60fe2a3b4875b1604f215c2ac"
+  integrity sha512-qyUZfMnCg1KEz57r7pzFtSGt49f6RPkPBis3Vo4PbS7roQEDn22hiHzl/Lo1q4i4hDEgBJmBF/NTNg2XR0HbFg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -535,10 +535,10 @@ mime@^3.0.0:
   resolved "https://registry.yarnpkg.com/mime/-/mime-3.0.0.tgz#b374550dca3a0c18443b0c950a6a58f1931cf7a7"
   integrity sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==
 
-miniflare@3.20240304.1:
-  version "3.20240304.1"
-  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-3.20240304.1.tgz#6532c93c9d078895ce29b9cfc80ba9ad15f2b3f2"
-  integrity sha512-U9Br62mV//dI5IiNxGX3qOf6/3tVGsWe94TF+Hy23F5w41AwF+cIgbGW4/JAQQI1rY5uNNmMoS9jqIyoSdw06Q==
+miniflare@3.20240304.2:
+  version "3.20240304.2"
+  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-3.20240304.2.tgz#74bc71935e0ad39a73d12f1ee0d010f7acac8380"
+  integrity sha512-yQ5TBKv7TlvF8khFvvH+1WWk8cBnaLgNzcbJ5DLQOdecxdDxUCVlN38HThd6Nhcz6EY+ckDkww8FkugUbSSpIQ==
   dependencies:
     "@cspotcode/source-map-support" "0.8.1"
     acorn "^8.8.0"
@@ -731,9 +731,9 @@ workerd@1.20240304.0:
     "@cloudflare/workerd-windows-64" "1.20240304.0"
 
 wrangler@^3.0.0:
-  version "3.33.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.33.0.tgz#b59f9a889aeec939d82f7810dda3d1803bdbee73"
-  integrity sha512-1A8frPJSUQjkWAN4XhbykpEtqmfDYdTWPKlc4rTchNrERLwqHF87aCYblP4m5Wm43w4eVL+H4hGUgE2TySk9MA==
+  version "3.34.1"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.34.1.tgz#da0deeec1d17f0292189efc89084b8affc63aae9"
+  integrity sha512-/h/tPXmIv2m8HcWpTHVpPtrXrRMkzEHGvMbdYL2g5VYzyzmT6ouXTKYUUTG26D+FryhzpszUBYJvd2BTAi3ObA==
   dependencies:
     "@cloudflare/kv-asset-handler" "0.3.1"
     "@esbuild-plugins/node-globals-polyfill" "^0.2.3"
@@ -741,7 +741,7 @@ wrangler@^3.0.0:
     blake3-wasm "^2.1.5"
     chokidar "^3.5.3"
     esbuild "0.17.19"
-    miniflare "3.20240304.1"
+    miniflare "3.20240304.2"
     nanoid "^3.3.3"
     path-to-regexp "^6.2.0"
     resolve "^1.22.8"
