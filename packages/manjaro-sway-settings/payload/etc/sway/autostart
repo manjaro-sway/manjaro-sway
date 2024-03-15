@@ -36,6 +36,7 @@ set $swayidle swayidle -w \
     before-sleep 'exec $locking & sleep $sleep_delay' \
     after-resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on" && brightnessctl -r'
 set $disable_nm_applet_autostart '[ -x "$(command -v nm-applet)" ] && [ ! -f $HOME/.config/autostart/nm-applet.desktop ] && cp /etc/xdg/autostart/nm-applet.desktop $HOME/.config/autostart/nm-applet.desktop && echo "Hidden=true" >> $HOME/.config/autostart/nm-applet.desktop'
+set $apply_background swaymsg 'output * bg $background fill'
 
 ## daemons
 
