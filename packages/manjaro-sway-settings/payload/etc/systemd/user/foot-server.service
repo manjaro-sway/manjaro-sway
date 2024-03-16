@@ -9,10 +9,9 @@ Restart=on-failure
 Requires=%N.socket
 Description=Foot terminal server mode
 Documentation=man:foot(1)
-PartOf=sway-session.target
-After=sway-session.target
-Requisite=sway-session.target
+PartOf=graphical-session.target
+After=graphical-session.target
 ConditionEnvironment=WAYLAND_DISPLAY
 
 [Install]
-WantedBy=sway-session.target
+WantedBy=graphical-session.target
