@@ -1,14 +1,14 @@
 [Unit]
 Description=Automatically mounts removable media
 Documentation=https://wiki.archlinux.org/title/PCManFM#Daemon_mode
-PartOf=sway-session.target
-After=sway-session.target
-Requisite=sway-session.target
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 ExecStart=pcmanfm -d
+NonBlocking=true
 ExecReload=kill -SIGUSR2 $MAINPID
 Restart=on-failure
 
 [Install]
-WantedBy=sway-session.target
+WantedBy=graphical-session.target
