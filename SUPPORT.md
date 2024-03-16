@@ -290,6 +290,7 @@ Add a config file to definitions e.g. `.config/sway/definitions.d/01-background.
 
 ```
 set $background /usr/share/backgrounds/whatever/file/you/like.png
+set $apply_background swaymsg 'output * bg $background fill'
 ```
 
 ### How can I take a Screenshot?
