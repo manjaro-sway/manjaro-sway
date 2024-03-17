@@ -1,3 +1,14 @@
+# units
+
+set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --user enable foot-server.socket && systemctl --now --user enable foot-server'
+set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now --user enable swayrd'
+set $initialize_waybar '[ -x "$(command -v waybar)" ] && systemctl --user enable waybar && (systemctl --user start waybar || /usr/share/sway/scripts/waybar.sh)'
+set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --now --user enable sworkstyle'
+set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
+set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
+set $initialize_mounting_daemon '[ -x "$(command -v pcmanfm)" ] && systemctl --now --user enable pcmanfm'
+set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --now --user enable way-displays'
+
 # autostarts
 
 set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex -a -e SWAY'
@@ -5,24 +16,14 @@ set $flashfocus '[ -x "$(command -v flashfocus)" ] && flashfocus'
 set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
 set $autotiling '[ -x "$(command -v autotiling)" ] && autotiling || [ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
-set $workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --now --user enable sworkstyle'
-set $mounting_daemon '[ -x "$(command -v pcmanfm)" ] && systemctl --now --user enable pcmanfm'
 set $kanshi '[ -x "$(command -v kanshi)" ] && pkill -x kanshi; exec kanshi'
-set $way_displays '[ -x "$(command -v way-displays)" ] && systemctl --now --user enable way-displays'
 set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
 
 ## apply the keyboard layout from localectl if no keyboard layout has been set via config.d
-
 set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /usr/share/sway/scripts/keyboard.sh'
 set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
 set $create_rofi_config 'mkdir -p $HOME/.config/rofi/ && cp -n /usr/share/sway/templates/rofi/config.rasi $HOME/.config/rofi/config.rasi'
 set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && noisetorch -i'
-set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --user enable foot-server.socket && systemctl --now --user enable foot-server'
-set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now --user enable swayrd'
-set $initialize_waybar '[ -x "$(command -v waybar)" ] && systemctl --user enable waybar && (systemctl --user start waybar || /usr/share/sway/scripts/waybar.sh)'
-set $reload_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --now --user enable sworkstyle'
-set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
-set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
 set $swayidle swayidle -w \
     timeout $idle_timeout 'brightnessctl -s && brightnessctl set 10' \
     resume 'brightnessctl -r' \

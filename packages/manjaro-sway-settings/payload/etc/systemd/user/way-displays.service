@@ -1,9 +1,8 @@
 [Unit]
 Description=Auto Manages Your Wayland Displays
 Documentation=https://github.com/alex-courtis/way-displays
-PartOf=graphical-session.target
-After=graphical-session.target
-ConditionEnvironment=WAYLAND_DISPLAY
+PartOf=wayland-session.target
+After=wayland-session.target
 
 [Service]
 NonBlocking=true
@@ -12,4 +11,4 @@ ExecReload=kill -SIGUSR2 $MAINPID
 Restart=on-failure
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=wayland-session.target
