@@ -731,9 +731,9 @@ workerd@1.20240314.0:
     "@cloudflare/workerd-windows-64" "1.20240314.0"
 
 wrangler@^3.0.0:
-  version "3.35.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.35.0.tgz#64c816d1085b8b3a28d8966ffb086ad3fcc937ec"
-  integrity sha512-8k0BZQTq5wkLvkvrwMMiilAqemllDN9ro/Vstz83S5kVPeIRqjlvCpoEypGDjH9BGZEeRcDyqZKM3mgI/x6/gw==
+  version "3.36.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.36.0.tgz#e4dea8adfb39a68cbda6b167f9e592c3579a0af5"
+  integrity sha512-Fywf9RGAePIuIDcsSg4BW+lDUZX1jh2jN+TtmZOwG5Ewdr9dJGP3dxoFa85eQQZP1VLvY4lsqrKy67JqOuP9Gw==
   dependencies:
     "@cloudflare/kv-asset-handler" "0.3.1"
     "@esbuild-plugins/node-globals-polyfill" "^0.2.3"
