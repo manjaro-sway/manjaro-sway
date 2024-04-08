@@ -1,4 +1,4 @@
-#!/usr/bin/env -S ${SHELL} -l
+#!/usr/bin/env -S zsh -l
 
 if lsmod | grep nvidia; then
     /usr/bin/sway --unsupported-gpu
