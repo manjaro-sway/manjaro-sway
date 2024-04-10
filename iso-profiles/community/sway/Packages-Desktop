@@ -84,6 +84,7 @@ dhclient
 ## Package Management
 
 >extra yay
+>extra base-devel
 >extra manjaro-aur-support
 pamac-gtk
 >extra appimagelauncher
