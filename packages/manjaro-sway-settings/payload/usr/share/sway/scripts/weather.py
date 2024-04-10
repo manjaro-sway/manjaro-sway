@@ -115,11 +115,15 @@ try:
                 raise Exception("distance unit is neither km, nor miles", distance)
 
         else:
-            city = urllib.parse.quote(currentValue)            
+            city = urllib.parse.quote(currentValue)
   
 except getopt.error as err:
     print (str(err))
     exit(1)
+
+if city == "":
+    city_info = requests.get("https://ipinfo.io").json()
+    city = city_info['city']
 
 feelsLike = f"FeelsLike{temperature}"
 temp = f"temp_{temperature}"
