@@ -1,4 +1,4 @@
-import { Env } from "../utils";
+import { type Env } from "../utils";
 
 export const onRequest: PagesFunction<Env> = async (context) => {
     const {

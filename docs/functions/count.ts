@@ -1,4 +1,4 @@
-import { Env, getCount } from "../utils";
+import { type Env, getCount } from "../utils";
 
 const numberFormat = new Intl.NumberFormat("en-US");
 
