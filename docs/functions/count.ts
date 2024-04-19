@@ -14,13 +14,13 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	const total = await context.env.VISITOR_COUNT_STORE.prepare(
 		"SELECT SUM(count) as sum FROM downloads;"
 	).first<number>('sum');
-	const currentDay = await context.env.VISITOR_COUNT_STORE.prepare(
+	const today = await context.env.VISITOR_COUNT_STORE.prepare(
 		"SELECT count FROM downloads WHERE timestamp = CURRENT_DATE;"
 	).first<number>('count');
 
 	const response = new Response(JSON.stringify({
 		total: numberFormat.format(total),
-		currentDay: numberFormat.format(currentDay)
+		today: numberFormat.format(today)
 	}), {
 		headers: {
 			"content-type": "application/json",
