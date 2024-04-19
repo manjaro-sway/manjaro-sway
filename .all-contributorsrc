@@ -376,6 +376,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "trinitronx",
+      "name": "James Cuzella",
+      "avatar_url": "https://avatars.githubusercontent.com/u/122524?v=4",
+      "profile": "https://liberapay.com/trinitronx/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
