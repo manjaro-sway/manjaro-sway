@@ -3,6 +3,14 @@ import { Env, getCount } from "../utils";
 const numberFormat = new Intl.NumberFormat("en-US");
 
 export const onRequest: PagesFunction<Env> = async (context) => {
+	let cache = caches.default;
+	const cachedResponse = await cache.match(context.request);
+  
+	if (cachedResponse) {
+	  console.log("Cache hit");
+	  return cachedResponse;
+	}
+
 	const value = await getCount(context);
 
 	const dayBeforeCount = await context.env.VISITOR_COUNT_STORE.prepare(
@@ -27,13 +35,14 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		currentDay: numberFormat.format(gain),
 		weeklyAverage: numberFormat.format(Math.round(weeklyAverage)),
 		sevenDays: numberFormat.format(sevenDays)
-	}));
+	}), {
+		headers: {
+			"content-type": "application/json",
+			expires: new Date(Date.now() + 1000 * 60 * 60).toUTCString(),
+		}
+	});
 
-	response.headers.set(
-		'Cache-Control',
-		's-maxage=86400, stale-while-revalidate',
-	);
-	response.headers.set('Content-Type', 'application/json');
+	cache.put(context.request, response.clone());
 
 	return response;
 }
