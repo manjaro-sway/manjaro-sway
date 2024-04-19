@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "NodeNext",
     "lib": ["esnext"],
-    "types": ["@cloudflare/workers-types", "@octokit/rest", "@types/node"],
+    "types": ["@cloudflare/workers-types"],
     "moduleResolution": "NodeNext"
   }
 }

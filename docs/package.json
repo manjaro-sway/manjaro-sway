@@ -14,9 +14,5 @@
     "@cloudflare/workers-types": "^4.20221111.1",
     "typescript": "^5.0.0",
     "wrangler": "^3.0.0"
-  },
-  "dependencies": {
-    "@octokit/auth-token": "^5.0.0",
-    "@octokit/rest": "^20.0.0"
   }
 }
