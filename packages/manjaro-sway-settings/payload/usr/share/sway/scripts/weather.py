@@ -129,7 +129,7 @@ except getopt.error as err:
 
 if city == "":
     try:
-        city_info = requests.get("https://ipinfo.io", timeout=10).json()
+        city_info = requests.get("http://ip-api.com/json/", timeout=10).json()
         city = city_info["city"]
     except (
         requests.exceptions.HTTPError,
