@@ -1,34 +1,35 @@
 #!/usr/bin/env python
+"""Script for the Waybar weather module."""
 
 # credits: @bjesus https://gist.github.com/bjesus/f8db49e1434433f78e5200dc403d58a3
 
+import getopt
 import json
 import locale
-import os
-import requests
 import sys
 import urllib.parse
 from datetime import datetime
-import getopt, sys
+
+import requests
 
 WEATHER_SYMBOL = {
-    "Unknown":             "✨",
-    "Cloudy":              "☁️",
-    "Fog":                 "🌫",
-    "HeavyRain":           "🌧",
-    "HeavyShowers":        "🌧",
-    "HeavySnow":           "❄️",
-    "HeavySnowShowers":    "❄️",
-    "LightRain":           "🌦",
-    "LightShowers":        "🌦",
-    "LightSleet":          "🌧",
-    "LightSleetShowers":   "🌧",
-    "LightSnow":           "🌨",
-    "LightSnowShowers":    "🌨",
-    "PartlyCloudy":        "⛅️",
-    "Sunny":               "☀️",
-    "ThunderyHeavyRain":   "🌩",
-    "ThunderyShowers":     "⛈",
+    "Unknown": "✨",
+    "Cloudy": "☁️",
+    "Fog": "🌫",
+    "HeavyRain": "🌧",
+    "HeavyShowers": "🌧",
+    "HeavySnow": "❄️",
+    "HeavySnowShowers": "❄️",
+    "LightRain": "🌦",
+    "LightShowers": "🌦",
+    "LightSleet": "🌧",
+    "LightSleetShowers": "🌧",
+    "LightSnow": "🌨",
+    "LightSnowShowers": "🌨",
+    "PartlyCloudy": "⛅️",
+    "Sunny": "☀️",
+    "ThunderyHeavyRain": "🌩",
+    "ThunderyShowers": "⛈",
     "ThunderySnowShowers": "⛈",
     "VeryCloudy": "☁️",
 }
@@ -85,7 +86,7 @@ WWO_CODE = {
 }
 
 # see https://docs.python.org/3/library/locale.html#background-details-hints-tips-and-caveats
-locale.setlocale(locale.LC_ALL, '')
+locale.setlocale(locale.LC_ALL, "")
 current_locale, _ = locale.getlocale(locale.LC_NUMERIC)
 data = {}
 city = ""
@@ -96,54 +97,80 @@ if current_locale == "en_US":
     temperature = "F"
     distance = "miles"
 
-argumentList = sys.argv[1:]
+argument_list = sys.argv[1:]
 options = "t:c:d:"
 long_options = ["temperature=", "city=", "distance="]
 
 try:
-    args, values = getopt.getopt(argumentList, options, long_options)
-     
-    for currentArgument, currentValue in args:
-        if currentArgument in ("-t", "--temperature"):
-            temperature = currentValue[0].upper()
-            if temperature != "C" and temperature != "F":
-                raise Exception("temperature unit is neither (C)elsius, nor (F)ahrenheit", temperature)
+    args, values = getopt.getopt(argument_list, options, long_options)
 
-        elif currentArgument in ("-d", "--distance"):
-            distance = currentValue.lower()
-            if distance != "km" and distance != "miles":
-                raise Exception("distance unit is neither km, nor miles", distance)
+    for current_argument, current_value in args:
+        if current_argument in ("-t", "--temperature"):
+            temperature = current_value[0].upper()
+            if temperature not in ("C", "F"):
+                msg = "temperature unit is neither (C)elsius, nor (F)ahrenheit"
+                raise RuntimeError(
+                    msg,
+                    temperature,
+                )
+
+        elif current_argument in ("-d", "--distance"):
+            distance = current_value.lower()
+            if distance not in ("km", "miles"):
+                msg = "distance unit is neither km, nor miles", distance
+                raise RuntimeError(msg)
 
         else:
-            city = urllib.parse.quote(currentValue)
-  
+            city = urllib.parse.quote(current_value)
+
 except getopt.error as err:
-    print (str(err))
-    exit(1)
+    print(str(err))
+    sys.exit(1)
 
 if city == "":
-    city_info = requests.get("https://ipinfo.io").json()
-    city = city_info['city']
+    try:
+        city_info = requests.get("https://ipinfo.io", timeout=10).json()
+        city = city_info["city"]
+    except (
+        requests.exceptions.HTTPError,
+        requests.exceptions.ConnectionError,
+        requests.exceptions.Timeout,
+    ) as err:
+        print(str(err))
+        sys.exit(1)
 
-feelsLike = f"FeelsLike{temperature}"
+feels_like = f"FeelsLike{temperature}"
 temp = f"temp_{temperature}"
-minTemp = f"mintemp{temperature}"
-maxTemp = f"maxtemp{temperature}"
+min_temp = f"mintemp{temperature}"
+max_temp = f"maxtemp{temperature}"
 
-windspeed = f"windspeedKmph"
+windspeed = "windspeedKmph"
 if distance == "miles":
-    windspeed = f"windspeedMiles"
+    windspeed = "windspeedMiles"
 
-weather = requests.get("https://wttr.in/" + city + "?format=j1").json()
+try:
+    weather = requests.get("https://wttr.in/" + city + "?format=j1", timeout=10).json()
+except (
+    requests.exceptions.HTTPError,
+    requests.exceptions.ConnectionError,
+    requests.exceptions.Timeout,
+) as err:
+    print(str(err))
+    sys.exit(1)
 
 
-def format_time(time):
+def format_time(time: str) -> str:
+    """Format time."""
     return time.replace("00", "").zfill(2)
 
-def format_temp(temp):
-    return (f"{hour[feelsLike]}°{temperature}").ljust(3)
 
-def format_chances(hour):
+def format_temp(temp: str) -> str:
+    """Format temp."""
+    return (f"{temp}°{temperature}").ljust(3)
+
+
+def format_chances(hour: int) -> str:
+    """Format chances."""
     chances = {
         "chanceoffog": "Fog",
         "chanceoffrost": "Frost",
@@ -152,37 +179,53 @@ def format_chances(hour):
         "chanceofsnow": "Snow",
         "chanceofsunshine": "Sunshine",
         "chanceofthunder": "Thunder",
-        "chanceofwindy": "Wind"
+        "chanceofwindy": "Wind",
     }
 
     conditions = []
-    for event in chances.keys():
+    for event in chances:
         if int(hour[event]) > 0:
-            conditions.append(chances[event]+" "+hour[event]+"%")
+            conditions.append(chances[event] + " " + hour[event] + "%")  # noqa: PERF401
     return ", ".join(conditions)
 
-data['text'] = f"{weather['current_condition'][0][feelsLike]}°{temperature}"
-data['alt'] = WWO_CODE[weather['current_condition'][0]['weatherCode']]
 
-data['tooltip'] = f"Weather in <b>{weather['nearest_area'][0]['areaName'][0]['value']}</b>:\n"
-data['tooltip'] += f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} {weather['current_condition'][0][temp]}°{temperature}</b>\n"
-data['tooltip'] += f"Feels like: {weather['current_condition'][0][feelsLike]}°{temperature}\n"
-data['tooltip'] += f"Wind: {weather['current_condition'][0][windspeed]}{distance}/h\n"
-data['tooltip'] += f"Humidity: {weather['current_condition'][0]['humidity']}%\n"
-for i, day in enumerate(weather['weather']):
-    data['tooltip'] += f"\n<b>"
+data["text"] = f"{weather['current_condition'][0][feels_like]}°{temperature}"
+data["alt"] = WWO_CODE[weather["current_condition"][0]["weatherCode"]]
+
+data["tooltip"] = (
+    f"Weather in <b>{weather['nearest_area'][0]['areaName'][0]['value']}</b>:\n"
+)
+data["tooltip"] += (
+    f"<b>{weather['current_condition'][0]['weatherDesc'][0]['value']} "
+    f"{weather['current_condition'][0][temp]}°{temperature}</b>\n"
+)
+data["tooltip"] += (
+    f"Feels like: {weather['current_condition'][0][feels_like]}°{temperature}\n"
+)
+data["tooltip"] += f"Wind: {weather['current_condition'][0][windspeed]}{distance}/h\n"
+data["tooltip"] += f"Humidity: {weather['current_condition'][0]['humidity']}%\n"
+for i, day in enumerate(weather["weather"]):
+    data["tooltip"] += "\n<b>"
     if i == 0:
-        data['tooltip'] += "Today, "
+        data["tooltip"] += "Today, "
     if i == 1:
-        data['tooltip'] += "Tomorrow, "
-    data['tooltip'] += f"{day['date']}</b>\n"
-    data['tooltip'] += f"⬆️ {day[maxTemp]}°{temperature} ⬇️ {day[minTemp]}°{temperature} "
-    data['tooltip'] += f"🌅 {day['astronomy'][0]['sunrise']} 🌇 {day['astronomy'][0]['sunset']}\n"
-    for hour in day['hourly']:
-        if i == 0:
-            if int(format_time(hour['time'])) < datetime.now().hour-2:
-                continue
-        data['tooltip'] += f"{format_time(hour['time'])} {WEATHER_SYMBOL[WWO_CODE[hour['weatherCode']]]} {format_temp(hour[feelsLike])} {hour['weatherDesc'][0]['value']}, {format_chances(hour)}\n"
+        data["tooltip"] += "Tomorrow, "
+    data["tooltip"] += f"{day['date']}</b>\n"
+    data["tooltip"] += (
+        f"⬆️ {day[max_temp]}°{temperature} ⬇️ {day[min_temp]}°{temperature} "
+    )
+    data["tooltip"] += (
+        f"🌅 {day['astronomy'][0]['sunrise']} 🌇 {day['astronomy'][0]['sunset']}\n"
+    )
+    for hour in day["hourly"]:
+        if i == 0 and int(format_time(hour["time"])) < datetime.now().hour - 2:  # noqa: DTZ005
+            continue
+        data["tooltip"] += (
+            f"{format_time(hour['time'])} "
+            f"{WEATHER_SYMBOL[WWO_CODE[hour['weatherCode']]]} "
+            f"{format_temp(hour[feels_like])} {hour['weatherDesc'][0]['value']}, "
+            f"{format_chances(hour)}\n"
+        )
 
 
 print(json.dumps(data))
