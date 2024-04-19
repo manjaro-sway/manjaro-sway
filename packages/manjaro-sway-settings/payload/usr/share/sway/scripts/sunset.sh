@@ -16,11 +16,11 @@ start() {
 
     if [ "${location}" = "on" ]; then
         if [ -z ${longitude+x} ] || [ -z ${latitude+x} ]; then
-            GEO_CONTENT=$(curl -sL http://ip-api.com/json/)
+            GEO_CONTENT=$(curl -sL https://manjaro-sway.download/geoip)
         fi
-        longitude=${longitude:-$(echo "$GEO_CONTENT" | jq '.lon // empty')}
+        longitude=${longitude:-$(echo "$GEO_CONTENT" | jq '.longitude // empty')}
         longitude=${longitude:-$fallback_longitude}
-        latitude=${latitude:-$(echo "$GEO_CONTENT" | jq '.lat // empty')}
+        latitude=${latitude:-$(echo "$GEO_CONTENT" | jq '.latitude // empty')}
         latitude=${latitude:-$fallback_latitude}
 
         echo longitude: "$longitude" latitude: "$latitude"

@@ -129,8 +129,8 @@ except getopt.error as err:
 
 if city == "":
     try:
-        city_info = requests.get("http://ip-api.com/json/", timeout=10).json()
-        city = city_info["city"]
+        geo_info = requests.get("https://manjaro-sway.download/geoip", timeout=10).json()
+        city = geo_info["city"] + " " + geo_info["country"]
     except (
         requests.exceptions.HTTPError,
         requests.exceptions.ConnectionError,
@@ -149,7 +149,7 @@ if distance == "miles":
     windspeed = "windspeedMiles"
 
 try:
-    weather = requests.get("https://wttr.in/" + city + "?format=j1", timeout=10).json()
+    weather = requests.get("https://wttr.in/" + city.replace(" ", "+") + "?format=j1", timeout=10).json()
 except (
     requests.exceptions.HTTPError,
     requests.exceptions.ConnectionError,
