@@ -16,16 +16,13 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       doubles: [],
     });
 
-    if (url.pathname.endsWith(".iso")) {
-      const currentCount = await context.env.VISITOR_COUNT_STORE.prepare(
-        "SELECT count FROM downloads WHERE timestamp = CURRENT_DATE;"
-      ).first<number>("gain");
-
+    if (url.pathname.endsWith(".iso") || url.pathname.endsWith(".xz")) {
       await context.env.VISITOR_COUNT_STORE.prepare(
-		"INSERT OR REPLACE INTO downloads (count) VALUES (?);"
-      )
-        .bind((currentCount ?? 0) + 1)
-        .run();
+        "INSERT OR IGNORE INTO downloads (count) VALUES (1);"
+      ).run();
+      await context.env.VISITOR_COUNT_STORE.prepare(
+        "UPDATE downloads SET count=(count+1) WHERE timestamp = CURRENT_DATE;"
+      ).run();
     }
   }
 

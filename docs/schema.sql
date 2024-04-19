@@ -4,4 +4,4 @@ CREATE TABLE downloads (
     count INTEGER NOT NULL,
     PRIMARY KEY (`timestamp`)
 );
-
+INSERT INTO downloads (count) VALUES (0);

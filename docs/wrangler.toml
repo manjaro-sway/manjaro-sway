@@ -1,0 +1,4 @@
+[[ d1_databases ]]
+binding = "VISITOR_COUNT_STORE"
+database_name = "sway-count-visitors"
+database_id = "fc425dde-c386-4337-a631-be57c4e4f3c2"
