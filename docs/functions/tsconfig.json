@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+    "module": "NodeNext",
     "lib": ["esnext"],
     "types": ["@cloudflare/workers-types", "@octokit/rest", "@types/node"],
-    "moduleResolution": "node"
+    "moduleResolution": "NodeNext"
   }
 }
