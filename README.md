@@ -1,6 +1,8 @@
 # Manjaro Sway Edition
 
 [![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%88%91%20%E2%88%9E&cache=3600&query=total&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
+[![downloads last seven days](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%88%91%207d&cache=3600&query=weekly_sum&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
+[![downloads per week](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%8C%80%20week&cache=3600&query=weekly_avg&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
 
 [![settings release](https://img.shields.io/github/v/release/manjaro-sway/desktop-settings)](https://github.com/Manjaro-Sway/desktop-settings/releases/latest)
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
