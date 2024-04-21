@@ -18,7 +18,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		"SELECT count FROM downloads WHERE timestamp = CURRENT_DATE;"
 	).first<number>('count');
 	const weekly_avg = await context.env.VISITOR_COUNT_STORE.prepare(
-		"SELECT AVG(count) as weekly_avg FROM (SELECT SUM(count) as count FROM downloads WHERE timestamp <= date('now', 'weekday 0', '-1 day') GROUP BY STRFTIME('%Y-%W', timestamp));"
+		"SELECT AVG(count) as weekly_avg FROM (SELECT SUM(count) as count FROM downloads WHERE timestamp <= date('now', 'weekday 0', '-1 day') and timestamp > '2023-02-15' GROUP BY STRFTIME('%Y-%W', timestamp));"
 	).first<number>('weekly_avg');
 	const weekly_sum = await context.env.VISITOR_COUNT_STORE.prepare(
 		"SELECT SUM(count) as weekly_sum FROM downloads WHERE timestamp > (SELECT DATETIME('now', '-7 day'));"
@@ -27,8 +27,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	const response = new Response(JSON.stringify({
 		total: numberFormat.format(total),
 		today: numberFormat.format(today),
-		weekly_avg: numberFormat.format(weekly_avg),
-		weekly_sum: numberFormat.format(weekly_sum),
+		weekly_avg: numberFormat.format(Math.floor(weekly_avg)),
+		weekly_sum: numberFormat.format(Math.floor(weekly_sum)),
 	}), {
 		headers: {
 			"content-type": "application/json",
