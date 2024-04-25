@@ -88,8 +88,6 @@ dhclient
 >extra manjaro-aur-support
 pamac-gtk
 >extra appimagelauncher
->extra web-installer-url-handler
-
 ## Utils
 
 >extra apparmor
