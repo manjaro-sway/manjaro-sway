@@ -15,8 +15,8 @@ KERNEL-headers
 #zfs-dkms
 libva-intel-driver
 libva-mesa-driver
-libva-vdpau-driver
->multilib lib32-libva-vdpau-driver
+#libva-vdpau-driver
+#>multilib lib32-libva-vdpau-driver
 libxaw
 libxpm
 libxvmc
