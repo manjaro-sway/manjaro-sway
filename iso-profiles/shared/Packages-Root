@@ -13,8 +13,6 @@ cpupower
 cronie
 cryptsetup
 device-mapper
-dhclient
-dhcpcd
 diffutils
 dmraid
 dnsmasq
@@ -48,6 +46,7 @@ mhwd-db
 mkinitcpio-openswap
 nano
 nano-syntax-highlighting
+networkmanager
 nfs-utils
 ntfs-3g
 os-prober

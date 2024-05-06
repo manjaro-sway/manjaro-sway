@@ -15,7 +15,6 @@ numlockx
 powertop
 alsa-utils
 avahi
-networkmanager
 ntp
 openssh
 xdg-user-dirs
