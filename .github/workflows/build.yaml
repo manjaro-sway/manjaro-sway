@@ -40,7 +40,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        edition: [sway]
         branch: [stable, unstable]
         device: [rpi4]
     steps:
@@ -50,7 +49,7 @@ jobs:
         uses: manjaro-contrib/action-buildarmimg@main
         with:
           device: rpi4
-          edition: ${{ matrix.edition }}
+          edition: sway
           branch: ${{ matrix.branch }}
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
           arm-profiles-repo: https://github.com/manjaro-sway/arm-profiles.git
