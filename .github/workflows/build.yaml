@@ -7,10 +7,18 @@ on:
     types:
     - iso_profile_update
     - image_profile_update
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/build.yaml
 
 concurrency: 
   group: ${{ github.workflow }}
   cancel-in-progress: true
+
+env:
+  MIRROR: https://opencolo.mm.fcix.net/manjaro
 
 jobs:
   prepare-release:
@@ -29,13 +37,12 @@ jobs:
   build-image:
     runs-on: ubuntu-22.04
     needs: [prepare-release]
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
+      fail-fast: false
       matrix:
         edition: [sway]
         branch: [stable, unstable]
         device: [rpi4]
-        experimental: [true]
     steps:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
@@ -51,20 +58,14 @@ jobs:
   build-iso:
     runs-on: ubuntu-22.04
     needs: [prepare-release]
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
+      fail-fast: false
       matrix:
-        edition: [sway]
-        branch: [stable]
-        experimental: [false]
-        scope: [full]
-        kernel: 
-          - ${{ needs.prepare-release.outputs.longterm }}
+        branch: [stable, unstable]
         include:
-          - edition: sway
-            branch: unstable
-            experimental: true
-            scope: full
+          - branch: stable
+            kernel: ${{ needs.prepare-release.outputs.longterm }}
+          - branch: unstable
             kernel: ${{ needs.prepare-release.outputs.stable }}
     steps:
       - name: import sway key
@@ -73,12 +74,13 @@ jobs:
         uses: Manjaro/manjaro-iso-action@main
         with:
           iso-profiles-repo: https://github.com/Manjaro-Sway/iso-profiles
-          edition: ${{ matrix.edition }}
+          edition: sway
           branch: ${{ matrix.branch }}
-          scope: ${{ matrix.scope }}
+          scope: full
           kernel: ${{ matrix.kernel }}
           release-tag: ${{ needs.prepare-release.outputs.release_tag }}
           additional-trusted-gpg: ${{ vars.GPG_KEYID }}
+          build-mirror: ${{ env.MIRROR }}
   trigger-mirror:
     runs-on: ubuntu-22.04
     needs: [build-iso, build-image]
@@ -93,6 +95,7 @@ jobs:
     needs: [build-iso, build-image, prepare-release]
     if: ${{ failure() || cancelled() }}
     steps:
+      - uses: actions/checkout@v4
       - name: rollback
         run: |
           echo ${{ github.token }} | gh auth login --with-token
