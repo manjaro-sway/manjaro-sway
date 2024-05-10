@@ -8,11 +8,15 @@
   },
   "license": "MIT",
   "scripts": {
-    "db:up": "wrangler d1 execute VISITOR_COUNT_STORE --file=./schema.sql"
+    "db:up": "npx wrangler d1 execute VISITOR_COUNT_STORE --file=./schema.sql",
+    "dev": "npx wrangler pages dev"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
-    "typescript": "^5.0.0",
-    "wrangler": "^3.0.0"
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "accept-language": "^3.0.18",
+    "zod": "^3.23.8"
   }
 }

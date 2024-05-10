@@ -1,3 +1,6 @@
+name = "manjaro-sway"
+pages_build_output_dir = "."
+
 [[ d1_databases ]]
 binding = "VISITOR_COUNT_STORE"
 database_name = "sway-count-visitors"
