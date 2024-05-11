@@ -34,14 +34,6 @@ const translations = {
 };
 
 export const onRequest: PagesFunction<Env> = async (context) => {
-	let cache = caches.default;
-	const cachedResponse = await cache.match(context.request);
-  
-	if (cachedResponse) {
-	  console.log("Cache hit");
-	  return cachedResponse;
-	}
-
   // location parameter passed by the user (or "auto" if the user wants to use their current location based on the IP address)
   const location = context.params.location;
   const url = new URL(context.request.url);
@@ -67,7 +59,18 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     ) as (typeof supportedLocales)[number]) ??
     "en";
 
-  let { longitude, latitude, city, country } = context.request.cf;
+  const cacheUrl = new URL(context.request.url);
+  cacheUrl.searchParams.set("language", language);
+  const cacheKey = new Request(cacheUrl.toString(), context.request);
+  const cache = caches.default;
+  const cachedResponse = await cache.match(cacheKey);
+
+  if (cachedResponse) {
+    console.log("Cache hit");
+    return cachedResponse;
+  }
+
+  let { longitude, latitude, city } = context.request.cf;
 
   // If the location is not set to "auto" or the language is not English, we need to get the coordinates of the city
   // Otherwise we trust the geo-ip data from Cloudflare
@@ -192,7 +195,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     {
       headers: {
         "content-type": "application/json",
-        expires: new Date(Date.now() + (1000 * 60 * 60)).toUTCString(),
+        expires: new Date(Date.now() + 1000 * 60 * 60).toUTCString(),
       },
     }
   );
