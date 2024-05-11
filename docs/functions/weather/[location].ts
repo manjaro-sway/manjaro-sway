@@ -167,9 +167,9 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     return [
       `<b>${result.daily.time[index]}</b> - ${
         wmoCodeToText[language][result.daily.weather_code[index]]
-      } ${wmoCodeToEmojiMap[result.daily.weather_code[index]]} - ${
+      } ${wmoCodeToEmojiMap[result.daily.weather_code[index]]} - ⬇️${
         result.daily.apparent_temperature_min[index]
-      }${result.daily_units.apparent_temperature_min}/${
+      }${result.daily_units.apparent_temperature_min} ⬆️${
         result.daily.apparent_temperature_max[index]
       }${result.daily_units.apparent_temperature_max}`,
     ].join("\n");
