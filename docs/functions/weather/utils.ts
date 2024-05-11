@@ -1,4 +1,4 @@
-export const supportedLocales = ["en", "de"] as const;
+export const supportedLocales = ["en", "de", "fr"] as const;
 
 type WWOCode =
   | 0
@@ -125,4 +125,34 @@ export const wmoCodeToText: Record<(typeof supportedLocales)[number], WMOTransla
       96: "Gewitter mit leichtem Hagel",
       99: "Gewitter mit starkem Hagel",
     },
+    fr: {
+      0: "Ciel dégagé",
+      1: "Ciel peu nuageux",
+      2: "Ciel partiellement nuageux",
+      3: "Ciel nuageux",
+      45: "Brouillard",
+      48: "Brouillard givrant",
+      51: "Bruine légère",
+      53: "Bruine modérée",
+      55: "Bruine forte",
+      56: "Bruine verglaçante légère",
+      57: "Bruine verglaçante forte",
+      61: "Pluie faible",
+      63: "Pluie modérée",
+      65: "Pluie forte",
+      66: "Pluie verglaçante légère",
+      67: "Pluie verglaçante forte",
+      71: "Chute de neige faible",
+      73: "Chute de neige modérée",
+      75: "Chute de neige forte",
+      77: "Grains de neige",
+      80: "Averses de pluie faibles",
+      81: "Averses de pluie modérées",
+      82: "Averses de pluie fortes",
+      85: "Averses de neige faibles",
+      86: "Averses de neige fortes",
+      95: "Orages faibles ou modérés",
+      96: "Orages avec grêle légère",
+      99: "Orages avec grêle forte",
+    }
   };
