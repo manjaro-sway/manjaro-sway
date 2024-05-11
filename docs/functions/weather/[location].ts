@@ -61,13 +61,13 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
   let { longitude, latitude, city, country } = context.request.cf;
 
-  // If the location is set to "auto" and the language is not English, we need to get the coordinates of the city
+  // If the location is not set to "auto" or the language is not English, we need to get the coordinates of the city
   // Otherwise we trust the geo-ip data from Cloudflare
-  if (location === "auto" && language !== "en") {
+  if (location !== "auto" || language !== "en") {
     try {
       const locationResponse = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${
-          location === "auto" ? `${city}, ${country}` : location
+          location === "auto" ? city : location
         }&count=1&language=${language}`,
         {
           cf: {
