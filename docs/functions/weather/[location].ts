@@ -34,6 +34,14 @@ const translations = {
 };
 
 export const onRequest: PagesFunction<Env> = async (context) => {
+	let cache = caches.default;
+	const cachedResponse = await cache.match(context.request);
+  
+	if (cachedResponse) {
+	  console.log("Cache hit");
+	  return cachedResponse;
+	}
+
   // location parameter passed by the user (or "auto" if the user wants to use their current location based on the IP address)
   const location = context.params.location;
   const url = new URL(context.request.url);
@@ -113,7 +121,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     searchParams.append(key, value);
   }
 
-  const response = await fetch(
+  const weatherRequest = await fetch(
     `https://api.open-meteo.com/v1/forecast?${searchParams.toString()}`,
     {
       cf: {
@@ -122,7 +130,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     }
   );
 
-  const result = await response.json<{
+  const result = await weatherRequest.json<{
     current_units: {
       time: string;
       temperature_2m: string;
@@ -175,7 +183,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     ].join("\n");
   });
 
-  return Response.json(
+  const response = Response.json(
     {
       text: `${result.current.temperature_2m}${result.current_units.temperature_2m}`,
       alt: `${result.current.weather_code}`,
@@ -184,7 +192,12 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     {
       headers: {
         "content-type": "application/json",
+        expires: new Date(Date.now() + (1000 * 60 * 60)).toUTCString(),
       },
     }
   );
+
+  cache.put(context.request, response.clone());
+
+  return response;
 };
