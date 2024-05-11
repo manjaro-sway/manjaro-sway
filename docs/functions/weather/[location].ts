@@ -20,18 +20,31 @@ const translations = {
   en: {
     feels_like: "Feels like",
     wind: "Wind",
-    humidity: "Humidity",
-    today: "Today",
-    tomorrow: "Tomorrow",
+    humidity: "Humidity"
   },
   de: {
     feels_like: "Gefühlt",
     wind: "Wind",
-    humidity: "Luftfeuchtigkeit",
-    today: "Heute",
-    tomorrow: "Morgen",
+    humidity: "Luftfeuchtigkeit"
+  },
+  fr: {
+    feels_like: "Ressenti",
+    wind: "Vent",
+    humidity: "Humidité"
   },
 };
+
+const uvIndexEmoji = {
+  3: "😎",
+  4: "😎",
+  5: "😎",
+  6: "🫠",
+  7: "🫠",
+  8: "🥵",
+  9: "🥵",
+  10: "🥵",
+  11: "🥵",
+}
 
 export const onRequest: PagesFunction<Env> = async (context) => {
   // location parameter passed by the user (or "auto" if the user wants to use their current location based on the IP address)
@@ -223,8 +236,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       }${result.daily_units.apparent_temperature_min} ⬆️${
         result.daily.apparent_temperature_max[index]
       }${result.daily_units.apparent_temperature_max}${
-        result.daily.uv_index_clear_sky_max[index] > 0 ? ` 🫠${
-          result.daily.uv_index_clear_sky_max[index]} ${result.daily_units.uv_index_clear_sky_max}` : ""}`,
+        result.daily.uv_index_clear_sky_max[index] >=6 ? ` ${uvIndexEmoji[Math.round(result.daily.uv_index_clear_sky_max[index])]}${
+          result.daily.uv_index_clear_sky_max[index]} UV Index` : ""}`,
       ...currentHours.map((hourly) => {
         return `${hourly.hour}: ${hourly.temperature}${
           result.hourly_units.apparent_temperature
@@ -232,7 +245,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
           wmoCodeToEmojiMap[hourly.weatherCode]
         }${
           hourly.precipitation_probability > 0
-            ? ` 💧${hourly.precipitation_probability}%`
+            ? ` ☔${hourly.precipitation_probability}%`
             : ""
         }`;
       }),
