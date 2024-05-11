@@ -2,7 +2,7 @@ import z from "zod";
 import type { Env } from "../../utils";
 import acceptLanguage from "accept-language";
 
-const supportedLocales = ["en"] as const;
+const supportedLocales = ["en", "de"] as const;
 
 const inputValidator = z.object({
   temperature_unit: z
@@ -110,6 +110,36 @@ const wmoCodeToText: Record<(typeof supportedLocales)[number], WMOTranslation> =
       96: "Thunderstorm with slight hail",
       99: "Thunderstorm with heavy hail",
     },
+    de: {
+      0: "Klarer Himmel",
+      1: "Überwiegend klar",
+      2: "Teilweise bewölkt",
+      3: "Bedeckt",
+      45: "Nebel",
+      48: "Rauhreifnebel",
+      51: "Leichter Nieselregen",
+      53: "Mäßiger Nieselregen",
+      55: "Dichter Nieselregen",
+      56: "Leichter gefrierender Nieselregen",
+      57: "Dichter gefrierender Nieselregen",
+      61: "Leichter Regen",
+      63: "Mäßiger Regen",
+      65: "Starker Regen",
+      66: "Leichter gefrierender Regen",
+      67: "Starker gefrierender Regen",
+      71: "Leichter Schneefall",
+      73: "Mäßiger Schneefall",
+      75: "Starker Schneefall",
+      77: "Schneekörner",
+      80: "Leichte Regenschauer",
+      81: "Mäßige Regenschauer",
+      82: "Heftige Regenschauer",
+      85: "Leichte Schneeschauer",
+      86: "Starke Schneeschauer",
+      95: "Leichtes oder mäßiges Gewitter",
+      96: "Gewitter mit leichtem Hagel",
+      99: "Gewitter mit starkem Hagel",
+    },
   };
 
 acceptLanguage.languages([...supportedLocales]);
@@ -121,6 +151,13 @@ const translations = {
     humidity: "Humidity",
     today: "Today",
     tomorrow: "Tomorrow",
+  },
+  de: {
+    feels_like: "Gefühlt",
+    wind: "Wind",
+    humidity: "Luftfeuchtigkeit",
+    today: "Heute",
+    tomorrow: "Morgen",
   },
 };
 
