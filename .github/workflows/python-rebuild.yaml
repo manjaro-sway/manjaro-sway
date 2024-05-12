@@ -1,0 +1,20 @@
+name: rebuild python packages
+on:
+  workflow_dispatch:
+
+concurrency: 
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  dispatch-increment-pkgrel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: iterate over all python package-repos
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT_WORKFLOW }}
+        run: |
+          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --topic python --json name | jq --raw-output '.[] | .name'); do
+            echo "incrementing pkgrel for $repo"
+            gh workflow run --repo manjaro-sway/$repo increment-pkgrel
+          done
