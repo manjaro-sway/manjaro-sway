@@ -70,7 +70,7 @@ jobs:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
       - name: x86_64 build
-        uses: Manjaro/manjaro-iso-action@main
+        uses: manjaro-contrib/action-buildiso@main
         with:
           iso-profiles-repo: https://github.com/Manjaro-Sway/iso-profiles
           edition: sway
