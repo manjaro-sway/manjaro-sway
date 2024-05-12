@@ -75,18 +75,6 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		) as (typeof supportedLocales)[number]) ??
 		"en";
 
-	const cacheUrl = new URL(context.request.url);
-	cacheUrl.searchParams.set("language", language);
-	cacheUrl.searchParams.set("version", "1");
-	const cacheKey = new Request(cacheUrl.toString(), context.request);
-	const cache = caches.default;
-	const cachedResponse = await cache.match(cacheKey);
-
-	if (cachedResponse) {
-		console.log("Cache hit");
-		return cachedResponse;
-	}
-
 	let { longitude, latitude, city } = context.request.cf;
 
 	// If the location is not set to "auto" or the language is not English, we need to get the coordinates of the city
@@ -121,6 +109,19 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 				},
 			);
 		}
+	}
+
+	const cacheUrl = new URL(context.request.url);
+	cacheUrl.pathname = city;
+	cacheUrl.searchParams.set("language", language);
+	cacheUrl.searchParams.set("version", "1");
+	const cacheKey = new Request(cacheUrl.toString(), context.request);
+	const cache = caches.default;
+	const cachedResponse = await cache.match(cacheKey);
+
+	if (cachedResponse) {
+		console.log("Cache hit");
+		return cachedResponse;
 	}
 
 	const query = {
