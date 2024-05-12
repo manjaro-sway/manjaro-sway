@@ -14,6 +14,7 @@ signal[adaptive-brightness]=12
 signal[valent]=13
 signal[pacman]=14
 signal[idle]=15
+signal[weather]=16
 
 number=${signal[${1}]}
 
