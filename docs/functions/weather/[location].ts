@@ -145,11 +145,6 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
 	const weatherRequest = await fetch(
 		`https://api.open-meteo.com/v1/forecast?${searchParams.toString()}`,
-		{
-			cf: {
-				cacheTtl: 60 * 30,
-			},
-		},
 	);
 
 	const result = await weatherRequest.json<{
@@ -272,9 +267,9 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 					? "🌙"
 					: wmoCodeToEmojiMap[result.current.weather_code]
 			} ${result.current.temperature_2m}${result.current_units.temperature_2m}`,
-			tooltip: `${lines.join("\n")}\n\n${dailies.join(
-				"\n\n",
-			)}\n\n${translations[language].lastUpdate}: ${new Date().toLocaleString(language)}\n\nPowered by Open-Meteo.com`,
+			tooltip: `${lines.join("\n")}\n\n${dailies.join("\n\n")}\n\n${
+				translations[language].lastUpdate
+			}: ${new Date().toLocaleString(language)}\n\nPowered by Open-Meteo.com`,
 		},
 		{
 			headers: {
