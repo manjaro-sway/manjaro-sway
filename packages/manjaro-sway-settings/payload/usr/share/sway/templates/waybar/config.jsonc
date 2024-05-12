@@ -271,7 +271,8 @@
         "interval": 3600,
         // accepts -c/--city <city> -t/--temperature <C/F> -d/--distance <km/miles>
         "exec": "/usr/share/sway/scripts/weather.py",
-        "return-type": "json"
+        "return-type": "json",
+        "on-click": "xdg-open \"https://wttr.in/$(curl -s https://manjaro-sway.download/geoip | jq -r '.city')\""
     },
 
     "custom/zeit": {
