@@ -1,0 +1,20 @@
+name: rebase
+on:
+  workflow_dispatch:
+
+concurrency: 
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: iterate over all package-repos
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT_WORKFLOW }}
+        run: |
+          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --topic package --json name --limit 1000 | jq --raw-output '.[] | .name'); do
+            echo "rebasing $repo"
+            gh workflow run --repo manjaro-sway/$repo rebase
+          done
