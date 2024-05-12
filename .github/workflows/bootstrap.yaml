@@ -1,0 +1,20 @@
+name: bootstrap
+on:
+  workflow_dispatch:
+
+concurrency: 
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: iterate over all package-repos
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT_WORKFLOW }}
+        run: |
+          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --topic package --json name | jq --raw-output '.[] | .name'); do
+            echo "bootstrapping to $repo"
+            gh workflow run --repo manjaro-sway/$repo bootstrap
+          done

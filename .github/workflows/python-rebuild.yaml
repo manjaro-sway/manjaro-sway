@@ -1,4 +1,4 @@
-name: rebuild python packages
+name: python-rebuild
 on:
   workflow_dispatch:
 
