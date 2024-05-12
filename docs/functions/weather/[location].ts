@@ -254,8 +254,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
   const response = Response.json(
     {
-      text: `${result.current.temperature_2m}${result.current_units.temperature_2m}`,
-      alt: `${result.current.weather_code}`,
+      text: `${wmoCodeToEmojiMap[result.current.weather_code]} ${result.current.temperature_2m}${result.current_units.temperature_2m}`,
       tooltip: `${lines.join("\n")}\n\n${dailies.join("\n\n")}\n\nPowered by Open-Meteo.com`,
     },
     {
