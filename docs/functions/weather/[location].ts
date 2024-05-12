@@ -21,16 +21,19 @@ const translations = {
 		feels_like: "Feels like",
 		wind: "Wind",
 		humidity: "Humidity",
+		lastUpdate: "Last update",
 	},
 	de: {
 		feels_like: "Gefühlt",
 		wind: "Wind",
 		humidity: "Luftfeuchtigkeit",
+		lastUpdate: "Letztes Update",
 	},
 	fr: {
 		feels_like: "Ressenti",
 		wind: "Vent",
 		humidity: "Humidité",
+		lastUpdate: "Dernière mise à jour",
 	},
 };
 
@@ -271,7 +274,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 			} ${result.current.temperature_2m}${result.current_units.temperature_2m}`,
 			tooltip: `${lines.join("\n")}\n\n${dailies.join(
 				"\n\n",
-			)}\n\nPowered by Open-Meteo.com`,
+			)}\n\n${translations[language].lastUpdate}: ${new Date().toLocaleString(language)}\n\nPowered by Open-Meteo.com`,
 		},
 		{
 			headers: {
