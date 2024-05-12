@@ -16,4 +16,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT_WORKFLOW }}
         run: |
-          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --json name | jq --raw-output '.[] | .name'); do gh workflow list --repo manjaro-sway/$repo --all --json id,state --jq '.[] | select(.state == "disabled_inactivity")' | jq -c '.id' | xargs -I % gh workflow enable --repo manjaro-sway/$repo %; done
+          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --json name --limit 1000 | jq --raw-output '.[] | .name'); do gh workflow list --repo manjaro-sway/$repo --all --json id,state --jq '.[] | select(.state == "disabled_inactivity")' | jq -c '.id' | xargs -I % gh workflow enable --repo manjaro-sway/$repo %; done

@@ -14,7 +14,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT_WORKFLOW }}
         run: |
-          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --topic python --json name | jq --raw-output '.[] | .name'); do
+          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --topic python --json name --limit 1000 | jq --raw-output '.[] | .name'); do
             echo "incrementing pkgrel for $repo"
             gh workflow run --repo manjaro-sway/$repo increment-pkgrel
           done

@@ -14,7 +14,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT_WORKFLOW }}
         run: |
-          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --topic package --json name | jq --raw-output '.[] | .name'); do
+          for repo in $(gh repo list manjaro-sway --no-archived --visibility public --topic package --json name --limit 1000 | jq --raw-output '.[] | .name'); do
             echo "bootstrapping to $repo"
             gh workflow run --repo manjaro-sway/$repo bootstrap
           done
