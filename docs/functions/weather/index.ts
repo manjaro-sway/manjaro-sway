@@ -1,4 +1,4 @@
-import { type Env } from "../../utils";
+import type { Env } from "../types";
 
 export const onRequest: PagesFunction<Env> = async (context) => {
     const url = new URL(context.request.url);

@@ -1,9 +1,9 @@
-import { type Env } from "../utils";
+import type { Env } from "./types";
 
 const numberFormat = new Intl.NumberFormat("en-US");
 
 export const onRequest: PagesFunction<Env> = async (context) => {
-	let cache = caches.default;
+	const cache = caches.default;
 	const cachedResponse = await cache.match(context.request);
   
 	if (cachedResponse) {

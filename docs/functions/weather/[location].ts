@@ -1,5 +1,5 @@
 import z from "zod";
-import type { Env } from "../../utils";
+import type { Env } from "../types";
 import acceptLanguage from "accept-language";
 import { supportedLocales, wmoCodeToEmojiMap, wmoCodeToText } from "./utils";
 
