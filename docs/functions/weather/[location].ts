@@ -132,7 +132,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 			"temperature_2m,wind_speed_10m,weather_code,apparent_temperature,relative_humidity_2m,is_day",
 		daily:
 			"weather_code,apparent_temperature_min,apparent_temperature_max,uv_index_clear_sky_max",
-		hourly: "apparent_temperature,weather_code,precipitation_probability",
+		hourly:
+			"apparent_temperature,weather_code,precipitation_probability,is_day",
 		forecast_days: "3",
 		forecast_hours: "72",
 		...input.data,
@@ -186,12 +187,14 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 			apparent_temperature: string;
 			weather_code: string;
 			precipitation_probability: string;
+			is_day: string;
 		};
 		hourly: {
 			time: string[];
 			apparent_temperature: number[];
 			weather_code: number[];
 			precipitation_probability: number[];
+			is_day: (0 | 1)[];
 		};
 	}>();
 
@@ -213,6 +216,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 			const hour = new Date(time).getHours();
 			const precipitation_probability =
 				result.hourly.precipitation_probability[index];
+			const is_day = result.hourly.is_day[index];
 
 			return {
 				time,
@@ -220,6 +224,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 				weatherCode,
 				hour,
 				precipitation_probability,
+				is_day,
 			};
 		})
 		.filter((hourly) => hourly.hour % 2 === 0);
@@ -249,7 +254,9 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 				return `${hourly.hour}: ${hourly.temperature}${
 					result.hourly_units.apparent_temperature
 				} ${wmoCodeToText[language][hourly.weatherCode]} ${
-					wmoCodeToEmojiMap[hourly.weatherCode]
+					hourly.is_day === 0 && hourly.weatherCode === 0
+						? "🌙"
+						: wmoCodeToEmojiMap[hourly.weatherCode]
 				}${
 					hourly.precipitation_probability > 0
 						? ` ☔${hourly.precipitation_probability}%`
