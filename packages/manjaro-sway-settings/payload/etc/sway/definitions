@@ -118,14 +118,13 @@ set $pipe_output $grimshot save output -
 set $pipe_selection $grimshot save area -
 set $notify_paste [[ $(wl-paste -l) == "image/png" ]] && notify-send "Screenshot copied to clipboard"
 set $swappy swappy -f -
-set $swappy_pipe swappy -f - -o -
 set $upload_pipe curl -s -F "file=@-;filename=.png" https://x0.at/ | tee >(wl-copy) >(xargs notify-send)
 
 set $screenshot_screen $pipe_output | $swappy && $notify_paste
-set $screenshot_screen_upload $pipe_output | $swappy_pipe | $upload_pipe
+set $screenshot_screen_upload $pipe_output | $upload_pipe
 
 set $screenshot_selection $pipe_selection | $swappy && $notify_paste
-set $screenshot_selection_upload $pipe_selection | $swappy_pipe | $upload_pipe
+set $screenshot_selection_upload $pipe_selection | $upload_pipe
 
 set $update-manager '/usr/share/sway/scripts/checkupdates.sh upgrade'
 
