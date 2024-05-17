@@ -1,0 +1,19 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  echo "mjr.sh - URL shortener"
+  echo "Usage: $(basename $0) <url>"
+  exit 1
+fi
+
+RESULT=$(curl -s https://mjr.sh/add?url=$1)
+
+URL=$(echo $RESULT | jq -r '.url')
+SECRET=$(echo $RESULT | jq -r '.secret')
+STATS=$(echo $RESULT | jq -r '.stats')
+
+echo "---"
+echo "url: $URL"
+echo "stats: $STATS"
+echo "secret: $SECRET"
+echo "---"
