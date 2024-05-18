@@ -1,3 +1,9 @@
 #!/bin/sh
 
+if ! command -v nc &> /dev/null
+then
+    echo "nc could not be found (netcat). Please install `openbsd-netcat`."
+    exit
+fi
+
 nc termbin.com 9999
