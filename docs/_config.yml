@@ -1,6 +1,7 @@
 title: Manjaro Sway Edition
 email: info@manjaro-sway.download
 url: "https://manjaro-sway.download"
+github: https://github.com/manjaro-sway/manjaro-sway
 
 remote_theme: manjaro-sway/manjaro-sway
 

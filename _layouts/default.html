@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Manjaro Sway Edition</title>
+    <title>{{ site.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/img/favicon.svg" type="image/x-icon">
     <style>
       * {
         color: #eee;
@@ -31,7 +32,7 @@
         flex-direction: column;
         height: 100%;
         width: 100%;
-        background-image: url("https://raw.githubusercontent.com/manjaro-sway/desktop-settings/sway/community/sway/etc/skel/.config/sway/generated_background.svg");
+        background-image: url("/img/background.svg");
         background-color: #282828;
       }
 
@@ -60,9 +61,9 @@
   <body>
     <header class="header">
       <h1 class="header__title">
-        Manjaro Sway Edition
+        {{ site.title }}
         <a
-          href="https://github.com/manjaro-sway/manjaro-sway"
+          href="{{ site.github }}"
           class="header__link"
         >
           <svg
