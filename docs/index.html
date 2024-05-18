@@ -5,8 +5,8 @@ description: Experience a smooth and efficient desktop experience with Manjaro S
 
 {% for asset in site.data.release %}
 <div class="link">
-  <a href="{{ asset.url }}" alt="{{ asset.name }}"
-    >{{ asset.name }} <i>{{ asset.size | filesize }}</i></a
-  >
+  <pre>
+  <a href="{{ asset.url }}" alt="{{ asset.name }}">{{ asset.name }} <i>{{ asset.size | filesize }}</i></a>
+  </pre>
 </div>
 {% endfor %}
