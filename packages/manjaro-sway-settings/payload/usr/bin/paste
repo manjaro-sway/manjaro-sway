@@ -1,0 +1,13 @@
+#!/bin/sh
+
+url='https://paste.c-net.org/'
+if (( $# > 0 )); then
+    for file; do
+        curl -s \
+            --data-binary @"$file" \
+            --header "X-FileName: ${file##*/}" \
+            "$url"
+    done
+else
+    curl -s --data-binary @- "$url"
+fi
