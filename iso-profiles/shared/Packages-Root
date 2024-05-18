@@ -55,7 +55,6 @@ reiserfsprogs
 rsync
 s-nail
 sof-firmware
-spectre-meltdown-checker
 sudo
 sysfsutils
 systemd
