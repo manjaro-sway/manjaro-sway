@@ -88,6 +88,7 @@ dhclient
 >extra manjaro-aur-support
 pamac-gtk
 >extra appimagelauncher
+
 ## Utils
 
 >extra apparmor
@@ -117,7 +118,8 @@ cliphist # clipboard history application
 >extra wluma # adaptive brightness
 >extra dex # starting .desktop files from the cli
 >extra pacseek # lightweight tui package manager
-helix # vim-like editor
+>extra helix # vim-like editor
+>extra pacman-log-orphans-hook # pacman hook to log orphaned packages
 
 ## Misc
 
