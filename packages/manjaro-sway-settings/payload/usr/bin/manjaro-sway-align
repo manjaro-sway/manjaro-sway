@@ -1,6 +1,4 @@
 #!/bin/bash
-set -xu
-
 echo "Install all the explicit regular dependencies for the sway iso"
 
 yay -S --needed $(curl -s https://raw.githubusercontent.com/Manjaro-Sway/iso-profiles/sway/community/sway/Packages-Desktop | grep "^[^#>]" | sed 's/\#.*//')
