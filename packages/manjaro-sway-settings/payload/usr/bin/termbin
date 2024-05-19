@@ -13,3 +13,5 @@ then
 fi
 
 nc termbin.com 9999
+
+echo -e "\e[33mPlease switch to 'termpaste' for a better experience! 'termbin' will be removed eventually.\e[0m" >/dev/stderr
