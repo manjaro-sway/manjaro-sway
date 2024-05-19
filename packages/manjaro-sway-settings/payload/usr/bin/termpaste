@@ -4,11 +4,10 @@ url='https://paste.c-net.org/'
 domain=$(echo $url | awk -F/ '{print $3}')
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
-  echo "${domain} - Terminal pastebin"
-  echo "Usage: echo "test" | $(basename $0)"
-  exit 1
+    echo "${domain} - Terminal pastebin"
+    echo "Usage: echo "test" | $(basename $0)"
+    exit 1
 fi
-
 
 if (( $# > 0 )); then
     for file; do
@@ -17,10 +16,10 @@ if (( $# > 0 )); then
             --header "X-FileName: ${file##*/}" \
             "$url")
         echo "$file -> $url"
-        xdg-open "$url"
+        xdg-open "$url" >/dev/null
     done
 else
     url=$(curl -s --data-binary @- "$url")
     echo "$url"
-    xdg-open "$url"
+    xdg-open "$url" >/dev/null
 fi
