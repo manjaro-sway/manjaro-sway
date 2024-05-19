@@ -12,11 +12,15 @@ fi
 
 if (( $# > 0 )); then
     for file; do
-        curl -s \
+        url=$(curl -s \
             --data-binary @"$file" \
             --header "X-FileName: ${file##*/}" \
-            "$url"
+            "$url")
+        echo "$file -> $url"
+        xdg-open "$url"
     done
 else
-    curl -s --data-binary @- "$url"
+    url=$(curl -s --data-binary @- "$url")
+    echo "$url"
+    xdg-open "$url"
 fi
