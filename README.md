@@ -16,11 +16,10 @@
 
 ![manjaro sway colors](https://github.com/manjaro-sway/manjaro-sway/assets/4662748/d0f7427d-bcfa-4949-985a-6789235b5641)
 
-
 This is manjaro sway edition - built according to the following principles:
 
 - use a decent cli/tui solution
-- convention overrideable by configuration
+- convention override-able by configuration
 - prepare opt-out
 - build everything in automation
 
@@ -28,9 +27,18 @@ This is manjaro sway edition - built according to the following principles:
 
 You can find the latest images on [manjaro-sway.download](https://manjaro-sway.download/).
 
-You can create a bootable USB stick using [Etcher](https://www.balena.io/etcher/) or a similar tool.
+You can create a boot-able USB stick using [Etcher](https://www.balena.io/etcher/) or a similar tool.
 
 Check out our [FAQ](SUPPORT.md) for additional hints.
+
+## Noteworthy side-projects
+
+Some projects evolved from the this sway distribution include:
+
+- tons of [github actions](https://github.com/orgs/manjaro-contrib/repositories?q=actions) to orchestrate iso-/image- and package-building, as well as repo-orchestration
+- [/weather](https://manjaro-sway.download/weather/auto) a waybar-targeting proxy for [open-meteo.com](https://open-meteo.com)
+- [/geoip](https://manjaro-sway.download/geoip) a no-fuzz wrapper for cloudflare geo-ip data
+- [mjr.sh](https://mjr.sh) a little service for shortening links, available in Manjaro Sway as the `mjr` cli
 
 ## Development
 
@@ -50,14 +58,14 @@ buildiso -p sway
 
 ### Contributing
 
-There are lots of ways to contribute. 
+There are lots of ways to contribute.
 
 - Give us a ⭐ here on github to increase our visibility
 - Help collecting implementation ideas in [discussions](https://github.com/Manjaro-Sway/manjaro-sway/discussions)
 - Implement ideas in our [desktop-settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway) and [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway) and create pull requests
 - Contribute to the documentation and help others in our chat
 - Get in [touch](https://forum.manjaro.org/) with the broader Manjaro community.
-- Use the distribution on a daily basis, find and share solutions to problems you have. 
+- Use the distribution on a daily basis, find and share solutions to problems you have.
 - Get the manjaro packages before they are released to the general public by [switching to our "unstable" or "testing" branch](https://wiki.manjaro.org/index.php/Switching_Branches#Changing_to_another_branch) and report issues you face early on.
 
 ### Credits
