@@ -18,9 +18,9 @@ start() {
         if [ -z ${longitude+x} ] || [ -z ${latitude+x} ]; then
             GEO_CONTENT=$(curl -sL https://manjaro-sway.download/geoip)
         fi
-        longitude=${longitude:-$(echo "$GEO_CONTENT" | jq '.longitude // empty')}
+        longitude=${longitude:-$(echo "$GEO_CONTENT" | jq -r '.longitude // empty')}
         longitude=${longitude:-$fallback_longitude}
-        latitude=${latitude:-$(echo "$GEO_CONTENT" | jq '.latitude // empty')}
+        latitude=${latitude:-$(echo "$GEO_CONTENT" | jq -r '.latitude // empty')}
         latitude=${latitude:-$fallback_latitude}
 
         echo longitude: "$longitude" latitude: "$latitude"
