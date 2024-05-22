@@ -142,6 +142,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://www.varac.net"><img src="https://avatars.githubusercontent.com/u/488213?v=4?s=100" width="100px;" alt="Varac"/><br /><sub><b>Varac</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/issues?q=author%3Avarac" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://liberapay.com/trinitronx/"><img src="https://avatars.githubusercontent.com/u/122524?v=4?s=100" width="100px;" alt="James Cuzella"/><br /><sub><b>James Cuzella</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/commits?author=trinitronx" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/oxmj"><img src="https://avatars.githubusercontent.com/u/1759488?v=4?s=100" width="100px;" alt="oxmj"/><br /><sub><b>oxmj</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/commits?author=oxmj" title="Code">💻</a> <a href="#security-oxmj" title="Security">🛡️</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/crackersamdjam"><img src="https://avatars.githubusercontent.com/u/45298690?v=4?s=100" width="100px;" alt="crackersamdjam"/><br /><sub><b>crackersamdjam</b></sub></a><br /><a href="https://github.com/manjaro-sway/manjaro-sway/commits?author=crackersamdjam" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
