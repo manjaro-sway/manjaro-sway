@@ -37,6 +37,7 @@ jobs:
   build-image:
     runs-on: ubuntu-22.04
     needs: [prepare-release]
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
