@@ -40,7 +40,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [stable, unstable]
+        branch: [stable, testing, unstable]
         device: [rpi4]
     steps:
       - name: import sway key
