@@ -1,4 +1,4 @@
-export const supportedLocales = ["en", "de", "fr"] as const;
+export const supportedLocales = ["en", "de", "fr", "it"] as const;
 
 type WWOCode =
   | 0
@@ -154,5 +154,35 @@ export const wmoCodeToText: Record<(typeof supportedLocales)[number], WMOTransla
       95: "Orages faibles ou modérés",
       96: "Orages avec grêle légère",
       99: "Orages avec grêle forte",
-    }
+    },
+    it: {
+      0: "Cielo sereno",
+      1: "Poco nuvoloso",
+      2: "Parzialmente nuvoloso",
+      3: "Nuvoloso",
+      45: "Nebbia",
+      48: "Nebbia con rime",
+      51: "Pioviggine debole",
+      53: "Pioviggine moderata",
+      55: "Pioviggine intensa",
+      56: "Pioviggine debole ghiacciata",
+      57: "Pioviggine intensa ghiacciata",
+      61: "Pioggia debole",
+      63: "Pioggia moderata",
+      65: "Pioggia forte",
+      66: "Pioggia debole ghiacciata",
+      67: "Pioggia forte ghiacciata",
+      71: "Debole nevicata",
+      73: "Nevicata moderata",
+      75: "Nevicata forte",
+      77: "Grani di neve",
+      80: "Pioviggine debole",
+      81: "Pioviggine moderata",
+      82: "Pioviggine intensa",
+      85: "Debole nevicata",
+      86: "Nevicata forte",
+      95: "Temporali deboli o moderati",
+      96: "Temporali con grandine leggera",
+      99: "Temporali con grandine forte",
+    },
   };

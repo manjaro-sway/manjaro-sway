@@ -71,9 +71,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	const language =
 		input.data.language ??
 		(acceptLanguage.get(
-			context.request.headers.get("accept-language"),
-		) as (typeof supportedLocales)[number]) ??
-		"en";
+			context.request.headers.get("Accept-Language"),
+		) as (typeof supportedLocales)[number]);
 
 	let { longitude, latitude, city } = context.request.cf;
 
