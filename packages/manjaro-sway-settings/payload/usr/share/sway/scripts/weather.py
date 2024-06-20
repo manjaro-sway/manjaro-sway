@@ -8,20 +8,30 @@ import sys
 import urllib.parse
 from datetime import datetime
 import requests
+import configparser
+from os import path, environ
+
+config_path = path.join(
+    environ.get('APPDATA') or
+    environ.get('XDG_CONFIG_HOME') or
+    path.join(environ['HOME'], '.config'),
+    "weather.cfg"
+)
+
+config = configparser.ConfigParser()
+config.read(config_path)
 
 # see https://docs.python.org/3/library/locale.html#background-details-hints-tips-and-caveats
 locale.setlocale(locale.LC_ALL, "")
 current_locale, _ = locale.getlocale(locale.LC_NUMERIC)
-data = {}
-city = "auto"
-temperature = "C"
-temperature_unit = "celsius"
-distance = "km"
-wind_speed_unit = "kmh"
+city = config.get('DEFAULT', 'city', fallback='auto')
+temperature = config.get('DEFAULT', 'temperature', fallback='C')
+distance = config.get('DEFAULT', 'distance', fallback='km')
+lng = config.get('DEFAULT', 'locale', fallback=locale.getlocale()[0] or current_locale)
 
 if current_locale == "en_US":
-    temperature = "F"
-    distance = "miles"
+    temperature = temperature or "F"
+    distance = distance or "miles"
 
 argument_list = sys.argv[1:]
 options = "t:c:d:"
@@ -56,11 +66,17 @@ except getopt.error as err:
 if temperature == "F":
     temperature_unit = "fahrenheit"
 
+if temperature == "C":
+    temperature_unit = "celsius"
+
 if distance == "miles":
     wind_speed_unit = "mph"
 
+if distance == "km":
+    wind_speed_unit = "kmh"
+
 try:
-    headers = {"Accept-Language": f"{locale.getlocale()[0].replace("_", "-")},{locale.getlocale()[0].split("_")[0]};q=0.5"}
+    headers = {"Accept-Language": f"{lng.replace("_", "-")},{lng.split("_")[0]};q=0.5"}
     weather = requests.get(f"https://manjaro-sway.download/weather/{city}?temperature_unit={temperature_unit}&wind_speed_unit={wind_speed_unit}", timeout=10, headers=headers).json()
 except (
     requests.exceptions.HTTPError,
