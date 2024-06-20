@@ -188,6 +188,14 @@ Disable it using the shortcut, the state should be persisted.
 
 `greetd`, our login messenger, is not supported by the manjaro installer. refer [here](https://wiki.archlinux.org/title/Greetd#Autologin) for help.
 
+### How can I get a fixed geo location for the weather module?
+
+Copy over and edit the configuration file, it will get picked up upon reloading the waybar:
+
+```bash
+cp ~/.config/weather.cfg.example ~/.config/weather.cfg
+```
+
 ### How can I set a fixed geo location for the night-light feature?
 
 Update the waybar module by creating or updating your `~/.config/waybar/config.jsonc` with appropriate values for latitude and longitude:
