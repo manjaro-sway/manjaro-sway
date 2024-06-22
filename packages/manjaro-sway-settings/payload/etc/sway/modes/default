@@ -190,3 +190,6 @@ hide_edge_borders smart
 
 # allow to kill focused floating shell windows using Esc
 $bindsym --release Escape [app_id="floating_shell" con_id=__focused__] kill
+
+## Launch // Task Manager ##
+$bindsym Ctrl+Alt+Delete exec $task_manager

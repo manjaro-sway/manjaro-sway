@@ -34,6 +34,9 @@ set $term footclient
 set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
 set $term_float footclient --app-id floating_shell --window-size-chars 82x25
 
+# Your preferred task manager
+set $task_manager $once $term_float btop
+
 # onscreen bar
 set $onscreen_bar /usr/share/sway/scripts/wob.sh "$accent-color" "$background-color"
 
