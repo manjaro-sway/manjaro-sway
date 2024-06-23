@@ -2,7 +2,7 @@
 make=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | .make')
 model=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | .model')
 name=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused==true) | .name')
-current_screen="$make $model ($name)"
+current_screen="$make $model ($name"
 
 increment=0.25
 
