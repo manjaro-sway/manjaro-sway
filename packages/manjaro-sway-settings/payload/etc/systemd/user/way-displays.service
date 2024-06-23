@@ -6,9 +6,11 @@ After=wayland-session.target
 
 [Service]
 NonBlocking=true
-ExecStart=way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1
+ExecStart=way-displays --log-threshold debug
 ExecReload=kill -SIGUSR2 $MAINPID
 Restart=on-failure
+StandardOutput=file:/tmp/way-displays.log
+StandardError=file:/tmp/way-displays.log
 
 [Install]
 WantedBy=wayland-session.target
