@@ -132,3 +132,5 @@ set $screenshot_selection_upload $pipe_selection | $upload_pipe
 set $update-manager '/usr/share/sway/scripts/checkupdates.sh upgrade'
 
 include /etc/sway/autostart
+
+set $emoji-picker emoji-picker

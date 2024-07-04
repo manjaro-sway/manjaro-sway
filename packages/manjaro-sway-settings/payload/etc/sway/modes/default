@@ -193,3 +193,6 @@ $bindsym --release Escape [app_id="floating_shell" con_id=__focused__] kill
 
 ## Launch // Task Manager ##
 $bindsym Ctrl+Alt+Delete exec $task_manager
+
+## Launch // Emoji Picker ##
+$bindsym Alt+Shift+e exec $emoji-picker
