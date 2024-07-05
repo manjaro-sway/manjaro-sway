@@ -13,7 +13,6 @@ swaylock-effects # swaylock with nicer effects
 >extra autotiling # automated tiling
 >extra sworkstyle # dynamic workspace icons in waybar
 >extra swaycwd # determines the cwd of a sway container
->extra zeit # command line time tracker
 
 ## Wayland support
 
