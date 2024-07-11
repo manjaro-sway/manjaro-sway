@@ -28,5 +28,9 @@ case $1'' in
     next_scale=$(echo "$(current_scale) - $increment" | bc)
     scale
     ;;
+'default')
+    next_scale=1
+    scale
+    ;;
 esac
 

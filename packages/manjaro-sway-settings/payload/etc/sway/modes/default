@@ -167,6 +167,9 @@ $bindsym $alt_mod+plus exec $scale_up
 ## Action // Scale down  ##
 $bindsym $alt_mod+minus exec $scale_down
 
+## Action // Scale default  ##
+$bindsym $mod+equal exec $scale_default
+
 ## Action // Toggle floating ##
 $bindsym $mod+Shift+space floating toggle
 
