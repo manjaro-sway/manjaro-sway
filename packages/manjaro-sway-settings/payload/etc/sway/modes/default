@@ -152,7 +152,7 @@ $bindsym $mod+v splitv
 $bindsym $mod+s layout stacking
 ## Action // Switch to window tabbing ##
 $bindsym $mod+w layout tabbed
-## Action // Toggle window splitting ##
+## Action // Switch to window tiling ##
 $bindsym $mod+e layout toggle split
 
 ## Action // Toggle fullscreen ##
