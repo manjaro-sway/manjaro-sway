@@ -7,8 +7,6 @@ acpid
 amd-ucode
 b43-fwcutter
 btrfs-progs
-bzip2
-coreutils
 cpupower
 cronie
 cryptsetup
@@ -24,7 +22,6 @@ exfatprogs
 f2fs-tools
 glibc-locales
 grub
-#haveged
 inetutils
 intel-ucode
 jfsutils
@@ -33,11 +30,10 @@ less
 logrotate
 lvm2
 man-db
-#manjaro-firmware
+man-pages
 manjaro-release
 manjaro-system
 manjaro-zsh-config
-man-pages
 mdadm
 memtest86+
 memtest86+-efi
@@ -57,7 +53,6 @@ s-nail
 sof-firmware
 sudo
 sysfsutils
-systemd
 texinfo
 update-grub
 usbutils
