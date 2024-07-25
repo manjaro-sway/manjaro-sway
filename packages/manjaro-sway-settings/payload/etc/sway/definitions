@@ -26,31 +26,31 @@ set $bindsym bindsym --to-code
 # For user's convenience, the same for unbindsym
 set $unbindsym unbindsym --to-code
 
-# once-script
-set $once /usr/share/sway/scripts/once.sh
+# Script paths
+set $script_path /usr/share/sway/scripts
 
-# Your preferred terminal emulator
+# Terminal emulator
 set $term footclient
 set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
 set $term_float footclient --app-id floating_shell --window-size-chars 82x25
 
-# Your preferred task manager
-set $task_manager $once $term_float btop
+# Task manager
+set $task_manager $script_path/once.sh $term_float btop
 
-# onscreen bar
-set $onscreen_bar /usr/share/sway/scripts/wob.sh "$accent-color" "$background-color"
+# Onscreen bar
+set $onscreen_bar $script_path/wob.sh "$accent-color" "$background-color"
 
-# brightness control
-set $brightness /usr/share/sway/scripts/brightness.sh
+# Brightness control
+set $brightness $script_path/brightness.sh
 set $brightness_up $brightness up | $onscreen_bar
 set $brightness_down $brightness down | $onscreen_bar
 
-# scaling
-set $scale_up /usr/share/sway/scripts/scale.sh up
-set $scale_down /usr/share/sway/scripts/scale.sh down
-set $scale_default /usr/share/sway/scripts/scale.sh default
+# Scaling
+set $scale_up $script_path/scale.sh up
+set $scale_down $script_path/scale.sh down
+set $scale_default $script_path/scale.sh default
 
-# audio control
+# Audio control
 set $sink_volume pactl get-sink-volume @DEFAULT_SINK@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
 set $source_volume pactl get-source-volume @DEFAULT_SOURCE@ | grep '^Volume:' | cut -d / -f 2 | tr -d ' ' | sed 's/%//'
 set $volume_down $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ -5% && $sink_volume)
@@ -58,24 +58,24 @@ set $volume_up $onscreen_bar $(pactl set-sink-volume @DEFAULT_SINK@ +5% && $sink
 set $volume_mute $onscreen_bar $(pactl set-sink-mute @DEFAULT_SINK@ toggle && pactl get-sink-mute @DEFAULT_SINK@ | sed -En "/no/ s/.*/$($sink_volume)/p; /yes/ s/.*/0/p")
 set $mic_mute $onscreen_bar $(pactl set-source-mute @DEFAULT_SOURCE@ toggle && pactl get-source-mute @DEFAULT_SOURCE@ | sed -En "/no/ s/.*/$($source_volume)/p; /yes/ s/.*/0/p")
 
-# rofi theme
+# Rofi theme
 set $rofi_theme "* {\nlightbg: $background-color;\nbackground: $background-color;\nlightfg: $accent-color;\nforeground: $text-color;\n}\nwindow {\nwidth: 25em;\n}\n"
 
-# clipboard history
+# Clipboard history
 set $clipboard cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to copy" -lines 10 | cliphist decode | wl-copy
 set $clipboard-del cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to delete" -lines 10 | cliphist delete
 
-# zeit tracking
-set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 | /usr/share/sway/scripts/zeit.sh track && waybar-signal zeit
+# Zeit tracking
+set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 | $script_path/zeit.sh track && waybar-signal zeit
 
-# Your preferred application launcher
+# Application launcher
 set $menu rofi -show combi -combi-modi "drun,run" -terminal "$term" -ssh-command "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "$gui-font" -lines 10
 
-### Lockscreen configuration
+# Lockscreen configuration
 set $locking swaylock --daemonize --color "$selection-color" --inside-color "$selection-color" --inside-clear-color "$text-color" --ring-color "$color2" --ring-clear-color "$color11" --ring-ver-color "$color13" --show-failed-attempts --fade-in 0.2 --grace 2 --effect-vignette 0.5:0.5 --effect-blur 7x5 --screenshots --clock
 
-# bluetooth menu
-set $bluetooth $once $term_float bluetuith
+# Bluetooth menu
+set $bluetooth $script_path/once.sh $term_float bluetuith
 
 ### Idle configuration
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -89,22 +89,23 @@ set $sleep_timeout_bat 900
 set $sleep_timeout_ac 3600
 set $sleep_delay 2
 
-### Autostart applications definition. Can be removed soon-ish as it is being imported in userspace.
+### Autostart applications definition.
+# Can be removed soon-ish as it is being imported in userspace.
 include /etc/sway/autostart
 
-# hide cursor after 5 seconds of inactivty
+# Hide cursor after 5 seconds of inactivty
 seat seat0 hide_cursor 5000
 
-# pulseaudio command
-set $pulseaudio $once $term_float pulsemixer
+# Pulseaudio command
+set $pulseaudio $script_path/once.sh $term_float pulsemixer
 
-# help command
-set $help /usr/share/sway/scripts/help.sh --toggle
+# Help command
+set $help $script_path/help.sh --toggle
 
-# calendar application
-set $calendar $once $term_float calcurse
+# Calendar application
+set $calendar $script_path/once.sh $term_float calcurse
 
-# workspace names
+# Workspace names
 set $ws1 number 1
 set $ws2 number 2
 set $ws3 number 3
@@ -116,7 +117,7 @@ set $ws8 number 8
 set $ws9 number 9
 set $ws10 number 10
 
-# screenshot
+# Screenshot commands
 set $grimshot grimshot
 set $pipe_output $grimshot save output -
 set $pipe_selection $grimshot save area -
@@ -130,8 +131,8 @@ set $screenshot_screen_upload $pipe_output | $upload_pipe
 set $screenshot_selection $pipe_selection | $swappy && $notify_paste
 set $screenshot_selection_upload $pipe_selection | $upload_pipe
 
-set $update-manager '/usr/share/sway/scripts/checkupdates.sh upgrade'
+# Update manager
+set $update_manager '$script_path/checkupdates.sh upgrade'
 
-include /etc/sway/autostart
-
-set $emoji-picker emoji-picker
+# Emoji picker
+set $emoji_picker emoji-picker

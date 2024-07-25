@@ -169,7 +169,7 @@
         "return-type": "json",
         "exec-if": "/usr/share/sway/scripts/checkupdates.sh check",
         "exec": "/usr/share/sway/scripts/checkupdates.sh status",
-        "on-click": "/usr/share/sway/scripts/checkupdates.sh check && swaymsg exec \\$update-manager",
+        "on-click": "/usr/share/sway/scripts/checkupdates.sh check && swaymsg exec \\$update_manager",
         "on-click-middle": "waybar-signal pacman",
         "signal": 14
     },
