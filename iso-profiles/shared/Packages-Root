@@ -22,6 +22,7 @@ exfatprogs
 f2fs-tools
 glibc-locales
 grub
+install-grub
 inetutils
 intel-ucode
 jfsutils
