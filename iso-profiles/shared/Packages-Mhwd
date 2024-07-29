@@ -50,10 +50,13 @@ virtualbox-guest-utils
 vulkan-mesa-layers
 vulkan-swrast
 vulkan-virtio
+vulkan-icd-loader
 vulkan-radeon
 >multilib lib32-vulkan-radeon
 vulkan-intel
 >multilib lib32-vulkan-intel
+vulkan-nouveau
+>multilib lib32-vulkan-nouveau
 xf86-input-vmmouse
 xf86-video-amdgpu
 xf86-video-ati
