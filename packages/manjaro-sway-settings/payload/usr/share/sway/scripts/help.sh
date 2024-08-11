@@ -13,11 +13,11 @@ if [ "$1" = "--toggle" ]; then
         touch "$LOCKFILE"
     fi
     # toggles the visibility
-    pkill -f -${VISIBILITY_SIGNAL} nwg-wrapper
+    pkill -f -${VISIBILITY_SIGNAL} 'nwg-wrapper.*-s help.sh'
 
 else
     # makes sure no "old" wrappers are mounted (on start and reload)
-    pkill -f -${QUIT_SIGNAL} nwg-wrapper
+    pkill -f -${QUIT_SIGNAL} 'nwg-wrapper.*-s help.sh'
     # mounts the wrapper to all outputs
     for output in $(swaymsg -t get_outputs --raw | jq -r '.[].name'); do
         # sets the initial visibility
