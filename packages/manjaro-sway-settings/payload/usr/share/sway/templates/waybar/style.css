@@ -193,6 +193,10 @@ window#waybar {
     color: @error_color;
 }
 
+#workspaces button:hover {
+    color: @theme_bg_color;
+}
+
 #custom-pacman {
     color: @warning_color;
 }
