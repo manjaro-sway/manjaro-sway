@@ -197,6 +197,10 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		};
 	}>();
 
+ if (!result.current) {
+    console.error(result)
+ }
+
 	const lines = [
 		`<b>${city}</b>:`,
 		`<b>${wmoCodeToText[language][result.current.weather_code]} ${
