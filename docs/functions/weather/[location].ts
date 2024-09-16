@@ -81,13 +81,13 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	if (location !== "auto" || language !== "en") {
 		try {
 			const locationResponse = await fetch(
-				`https://geocoding-api.open-meteo.com/v1/search?name=${
-					location === "auto" ? city : location
+				`https://geocoding-api.open-meteo.com/v1/search?name=${location === "auto" ? city : location
 				}&count=1&language=${language}`,
 				{
 					cf: {
 						// Cache the response for 30 * 24 hours, as the location of a city is unlikely to change in coordinates
 						cacheTtl: 60 * 60 * 24 * 30,
+						cacheEverything: true,
 					},
 				},
 			);
@@ -146,12 +146,13 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
 	const weatherRequest = await fetch(
 		`https://api.open-meteo.com/v1/forecast?${searchParams.toString()}`,
-{
-					cf: {
-						// Cache the response for 15 minutes to not overwhelm the open-meteo rate limits
-						cacheTtl: 60 * 15,
-					},
-				},
+		{
+			cf: {
+				// Cache the response for 15 minutes to not overwhelm the open-meteo rate limits
+				cacheTtl: 60 * 15,
+				cacheEverything: true,
+			},
+		},
 	);
 
 	const result = await weatherRequest.json<{
@@ -203,14 +204,13 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		};
 	}>();
 
- if (!result.current) {
-    console.error(result)
- }
+	if (!result.current) {
+		console.error(result)
+	}
 
 	const lines = [
 		`<b>${city}</b>:`,
-		`<b>${wmoCodeToText[language][result.current.weather_code]} ${
-			wmoCodeToEmojiMap[result.current.weather_code]
+		`<b>${wmoCodeToText[language][result.current.weather_code]} ${wmoCodeToEmojiMap[result.current.weather_code]
 		}</b>`,
 		`${translations[language].feels_like}: ${result.current.apparent_temperature}${result.current_units.apparent_temperature}`,
 		`${translations[language].wind}: ${result.current.wind_speed_10m}${result.current_units.wind_speed_10m}`,
@@ -243,34 +243,26 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 			hourly.time.startsWith(result.daily.time[index]),
 		);
 		return [
-			`<b>${result.daily.time[index]}</b> - ${
-				wmoCodeToText[language][result.daily.weather_code[index]]
+			`<b>${result.daily.time[index]}</b> - ${wmoCodeToText[language][result.daily.weather_code[index]]
 			} ${wmoCodeToEmojiMap[result.daily.weather_code[index]]}`,
-			`⬇️${result.daily.apparent_temperature_min[index]}${
-				result.daily_units.apparent_temperature_min
-			} ⬆️${result.daily.apparent_temperature_max[index]}${
-				result.daily_units.apparent_temperature_max
-			}${
-				result.daily.uv_index_clear_sky_max[index] >= 6
-					? ` ${
-							uvIndexEmoji[
-								Math.round(result.daily.uv_index_clear_sky_max[index])
-							]
-						}${result.daily.uv_index_clear_sky_max[index]} UV Index`
-					: ""
+			`⬇️${result.daily.apparent_temperature_min[index]}${result.daily_units.apparent_temperature_min
+			} ⬆️${result.daily.apparent_temperature_max[index]}${result.daily_units.apparent_temperature_max
+			}${result.daily.uv_index_clear_sky_max[index] >= 6
+				? ` ${uvIndexEmoji[
+				Math.round(result.daily.uv_index_clear_sky_max[index])
+				]
+				}${result.daily.uv_index_clear_sky_max[index]} UV Index`
+				: ""
 			}`,
 			...currentHours.map((hourly) => {
-				return `${hourly.hour}: ${hourly.temperature}${
-					result.hourly_units.apparent_temperature
-				} ${wmoCodeToText[language][hourly.weatherCode]} ${
-					hourly.is_day === 0 && hourly.weatherCode === 0
+				return `${hourly.hour}: ${hourly.temperature}${result.hourly_units.apparent_temperature
+					} ${wmoCodeToText[language][hourly.weatherCode]} ${hourly.is_day === 0 && hourly.weatherCode === 0
 						? "🌙"
 						: wmoCodeToEmojiMap[hourly.weatherCode]
-				}${
-					hourly.precipitation_probability > 0
+					}${hourly.precipitation_probability > 0
 						? ` ☔${hourly.precipitation_probability}%`
 						: ""
-				}`;
+					}`;
 			}),
 		].join("\n");
 	});
@@ -279,14 +271,12 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
 	const response = Response.json(
 		{
-			text: `${
-				isNight && result.current.weather_code === 0
-					? "🌙"
-					: wmoCodeToEmojiMap[result.current.weather_code]
-			} ${result.current.temperature_2m}${result.current_units.temperature_2m}`,
-			tooltip: `${lines.join("\n")}\n\n${dailies.join("\n\n")}\n\n${
-				translations[language].lastUpdate
-			}: ${new Date().toLocaleString(language)}\n\nPowered by Open-Meteo.com`,
+			text: `${isNight && result.current.weather_code === 0
+				? "🌙"
+				: wmoCodeToEmojiMap[result.current.weather_code]
+				} ${result.current.temperature_2m}${result.current_units.temperature_2m}`,
+			tooltip: `${lines.join("\n")}\n\n${dailies.join("\n\n")}\n\n${translations[language].lastUpdate
+				}: ${new Date().toLocaleString(language)}\n\nPowered by Open-Meteo.com`,
 		},
 		{
 			headers: {
