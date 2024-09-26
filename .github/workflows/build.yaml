@@ -22,7 +22,7 @@ env:
 
 jobs:
   prepare-release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - id: time
         uses: boredland/get-time-action@dbc808befb89eb33fee64f5f4abce4d2a5fa7cfd # tag=2.0.0
@@ -35,7 +35,7 @@ jobs:
       longterm: ${{ steps.receive.outputs.longterm-pkg }}
       stable: ${{ steps.receive.outputs.stable-pkg }}
   build-image:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [prepare-release]
     continue-on-error: true
     strategy:
@@ -56,7 +56,7 @@ jobs:
           arm-profiles-repo: https://github.com/manjaro-sway/arm-profiles.git
           overlay-repo: https://packages.manjaro-sway.download/${{ matrix.branch }}/aarch64/manjaro-sway.db
   build-iso:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [prepare-release]
     strategy:
       fail-fast: false
@@ -82,7 +82,7 @@ jobs:
           additional-trusted-gpg: ${{ vars.GPG_KEYID }}
           build-mirror: ${{ env.MIRROR }}
   trigger-mirror:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [build-iso, build-image]
     steps:
       - uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3
@@ -91,7 +91,7 @@ jobs:
           repository: manjaro-sway/manjaro-sway
           event-type: new_release
   rollback:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [build-iso, build-image, prepare-release]
     if: ${{ failure() || cancelled() }}
     steps:
