@@ -1,6 +1,13 @@
 #!/bin/sh
 # set -u
 
+waybar_pid=$(pidof -x waybar)
+
+if [ "$waybar_pid" == "" ]; then
+    echo "waybar not started, nothing to do"
+    exit 0
+fi
+
 declare -A signal
 signal[github]=4
 signal[playerctl]=5
