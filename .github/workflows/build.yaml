@@ -95,7 +95,7 @@ jobs:
     needs: [build-iso, build-image, prepare-release]
     if: ${{ failure() || cancelled() }}
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: rollback
         run: |
           echo ${{ github.token }} | gh auth login --with-token
