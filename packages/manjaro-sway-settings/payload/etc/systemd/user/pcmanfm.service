@@ -5,7 +5,7 @@ PartOf=graphical-session.target
 After=graphical-session.target
 
 [Service]
-ExecStart=pcmanfm -d
+ExecStart=/bin/sh -c 'pcmanfm-qt -d || pcmanfm -d'
 NonBlocking=true
 ExecReload=kill -SIGUSR2 $MAINPID
 Restart=on-failure
