@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   keepalive:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
       - name: check if any github actions got disabled due to inactivity
         env:
