@@ -5,6 +5,7 @@ PartOf=wayland-session.target
 After=wayland-session.target
 
 [Service]
+Environment=XDG_VTNR=2
 NonBlocking=true
 ExecStart=way-displays --log-threshold debug
 ExecReload=kill -SIGUSR2 $MAINPID
