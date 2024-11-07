@@ -342,6 +342,34 @@ input "1:1:AT_Translated_Set_2_keyboard" xkb_numlock enabled
 See [the Arch Wiki](https://wiki.archlinux.org/title/GNOME/Keyring#SSH_keys) for more information.
 
 
+
+## Troubleshooting
+
+### Why is swaylock-effects causing high CPU usage?
+
+Some users have reported high CPU usage by swaylock-effects. If you're experiencing this issue, you can try the following steps:
+
+1. Update your system to ensure you have the latest version of swaylock-effects:
+   ```bash
+   sudo pacman -Syu
+   ```
+
+2. If the issue persists, try disabling some effects in your swaylock configuration. Edit your swaylock config file (usually located at `~/.config/swaylock/config`) and comment out or remove lines related to complex effects.
+
+3. If the problem continues, you can temporarily switch to the standard swaylock:
+   ```bash
+   sudo pacman -S swaylock
+   sudo pacman -Rns swaylock-effects
+   ```
+
+4. To further debug the issue, you can run swaylock with debugging output:
+   ```bash
+   swaylock -d
+   ```
+   This will provide more information about what's happening when swaylock is active.
+
+5. If none of these steps resolve the issue, please report it on our GitHub issues page with the output from step 4 and your system information (Sway version, kernel version, etc.).
+
 ## Recommended tools
 
 Finding tools that work great on sway/wayland is hard. This aims at helping people to find the tools which "just work"™️.
