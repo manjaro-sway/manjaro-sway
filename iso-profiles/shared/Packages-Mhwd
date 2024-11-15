@@ -20,8 +20,8 @@ libva-vdpau-driver
 libxaw
 libxpm
 libxvmc
-mesa-vdpau
->multilib lib32-mesa-vdpau
+#mesa-vdpau
+#>multilib lib32-mesa-vdpau
 >multilib lib32-libxvmc
 >multilib lib32-primus
 >nonfree_x86_64 KERNEL-nvidia-390xx
