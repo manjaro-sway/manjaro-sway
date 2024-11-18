@@ -111,6 +111,14 @@ Copy over and edit the customization template, it will get picked up automatical
 cp ~/.config/foot/foot.ini.example ~/.config/foot/foot.ini
 ```
 
+### How can I edit the `swayidle` settings (sleep/lock etc.)?
+
+Copy over the default idle-config and edit the settings
+
+```bash
+cp /etc/sway/idle.yaml ~/.config/sway/idle.yaml
+```
+
 ### How can I add my own and override existing sworkstyle icons?
 
 Copy over and edit the customization template, it will get picked up automatically:
