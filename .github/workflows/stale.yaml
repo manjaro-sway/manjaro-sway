@@ -2,14 +2,14 @@ name: "Close stale issues"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 7 * * 1-5"
+    - cron: "30 7 * * 1"
 
 permissions:
   issues: write
 
 jobs:
   stale:
-    runs-on: ${{ vars.SMALL_RUNNER }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/stale@v9
         with:
