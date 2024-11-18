@@ -1,0 +1,26 @@
+---
+debug: false
+wait: true
+timeouts:
+  # idle_timeout
+  - timeout: 240
+    command: brightnessctl -s && brightnessctl set 10
+    resume: brightnessctl -r
+  # locking_timeout
+  - timeout: 300
+    command: swaymsg exec \$locking
+  # screen_timeout
+  - timeout: 600
+    command: /usr/share/sway/scripts/keyboard-backlight-switch.sh off
+    resume: /usr/share/sway/scripts/keyboard-backlight-switch.sh on
+  # dpms_timeout
+  - timeout: 600
+    command: swaymsg "output * dpms off"
+    resume: swaymsg "output * dpms on"
+  # sleep_timeout_bat
+  - timeout: 900
+    command: acpi -b | grep Discharging && systemctl suspend
+  # sleep_timeout_ac
+  - timeout: 3600
+    command: acpi -b | grep Discharging; test $? -eq 1 && systemctl suspend
+before-sleep: swaymsg exec \$locking && playerctl pause

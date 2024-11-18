@@ -6,6 +6,7 @@ set $initialize_waybar '[ -x "$(command -v waybar)" ] && (pkill waybar || exit 0
 set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --now --user enable sworkstyle'
 set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
 set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
+set $initialize_idle_daemon '[ -x "$(command -v swayidle-conf)" ] && systemctl --now --user enable swayidle'
 set $initialize_mounting_daemon '[ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ] && systemctl --now --user enable pcmanfm'
 set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --now --user enable way-displays'
 
@@ -24,17 +25,6 @@ set $auto_xdg_keyboard 'grep -q xkb_layout ~/.config/sway/config.d/*.conf || /us
 set $update_rofi_theme 'mkdir -p $HOME/.config/rofi/ && echo $rofi_theme > $HOME/.config/rofi/Manjaro.rasi'
 set $create_rofi_config 'mkdir -p $HOME/.config/rofi/ && cp -n /usr/share/sway/templates/rofi/config.rasi $HOME/.config/rofi/config.rasi'
 set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && noisetorch -i'
-set $swayidle swayidle -w \
-    timeout $idle_timeout 'brightnessctl -s && brightnessctl set 10' \
-    resume 'brightnessctl -r' \
-    timeout $locking_timeout 'exec $locking' \
-    timeout $screen_timeout '/usr/share/sway/scripts/keyboard-backlight-switch.sh off && swaymsg "output * dpms off"' \
-    resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on"' \
-    timeout $sleep_timeout_bat '[ "$(acpi -b | grep Discharging)" != "" ] && systemctl suspend' \
-    timeout $sleep_timeout_ac '[ "$(acpi -b | grep Discharging)" = "" ] && systemctl suspend' \
-    before-sleep 'playerctl pause' \
-    before-sleep 'exec $locking & sleep $sleep_delay' \
-    after-resume '/usr/share/sway/scripts/keyboard-backlight-switch.sh on && swaymsg "output * dpms on" && brightnessctl -r'
 set $disable_nm_applet_autostart '[ -x "$(command -v nm-applet)" ] && [ ! -f $HOME/.config/autostart/nm-applet.desktop ] && cp /etc/xdg/autostart/nm-applet.desktop $HOME/.config/autostart/nm-applet.desktop && echo "Hidden=true" >> $HOME/.config/autostart/nm-applet.desktop'
 set $apply_background swaymsg 'output * bg $background fill'
 

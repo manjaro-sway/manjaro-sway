@@ -77,18 +77,6 @@ set $locking swaylock --daemonize --color "$selection-color" --inside-color "$se
 # Bluetooth menu
 set $bluetooth $script_path/once.sh $term_float bluetuith
 
-### Idle configuration
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
-#
-set $idle_timeout 240
-set $locking_timeout 300
-set $screen_timeout 600
-set $sleep_timeout_bat 900
-set $sleep_timeout_ac 3600
-set $sleep_delay 2.5
-
 ### Autostart applications definition.
 # Can be removed soon-ish as it is being imported in userspace.
 include /etc/sway/autostart
