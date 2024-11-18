@@ -1,0 +1,21 @@
+name: "Close stale issues"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 7 * * 1-5"
+
+permissions:
+  issues: write
+
+jobs:
+  stale:
+    runs-on: ${{ vars.SMALL_RUNNER }}
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-stale: 60
+          days-before-pr-stale: -1
+          days-before-close: 30
+          days-before-pr-close: -1
+          remove-stale-when-updated: true
+          stale-issue-message: "This issue has been automatically marked as stale because it has not had recent activity. It will be closed if no further activity occurs."
