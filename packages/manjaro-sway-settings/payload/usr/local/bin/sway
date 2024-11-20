@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if lsmod | grep nvidia; then
-    /usr/bin/sway --unsupported-gpu "$@"
+    exec /usr/bin/sway --unsupported-gpu "$@"
 else
-    /usr/bin/sway "$@"
+    exec /usr/bin/sway "$@"
 fi
