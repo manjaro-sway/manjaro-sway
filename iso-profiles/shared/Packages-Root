@@ -28,6 +28,7 @@ intel-ucode
 jfsutils
 KERNEL
 less
+wireless-regdb
 linux-firmware
 logrotate
 lvm2
