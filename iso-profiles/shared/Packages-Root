@@ -28,6 +28,7 @@ intel-ucode
 jfsutils
 KERNEL
 less
+linux-firmware
 logrotate
 lvm2
 man-db
