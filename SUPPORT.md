@@ -168,10 +168,6 @@ cp ~/.config/sway/config.d/XX-keyboard.conf.example ~/.config/sway/config.d/01-k
 
 refer to `man sway-input` and the [arch wiki](https://wiki.archlinux.org/title/Sway#Keymap) for more pointers.
 
-### Why doesn't it start with nvidia drivers?
-
-Likely you're using proprietary drivers, unsupported by sway. You can try it anyway by pressing `F3` in the greeter and selecting `Sway (unsupported GPU)`.
-
 ### How can I configure another path for the screenshots to be saved?
 
 By default screenshots are being stored in `$HOME/Screenshots`. If you'd like to change that, just add/change a line `XDG_SCREENSHOTS_DIR="$HOME/Screenshots"` in `~/.config/user-dirs.dirs`.
