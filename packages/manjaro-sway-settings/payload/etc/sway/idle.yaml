@@ -9,10 +9,14 @@ timeouts:
   # locking_timeout
   - timeout: 300
     command: swaymsg exec \$locking
-  # screen_timeout
+  # keyboard_timeout
   - timeout: 600
     command: /usr/share/sway/scripts/keyboard-backlight-switch.sh off
     resume: /usr/share/sway/scripts/keyboard-backlight-switch.sh on
+  # screen_timeout
+  - timeout: 600
+    command: swaymsg "output * power off"
+    resume: swaymsg "output * power on"
   # dpms_timeout
   - timeout: 600
     command: swaymsg "output * dpms off"
@@ -23,4 +27,5 @@ timeouts:
   # sleep_timeout_ac
   - timeout: 3600
     command: acpi -b | grep Discharging; test $? -eq 1 && systemctl suspend
-before-sleep: swaymsg exec \$locking && playerctl pause
+before-sleep: playerctl pause; swaymsg exec \$locking
+lock: swaymsg exec \$locking
