@@ -50,8 +50,8 @@
 
 /* The whole bar */
 window#waybar {
-    background: @theme_bg_color;
-    color: @wm_icon_bg;
+    background: @theme_base_color;
+    color: @theme_text_color;
     font-size: 14px;
 }
 
