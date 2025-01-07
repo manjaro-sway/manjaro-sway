@@ -305,6 +305,47 @@ set $background /usr/share/backgrounds/whatever/file/you/like.png
 set $apply_background swaymsg 'output * bg $background fill'
 ```
 
+### Can I have a different wallpaper/background per monitor?
+
+Yup! Extending from the above example, we'll pass a different background image to two separate output statements, but this time specify which monitor instead of using `output *` to send the same background to all.
+
+First, we need to get identifiers for each of your monitors. With all of your monitors are connected, run `swaymsg -t get_outputs`. You'll see an information block for each monitor, like the following:
+
+```
+Output eDP-1 'BOE 0x095F Unknown' (focused)
+  Current mode: 2256x1504 @ 59.999 Hz
+  Power: on
+  Position: 0,0
+  Scale factor: 1.200000
+  Scale filter: linear
+  Subpixel hinting: unknown
+  Transform: normal
+  Workspace: 1: ‭‬ ‭‬
+  Max render time: off
+  Adaptive sync: disabled
+  Allow tearing: no
+  Available modes:
+    2256x1504 @ 59.999 Hz
+    2256x1504 @ 47.998 Hz
+
+Output DP-1 'Dell Inc. AW3423DWF 9H3G2S3'
+  Current mode: 3440x1440 @ 99.982 Hz
+  Power: on
+  <snip>
+```
+
+Note that on the first line of each block, there is a short name (i.e. eDP-1) and a long name (i.e. 'Dell Inc. AW3423DWF 9H3G2S3'). You can use either in your configuration. The short name may be reused across different devices. The long name is unique to the model of monitor.
+
+Following our above example, we'll add or modify our config file in `.config/sway/definitions.d/01-background.conf`:
+
+```
+set $bg0 /usr/share/backgrounds/whatever/file/you/like.png
+set $bg1 /usr/share/backgrounds/whatever/other/file/you/like.png
+set $apply_background swaymsg 'output "Dell Inc. AW3423DWF 9H3G2S3" bg $bg0 fill; output eDP-1 bg $bg1 fill'
+```
+
+Note that we leverage the functionality of `swaymsg` to parase multiple `output` definitions as long as they are separated by a semicolon. Ensure that each identifier is wrapped in double quotation marks if it includes spaces.
+
 ### How can I take a Screenshot?
 
 Press the `Print` button on your keyboard and you will be presented with some options on the waybar. Depending on what you would like to take a screenshot of, you have to press a combination of keys. To take a full screenshot of the current screen just press - `Shift + o` on your keyboard.
