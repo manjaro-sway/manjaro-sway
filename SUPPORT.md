@@ -344,7 +344,7 @@ set $bg1 /usr/share/backgrounds/whatever/other/file/you/like.png
 set $apply_background swaymsg 'output "Dell Inc. AW3423DWF 9H3G2S3" bg $bg0 fill; output eDP-1 bg $bg1 fill'
 ```
 
-Note that we leverage the functionality of `swaymsg` to parase multiple `output` definitions as long as they are separated by a semicolon. Ensure that each identifier is wrapped in double quotation marks if it includes spaces.
+Note that we leverage the functionality of `swaymsg` to parse multiple `output` definitions as long as they are separated by a semicolon. Ensure that each identifier is wrapped in double quotation marks if it includes spaces.
 
 ### How can I take a Screenshot?
 
