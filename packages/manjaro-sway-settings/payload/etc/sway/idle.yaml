@@ -27,5 +27,8 @@ timeouts:
   # sleep_timeout_ac
   - timeout: 3600
     command: acpi -b | grep Discharging; test $? -eq 1 && systemctl suspend
-before-sleep: playerctl pause; swaymsg exec \$locking
-lock: swaymsg exec \$locking
+before-sleep: echo "Going to sleep..."
+after-resume: swaymsg "output * dpms on"
+lock: playerctl pause; swaymsg exec \$locking
+unlock: playerctl play
+idlehint: '240'
