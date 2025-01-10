@@ -1,6 +1,6 @@
 ---
 debug: true
-wait: true
+wait: false
 timeouts:
   # idle_timeout
   - timeout: 240
@@ -27,5 +27,7 @@ timeouts:
   # sleep_timeout_ac
   - timeout: 3600
     command: acpi -b | grep Discharging; test $? -eq 1 && systemctl suspend
-before-sleep: swaymsg exec \$locking && sleep 2.5
+before-sleep: swaymsg exec \$locking
 after-resume: swaymsg "output * dpms on"
+lock: swaymsg exec \$locking
+idlehint: '240'
