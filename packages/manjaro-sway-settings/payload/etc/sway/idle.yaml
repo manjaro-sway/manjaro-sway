@@ -23,10 +23,10 @@ timeouts:
     resume: swaymsg "output * dpms on"
   # sleep_timeout_bat
   - timeout: 900
-    command: acpi -b | grep Discharging && systemctl suspend
+    command: acpi -b | grep Discharging && systemctl sleep
   # sleep_timeout_ac
   - timeout: 3600
-    command: acpi -b | grep Discharging; test $? -eq 1 && systemctl suspend
+    command: acpi -b | grep Discharging; test $? -eq 1 && systemctl sleep
 before-sleep: swaymsg exec \$locking
 after-resume: swaymsg "output * dpms on"
 lock: swaymsg exec \$locking

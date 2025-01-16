@@ -18,7 +18,7 @@ mode --pango_markup $mode_shutdown {
     $bindsym e exec $purge_cliphist; exec swaymsg exit
 
     # suspend
-    $bindsym u mode "default", exec systemctl suspend
+    $bindsym u mode "default", exec systemctl sleep
 
     # shutdown
     $bindsym s exec $purge_cliphist; exec systemctl poweroff
