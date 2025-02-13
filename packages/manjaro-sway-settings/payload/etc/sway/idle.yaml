@@ -26,7 +26,7 @@ timeouts:
     command: acpi --ac-adapter | grep -v 'on-line' && systemctl sleep
   # sleep_timeout_ac
   - timeout: 3600
-    command: acpi --ac-adapter | grep 'online' && systemctl sleep
+    command: acpi --ac-adapter | grep 'on-line' && systemctl sleep
 before-sleep: swaymsg exec \$locking
 after-resume: swaymsg "output * dpms on"
 lock: swaymsg exec \$locking
