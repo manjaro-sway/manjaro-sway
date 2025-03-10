@@ -148,8 +148,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		`https://api.open-meteo.com/v1/forecast?${searchParams.toString()}`,
 		{
 			cf: {
-				// Cache the response for 15 minutes to not overwhelm the open-meteo rate limits
-				cacheTtl: 60 * 30,
+				// Cache the response for an hour to not overwhelm the open-meteo rate limits
+				cacheTtl: 60 * 60,
 				cacheEverything: true,
 			},
 		},
