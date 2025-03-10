@@ -114,9 +114,8 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	cacheUrl.pathname = city;
 	cacheUrl.searchParams.set("language", language);
 	cacheUrl.searchParams.set("version", "1");
-	const cacheKey = new Request(cacheUrl.toString(), context.request);
 	const cache = caches.default;
-	const cachedResponse = await cache.match(cacheKey);
+	const cachedResponse = await cache.match(cacheUrl);
 
 	if (cachedResponse) {
 		console.log("Cache hit");
@@ -206,6 +205,12 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
 	if (!result.current) {
 		console.error(result)
+		return Response.json({
+			error: "No data found",
+			message: result,
+		}, {
+			status: 404,
+		})
 	}
 
 	const lines = [
@@ -286,7 +291,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		},
 	);
 
-	cache.put(context.request, response.clone());
+	await cache.put(cacheUrl, response);
 
 	return response;
 };
