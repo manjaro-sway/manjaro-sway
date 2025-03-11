@@ -148,7 +148,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		{
 			cf: {
 				// Cache the response for an hour to not overwhelm the open-meteo rate limits
-				cacheTtl: 60 * 60,
+				cacheTtl: 60 * 60 * 6,
 				cacheEverything: true,
 			},
 		},
@@ -286,7 +286,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		{
 			headers: {
 				"content-type": "application/json",
-				expires: new Date(Date.now() + 1000 * 60 * 30).toUTCString(),
+				expires: new Date(Date.now() + 1000 * 60 * 60 * 6).toUTCString(),
 			},
 		},
 	);
