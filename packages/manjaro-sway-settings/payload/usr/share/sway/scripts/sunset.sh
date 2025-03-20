@@ -16,7 +16,7 @@ start() {
 
     if [ "${location}" = "on" ]; then
         if [ -z ${longitude+x} ] || [ -z ${latitude+x} ]; then
-            GEO_CONTENT=$(curl -sL https://manjaro-sway.download/geoip)
+            GEO_CONTENT=$(sh /usr/share/sway/scripts/geoip.sh)
         fi
         longitude=${longitude:-$(echo "$GEO_CONTENT" | jq -r '.longitude // empty')}
         longitude=${longitude:-$fallback_longitude}

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # set -u
 
 waybar_pid=$(pidof -x waybar)
@@ -17,11 +17,12 @@ signal[recorder]=8
 signal[clipboard]=9
 signal[zeit]=10
 signal[dnd]=11
-signal[adaptive-brightness]=12
+signal[adaptive_brightness]=12
 signal[valent]=13
 signal[pacman]=14
 signal[idle]=15
 signal[weather]=16
+signal[theme]=17
 
 number=${signal[${1}]}
 

@@ -8,19 +8,39 @@ prompt() {
     read -p "->${1:+" ${1}."} Press enter to continue..."
 }
 
+install() {
+    # shellcheck disable=SC2046
+    if ! pacman -Qi $(cat "$1/packages") >/dev/null; then
+        # shellcheck disable=SC2046
+        [ -f "$1/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -Syy --needed $(cat "$1/packages")
+    fi
+}
+
 THEMES=$(find ${THEME_DIR} -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
 
-THEME=$(echo "$THEMES" | rofi -dmenu -p "Select theme:")
-THEME_DIR="${THEME_DIR}/${THEME}"
+DARK_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select dark theme:")
+DARK_THEME_DIR="${THEME_DIR}/${DARK_THEME}"
+install "$DARK_THEME_DIR"
 
-# shellcheck disable=SC2046
-if ! pacman -Qi $(cat "$THEME_DIR/packages") >/dev/null; then
-    # shellcheck disable=SC2046
-    [ -f "$THEME_DIR/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -Syy --needed $(cat "$THEME_DIR/packages")
+LIGHT_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select light theme:")
+LIGHT_THEME_DIR="${THEME_DIR}/${LIGHT_THEME}"
+install "$LIGHT_THEME_DIR"
+
+PRIMARY_THEME=$(echo 'dark light' | rofi -sep ' ' -dmenu -p "Select primary theme:")
+PRIMARY_THEME_DIR=$DARK_THEME_DIR
+SECONDARY_THEME="light"
+SECONDARY_THEME_DIR=$LIGHT_THEME_DIR
+
+if [ "$PRIMARY_THEME" == "light" ]; then
+    PRIMARY_THEME_DIR=$LIGHT_THEME_DIR
+    SECONDARY_THEME="dark"
+    SECONDARY_THEME_DIR=$DARK_THEME_DIR
 fi
 
 # copy the sway theme
-[ -f "$THEME_DIR/theme.conf" ] && echo "> Copying the sway theme" && /usr/bin/cp -v --backup "$THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/" && swaymsg reload
+[ -f "$PRIMARY_THEME_DIR/theme.conf" ] && /usr/bin/cp --backup -v "$PRIMARY_THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/theme.conf" && swaymsg reload
+[ -f "$SECONDARY_THEME_DIR/theme.conf" ] && /usr/bin/cp --backup -v "$SECONDARY_THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/theme.${SECONDARY_THEME}.conf_"
 
 # copy the foot theme
-[ -f "$THEME_DIR/foot-theme.ini" ] && echo "> Copying the foot theme" && echo && /usr/bin/cp -v --backup "$THEME_DIR/foot-theme.ini" "$HOME/.config/foot/"
+[ -f "$PRIMARY_THEME_DIR/foot-theme.ini" ] && /usr/bin/cp --backup -v "$PRIMARY_THEME_DIR/foot-theme.ini" "$HOME/.config/foot/foot-theme.ini"
+[ -f "$SECONDARY_THEME_DIR/foot-theme.ini" ] && /usr/bin/cp --backup -v "$SECONDARY_THEME_DIR/foot-theme.ini" "$HOME/.config/foot/foot-theme.${SECONDARY_THEME}.ini_"

@@ -5,20 +5,24 @@
 // Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
 //
 // =============================================================================
-
 {
     // -------------------------------------------------------------------------
     // Global configuration
     // -------------------------------------------------------------------------
-
     "layer": "top",
-
     // If height property would be not present, it'd be calculated dynamically
     "height": 30,
     "position": "top",
-
-    "modules-left": ["custom/menu", "sway/workspaces", "custom/scratchpad"],
-    "modules-center": ["custom/wf-recorder", "sway/mode", "custom/weather"],
+    "modules-left": [
+        "custom/menu",
+        "sway/workspaces",
+        "custom/scratchpad"
+    ],
+    "modules-center": [
+        "custom/wf-recorder",
+        "sway/mode",
+        "custom/weather"
+    ],
     "modules-right": [
         // informational
         "sway/language",
@@ -29,32 +33,27 @@
         // "temperature",
         // "memory",
         "battery",
-
         // connecting
         "network",
         "bluetooth",
         "custom/valent",
-
         // media
         "custom/playerctl",
         "custom/idle_inhibitor",
         "custom/dnd",
         "pulseaudio",
         "backlight",
-
         // system
+        "custom/theme",
         "custom/adaptive-light",
         "custom/sunset",
         "custom/pacman",
-
         "tray",
         "clock"
     ],
-
     // -------------------------------------------------------------------------
     // Modules
     // -------------------------------------------------------------------------
-
     "battery": {
         "interval": 30,
         "states": {
@@ -63,10 +62,20 @@
         },
         "format-charging": "󰂄 {capacity}%",
         "format": "{icon} {capacity}%",
-        "format-icons": ["󱃍", "󰁺", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format-icons": [
+            "󱃍",
+            "󰁺",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
         "tooltip": true
     },
-
     "clock": {
         "interval": 60,
         "format": "{:%e %b %Y %H:%M}",
@@ -74,7 +83,6 @@
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
         "on-click": "swaymsg exec \\$calendar"
     },
-
     "cpu": {
         "interval": 10,
         "format": "󰘚",
@@ -85,7 +93,6 @@
         "on-click": "swaymsg exec \\$task_manager",
         "tooltip": true
     },
-
     "memory": {
         "interval": 10,
         "format": "󰍛",
@@ -96,7 +103,6 @@
         "on-click": "swaymsg exec \\$task_manager",
         "tooltip": true
     },
-
     "network": {
         "interval": 5,
         "format-wifi": "{icon}",
@@ -117,19 +123,20 @@
         "tooltip-format-disabled": "{icon} disabled",
         "on-click": "swaymsg exec \\$once \\$term_float nmtui connect"
     },
-
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>",
         "tooltip": false
     },
-
     "backlight": {
         "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "format-icons": [
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
         "on-scroll-up": "swaymsg exec \\$brightness_up",
         "on-scroll-down": "swaymsg exec \\$brightness_down"
     },
-
     "pulseaudio": {
         "scroll-step": 5,
         "format": "{icon} {volume}%{format_source}",
@@ -139,7 +146,11 @@
         "format-icons": {
             "headphone": "󰋋",
             "headset": "󰋎",
-            "default": ["󰕿", "󰖀", "󰕾"]
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
         },
         "tooltip-format": "{icon}  {volume}% {format_source}",
         "on-click": "swaymsg exec \\$pulseaudio",
@@ -147,22 +158,23 @@
         "on-scroll-up": "swaymsg exec \\$volume_up",
         "on-scroll-down": "swaymsg exec \\$volume_down"
     },
-
     "temperature": {
         "critical-threshold": 90,
         "interval": 5,
         "format": "{icon}",
         "tooltip-format": "{temperatureC}°C",
-        "format-icons": ["", "", ""],
+        "format-icons": [
+            "",
+            "",
+            ""
+        ],
         "tooltip": true,
         "on-click": "swaymsg exec \"\\$once \\$term_float watch sensors\""
     },
-
     "tray": {
         "icon-size": 21,
         "spacing": 5
     },
-
     "custom/pacman": {
         "format": "󰀼 {}",
         "interval": 3600,
@@ -173,13 +185,11 @@
         "on-click-middle": "waybar-signal pacman",
         "signal": 14
     },
-
     "custom/menu": {
         "format": "",
         "on-click": "swaymsg exec \\$menu",
         "tooltip": false
     },
-
     "bluetooth": {
         "format": "󰂯",
         "format-disabled": "󰂲",
@@ -187,14 +197,12 @@
         "on-click-right": "rfkill toggle bluetooth",
         "tooltip-format": "{}"
     },
-
     "sway/language": {
         "format": " {}",
         "min-length": 5,
         "tooltip": false,
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
-
     "custom/scratchpad": {
         "interval": "once",
         "return-type": "json",
@@ -207,7 +215,6 @@
         "on-click": "swaymsg 'scratchpad show'",
         "signal": 7
     },
-
     "custom/sunset": {
         "interval": "once",
         "tooltip": true,
@@ -222,7 +229,23 @@
         "exec-if": "/usr/share/sway/scripts/sunset.sh check",
         "signal": 6
     },
-
+    "custom/theme": {
+        "format": "{icon}",
+        "interval": 60,
+        "tooltip": true,
+        "format-icons": {
+            "light": "",
+            "dark": "",
+            "auto_light": "󱩷",
+            "auto_dark": "󱩸"
+        },
+        "return-type": "json",
+        "exec-if": "/usr/share/sway/scripts/theme-toggle.sh check",
+        "exec": "/usr/share/sway/scripts/theme-toggle.sh status",
+        "on-click": "/usr/share/sway/scripts/theme-toggle.sh toggle",
+        "on-click-right": "/usr/share/sway/scripts/theme-toggle.sh auto-toggle",
+        "signal": 17
+    },
     "custom/wf-recorder": {
         "interval": "once",
         "return-type": "json",
@@ -232,7 +255,6 @@
         "on-click": "waybar-signal recorder",
         "signal": 8
     },
-
     "custom/github": {
         "interval": 300,
         "tooltip": false,
@@ -243,7 +265,6 @@
         "on-click": "test $(gh api '/notifications' -q 'length') -ne 0 && xdg-open https://github.com/notifications && sleep 30 && waybar-signal github",
         "signal": 4
     },
-
     "custom/playerctl": {
         "interval": "once",
         "tooltip": true,
@@ -260,7 +281,6 @@
         "on-scroll-down": "playerctl position 10-",
         "signal": 5
     },
-
     "custom/clipboard": {
         "format": "󰨸",
         "interval": "once",
@@ -272,7 +292,6 @@
         "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list | wc -l) -gt 0 ]",
         "signal": 9
     },
-
     "custom/weather": {
         "format": "{}",
         "tooltip": true,
@@ -284,7 +303,6 @@
         "on-click-right": "waybar-signal weather",
         "signal": 16
     },
-
     "custom/zeit": {
         "return-type": "json",
         "interval": "once",
@@ -298,7 +316,6 @@
         "exec-if": "[ -x \"$(command -v zeit)\" ]",
         "signal": 10
     },
-
     "custom/dnd": {
         "interval": "once",
         "return-type": "json",
@@ -312,7 +329,6 @@
         "exec": "/usr/share/sway/scripts/dnd.sh status",
         "signal": 11
     },
-
     "custom/adaptive-light": {
         "interval": "once",
         "tooltip": true,
@@ -327,7 +343,6 @@
         "exec-if": "/usr/share/sway/scripts/wluma.sh check",
         "signal": 12
     },
-
     "custom/valent": {
         "format": "{icon}",
         "tooltip": true,
@@ -346,7 +361,6 @@
         "on-click-middle": "waybar-signal valent",
         "signal": 13
     },
-
     "custom/idle_inhibitor": {
         "interval": 60,
         "return-type": "json",
