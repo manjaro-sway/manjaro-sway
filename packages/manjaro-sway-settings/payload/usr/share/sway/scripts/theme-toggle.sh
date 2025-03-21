@@ -64,8 +64,6 @@ ensure_theme() {
         /usr/bin/mv --backup -v "$HOME/.config/foot/foot-theme.$1.ini_" $PRIMARY_FOOT_THEME
 
         swaymsg reload
-    else
-        waybar-signal theme
     fi
 }
 
@@ -113,11 +111,12 @@ case $1'' in
         minutes=$((($next_switch_unix - $current_unix) / 60 % 60))
         text="switching to ${CURRENT_SECONDARY_THEME} theme in ${hours}h ${minutes}m\r(Right click to disable)"
         alt="auto_${CURRENT_PRIMARY_THEME}"
+
+        ensure_theme $NEXT_PRIMARY_THEME $NEXT_SECONDARY_THEME
     fi
 
     printf '{"alt":"%s","tooltip":"%s"}\n' "$alt" "$text"
 
-    ensure_theme $NEXT_PRIMARY_THEME $NEXT_SECONDARY_THEME
     exit 0
     ;;
 esac

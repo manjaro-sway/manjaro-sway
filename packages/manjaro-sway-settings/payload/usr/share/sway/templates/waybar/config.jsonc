@@ -231,7 +231,7 @@
     },
     "custom/theme": {
         "format": "{icon}",
-        "interval": 60,
+        "interval": 300,
         "tooltip": true,
         "format-icons": {
             "light": "",
