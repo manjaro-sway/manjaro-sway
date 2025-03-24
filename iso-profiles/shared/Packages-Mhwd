@@ -23,6 +23,7 @@ libxvmc
 >nonfree_x86_64 KERNEL-nvidia-390xx
 >nonfree_x86_64 KERNEL-nvidia-470xx
 >nonfree_x86_64 KERNEL-nvidia
+>nonfree_x86_64 KERNEL-nvidia-open
 >nonfree_x86_64 nvidia-390xx-utils
 >nonfree_x86_64 nvidia-390xx-settings
 >nonfree_x86_64 libxnvctrl-390xx
