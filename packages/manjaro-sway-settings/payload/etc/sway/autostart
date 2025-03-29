@@ -9,11 +9,11 @@ set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --
 set $initialize_idle_daemon '[ -x "$(command -v swayidle-conf)" ] && systemctl --now --user enable swayidle'
 set $initialize_mounting_daemon '[ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ] && systemctl --now --user enable pcmanfm'
 set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --now --user enable way-displays'
+set $initialize_flashfocus 'systemctl --now --user enable flashfocus'
 
 # autostarts
 
 set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex -a -e SWAY'
-set $flashfocus '[ -x "$(command -v flashfocus)" ] && flashfocus'
 set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
 set $autotiling '[ -x "$(command -v autotiling)" ] && autotiling || [ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
