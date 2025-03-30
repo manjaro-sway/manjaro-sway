@@ -52,11 +52,13 @@ os-prober
 perl
 rsync
 s-nail
+sbctl
 sof-firmware
 sudo
 sysfsutils
 texinfo
 update-grub
+udev-usb-sync
 usbutils
 vi
 wget
