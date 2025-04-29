@@ -11,7 +11,6 @@ nbd
 open-vm-tools
 primus
 >manjaro grub-theme-live-manjaro
-squashfs-tools
 bumblebee
 manjaro-live-systemd
 #manjaro-architect
