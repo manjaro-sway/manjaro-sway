@@ -86,7 +86,6 @@ dhclient
 >extra base-devel
 >extra manjaro-aur-support
 pamac-gtk
->extra appimagelauncher
 
 ## Utils
 
