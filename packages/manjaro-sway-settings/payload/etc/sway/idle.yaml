@@ -28,6 +28,6 @@ timeouts:
   - timeout: 3600
     command: acpi --ac-adapter | grep 'on-line' && systemctl sleep
 before-sleep: swaymsg exec \$locking
-after-resume: swaymsg "output * dpms on"
+after-resume: swaymsg "output * dpms on" && brightnessctl -r
 lock: swaymsg exec \$locking
 idlehint: '240'
