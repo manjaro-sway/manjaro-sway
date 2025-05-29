@@ -42,6 +42,7 @@ memtest86+
 memtest86+-efi
 mhwd
 mhwd-db
+micro
 mkinitcpio-openswap
 nano
 nano-syntax-highlighting
