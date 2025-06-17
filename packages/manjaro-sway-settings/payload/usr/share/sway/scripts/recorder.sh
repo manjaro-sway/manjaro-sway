@@ -39,6 +39,6 @@ if [ $status != 0 ]; then
 
     waybar-signal recorder && notify "Finished recording ${file}"
 else
-    pkill -x --signal SIGINT wf-recorder
+    pkill -U $USER -x --signal SIGINT wf-recorder
     waybar-signal recorder
 fi

@@ -20,7 +20,7 @@ case $1'' in
     inhibit $SECONDS
     ;;
 'off')
-    pkill -f "systemd-inhibit --what=idle" || true
+    pkill -U $USER -f "systemd-inhibit --what=idle" || true
     waybar-signal idle
     ;;
 esac

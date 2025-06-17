@@ -31,4 +31,4 @@ if [ -z "$number" ]; then
     exit 1
 fi
 
-pkill -x -SIGRTMIN+${number} 'waybar'
+pkill -U $USER -x -SIGRTMIN+${number} 'waybar'

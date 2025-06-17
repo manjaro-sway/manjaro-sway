@@ -4,7 +4,7 @@
 USER_CONFIG_PATH=$HOME/.config/waybar/config.jsonc
 USER_STYLE_PATH=$HOME/.config/waybar/style.css
 
-pkill -x waybar
+pkill -U $USER -x waybar
 
 if [ -f "$USER_CONFIG_PATH" ]; then
     USER_CONFIG=$USER_CONFIG_PATH
