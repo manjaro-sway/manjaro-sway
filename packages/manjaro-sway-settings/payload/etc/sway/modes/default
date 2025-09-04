@@ -80,21 +80,21 @@ $bindsym $mod+Shift+$up_alt move up
 $bindsym $mod+Shift+$right_alt move right
 
 ## Navigation // Move focused workspace // $mod + Alt + ↑ ↓ ← → ##
-$bindsym $mod+Alt+$right move workspace to output right
-$bindsym $mod+Alt+$left move workspace to output left
-$bindsym $mod+Alt+$down move workspace to output down
-$bindsym $mod+Alt+$up move workspace to output up
+$bindsym $mod+$alt_mod+$right move workspace to output right
+$bindsym $mod+$alt_mod+$left move workspace to output left
+$bindsym $mod+$alt_mod+$down move workspace to output down
+$bindsym $mod+$alt_mod+$up move workspace to output up
 
-$bindsym $mod+Alt+$right_alt move workspace to output right
-$bindsym $mod+Alt+$left_alt move workspace to output left
-$bindsym $mod+Alt+$down_alt move workspace to output down
-$bindsym $mod+Alt+$up_alt move workspace to output up
+$bindsym $mod+$alt_mod+$right_alt move workspace to output right
+$bindsym $mod+$alt_mod+$left_alt move workspace to output left
+$bindsym $mod+$alt_mod+$down_alt move workspace to output down
+$bindsym $mod+$alt_mod+$up_alt move workspace to output up
 
 ## Navigation // List all open windows in last-recently-used order ##
 $bindsym $mod+p exec env RUST_BACKTRACE=1 swayr switch-window &>> /tmp/swayr.log
 
 ## Navigation // Switch to the last recently used window ##
-$bindsym Mod1+Tab exec env RUST_BACKTRACE=1 swayr switch-to-urgent-or-lru-window &>> /tmp/swayr.log
+$bindsym $alt_mod+Tab exec env RUST_BACKTRACE=1 swayr switch-to-urgent-or-lru-window &>> /tmp/swayr.log
 
 ## Navigation // Switch to the last recently used workspace ##
 $bindsym $mod+Tab workspace back_and_forth
@@ -195,7 +195,7 @@ hide_edge_borders smart
 $bindsym --release Escape [app_id="floating_shell" con_id=__focused__] kill
 
 ## Launch // Task Manager ##
-$bindsym Ctrl+Alt+Delete exec $task_manager
+$bindsym Ctrl+$alt_mod+Delete exec $task_manager
 
 ## Launch // Emoji Picker ##
-$bindsym Alt+Shift+e exec $emoji_picker
+$bindsym $alt_mod+Shift+e exec $emoji_picker
