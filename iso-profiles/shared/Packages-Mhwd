@@ -24,6 +24,10 @@ libxvmc
 >nonfree_x86_64 KERNEL-nvidia-470xx
 >nonfree_x86_64 KERNEL-nvidia
 >nonfree_x86_64 KERNEL-nvidia-open
+>nonfree_x86_64 KERNEL-nvidia-570xx
+>nonfree_x86_64 KERNEL-nvidia-570xx-open
+>nonfree_x86_64 KERNEL-nvidia-575xx
+>nonfree_x86_64 KERNEL-nvidia-575xx-open
 >nonfree_x86_64 nvidia-390xx-utils
 >nonfree_x86_64 nvidia-390xx-settings
 >nonfree_x86_64 libxnvctrl-390xx
@@ -33,9 +37,17 @@ libxvmc
 >nonfree_x86_64 nvidia-utils
 >nonfree_x86_64 nvidia-settings
 >nonfree_x86_64 libxnvctrl
+>nonfree_x86_64 nvidia-570xx-utils
+>nonfree_x86_64 nvidia-570xx-settings
+>nonfree_x86_64 libxnvctrl-570xx
+>nonfree_x86_64 nvidia-575xx-utils
+>nonfree_x86_64 nvidia-575xx-settings
+>nonfree_x86_64 libxnvctrl-575xx
 >nonfree_multilib lib32-nvidia-470xx-utils
 >nonfree_multilib lib32-nvidia-390xx-utils
 >nonfree_multilib lib32-nvidia-utils
+>nonfree_multilib lib32-nvidia-570xx-utils
+>nonfree_multilib lib32-nvidia-575xx-utils
 open-vm-tools
 primus
 qemu-guest-agent
