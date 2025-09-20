@@ -39,10 +39,8 @@ libxvmc
 >nonfree_x86_64 libxnvctrl
 >nonfree_x86_64 nvidia-570xx-utils
 >nonfree_x86_64 nvidia-570xx-settings
->nonfree_x86_64 libxnvctrl-570xx
 >nonfree_x86_64 nvidia-575xx-utils
 >nonfree_x86_64 nvidia-575xx-settings
->nonfree_x86_64 libxnvctrl-575xx
 >nonfree_multilib lib32-nvidia-470xx-utils
 >nonfree_multilib lib32-nvidia-390xx-utils
 >nonfree_multilib lib32-nvidia-utils
