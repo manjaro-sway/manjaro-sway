@@ -58,7 +58,7 @@ def getDocsConfig(lines: list[str]):
             config.category = match.group('category')
             config.action = match.group('action')
             config.keybinding = match.group('keybinding')
-            if (config.keybinding == None):
+            if (config.keybinding is None):
                 config.keybinding = findKeybindingForLine(index, lines)
             docsConfig = docsConfig + [config]
     return docsConfig

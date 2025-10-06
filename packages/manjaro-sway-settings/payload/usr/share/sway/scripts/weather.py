@@ -6,7 +6,6 @@ import json
 import locale
 import sys
 import urllib.parse
-from datetime import datetime
 import requests
 import configparser
 from os import path, environ

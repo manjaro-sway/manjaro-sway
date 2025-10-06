@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import dbus
 import json
-import logging, sys
+import logging
+import sys
 import os
 import math
 
