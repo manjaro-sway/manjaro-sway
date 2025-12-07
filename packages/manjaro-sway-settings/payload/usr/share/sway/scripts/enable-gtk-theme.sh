@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xu
+set -u
 
 THEME=$1
 

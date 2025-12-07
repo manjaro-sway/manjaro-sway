@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
-
 set -e
+
 DIR=${XDG_SCREENSHOTS_DIR:-$HOME/Screenshots}
 
 while true; do

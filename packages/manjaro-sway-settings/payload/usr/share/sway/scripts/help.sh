@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-set -x
 # toggles the help wrapper state
 
 VISIBILITY_SIGNAL=30

@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
-set -x
-
 pgrep wf-recorder
 status=$?
 

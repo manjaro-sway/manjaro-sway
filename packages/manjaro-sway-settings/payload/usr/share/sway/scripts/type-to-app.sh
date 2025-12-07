@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 
 PID=$(swaymsg -t get_tree | jq '.. | select(.type?) | select(.focused==true) | .pid')
 
@@ -8,8 +7,7 @@ shift
 type=$@
 
 swaymsg [$matcher] focus
-    if [ "$?" = "0" ]
-then
+if [ "$?" = "0" ]; then
     wtype $type
     swaymsg "[pid=$PID] focus"
 fi
