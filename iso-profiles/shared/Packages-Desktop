@@ -9,6 +9,7 @@ avahi
 dmidecode
 inxi
 >multilib lib32-mesa-utils
+manjaro-icons
 manjaro-log-helper
 mesa-utils
 mobile-broadband-provider-info
