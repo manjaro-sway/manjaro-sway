@@ -2,23 +2,22 @@
 ### This is a template list ###
 ###############################
 
+
 alsa-firmware
+alsa-utils
+avahi
 dmidecode
 inxi
+>multilib lib32-mesa-utils
 manjaro-log-helper
 mesa-utils
 mobile-broadband-provider-info
 modemmanager
->multilib lib32-mesa-utils
 nss-mdns
-numlockx
-powertop
-alsa-utils
-avahi
 ntp
+numlockx
 openssh
-xdg-user-dirs
-xorg-server
+powertop
 terminus-font
 ttf-bitstream-vera
 ttf-dejavu
@@ -26,6 +25,7 @@ ttf-droid
 ttf-inconsolata
 ttf-indic-otf
 ttf-liberation
+xdg-user-dirs
 xdg-utils
 xf86-input-elographics
 xf86-input-evdev
@@ -33,5 +33,6 @@ xf86-input-evdev
 xf86-input-libinput
 #xf86-input-mouse # deprecated
 xf86-input-void
+xorg-server
 xorg-twm
 xorg-xinit
