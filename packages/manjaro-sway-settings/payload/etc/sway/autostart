@@ -1,23 +1,30 @@
 # units
 
-set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --now --user enable foot-server.socket && systemctl --now --user enable foot-server'
-set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --now --user enable swayrd'
-set $initialize_waybar '[ -x "$(command -v waybar)" ] && (pkill -U $USER waybar || exit 0) && systemctl --now --user enable waybar && (systemctl --user start waybar || /usr/share/sway/scripts/waybar.sh)'
-set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --now --user enable sworkstyle'
-set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --now --user enable poweralertd'
-set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --now --user enable idlehack'
-set $initialize_idle_daemon '[ -x "$(command -v swayidle-conf)" ] && systemctl --now --user enable swayidle'
-set $initialize_mounting_daemon '[ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ] && systemctl --now --user enable pcmanfm'
-set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --now --user enable way-displays'
-set $initialize_flashfocus 'systemctl --now --user enable flashfocus'
+set $initialize_foot_server '[ -x "$(command -v foot)" ] && (systemctl --user restart foot-server.socket; systemctl --user restart foot-server)'
+set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --user restart swayrd'
+set $initialize_waybar '[ -x "$(command -v waybar)" ] && (systemctl --user restart waybar || /usr/share/sway/scripts/waybar.sh)'
+set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --user restart sworkstyle'
+set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --user restart poweralertd'
+set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --user restart idlehack'
+set $initialize_idle_daemon '[ -x "$(command -v swayidle-conf)" ] && systemctl --user restart swayidle'
+set $initialize_mounting_daemon '([ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ]) && systemctl --user restart pcmanfm'
+set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --user restart way-displays'
+set $initialize_flashfocus '[ -x "$(command -v flashfocus)" ] && systemctl --user restart flashfocus'
+set $initialize_mako '[ -x "$(command -v mako)" ] && systemctl --user set-environment MAKO_FONT="$term-font" MAKO_TEXT_COLOR="$text-color" MAKO_BORDER_COLOR="$accent-color" MAKO_BG_COLOR="$background-color" && systemctl --user restart mako'
+set $initialize_wlsunset '[ -x "$(command -v wlsunset)" ] && systemctl --user restart wlsunset'
+set $initialize_autotiling '([ -x "$(command -v autotiling)" ] || [ -x "$(command -v autotiling-rs)" ]) && systemctl --user restart autotiling'
+set $initialize_polkit_agent '[ -x /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ] && systemctl --user restart polkit-gnome'
+set $initialize_cliphist_store '[ -x "$(command -v cliphist)" ] && systemctl --user restart cliphist-store'
+set $initialize_cliphist_watch '[ -x "$(command -v cliphist)" ] && systemctl --user restart cliphist-watch'
+set $initialize_clip_persist '[ -x "$(command -v wl-clip-persist)" ] && systemctl --user restart wl-clip-persist'
+set $initialize_calendar_daemon '[ -x "$(command -v calcurse)" ] && systemctl --user restart calcurse-daemon'
+set $initialize_swappy_notify '[ -x "$(command -v swappy)" ] && systemctl --user restart swappy-notify'
+set $initialize_watch_playerctl '[ -x "$(command -v playerctl)" ] && systemctl --user restart watch-playerctl'
 
 # autostarts
 
 set $autostart_dex '[ -x "$(command -v dex)" ] && gdbus wait --session org.kde.StatusNotifierWatcher && dex -a -e SWAY'
-set $wlsunset '[ -x "$(command -v wlsunset)" ] && /usr/share/sway/scripts/sunset.sh "on"'
-set $autotiling '[ -x "$(command -v autotiling)" ] && autotiling || [ -x "$(command -v autotiling-rs)" ] && autotiling-rs'
 set $help_menu '[ -x "$(command -v nwg-wrapper)" ] && [ -f $HOME/.config/nwg-wrapper/help.sh ] && /usr/share/sway/scripts/help.sh'
-set $kanshi '[ -x "$(command -v kanshi)" ] && pkill -U $USER -x kanshi; exec kanshi'
 set $xdg-dirs '[ -x "$(command -v xdg-user-dirs-update)" ] && exec xdg-user-dirs-update'
 
 ## apply the keyboard layout from localectl if no keyboard layout has been set via config.d
@@ -28,13 +35,6 @@ set $enable_noisetorch '[ -x "$(command -v noisetorch)" ] && noisetorch -u && no
 set $disable_nm_applet_autostart '[ -x "$(command -v nm-applet)" ] && [ ! -f $HOME/.config/autostart/nm-applet.desktop ] && cp /etc/xdg/autostart/nm-applet.desktop $HOME/.config/autostart/nm-applet.desktop && echo "Hidden=true" >> $HOME/.config/autostart/nm-applet.desktop'
 set $apply_background swaymsg 'output * bg $background fill'
 
-## daemons
+# daemons
 
-set $mako '[ -x "$(command -v mako)" ] && pkill -U $USER -x mako; /usr/share/sway/scripts/mako.sh --font "$term-font" --text-color "$text-color" --border-color "$accent-color" --background-color "$background-color" --border-size 3 --width 400 --height 200 --padding 20 --margin 20 --default-timeout 15000'
-set $swappy_notify '[ -x "$(command -v swappy)" ] && /usr/share/sway/scripts/screenshot-notify.sh'
-set $cliphist_watch '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch waybar-signal clipboard'
-set $cliphist_store '[ -x "$(command -v wl-paste)" ] && [ -x "$(command -v cliphist)" ] && wl-paste --watch cliphist store'
-set $clip-persist  '[ -x "$(command -v wl-clip-persist)" ] && pkill -U $USER -x wl-clip-persist; wl-clip-persist --clipboard regular --all-mime-type-regex '"'"'(?i)^(?!image/x-inkscape-svg).+'"'"
-set $calendar_daemon 'calcurse --daemon'
 set $nm_applet '[ -x "$(command -v nm-applet)" ] && pkill -U $USER -x nm-applet && dbus-launch nm-applet'
-set $watch_playerctl '[ -x "$(command -v playerctl)" ] && pkill -U $USER -x playerctl; playerctl -a metadata --format \"{{status}} {{title}}\" --follow | while read line; do waybar-signal playerctl; waybar-signal idle; done'

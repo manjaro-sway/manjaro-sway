@@ -14,22 +14,22 @@
 
 @keyframes blink-warning {
     70% {
-        color: @wm_icon_bg;
+        color: @theme_base_color;
     }
 
     to {
-        color: @wm_icon_bg;
+        color: @theme_base_color;
         background-color: @warning_color;
     }
 }
 
 @keyframes blink-critical {
     70% {
-        color: @wm_icon_bg;
+        color: @theme_base_color;
     }
 
     to {
-        color: @wm_icon_bg;
+        color: @theme_base_color;
         background-color: @error_color;
     }
 }
@@ -196,6 +196,7 @@ window#waybar {
 
 #workspaces button:hover {
     color: @theme_bg_color;
+    background-color: @theme_selected_bg_color;
 }
 
 #custom-pacman {

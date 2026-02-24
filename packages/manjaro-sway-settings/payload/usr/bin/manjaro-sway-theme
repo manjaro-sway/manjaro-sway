@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xu
+set -u
 
 ## theme switcher for manjaro sway
 THEME_DIR="/usr/share/sway/themes"
@@ -9,10 +9,12 @@ prompt() {
 }
 
 install() {
-    # shellcheck disable=SC2046
-    if ! pacman -Qi $(cat "$1/packages") >/dev/null; then
-        # shellcheck disable=SC2046
-        [ -f "$1/packages" ] && echo "> Installing theme requirements using yay" && foot --app-id floating_shell --window-size-chars 82x25 yay -Syy --needed $(cat "$1/packages")
+    [ -f "$1/packages" ] || return
+    local missing_pkgs
+    missing_pkgs=$(pacman -T $(cat "$1/packages") 2>/dev/null)
+    if [ -n "$missing_pkgs" ]; then
+        echo "> Installing theme requirements using yay"
+        foot --app-id floating_shell --window-size-chars 82x25 yay -S --needed $missing_pkgs
     fi
 }
 

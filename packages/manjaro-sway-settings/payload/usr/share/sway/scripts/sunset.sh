@@ -25,9 +25,9 @@ start() {
 
         echo longitude: "$longitude" latitude: "$latitude"
 
-        wlsunset -l "$latitude" -L "$longitude" -t "$temp_low" -T "$temp_high" -d "$duration" &
+        exec wlsunset -l "$latitude" -L "$longitude" -t "$temp_low" -T "$temp_high" -d "$duration"
     else
-        wlsunset -t "$temp_low" -T "$temp_high" -d "$duration" -S "$sunrise" -s "$sunset" &
+        exec wlsunset -t "$temp_low" -T "$temp_high" -d "$duration" -S "$sunrise" -s "$sunset"
     fi
 }
 
@@ -38,16 +38,17 @@ case $1'' in
     waybar-signal sunset
     ;;
 'on')
-    start
     waybar-signal sunset
+    start
     ;;
 'toggle')
     if pkill -U $USER -x -0 wlsunset; then
         pkill -U $USER -x wlsunset
+        waybar-signal sunset
     else
+        waybar-signal sunset
         start
     fi
-    waybar-signal sunset
     ;;
 'check')
     command -v wlsunset

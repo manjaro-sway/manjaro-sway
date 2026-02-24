@@ -1,0 +1,12 @@
+[Unit]
+Description=Night Light
+PartOf=sway-session.target
+After=sway-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/share/sway/scripts/sunset.sh on
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

@@ -2,10 +2,17 @@
 
 case $1'' in
 'status') 
-    printf '{\"text\":\"%s\",\"tooltip\":\"%s\"}' "$(pamac checkupdates -q | wc -l)" "$(pamac checkupdates -q | awk 1 ORS='\\n' | sed 's/\\n$//')"
+    UPDATES=$(pamac checkupdates -q -a)
+    COUNT=$(echo "$UPDATES" | grep -v '^$' | wc -l)
+    TOOLTIP=$(echo "$UPDATES" | awk 1 ORS='\\n' | sed 's/\\n$//')
+    if [ -x "$(command -v jq)" ]; then
+        jq -n --arg count "$COUNT" --arg tooltip "$TOOLTIP" '{"text": $count, "tooltip": $tooltip}'
+    else
+        printf '{"text":"%s","tooltip":"%s"}' "$COUNT" "$TOOLTIP"
+    fi
     ;;
 'check')
-    [ $(pamac checkupdates -q | wc -l) -gt 0 ]
+    [ $(pamac checkupdates -q -a | grep -v '^$' | wc -l) -gt 0 ]
     exit $?
     ;;
 'upgrade')

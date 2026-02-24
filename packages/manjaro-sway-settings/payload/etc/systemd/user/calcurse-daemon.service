@@ -1,0 +1,12 @@
+[Unit]
+Description=Calcurse calendar daemon
+PartOf=sway-session.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/calcurse --daemon
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=sway-session.target

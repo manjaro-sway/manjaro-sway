@@ -181,7 +181,7 @@
         "return-type": "json",
         "exec-if": "/usr/share/sway/scripts/checkupdates.sh check",
         "exec": "/usr/share/sway/scripts/checkupdates.sh status",
-        "on-click": "/usr/share/sway/scripts/checkupdates.sh check && swaymsg exec \\$update_manager",
+        "on-click": "swaymsg exec \\$update_manager",
         "on-click-middle": "waybar-signal pacman",
         "signal": 14
     },
@@ -257,12 +257,13 @@
     },
     "custom/github": {
         "interval": 300,
-        "tooltip": false,
+        "tooltip": true,
         "return-type": "json",
         "format": " {}",
-        "exec": "gh api '/notifications' -q '{ text: length }' | cat -",
-        "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in' && test $(gh api '/notifications' -q 'length') -ne 0",
-        "on-click": "test $(gh api '/notifications' -q 'length') -ne 0 && xdg-open https://github.com/notifications && sleep 30 && waybar-signal github",
+        "exec": "/usr/share/sway/scripts/gh-notifications.sh",
+        "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in'",
+        "on-click": "xdg-open https://github.com/notifications && sleep 30 && waybar-signal github",
+        "on-click-right": "waybar-signal github",
         "signal": 4
     },
     "custom/playerctl": {
