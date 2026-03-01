@@ -25,4 +25,4 @@ else
     text="static brightness"
 fi
 
-printf '{"alt":"%s","tooltip":"%s"}\n' "$class" "$text"
+jq -n --arg class "$class" --arg text "$text" '{"alt":$class,"tooltip":$text}'

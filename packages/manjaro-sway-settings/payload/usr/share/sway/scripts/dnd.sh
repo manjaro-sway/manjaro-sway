@@ -2,7 +2,9 @@
 
 case $1'' in
 'status') 
-    printf '{\"alt\":\"%s\",\"tooltip\":\"mode: %s\"}' $(makoctl mode | grep -q 'do-not-disturb' && echo dnd || echo default) $(makoctl mode | tail -1)
+    alt=$(makoctl mode | grep -q 'do-not-disturb' && echo dnd || echo default)
+    tooltip="mode: $(makoctl mode | tail -1)"
+    jq -n --arg alt "$alt" --arg tooltip "$tooltip" '{"alt":$alt,"tooltip":$tooltip}'
     ;;
 'restore')
     makoctl restore

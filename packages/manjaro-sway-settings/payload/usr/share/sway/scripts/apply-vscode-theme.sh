@@ -8,10 +8,8 @@ for variant in "Code" "Code - OSS" "Code - Insiders"; do
         # 1. Update legacy root file if it exists
         root_file="$base_dir/settings.json"
         if [ -f "$root_file" ]; then
-            if command -v jq >/dev/null 2>&1; then
-                tmp=$(mktemp)
-                jq --arg theme "$VSCODE_THEME" '.["workbench.colorTheme"] = $theme' "$root_file" > "$tmp" && mv "$tmp" "$root_file"
-            fi
+            tmp=$(mktemp)
+            jq --arg theme "$VSCODE_THEME" '.["workbench.colorTheme"] = $theme' "$root_file" > "$tmp" && mv "$tmp" "$root_file"
         fi
         
         # 2. Update/Create modern User file
@@ -22,14 +20,7 @@ for variant in "Code" "Code - OSS" "Code - Insiders"; do
             echo "{}" > "$user_file"
         fi
 
-        if command -v jq >/dev/null 2>&1; then
-            tmp=$(mktemp)
-            jq --arg theme "$VSCODE_THEME" '.["workbench.colorTheme"] = $theme' "$user_file" > "$tmp" && mv "$tmp" "$user_file"
-        else
-            # Fallback to sed if jq is not available
-            if grep -q '"workbench.colorTheme"' "$user_file"; then
-                sed -i "s/\"workbench.colorTheme\": \".*\"/\"workbench.colorTheme\": \"$VSCODE_THEME\"/" "$user_file"
-            fi
-        fi
+        tmp=$(mktemp)
+        jq --arg theme "$VSCODE_THEME" '.["workbench.colorTheme"] = $theme' "$user_file" > "$tmp" && mv "$tmp" "$user_file"
     fi
 done

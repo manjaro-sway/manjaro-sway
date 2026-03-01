@@ -1,14 +1,13 @@
 #!/usr/bin/env sh
 
 # Script to update Zed Editor settings (font and theme)
-# Handles JSONC by using jq to update values while attempting to preserve structure.
+# Uses sed to preserve comments in JSONC files.
 
 # Handle arguments
 FONT_FAMILY=${1:-"JetBrainsMono NF"}
 shift
 
 # Capture all remaining arguments as the theme name, handling potential spaces
-# Strip leading/trailing quotes that might be passed by Sway variables
 VSCODE_THEME=$(echo "$*" | sed 's/^"//;s/"$//')
 [ -z "$VSCODE_THEME" ] && VSCODE_THEME="Noctis Azureus"
 
@@ -32,9 +31,7 @@ if [ -d "$(dirname "$ZED_SETTINGS")" ]; then
 EOF
     fi
 
-    tmp=$(mktemp)
-    jq --arg theme "$VSCODE_THEME" \
-       --arg font "$FONT_NAME" \
-       '.theme.dark = $theme | .buffer_font_family = $font' \
-       "$ZED_SETTINGS" > "$tmp" && mv "$tmp" "$ZED_SETTINGS"
+    # Update theme and font while preserving comments
+    sed -i "s/\"dark\": \".*\"/\"dark\": \"$VSCODE_THEME\"/" "$ZED_SETTINGS"
+    sed -i "s/\"buffer_font_family\": \".*\"/\"buffer_font_family\": \"$FONT_NAME\"/" "$ZED_SETTINGS"
 fi

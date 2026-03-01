@@ -33,11 +33,14 @@ for variant in "Code" "Code - OSS" "Code - Insiders"; do
             fi
 
             if [ -f "$file" ]; then
+                # Use sed for theme to preserve comments
+                sed -i "s/\"workbench.colorTheme\": \".*\"/\"workbench.colorTheme\": \"$VSCODE_THEME\"/" "$file"
+                
+                # For fonts, we still use jq because prepending to a list safely is hard with sed.
+                # If comments exist, they will be lost for this file.
                 tmp=$(mktemp)
-                jq --arg theme "$VSCODE_THEME" \
-                   --arg font "$FONT_NAME" \
-                   '.["workbench.colorTheme"] = $theme | 
-                    .["editor.fontFamily"] = ($font + (if .["editor.fontFamily"] then .["editor.fontFamily"] | sub("^[^,]+"; "") else ", '\''Terminess Nerd Font Mono'\'', '\''Droid Sans Mono'\'', monospace, '\''Droid Sans Fallback'\''" end)) | 
+                jq --arg font "$FONT_NAME" \
+                   '.["editor.fontFamily"] = ($font + (if .["editor.fontFamily"] then .["editor.fontFamily"] | sub("^[^,]+"; "") else ", '\''Terminess Nerd Font Mono'\'', '\''Droid Sans Mono'\'', monospace, '\''Droid Sans Fallback'\''" end)) | 
                     .["terminal.integrated.fontFamily"] = ($font + (if .["terminal.integrated.fontFamily"] then .["terminal.integrated.fontFamily"] | sub("^[^,]+"; "") else ", '\''Terminess Nerd Font Mono'\'', monospace" end))' \
                    "$file" > "$tmp" && mv "$tmp" "$file"
             fi

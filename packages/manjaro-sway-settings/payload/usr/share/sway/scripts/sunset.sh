@@ -65,4 +65,4 @@ else
     text="no gamma correction"
 fi
 
-printf '{"alt":"%s","tooltip":"%s"}\n' "$class" "$text"
+jq -n --arg class "$class" --arg text "$text" '{"alt":$class,"tooltip":$text}'

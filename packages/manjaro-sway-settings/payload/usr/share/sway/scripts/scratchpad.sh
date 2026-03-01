@@ -12,4 +12,5 @@ else
     class="unknown"
 fi
 
-printf '{"text":"%s", "class":"%s", "alt":"%s", "tooltip":"%s"}\n' "$count" "$class" "$class" "$(echo "${tooltip}" | sed -z 's/\n/\\n/g')"
+jq -n --arg count "$count" --arg class "$class" --arg tooltip "$tooltip" \
+   '{"text": $count, "class": $class, "alt": $class, "tooltip": $tooltip}'
