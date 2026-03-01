@@ -13,10 +13,6 @@
  * -------------------------------------------------------------------------- */
 
 @keyframes blink-warning {
-    70% {
-        color: @theme_base_color;
-    }
-
     to {
         color: @theme_base_color;
         background-color: @warning_color;
@@ -24,10 +20,6 @@
 }
 
 @keyframes blink-critical {
-    70% {
-        color: @theme_base_color;
-    }
-
     to {
         color: @theme_base_color;
         background-color: @error_color;
@@ -104,6 +96,7 @@ window#waybar {
 }
 
 #battery {
+    background-color: transparent;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -111,10 +104,17 @@ window#waybar {
 
 #battery.warning {
     color: @warning_color;
+    background-color: transparent;
 }
 
 #battery.critical {
     color: @error_color;
+    background-color: transparent;
+}
+
+#battery.charging {
+    color: @theme_text_color;
+    background-color: transparent;
 }
 
 #battery.warning.discharging {
