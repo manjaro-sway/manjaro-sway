@@ -33,15 +33,14 @@ for variant in "Code" "Code - OSS" "Code - Insiders"; do
             fi
 
             if [ -f "$file" ]; then
-                if command -v jq >/dev/null 2>&1; then
-                    tmp=$(mktemp)
-                    jq --arg theme "$VSCODE_THEME" \
-                       --arg font "$FONT_NAME" \
-                       '.["workbench.colorTheme"] = $theme | 
-                        .["editor.fontFamily"] = ("'\''" + $font + "'\'', '\''Terminess Nerd Font Mono'\'', '\''Droid Sans Mono'\'', monospace, '\''Droid Sans Fallback'\''") | 
-                        .["terminal.integrated.fontFamily"] = ("'\''" + $font + "'\'', '\''Terminess Nerd Font Mono'\'', monospace")' \
-                       "$file" > "$tmp" && mv "$tmp" "$file"
-                fi
+                tmp=$(mktemp)
+                jq --arg theme "$VSCODE_THEME" \
+                   --arg font "$FONT_NAME" \
+                   '.["workbench.colorTheme"] = $theme | 
+                    .["editor.fontFamily"] = ($font + (if .["editor.fontFamily"] then .["editor.fontFamily"] | sub("^[^,]+"; "") else ", '\''Terminess Nerd Font Mono'\'', '\''Droid Sans Mono'\'', monospace, '\''Droid Sans Fallback'\''" end)) | 
+                    .["terminal.integrated.fontFamily"] = ($font + (if .["terminal.integrated.fontFamily"] then .["terminal.integrated.fontFamily"] | sub("^[^,]+"; "") else ", '\''Terminess Nerd Font Mono'\'', monospace" end))' \
+                   "$file" > "$tmp" && mv "$tmp" "$file"
+            fi
             fi
         done
     fi
