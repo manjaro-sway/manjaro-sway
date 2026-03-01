@@ -2,7 +2,13 @@
 
 case $1'' in
 'status') 
-    UPDATES=$(pamac checkupdates -q -a)
+    CACHE_FILE="/tmp/pamac-checkupdates-$USER"
+    if [ -f "$CACHE_FILE" ] && [ $(($(date +%s) - $(stat -c %Y "$CACHE_FILE"))) -lt 30 ]; then
+        UPDATES=$(cat "$CACHE_FILE")
+    else
+        UPDATES=$(pamac checkupdates -q -a)
+        echo "$UPDATES" > "$CACHE_FILE"
+    fi
     COUNT=$(echo "$UPDATES" | grep -v '^$' | wc -l)
     TOOLTIP=$(echo "$UPDATES" | awk 1 ORS='\\n' | sed 's/\\n$//')
     if [ -x "$(command -v jq)" ]; then
@@ -12,7 +18,14 @@ case $1'' in
     fi
     ;;
 'check')
-    [ $(pamac checkupdates -q -a | grep -v '^$' | wc -l) -gt 0 ]
+    CACHE_FILE="/tmp/pamac-checkupdates-$USER"
+    if [ -f "$CACHE_FILE" ] && [ $(($(date +%s) - $(stat -c %Y "$CACHE_FILE"))) -lt 30 ]; then
+        UPDATES=$(cat "$CACHE_FILE")
+    else
+        UPDATES=$(pamac checkupdates -q -a)
+        echo "$UPDATES" > "$CACHE_FILE"
+    fi
+    [ $(echo "$UPDATES" | grep -v '^$' | wc -l) -gt 0 ]
     exit $?
     ;;
 'upgrade')
