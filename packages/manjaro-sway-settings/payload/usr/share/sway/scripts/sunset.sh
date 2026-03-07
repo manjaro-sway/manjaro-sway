@@ -38,16 +38,16 @@ case $1'' in
     waybar-signal sunset
     ;;
 'on')
-    waybar-signal sunset
-    start
+    start &
+    sleep 1 && waybar-signal sunset &
     ;;
 'toggle')
     if pkill -U $USER -x -0 wlsunset; then
         pkill -U $USER -x wlsunset
         waybar-signal sunset
     else
-        waybar-signal sunset
-        start
+        start &
+        sleep 1 && waybar-signal sunset &
     fi
     ;;
 'check')
