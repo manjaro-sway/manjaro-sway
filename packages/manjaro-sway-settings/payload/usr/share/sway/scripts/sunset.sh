@@ -34,19 +34,19 @@ start() {
 #Accepts managing parameter
 case $1'' in
 'off')
-    pkill -U $USER -x wlsunset
+    systemctl --user disable --now wlsunset
     waybar-signal sunset
     ;;
 'on')
-    start &
+    systemctl --user enable --now wlsunset
     sleep 1 && waybar-signal sunset &
     ;;
 'toggle')
     if pkill -U $USER -x -0 wlsunset; then
-        pkill -U $USER -x wlsunset
+        systemctl --user disable --now wlsunset
         waybar-signal sunset
     else
-        start &
+        systemctl --user enable --now wlsunset
         sleep 1 && waybar-signal sunset &
     fi
     ;;
