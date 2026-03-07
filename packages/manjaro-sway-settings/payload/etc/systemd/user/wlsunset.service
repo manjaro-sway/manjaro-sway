@@ -5,7 +5,7 @@ After=sway-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/share/sway/scripts/sunset.sh on
+ExecStart=/usr/share/sway/scripts/sunset.sh start
 Restart=on-failure
 
 [Install]

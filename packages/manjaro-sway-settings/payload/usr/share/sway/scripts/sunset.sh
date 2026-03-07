@@ -33,6 +33,9 @@ start() {
 
 #Accepts managing parameter
 case $1'' in
+'start')
+    start
+    ;;
 'off')
     systemctl --user disable --now wlsunset
     waybar-signal sunset
