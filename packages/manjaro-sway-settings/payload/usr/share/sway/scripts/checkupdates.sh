@@ -11,7 +11,7 @@ case $1'' in
     fi
     COUNT=$(echo "$UPDATES" | grep -v '^$' | wc -l)
     TOOLTIP=$(echo "$UPDATES" | awk 1 ORS='\\n' | sed 's/\\n$//')
-    jq -n --arg count "$COUNT" --arg tooltip "$TOOLTIP" '{"text": $count, "tooltip": $tooltip}'
+    jq -cn --arg count "$COUNT" --arg tooltip "$TOOLTIP" '{"text": $count, "tooltip": $tooltip}'
     ;;
 'check')
     CACHE_FILE="/tmp/pamac-checkupdates-$USER"

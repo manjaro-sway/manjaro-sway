@@ -12,5 +12,5 @@ else
     class="unknown"
 fi
 
-jq -n --arg count "$count" --arg class "$class" --arg tooltip "$tooltip" \
+jq -cn --arg count "$count" --arg class "$class" --arg tooltip "$tooltip" \
    '{"text": $count, "class": $class, "alt": $class, "tooltip": $tooltip}'
