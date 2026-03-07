@@ -115,7 +115,7 @@ case $1'' in
         ensure_theme $NEXT_PRIMARY_THEME $NEXT_SECONDARY_THEME
     fi
 
-    jq -n --arg alt "$alt" --arg text "$text" '{"alt":$alt,"tooltip":$text}'
+    jq -cn --arg alt "$alt" --arg text "$text" '{"alt":$alt,"tooltip":$text}'
 
     exit 0
     ;;
