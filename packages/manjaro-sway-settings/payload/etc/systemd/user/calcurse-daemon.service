@@ -4,6 +4,7 @@ PartOf=sway-session.target
 
 [Service]
 Type=forking
+ExecStartPre=-rm -f ~/.local/share/calcurse/daemon.lock
 ExecStart=/usr/bin/calcurse --daemon
 Restart=on-failure
 RestartSec=5
