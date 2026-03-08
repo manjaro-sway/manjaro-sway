@@ -15,6 +15,8 @@ next_scale=$(echo "$outputs" | jq -r '.[] | select(.focused==true) | .scale')
 
 scale() {
     [ -x "$(command -v way-displays)" ] && way-displays -s SCALE "$current_screen" $next_scale && way-displays -w || swaymsg output "\"$name\"" scale "$next_scale"
+    sleep 0.1
+    /usr/share/sway/scripts/generate-displays-config.sh
 }
 
 case $1'' in
