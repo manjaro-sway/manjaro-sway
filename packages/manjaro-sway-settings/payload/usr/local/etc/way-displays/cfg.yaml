@@ -1,0 +1,3 @@
+CALLBACK_CMD: |
+  /usr/share/sway/scripts/generate-displays-config.sh
+  notify-send "way-displays ${CALLBACK_LEVEL}" "${CALLBACK_MSG}"

@@ -2,7 +2,7 @@
 
 set $initialize_foot_server '[ -x "$(command -v foot)" ] && (systemctl --user start foot-server.socket; systemctl --user start foot-server)'
 set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --user start swayrd'
-set $initialize_waybar '[ -x "$(command -v waybar)" ] && (systemctl --user reload-or-restart waybar || /usr/share/sway/scripts/waybar.sh)'
+set $initialize_waybar '[ -x "$(command -v waybar)" ] && (systemctl --user start waybar || /usr/share/sway/scripts/waybar.sh)'
 set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --user start sworkstyle'
 set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --user start poweralertd'
 set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --user start idlehack'

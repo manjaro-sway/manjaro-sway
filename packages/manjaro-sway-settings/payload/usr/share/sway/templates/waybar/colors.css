@@ -1,0 +1,8 @@
+/* Default waybar colors - overwritten by generate-waybar-style.sh on sway reload */
+@define-color theme_base_color #14161b;
+@define-color theme_text_color #eeeeee;
+@define-color theme_bg_color #282a2b;
+@define-color theme_selected_bg_color #3498db;
+@define-color error_color #cd3f45;
+@define-color warning_color #db7b55;
+@define-color background_color #14161b;

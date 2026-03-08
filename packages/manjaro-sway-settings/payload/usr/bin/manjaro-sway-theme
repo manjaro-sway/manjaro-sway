@@ -20,22 +20,22 @@ install() {
 
 THEMES=$(find ${THEME_DIR} -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
 
-DARK_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select dark theme:")
+DARK_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select day theme")
 DARK_THEME_DIR="${THEME_DIR}/${DARK_THEME}"
 install "$DARK_THEME_DIR"
 
-LIGHT_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select light theme:")
+LIGHT_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select night theme")
 LIGHT_THEME_DIR="${THEME_DIR}/${LIGHT_THEME}"
 install "$LIGHT_THEME_DIR"
 
-PRIMARY_THEME=$(echo 'dark light' | rofi -sep ' ' -dmenu -p "Select primary theme:")
+PRIMARY_THEME=$(echo 'day night' | rofi -sep ' ' -dmenu -p "Select primary theme")
 PRIMARY_THEME_DIR=$DARK_THEME_DIR
-SECONDARY_THEME="light"
+SECONDARY_THEME="night"
 SECONDARY_THEME_DIR=$LIGHT_THEME_DIR
 
-if [ "$PRIMARY_THEME" == "light" ]; then
+if [ "$PRIMARY_THEME" == "night" ]; then
     PRIMARY_THEME_DIR=$LIGHT_THEME_DIR
-    SECONDARY_THEME="dark"
+    SECONDARY_THEME="day"
     SECONDARY_THEME_DIR=$DARK_THEME_DIR
 fi
 

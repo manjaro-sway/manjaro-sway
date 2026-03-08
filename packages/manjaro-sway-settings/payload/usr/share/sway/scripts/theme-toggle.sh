@@ -54,14 +54,37 @@ if [ -f "$LOCKFILE" ]; then
     fi
 fi
 
+merge_foot_themes() {
+    local primary_theme=$1
+    local dark_foot="$HOME/.config/foot/foot-theme.dark.ini_"
+    local light_foot="$HOME/.config/foot/foot-theme.light.ini_"
+    local merged_foot="$HOME/.config/foot/foot-theme.ini"
+
+    [ -f "$dark_foot" ] && [ -f "$light_foot" ] || return 1
+
+    {
+        grep "^include=" "$dark_foot" | head -1
+        printf '\n[main]\ninitial-color-theme=%s\n' "$primary_theme"
+        printf '\n'
+        awk '/^\[colors(-dark|-light)?\]/{p=1; print "[colors-dark]"; next} /^\[/ && p{p=0} p{print}' "$dark_foot"
+        printf '\n'
+        awk '/^\[colors(-dark|-light)?\]/{p=1; print "[colors-light]"; next} /^\[/ && p{p=0} p{print}' "$light_foot"
+    } > "$merged_foot"
+
+    if [ "$primary_theme" = "dark" ]; then
+        pkill -SIGUSR1 foot || true
+    else
+        pkill -SIGUSR2 foot || true
+    fi
+}
+
 ensure_theme() {
     if [ "$CURRENT_PRIMARY_THEME" != "$1" ]; then
         PRIMARY_SWAY_THEME="$HOME/.config/sway/definitions.d/theme.conf"
-        PRIMARY_FOOT_THEME="$HOME/.config/foot/foot-theme.ini"
         /usr/bin/mv --backup -v $PRIMARY_SWAY_THEME "$HOME/.config/sway/definitions.d/theme.$2.conf_"
-        /usr/bin/mv --backup -v $PRIMARY_FOOT_THEME "$HOME/.config/foot/foot-theme.$2.ini_"
         /usr/bin/mv --backup -v "$HOME/.config/sway/definitions.d/theme.$1.conf_" $PRIMARY_SWAY_THEME
-        /usr/bin/mv --backup -v "$HOME/.config/foot/foot-theme.$1.ini_" $PRIMARY_FOOT_THEME
+
+        merge_foot_themes "$1"
 
         swaymsg reload
     fi

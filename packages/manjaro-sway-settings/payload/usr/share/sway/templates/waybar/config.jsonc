@@ -13,6 +13,7 @@
     // If height property would be not present, it'd be calculated dynamically
     "height": 30,
     "position": "top",
+    "reload_style_on_change": true,
     "modules-left": [
         "custom/menu",
         "sway/workspaces",
