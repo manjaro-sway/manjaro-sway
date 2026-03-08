@@ -1,5 +1,10 @@
 #!/usr/bin/env sh
 # wrapper script for mako
+
+if pgrep -x mako >/dev/null 2>&1; then
+    exit 0
+fi
+
 USER_CONFIG_PATH="${HOME}/.config/mako/config"
 
 if [ -f "$USER_CONFIG_PATH" ]; then
