@@ -1,0 +1,8 @@
+[Unit]
+Description=Foot terminal server socket
+
+[Socket]
+ListenStream=%t/foot-server-%i.sock
+
+[Install]
+WantedBy=sockets.target

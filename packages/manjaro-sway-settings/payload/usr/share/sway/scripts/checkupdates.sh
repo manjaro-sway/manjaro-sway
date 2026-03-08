@@ -1,26 +1,23 @@
 #!/bin/sh
 
-case $1'' in
-'status') 
+get_updates() {
     CACHE_FILE="/tmp/pamac-checkupdates-$USER"
     if [ -f "$CACHE_FILE" ] && [ $(($(date +%s) - $(stat -c %Y "$CACHE_FILE"))) -lt 30 ]; then
-        UPDATES=$(cat "$CACHE_FILE")
+        cat "$CACHE_FILE"
     else
-        UPDATES=$(pamac checkupdates -q -a)
-        echo "$UPDATES" > "$CACHE_FILE"
+        pamac checkupdates -q -a | tee "$CACHE_FILE"
     fi
+}
+
+case $1'' in
+'status')
+    UPDATES=$(get_updates)
     COUNT=$(echo "$UPDATES" | grep -v '^$' | wc -l)
     TOOLTIP=$(echo "$UPDATES" | awk 1 ORS='\\n' | sed 's/\\n$//')
     jq -cn --arg count "$COUNT" --arg tooltip "$TOOLTIP" '{"text": $count, "tooltip": $tooltip}'
     ;;
 'check')
-    CACHE_FILE="/tmp/pamac-checkupdates-$USER"
-    if [ -f "$CACHE_FILE" ] && [ $(($(date +%s) - $(stat -c %Y "$CACHE_FILE"))) -lt 30 ]; then
-        UPDATES=$(cat "$CACHE_FILE")
-    else
-        UPDATES=$(pamac checkupdates -q -a)
-        echo "$UPDATES" > "$CACHE_FILE"
-    fi
+    UPDATES=$(get_updates)
     [ $(echo "$UPDATES" | grep -v '^$' | wc -l) -gt 0 ]
     exit $?
     ;;

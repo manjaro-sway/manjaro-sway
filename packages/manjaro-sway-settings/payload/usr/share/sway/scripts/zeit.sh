@@ -16,8 +16,8 @@ case $1'' in
     ;;
 'track')
     input=$(cat -)
-    task=$(echo $input | pcregrep -io1 '└── (.+) \[.+')
-    project=$(echo $input | pcregrep -io1 '.+\[(.+)\]')
+    task=$(echo "$input" | grep -oP '(?<=└── ).+(?= \[)')
+    project=$(echo "$input" | grep -oP '(?<=\[).+(?=\])')
 
     if [ "$task" = "" ] || [ "$project" = "" ]; then
         notify-send "You did not select a task!"

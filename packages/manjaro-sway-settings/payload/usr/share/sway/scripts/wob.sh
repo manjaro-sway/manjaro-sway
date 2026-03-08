@@ -25,9 +25,9 @@ refresh() {
     {
         echo "anchor = top center"
         echo "margin = 20"
-        echo "border_color = $(echo "$1" | sed 's/#//')"
-        echo "bar_color = $(echo "$1" | sed 's/#//')"
-        echo "background_color = $(echo "$2" | sed 's/#//')"
+        echo "border_color = ${1#\#}"
+        echo "bar_color = ${1#\#}"
+        echo "background_color = ${2#\#}"
     } >>$ini
 }
 

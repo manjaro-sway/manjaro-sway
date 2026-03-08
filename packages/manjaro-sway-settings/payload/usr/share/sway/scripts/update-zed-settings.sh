@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 # Script to update Zed Editor settings (font and theme)
-# Uses sed to preserve comments in JSONC files.
 # Only updates values that are currently managed (i.e. one of the known
 # sway-managed values), allowing user overrides to persist.
 
@@ -38,14 +37,16 @@ EOF
     fi
 
     # Only update theme if current value is a managed theme
-    current_theme=$(sed -n 's/.*"dark": "\(.*\)".*/\1/p' "$ZED_SETTINGS" | head -1)
+    current_theme=$(jq -r '.theme.dark // empty' "$ZED_SETTINGS" 2>/dev/null)
     if echo "$current_theme" | grep -qE "^($MANAGED_THEMES)$"; then
-        sed -i "s/\"dark\": \".*\"/\"dark\": \"$VSCODE_THEME\"/" "$ZED_SETTINGS"
+        tmp=$(mktemp)
+        jq --arg theme "$VSCODE_THEME" '.theme.dark = $theme' "$ZED_SETTINGS" > "$tmp" && mv "$tmp" "$ZED_SETTINGS"
     fi
 
     # Only update font if current value is a managed font
-    current_font=$(sed -n 's/.*"buffer_font_family": "\(.*\)".*/\1/p' "$ZED_SETTINGS" | head -1)
+    current_font=$(jq -r '.buffer_font_family // empty' "$ZED_SETTINGS" 2>/dev/null)
     if echo "$current_font" | grep -qE "^($MANAGED_FONTS)$"; then
-        sed -i "s/\"buffer_font_family\": \".*\"/\"buffer_font_family\": \"$FONT_NAME\"/" "$ZED_SETTINGS"
+        tmp=$(mktemp)
+        jq --arg font "$FONT_NAME" '.buffer_font_family = $font' "$ZED_SETTINGS" > "$tmp" && mv "$tmp" "$ZED_SETTINGS"
     fi
 fi

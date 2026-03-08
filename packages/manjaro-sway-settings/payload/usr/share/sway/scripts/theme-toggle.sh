@@ -7,15 +7,14 @@ LIGHT_SWAY_THEME="$HOME/.config/sway/definitions.d/theme.light.conf_"
 
 CURRENT_PRIMARY_THEME="dark"
 CURRENT_SECONDARY_THEME="light"
-NEXT_PRIMARY_THEME="dark"
-NEXT_SECONDARY_THEME="light"
 
 if [ -f "$DARK_SWAY_THEME" ]; then
     CURRENT_PRIMARY_THEME="light"
     CURRENT_SECONDARY_THEME="dark"
-    NEXT_PRIMARY_THEME="light"
-    NEXT_SECONDARY_THEME="dark"
 fi
+
+NEXT_PRIMARY_THEME="$CURRENT_PRIMARY_THEME"
+NEXT_SECONDARY_THEME="$CURRENT_SECONDARY_THEME"
 
 current_unix=$(date +%s)
 __geo_content=$(sh /usr/share/sway/scripts/geoip.sh)

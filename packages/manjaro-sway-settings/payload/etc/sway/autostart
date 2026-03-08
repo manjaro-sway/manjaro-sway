@@ -18,7 +18,6 @@ set $initialize_cliphist_store '[ -x "$(command -v cliphist)" ] && systemctl --u
 set $initialize_cliphist_watch '[ -x "$(command -v cliphist)" ] && systemctl --user start cliphist-watch'
 set $initialize_clip_persist '[ -x "$(command -v wl-clip-persist)" ] && systemctl --user start wl-clip-persist'
 set $initialize_calendar_daemon '[ -x "$(command -v calcurse)" ] && systemctl --user start calcurse-daemon'
-set $initialize_swappy_notify '[ -x "$(command -v swappy)" ] && systemctl --user start swappy-notify'
 set $initialize_watch_playerctl '[ -x "$(command -v playerctl)" ] && systemctl --user start watch-playerctl'
 
 # autostarts
@@ -37,4 +36,4 @@ set $apply_background swaymsg 'output * bg $background fill'
 
 # daemons
 
-set $nm_applet '[ -x "$(command -v nm-applet)" ] && pkill -U $USER -x nm-applet && dbus-launch nm-applet'
+set $nm_applet '[ -x "$(command -v nm-applet)" ] && pkill -U $USER -x nm-applet && nm-applet'

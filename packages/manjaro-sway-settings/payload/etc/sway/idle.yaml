@@ -1,5 +1,5 @@
 ---
-debug: true
+debug: false
 wait: false
 timeouts:
   # idle_timeout
@@ -17,10 +17,6 @@ timeouts:
   - timeout: 600
     command: swaymsg "output * power off"
     resume: swaymsg "output * power on"
-  # dpms_timeout
-  - timeout: 600
-    command: swaymsg "output * dpms off"
-    resume: swaymsg "output * dpms on"
   # sleep_timeout_bat
   - timeout: 900
     command: acpi --ac-adapter | grep -v 'on-line' && systemctl sleep
@@ -28,6 +24,6 @@ timeouts:
   - timeout: 3600
     command: acpi --ac-adapter | grep 'on-line' && systemctl sleep
 before-sleep: swaymsg exec \$locking
-after-resume: swaymsg "output * dpms on" && brightnessctl -r
+after-resume: swaymsg "output * power on" && brightnessctl -r
 lock: swaymsg exec \$locking
 idlehint: '240'

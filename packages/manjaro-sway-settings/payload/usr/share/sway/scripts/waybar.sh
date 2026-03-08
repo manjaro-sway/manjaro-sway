@@ -20,4 +20,4 @@ if [ -f "$USER_STYLE_PATH" ]; then
     USER_STYLE=$USER_STYLE_PATH
 fi
 
-waybar -c "${USER_CONFIG:-"$TEMPLATES/config.jsonc"}" -s "${USER_STYLE:-"$TEMPLATES/style.css"}" > $(mktemp -t XXXX.waybar.log)
+waybar -c "${USER_CONFIG:-"$TEMPLATES/config.jsonc"}" -s "${USER_STYLE:-"$TEMPLATES/style.css"}"
