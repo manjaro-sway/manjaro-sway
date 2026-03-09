@@ -1,6 +1,6 @@
 # units (enabled via systemd --user enable)
 
-set $initialize_foot_server '[ -x "$(command -v foot)" ] && systemctl --user enable --now foot-server.socket'
+set $initialize_foot_server '[ -x "$(command -v foot)" ] && (systemctl --user enable --now foot-server.socket; systemctl --user enable --now foot-server)'
 set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --user enable --now swayrd'
 set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --user enable --now sworkstyle'
 set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --user enable --now poweralertd'
