@@ -29,6 +29,21 @@ set $unbindsym unbindsym --to-code
 # Script paths
 set $script_path /usr/share/sway/scripts
 
+# Theme application (override any variable with "" to disable)
+set $apply_gtk_theme $script_path/enable-gtk-theme.sh "$gtk-theme"
+set $apply_icon_theme gsettings set org.gnome.desktop.interface icon-theme "$icon-theme"
+set $apply_color_scheme gsettings set org.gnome.desktop.interface color-scheme "$gtk-color-scheme"
+set $apply_cursor_theme $script_path/enable-cursor-theme.sh "$cursor-theme"
+set $apply_gui_font gsettings set org.gnome.desktop.interface font-name "$gui-font"
+set $configure_input_sources gsettings set org.gnome.desktop.input-sources show-all-sources true
+set $apply_monospace_font gsettings set org.gnome.desktop.interface monospace-font-name "$term-font"
+set $configure_fontconfig $script_path/fontconfig.sh "monospace" "$term-font"
+set $apply_vscode_settings $script_path/update-vscode-settings.sh "$term-font" "$vscode-theme"
+set $apply_zed_settings $script_path/update-zed-settings.sh "$term-font" "$vscode-theme"
+set $generate_background $script_path/generate-bg.sh "$accent-color" "$text-color" "$background-color"
+set $generate_waybar_style $script_path/generate-waybar-style.sh "$background-color" "$text-color" "$accent-color" "$color8" "$color9"
+set $apply_kvantum_theme kvantummanager --set "$kvantum-theme"
+
 # Terminal emulator
 set $term footclient
 set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
