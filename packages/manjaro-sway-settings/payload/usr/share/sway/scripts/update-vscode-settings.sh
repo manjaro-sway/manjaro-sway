@@ -21,7 +21,7 @@ FONT_NAME=$(echo "$FONT_FAMILY" | sed 's/ [0-9.]*$//')
 MANAGED_THEMES="Noctis|Noctis Azureus|Noctis Hibernus|Noctis Lux|Noctis Obscuro|Noctis Sereno|Noctis Uva|Noctis Viola"
 MANAGED_FONTS="JetBrainsMono NF|Terminess Nerd Font Mono"
 
-for variant in "Code" "Code - OSS" "Code - Insiders"; do
+for variant in "Code" "Code - OSS" "Code - Insiders" "Antigravity"; do
     base_dir="$HOME/.config/$variant"
     if [ -d "$base_dir" ]; then
 
