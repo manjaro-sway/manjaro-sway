@@ -19,15 +19,21 @@ wob_pipe=~/.cache/$(basename "$SWAYSOCK").wob
 
 ini=~/.config/wob.ini
 
+to_wob_color() {
+    # wob expects RRGGBBAA; sway themes provide #RRGGBB
+    local hex="${1#\#}"
+    echo "${hex}FF"
+}
+
 refresh() {
     pkill -U $USER -x wob
-    rm $ini
+    rm -f $ini
     {
         echo "anchor = top center"
         echo "margin = 20"
-        echo "border_color = ${1#\#}"
-        echo "bar_color = ${1#\#}"
-        echo "background_color = ${2#\#}"
+        echo "border_color = $(to_wob_color "$1")"
+        echo "bar_color = $(to_wob_color "$1")"
+        echo "background_color = $(to_wob_color "$2")"
     } >>$ini
 }
 
