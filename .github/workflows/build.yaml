@@ -29,7 +29,7 @@ jobs:
         with:
           format: 'YYYYMMDDHHmm'
       - id: receive
-        uses: boredland/kernel-info@main
+        uses: boredland/kernel-info@fff24dcc17bc2b0d34770799c92e2c6caadd97e7 # main
     outputs:
       release_tag: ${{ steps.time.outputs.time }}
       longterm: ${{ steps.receive.outputs.longterm-pkg }}
@@ -47,7 +47,7 @@ jobs:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
       - name: arm build
-        uses: manjaro-contrib/action-buildarmimg@main
+        uses: manjaro-contrib/action-buildarmimg@4d590db71eaf5be988098638d696ff2d1f142064 # main
         with:
           device: rpi4
           edition: sway
@@ -71,7 +71,7 @@ jobs:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
       - name: x86_64 build
-        uses: manjaro-contrib/action-buildiso@main
+        uses: manjaro-contrib/action-buildiso@ee53ff29634cc03a2cee5efbdf0fb0d7b45bbabc # main
         with:
           iso-profiles-repo: https://github.com/Manjaro-Sway/iso-profiles
           edition: sway
