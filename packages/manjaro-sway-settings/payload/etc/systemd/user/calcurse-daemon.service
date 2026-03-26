@@ -4,10 +4,12 @@ PartOf=sway-session.target
 
 [Service]
 Type=forking
-ExecStartPre=-rm -f ~/.local/share/calcurse/daemon.lock
+ExecStartPre=-rm -f ~/.local/share/calcurse/.calcurse.pid ~/.local/share/calcurse/daemon.lock
 ExecStart=/usr/bin/calcurse --daemon
 Restart=on-failure
 RestartSec=5
+StartLimitBurst=5
+StartLimitIntervalSec=30
 
 [Install]
 WantedBy=sway-session.target
