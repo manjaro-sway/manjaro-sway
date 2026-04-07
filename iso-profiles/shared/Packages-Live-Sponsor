@@ -10,6 +10,5 @@ manjaro-live-systemd
 manjaro-rescue
 mkinitcpio-nfs-utils
 nbd
-snapper-gui
 timeshift
 virtualbox-guest-utils
