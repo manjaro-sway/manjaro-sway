@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
-    "typescript": "^5.0.0"
+    "typescript": "^6.0.0"
   },
   "dependencies": {
     "accept-language": "^3.0.18",
