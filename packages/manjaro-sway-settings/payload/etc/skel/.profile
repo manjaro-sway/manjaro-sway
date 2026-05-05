@@ -12,8 +12,11 @@ export GTK_CSD=0
 
 # qt wayland
 export QT_QPA_PLATFORM="wayland"
-export QT_QPA_PLATFORMTHEME=qt6ct
+export QT_QPA_PLATFORMTHEME=lxqt
 export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+
+# use xdg-desktop-portal for file dialogs in GTK apps
+export GTK_USE_PORTAL=1
 
 #Java XWayland blank screens fix
 export _JAVA_AWT_WM_NONREPARENTING=1
