@@ -47,7 +47,7 @@ jobs:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
       - name: arm build
-        uses: manjaro-contrib/action-buildarmimg@4d590db71eaf5be988098638d696ff2d1f142064 # main
+        uses: manjaro-contrib/action-buildarmimg@1cbf2f983dd11c91da2d125f2a252b1c5b7add6a # main
         with:
           device: rpi4
           edition: sway
