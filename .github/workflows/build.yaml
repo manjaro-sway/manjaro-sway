@@ -131,8 +131,12 @@ jobs:
           path: serial.log
           if-no-files-found: warn
   test-image-boot:
+    # Currently advisory: Ubuntu 24.04 ARM ships QEMU 8.2.2, but `-M raspi4b`
+    # was added in QEMU 9.0. Flip continue-on-error to false once the runner
+    # image upgrades, or once we install a newer QEMU in-line.
     runs-on: ubuntu-24.04-arm
     needs: [build-image]
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
@@ -211,7 +215,7 @@ jobs:
           if-no-files-found: warn
   trigger-mirror:
     runs-on: ubuntu-24.04
-    needs: [build-iso, build-image, test-iso-boot, test-iso-install, test-image-boot]
+    needs: [build-iso, build-image, test-iso-boot, test-iso-install]
     steps:
       - uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4
         with:
