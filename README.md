@@ -31,6 +31,10 @@ You can create a boot-able USB stick using [Etcher](https://www.balena.io/etcher
 
 Check out our [FAQ](SUPPORT.md) for additional hints.
 
+> **Note on release branches**
+>
+> We currently only publish images built against Manjaro's `unstable` branch. Sway doesn't carry the deep dependency-tree entanglements that the larger DE variants (KDE, GNOME, XFCE) have to manage when promoting packages from `unstable` → `testing` → `stable`, so for our edition `unstable` is generally a fine daily driver. If you'd rather track a slower-moving branch, you can [switch to `testing` or `stable`](https://wiki.manjaro.org/index.php/Switching_Branches#Changing_to_another_branch) after install.
+
 ## Noteworthy side-projects
 
 Some projects evolved from the this sway distribution include:
