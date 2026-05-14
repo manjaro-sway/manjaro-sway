@@ -77,10 +77,13 @@ jobs:
           path: ${{ steps.build.outputs.file-path }}
           retention-days: 1
           if-no-files-found: error
-      - name: make pacman cache readable
-        # Save step needs to tar root-owned files; ensure permissions allow.
+      - name: prune + chmod pacman cache
+        # paccache -rk1 keeps one version per package. chmod opens the tree
+        # for actions/cache's save tar.
         if: always()
-        run: sudo chmod -R a+rX /var/cache/pacman/pkg 2>/dev/null || true
+        run: |
+          sudo paccache -rk1 -c /var/cache/pacman/pkg 2>/dev/null || true
+          sudo chmod -R a+rX /var/cache/pacman/pkg 2>/dev/null || true
   build-iso:
     runs-on: ubuntu-24.04
     needs: [prepare-release]
@@ -124,9 +127,11 @@ jobs:
           path: ${{ steps.build.outputs.file-path }}
           retention-days: 1
           if-no-files-found: error
-      - name: make pacman cache readable
+      - name: prune + chmod pacman cache
         if: always()
-        run: sudo chmod -R a+rX /var/cache/pacman/pkg 2>/dev/null || true
+        run: |
+          sudo paccache -rk1 -c /var/cache/pacman/pkg 2>/dev/null || true
+          sudo chmod -R a+rX /var/cache/pacman/pkg 2>/dev/null || true
   test-iso-boot:
     runs-on: ubuntu-24.04
     needs: [build-iso]
