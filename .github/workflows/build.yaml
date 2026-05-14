@@ -47,6 +47,19 @@ jobs:
     steps:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
+      - name: prepare pacman pkg cache dir
+        # Runner-writable so actions/cache can restore here without sudo,
+        # and pacman (running as root inside basestrap) can still write.
+        run: |
+          sudo mkdir -p /var/cache/pacman/pkg
+          sudo chmod 0777 /var/cache/pacman/pkg
+      - name: cache pacman packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/pacman/pkg
+          key: pacman-pkg-${{ matrix.branch }}-${{ matrix.device }}-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
+          restore-keys: |
+            pacman-pkg-${{ matrix.branch }}-${{ matrix.device }}-${{ runner.os }}-${{ runner.arch }}-
       - id: build
         name: arm build
         uses: manjaro-contrib/action-buildarmimg@d18252a49e9dbdece2a41dd58b1d2c7c5d96c8bf # main
@@ -64,6 +77,10 @@ jobs:
           path: ${{ steps.build.outputs.file-path }}
           retention-days: 1
           if-no-files-found: error
+      - name: make pacman cache readable
+        # Save step needs to tar root-owned files; ensure permissions allow.
+        if: always()
+        run: sudo chmod -R a+rX /var/cache/pacman/pkg 2>/dev/null || true
   build-iso:
     runs-on: ubuntu-24.04
     needs: [prepare-release]
@@ -77,6 +94,17 @@ jobs:
     steps:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
+      - name: prepare pacman pkg cache dir
+        run: |
+          sudo mkdir -p /var/cache/pacman/pkg
+          sudo chmod 0777 /var/cache/pacman/pkg
+      - name: cache pacman packages
+        uses: actions/cache@v4
+        with:
+          path: /var/cache/pacman/pkg
+          key: pacman-pkg-${{ matrix.branch }}-x86_64-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
+          restore-keys: |
+            pacman-pkg-${{ matrix.branch }}-x86_64-${{ runner.os }}-${{ runner.arch }}-
       - id: build
         name: x86_64 build
         uses: manjaro-contrib/action-buildiso@377cedc76ac456dca7549920eff95ddcaf45c4dc # main
@@ -96,6 +124,9 @@ jobs:
           path: ${{ steps.build.outputs.file-path }}
           retention-days: 1
           if-no-files-found: error
+      - name: make pacman cache readable
+        if: always()
+        run: sudo chmod -R a+rX /var/cache/pacman/pkg 2>/dev/null || true
   test-iso-boot:
     runs-on: ubuntu-24.04
     needs: [build-iso]
