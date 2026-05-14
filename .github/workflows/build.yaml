@@ -143,7 +143,7 @@ jobs:
       - name: install qemu + kvm stack
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-system-arm qemu-utils kpartx xz-utils zstd
+          sudo apt-get install -y qemu-system-arm qemu-utils mtools fdisk xz-utils zstd
           sudo chmod 666 /dev/kvm || true
       - name: download image
         uses: actions/download-artifact@v4

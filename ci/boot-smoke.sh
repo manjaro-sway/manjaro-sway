@@ -20,17 +20,23 @@ WORKDIR="$(mktemp -d)"
 SERIAL_LOG="${SERIAL_LOG_OUT:-$WORKDIR/serial.log}"
 trap 'rm -rf "$WORKDIR"; [ -n "${QEMU_PID:-}" ] && kill "$QEMU_PID" 2>/dev/null || true' EXIT
 
-# Marker = the systemd target that signals the live session is up. Both the
-# manjaro live ISO and the rpi4 image hit `multi-user.target` before they hand
-# off to a graphical target, which is the latest point still guaranteed on
-# headless installs.
-MARKER='Reached target Graphical Interface\|Reached target graphical-session\|Reached target Multi-User System\|manjaro login:'
+# Markers that signal "userspace booted far enough":
+#  - audit hostname=manjaro* — kernel audit fires this only after /etc/hostname
+#    is processed by userspace systemd. Most reliable signal we have because
+#    systemd[1] stops writing to the kernel ring buffer once journald is up
+#    (around t=30s), so its later `Reached target` lines never reach the
+#    serial. Audit keeps flowing through kauditd.
+#  - manjaro login: — classic getty prompt fallback for live ISOs that don't
+#    flip to greetd immediately.
+#  - greetd PAM session_open — display manager handed off to a user session.
+MARKER='audit.*hostname=manjaro\|manjaro login:\|op=PAM:session_open.*greetd'
 
 case "$ARCH" in
   x86_64)
     sudo modprobe kvm-intel 2>/dev/null || sudo modprobe kvm-amd 2>/dev/null || true
-    # OVMF_CODE.fd path differs across Ubuntu versions
-    OVMF=$(find /usr/share/OVMF -name 'OVMF_CODE*.fd' | head -n1)
+    # OVMF_CODE filename + location varies (Ubuntu: /usr/share/OVMF/OVMF_CODE.fd,
+    # Manjaro: /usr/share/edk2/x64/OVMF_CODE.4m.fd). Search broadly.
+    OVMF=$(find /usr/share -maxdepth 4 -name 'OVMF_CODE*.fd' 2>/dev/null | grep -v secboot | head -n1)
     [ -n "$OVMF" ] || { echo "OVMF firmware not found"; exit 1; }
     qemu-img create -f qcow2 "$WORKDIR/disk.qcow2" 20G
     qemu-system-x86_64 \
@@ -44,16 +50,29 @@ case "$ARCH" in
     QEMU_PID=$!
     ;;
   aarch64)
-    # The extract script (extract-rpi-kernel.sh) leaves Image / initramfs in
-    # the same workdir as the image. We expect them next to the artifact.
-    KERNEL_DIR="$(dirname "$ARTIFACT")"
-    [ -f "$KERNEL_DIR/Image" ] || { echo "kernel not extracted next to image"; exit 1; }
+    # The extract script leaves Image / initramfs / DTB in the same workdir
+    # as the image. Booting via -M raspi4b (not -M virt) because the Manjaro
+    # rpi4 kernel has no virtio drivers compiled in — it's built strictly
+    # for Pi hardware and only knows SD/MMC + USB.
+    ART_DIR="$(dirname "$ARTIFACT")"
+    [ -f "$ART_DIR/Image" ] || { echo "kernel not extracted next to image"; exit 1; }
+    [ -f "$ART_DIR/bcm2711-rpi-4-b.dtb" ] || { echo "rpi4 DTB not extracted next to image"; exit 1; }
+    # KVM only when host arch matches guest. CI's ubuntu-24.04-arm runner is
+    # aarch64-native; local x86 dev hosts fall back to TCG (slow but works).
+    if [ "$(uname -m)" = "aarch64" ] && [ -r /dev/kvm ]; then
+      ACCEL_ARGS=(-accel kvm)
+    else
+      ACCEL_ARGS=(-accel tcg)
+    fi
+    # raspi4b caps DRAM at 2G in QEMU; SD is the root device the rpi4 kernel
+    # expects, so use if=sd. Console on PL011 UART matches the rpi config.txt.
     qemu-system-aarch64 \
-      -M virt -accel kvm -cpu host -m 4096 -smp 2 \
-      -kernel "$KERNEL_DIR/Image" \
-      -initrd "$KERNEL_DIR/initramfs-linux.img" \
-      -append "root=/dev/vda2 rw console=ttyAMA0" \
-      -drive file="$ARTIFACT",if=virtio,format=raw \
+      -M raspi4b "${ACCEL_ARGS[@]}" -m 2G -smp 4 \
+      -kernel "$ART_DIR/Image" \
+      -initrd "$ART_DIR/initramfs-linux.img" \
+      -dtb "$ART_DIR/bcm2711-rpi-4-b.dtb" \
+      -append "root=/dev/mmcblk1p2 rw rootwait earlycon=pl011,0xfe201000 console=ttyAMA0,115200 ignore_loglevel" \
+      -drive file="$ARTIFACT",if=sd,format=raw \
       -nographic \
       -serial "file:$SERIAL_LOG" \
       -monitor none &

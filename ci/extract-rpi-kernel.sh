@@ -2,8 +2,9 @@
 # Extract kernel + initramfs from a Manjaro ARM rpi4 disk image so QEMU's
 # -M virt machine can boot it (the raspi4b machine model has too many gaps).
 #
-# Side effect: drops Image and initramfs-linux.img next to the input image,
-# which is what boot-smoke.sh aarch64 expects.
+# Reads the FAT32 boot partition directly with mtools — no sudo, no loop
+# devices, no mount races. Side effect: drops Image and initramfs-linux.img
+# next to the input image, which is what boot-smoke.sh aarch64 expects.
 #
 # Usage: extract-rpi-kernel.sh <image>
 
@@ -16,30 +17,40 @@ case "$IMG" in
 esac
 
 OUT_DIR="$(dirname "$IMG")"
-MNT="$(mktemp -d)"
-trap 'sudo umount "$MNT" 2>/dev/null || true; rmdir "$MNT" 2>/dev/null || true; sudo kpartx -d "$IMG" 2>/dev/null || true' EXIT
 
-# Map partitions, find the boot (FAT32) partition.
-sudo kpartx -av "$IMG"
-LOOP_BASE="$(sudo kpartx -l "$IMG" | head -n1 | awk '{print $1}' | sed 's/p1$//')"
-BOOT_DEV="/dev/mapper/${LOOP_BASE}p1"
-[ -b "$BOOT_DEV" ] || { echo "boot partition not found at $BOOT_DEV"; exit 1; }
+# Find the first partition's byte offset. sfdisk -d on a file works without
+# sudo for owned files and gives us a stable machine-readable layout.
+P1_START_SECTORS="$(sfdisk -d "$IMG" 2>/dev/null \
+  | sed -n 's/^.*1[[:space:]]*:.*start=[[:space:]]*\([0-9][0-9]*\).*/\1/p' \
+  | head -n1)"
+[ -n "$P1_START_SECTORS" ] || { echo "could not parse partition 1 start sector"; sfdisk -d "$IMG"; exit 1; }
+P1_OFFSET=$(( P1_START_SECTORS * 512 ))
 
-sudo mount -o ro "$BOOT_DEV" "$MNT"
+mdir_target="${IMG}@@${P1_OFFSET}"
 
-# Manjaro rpi4 boot partition layout: Image (or kernel8.img) + an initramfs
-# image. Names drift; pick the first match we can find.
+# Names drift across kernel packages — pick the first match. mdir output
+# format on the FAT32 boot partition has filenames as the first column.
+KERNEL=""
 for kn in Image kernel8.img kernel7l.img; do
-  if [ -f "$MNT/$kn" ]; then
-    sudo cp "$MNT/$kn" "$OUT_DIR/Image"
+  if mdir -i "$mdir_target" "::$kn" >/dev/null 2>&1; then
+    KERNEL="$kn"
     break
   fi
 done
-[ -f "$OUT_DIR/Image" ] || { echo "no kernel image found on boot partition"; sudo ls -la "$MNT"; exit 1; }
+[ -n "$KERNEL" ] || { echo "no kernel image found on boot partition"; mdir -i "$mdir_target" :: ; exit 1; }
 
-INITRD="$(sudo find "$MNT" -maxdepth 1 -name 'initramfs-linux*.img' | head -n1)"
-[ -n "$INITRD" ] || { echo "no initramfs found on boot partition"; sudo ls -la "$MNT"; exit 1; }
-sudo cp "$INITRD" "$OUT_DIR/initramfs-linux.img"
+INITRD="$(mdir -i "$mdir_target" :: 2>/dev/null | awk '/initramfs/ {print $1}' | head -n1)"
+[ -n "$INITRD" ] || { echo "no initramfs found on boot partition"; mdir -i "$mdir_target" :: ; exit 1; }
 
-sudo chown "$(id -u):$(id -g)" "$OUT_DIR/Image" "$OUT_DIR/initramfs-linux.img"
-echo "extracted kernel + initramfs to $OUT_DIR/"
+DTB="bcm2711-rpi-4-b.dtb"
+if ! mdir -i "$mdir_target" "::$DTB" >/dev/null 2>&1; then
+  echo "expected $DTB not found on boot partition"
+  mdir -i "$mdir_target" :: | grep -i '\.dtb' || true
+  exit 1
+fi
+
+mcopy -i "$mdir_target" -o "::$KERNEL" "$OUT_DIR/Image"
+mcopy -i "$mdir_target" -o "::$INITRD" "$OUT_DIR/initramfs-linux.img"
+mcopy -i "$mdir_target" -o "::$DTB"    "$OUT_DIR/$DTB"
+
+echo "extracted $KERNEL + $INITRD + $DTB to $OUT_DIR/"
