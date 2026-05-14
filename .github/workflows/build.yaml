@@ -41,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [stable, testing, unstable]
+        branch: [unstable]
         device: [rpi4]
     steps:
       - name: import sway key
@@ -61,10 +61,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [stable, unstable]
+        branch: [unstable]
         include:
-          - branch: stable
-            kernel: ${{ needs.prepare-release.outputs.longterm }}
           - branch: unstable
             kernel: ${{ needs.prepare-release.outputs.stable }}
     steps:
