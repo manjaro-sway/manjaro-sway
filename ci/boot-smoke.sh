@@ -20,7 +20,7 @@ WORKDIR="$(mktemp -d)"
 SERIAL_LOG="${SERIAL_LOG_OUT:-$WORKDIR/serial.log}"
 trap 'rm -rf "$WORKDIR"; [ -n "${QEMU_PID:-}" ] && kill "$QEMU_PID" 2>/dev/null || true' EXIT
 
-# Markers that signal "userspace booted far enough":
+# Default markers signalling "userspace booted far enough":
 #  - audit hostname=manjaro* — kernel audit fires this only after /etc/hostname
 #    is processed by userspace systemd. Most reliable signal we have because
 #    systemd[1] stops writing to the kernel ring buffer once journald is up
@@ -29,7 +29,11 @@ trap 'rm -rf "$WORKDIR"; [ -n "${QEMU_PID:-}" ] && kill "$QEMU_PID" 2>/dev/null 
 #  - manjaro login: — classic getty prompt fallback for live ISOs that don't
 #    flip to greetd immediately.
 #  - greetd PAM session_open — display manager handed off to a user session.
-MARKER='audit.*hostname=manjaro\|manjaro login:\|op=PAM:session_open.*greetd'
+#
+# Caller can override via BOOT_MARKER_REGEX, used e.g. by the install test to
+# wait for `exe="/usr/bin/calamares"` (an audit SYSCALL line emitted when the
+# live session auto-execs calamares).
+MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro\|manjaro login:\|op=PAM:session_open.*greetd}"
 
 case "$ARCH" in
   x86_64)

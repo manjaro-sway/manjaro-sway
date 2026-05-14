@@ -6,17 +6,19 @@ the full design.
 
 ## What runs where
 
-| Script                  | Used by                                 | What it does |
-| ----------------------- | --------------------------------------- | ------------ |
-| `boot-smoke.sh`         | `test-iso-boot`, `test-image-boot`      | Boots the artifact under QEMU, watches the serial console for a "system reached usable state" marker. |
-| `extract-rpi-kernel.sh` | `test-image-boot` (aarch64 pre-step)    | Loop-mounts the rpi4 disk image, copies the kernel + initramfs out so QEMU's `-M virt` model can boot it. |
-| `calamares-drive.sh`    | `test-iso-install` (Phase 2, advisory)  | Drives the Calamares wizard. Stub — see issue #982. |
+| Script                  | Used by                                                 | What it does |
+| ----------------------- | ------------------------------------------------------- | ------------ |
+| `boot-smoke.sh`         | `test-iso-boot`, `test-image-boot`, `test-iso-install`  | Boots the artifact under QEMU, watches the serial console for a marker regex. Default marker = "userspace reached login"; install test overrides via `BOOT_MARKER_REGEX='exe="/usr/bin/calamares"'` to watch for the Calamares process exec. |
+| `extract-rpi-kernel.sh` | `test-image-boot` (aarch64 pre-step)                    | Reads the FAT32 boot partition with mtools, copies kernel + initramfs + Pi4 DTB out for `qemu-system-aarch64 -M raspi4b`. No sudo / no loop devices. |
 
 ## Running locally
 
 ```bash
 # x86_64 ISO smoke test
 ./ci/boot-smoke.sh path/to/manjaro-sway.iso x86_64
+
+# x86_64 installer-launch test (boots ISO, waits for calamares to exec)
+BOOT_MARKER_REGEX='exe="/usr/bin/calamares"' ./ci/boot-smoke.sh path/to/manjaro-sway.iso x86_64 720
 
 # rpi4 image smoke test (needs aarch64 host for KVM; works under TCG otherwise)
 ./ci/extract-rpi-kernel.sh path/to/manjaro-sway-rpi4.img.xz
