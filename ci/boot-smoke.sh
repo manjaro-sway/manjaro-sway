@@ -38,10 +38,12 @@ MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro\|manjaro login:\|op=PAM:ses
 case "$ARCH" in
   x86_64)
     sudo modprobe kvm-intel 2>/dev/null || sudo modprobe kvm-amd 2>/dev/null || true
-    # OVMF_CODE filename + location varies (Ubuntu: /usr/share/OVMF/OVMF_CODE.fd,
-    # Manjaro: /usr/share/edk2/x64/OVMF_CODE.4m.fd). Search broadly.
-    OVMF=$(find /usr/share -maxdepth 4 -name 'OVMF_CODE*.fd' 2>/dev/null | grep -v secboot | head -n1)
-    [ -n "$OVMF" ] || { echo "OVMF firmware not found"; exit 1; }
+    # Prefer the unified OVMF firmware (Ubuntu: /usr/share/OVMF/OVMF.fd,
+    # Manjaro: /usr/share/edk2/x64/OVMF.4m.fd). The split CODE/VARS *_4M.fd
+    # files require -drive if=pflash and a writable VARS copy, which we don't
+    # need for a one-shot boot test.
+    OVMF=$(find /usr/share -maxdepth 4 \( -name 'OVMF.fd' -o -name 'OVMF.4m.fd' -o -name 'OVMF_CODE.fd' \) 2>/dev/null | grep -v secboot | head -n1)
+    [ -n "$OVMF" ] || { echo "OVMF firmware not found under /usr/share"; find /usr/share -name 'OVMF*' 2>/dev/null | head; exit 1; }
     qemu-img create -f qcow2 "$WORKDIR/disk.qcow2" 20G
     qemu-system-x86_64 \
       -enable-kvm -m 4096 -smp 2 \
