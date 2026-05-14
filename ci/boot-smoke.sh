@@ -33,7 +33,7 @@ trap 'rm -rf "$WORKDIR"; [ -n "${QEMU_PID:-}" ] && kill "$QEMU_PID" 2>/dev/null 
 # Caller can override via BOOT_MARKER_REGEX, used e.g. by the install test to
 # wait for `exe="/usr/bin/calamares"` (an audit SYSCALL line emitted when the
 # live session auto-execs calamares).
-MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro\|manjaro login:\|op=PAM:session_open.*greetd}"
+MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro\|manjaro[-a-z]*\s*login:\|op=PAM:session_open.*greetd}"
 
 case "$ARCH" in
   x86_64)
@@ -63,6 +63,12 @@ case "$ARCH" in
     ART_DIR="$(dirname "$ARTIFACT")"
     [ -f "$ART_DIR/Image" ] || { echo "kernel not extracted next to image"; exit 1; }
     [ -f "$ART_DIR/bcm2711-rpi-4-b.dtb" ] || { echo "rpi4 DTB not extracted next to image"; exit 1; }
+    # QEMU's SD card emulation requires a power-of-two size — Manjaro's
+    # 7.31 GiB image gets rejected ("Invalid SD card size"). Round up to
+    # 8 GiB on a copy so we don't modify the cached artifact.
+    SD_IMAGE="$WORKDIR/sd.img"
+    cp --reflink=auto "$ARTIFACT" "$SD_IMAGE"
+    qemu-img resize -f raw "$SD_IMAGE" 8G
     # KVM only when host arch matches guest. CI's ubuntu-24.04-arm runner is
     # aarch64-native; local x86 dev hosts fall back to TCG (slow but works).
     if [ "$(uname -m)" = "aarch64" ] && [ -r /dev/kvm ]; then
@@ -78,7 +84,7 @@ case "$ARCH" in
       -initrd "$ART_DIR/initramfs-linux.img" \
       -dtb "$ART_DIR/bcm2711-rpi-4-b.dtb" \
       -append "root=/dev/mmcblk1p2 rw rootwait earlycon=pl011,0xfe201000 console=ttyAMA0,115200 ignore_loglevel" \
-      -drive file="$ARTIFACT",if=sd,format=raw \
+      -drive file="$SD_IMAGE",if=sd,format=raw \
       -nographic \
       -serial "file:$SERIAL_LOG" \
       -monitor none &
