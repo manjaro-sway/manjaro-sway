@@ -21,7 +21,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
         latitude,
         postalCode,
         city,
-    } = context.request.cf;
+    } = context.request.cf ?? {};
 
     const tomorrow = dayjs().add(1, 'day').tz(timezone).toDate();
 

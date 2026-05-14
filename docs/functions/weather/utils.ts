@@ -1,6 +1,6 @@
 export const supportedLocales = ["en", "de", "fr", "it"] as const;
 
-type WWOCode =
+export type WWOCode =
   | 0
   | 1
   | 2

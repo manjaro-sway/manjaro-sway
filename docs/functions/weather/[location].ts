@@ -1,7 +1,7 @@
 import z from "zod";
 import type { Env } from "../types";
 import acceptLanguage from "accept-language";
-import { supportedLocales, wmoCodeToEmojiMap, wmoCodeToText } from "./utils";
+import { supportedLocales, wmoCodeToEmojiMap, wmoCodeToText, type WWOCode } from "./utils";
 
 const inputValidator = z.object({
 	temperature_unit: z
@@ -35,9 +35,15 @@ const translations = {
 		humidity: "Humidité",
 		lastUpdate: "Dernière mise à jour",
 	},
-};
+	it: {
+		feels_like: "Percepita",
+		wind: "Vento",
+		humidity: "Umidità",
+		lastUpdate: "Ultimo aggiornamento",
+	},
+} satisfies Record<(typeof supportedLocales)[number], Record<string, string>>;
 
-const uvIndexEmoji = {
+const uvIndexEmoji: Record<number, string> = {
 	3: "😎",
 	4: "😎",
 	5: "😎",
@@ -59,7 +65,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 	if (!input.success) {
 		return Response.json(
 			{
-				error: input.error.errors,
+				error: input.error.issues,
 			},
 			{
 				status: 400,
@@ -74,7 +80,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 			context.request.headers.get("Accept-Language"),
 		) as (typeof supportedLocales)[number]);
 
-	let { longitude, latitude, city } = context.request.cf;
+	let { longitude, latitude, city } = context.request.cf ?? {};
 
 	// If the location is not set to "auto" or the language is not English, we need to get the coordinates of the city
 	// Otherwise we trust the geo-ip data from Cloudflare
@@ -108,6 +114,13 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 				},
 			);
 		}
+	}
+
+	if (!latitude || !longitude || !city) {
+		return Response.json(
+			{ error: "Could not determine location" },
+			{ status: 400 },
+		);
 	}
 
 	const cacheUrl = new URL(context.request.url);
@@ -213,9 +226,10 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		})
 	}
 
+	const currentCode = result.current.weather_code as WWOCode;
 	const lines = [
 		`<b>${city}</b>:`,
-		`<b>${wmoCodeToText[language][result.current.weather_code]} ${wmoCodeToEmojiMap[result.current.weather_code]
+		`<b>${wmoCodeToText[language][currentCode]} ${wmoCodeToEmojiMap[currentCode]
 		}</b>`,
 		`${translations[language].feels_like}: ${result.current.apparent_temperature}${result.current_units.apparent_temperature}`,
 		`${translations[language].wind}: ${result.current.wind_speed_10m}${result.current_units.wind_speed_10m}`,
@@ -247,9 +261,10 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		const currentHours = hourlies.filter((hourly) =>
 			hourly.time.startsWith(result.daily.time[index]),
 		);
+		const dailyCode = result.daily.weather_code[index] as WWOCode;
 		return [
-			`<b>${result.daily.time[index]}</b> - ${wmoCodeToText[language][result.daily.weather_code[index]]
-			} ${wmoCodeToEmojiMap[result.daily.weather_code[index]]}`,
+			`<b>${result.daily.time[index]}</b> - ${wmoCodeToText[language][dailyCode]
+			} ${wmoCodeToEmojiMap[dailyCode]}`,
 			`⬇️${result.daily.apparent_temperature_min[index]}${result.daily_units.apparent_temperature_min
 			} ⬆️${result.daily.apparent_temperature_max[index]}${result.daily_units.apparent_temperature_max
 			}${result.daily.uv_index_clear_sky_max[index] >= 6
@@ -260,10 +275,11 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 				: ""
 			}`,
 			...currentHours.map((hourly) => {
+				const hourlyCode = hourly.weatherCode as WWOCode;
 				return `${hourly.hour}: ${hourly.temperature}${result.hourly_units.apparent_temperature
-					} ${wmoCodeToText[language][hourly.weatherCode]} ${hourly.is_day === 0 && hourly.weatherCode === 0
+					} ${wmoCodeToText[language][hourlyCode]} ${hourly.is_day === 0 && hourly.weatherCode === 0
 						? "🌙"
-						: wmoCodeToEmojiMap[hourly.weatherCode]
+						: wmoCodeToEmojiMap[hourlyCode]
 					}${hourly.precipitation_probability > 0
 						? ` ☔${hourly.precipitation_probability}%`
 						: ""
@@ -278,7 +294,7 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 		{
 			text: `${isNight && result.current.weather_code === 0
 				? "🌙"
-				: wmoCodeToEmojiMap[result.current.weather_code]
+				: wmoCodeToEmojiMap[currentCode]
 				} ${result.current.temperature_2m}${result.current_units.temperature_2m}`,
 			tooltip: `${lines.join("\n")}\n\n${dailies.join("\n\n")}\n\n${translations[language].lastUpdate
 				}: ${new Date().toLocaleString(language)}\n\nPowered by Open-Meteo.com`,
