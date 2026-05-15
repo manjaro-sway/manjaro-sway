@@ -63,9 +63,9 @@ case "$ARCH" in
   aarch64)
     # KVM only when host arch matches guest.
     if [ "$(uname -m)" = "aarch64" ] && [ -r /dev/kvm ]; then
-      ACCEL_ARGS=(-accel kvm)
+      ACCEL_ARGS=(-accel kvm -cpu host)
     else
-      ACCEL_ARGS=(-accel tcg)
+      ACCEL_ARGS=(-accel tcg -cpu cortex-a72)
     fi
     # QEMU's SD card emulation requires a power-of-two size — Manjaro's
     # 7.31 GiB image gets rejected ("Invalid SD card size"). Round up to
@@ -83,7 +83,7 @@ case "$ARCH" in
       INITRD=$(ls /boot/initrd.img-* 2>/dev/null | sort -V | tail -n1)
       [ -n "$KERNEL" ] || { echo "no host kernel found in /boot"; exit 1; }
       qemu-system-aarch64 \
-        -M virt "${ACCEL_ARGS[@]}" -cpu host -m 2048 -smp 4 \
+        -M virt "${ACCEL_ARGS[@]}" -m 2048 -smp 4 \
         -kernel "$KERNEL" \
         -initrd "$INITRD" \
         -append "root=/dev/vda2 rw console=ttyAMA0 systemd.journald.forward_to_console=1 ignore_loglevel" \
