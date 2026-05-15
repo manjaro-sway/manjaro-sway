@@ -83,7 +83,7 @@ case "$ARCH" in
       INITRD=$(ls /boot/initrd.img-* 2>/dev/null | sort -V | tail -n1)
       [ -n "$KERNEL" ] || { echo "no host kernel found in /boot"; exit 1; }
       qemu-system-aarch64 \
-        -M virt "${ACCEL_ARGS[@]}" -cpu host -m 4096 -smp 4 \
+        -M virt "${ACCEL_ARGS[@]}" -cpu host -m 2048 -smp 4 \
         -kernel "$KERNEL" \
         -initrd "$INITRD" \
         -append "root=/dev/vda2 rw console=ttyAMA0 systemd.journald.forward_to_console=1 ignore_loglevel" \
