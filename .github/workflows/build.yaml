@@ -36,7 +36,7 @@ jobs:
       longterm: ${{ steps.receive.outputs.longterm-pkg }}
       stable: ${{ steps.receive.outputs.stable-pkg }}
   build-image:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-24.04-arm
     needs: [prepare-release]
     continue-on-error: true
     strategy:
