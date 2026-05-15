@@ -77,11 +77,13 @@ case "$ARCH" in
     if [ "${BOOT_VIRT_MACHINE:-0}" = "1" ]; then
       # The rpi4 kernel has no virtio-gpu, and -M raspi4b has no vc4 GPU, so
       # Sway/Wayland can't start headfully under either. Instead boot the rootfs
-      # with the runner's own kernel (which has virtio-gpu) under -M virt.
-      # Userspace (greetd/sway/calamares) is kernel-agnostic.
-      KERNEL=$(ls /boot/vmlinuz-* 2>/dev/null | sort -V | tail -n1)
-      INITRD=$(ls /boot/initrd.img-* 2>/dev/null | sort -V | tail -n1)
-      [ -n "$KERNEL" ] || { echo "no host kernel found in /boot"; exit 1; }
+      # with the runner's generic kernel (standard Image format QEMU can load)
+      # under -M virt. Userspace (greetd/sway/calamares) is kernel-agnostic.
+      # Prefer -generic over -azure: the Azure PE/EFI stub format is not
+      # loadable via QEMU's -kernel flag; the generic kernel is a plain Image.
+      KERNEL=$(ls /boot/vmlinuz-*-generic 2>/dev/null | sort -V | tail -n1)
+      INITRD=$(ls /boot/initrd.img-*-generic 2>/dev/null | sort -V | tail -n1)
+      [ -n "$KERNEL" ] || { echo "no generic kernel found in /boot (install linux-image-generic)"; exit 1; }
       qemu-system-aarch64 \
         -M virt "${ACCEL_ARGS[@]}" -m 2048 -smp 4 \
         -kernel "$KERNEL" \
