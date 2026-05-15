@@ -45,15 +45,15 @@ case "$ARCH" in
     OVMF=$(find /usr/share -maxdepth 4 \( -name 'OVMF.fd' -o -name 'OVMF.4m.fd' -o -name 'OVMF_CODE.fd' \) 2>/dev/null | grep -v secboot | head -n1)
     [ -n "$OVMF" ] || { echo "OVMF firmware not found under /usr/share"; find /usr/share -name 'OVMF*' 2>/dev/null | head; exit 1; }
     qemu-img create -f qcow2 "$WORKDIR/disk.qcow2" 20G
-    # virtio-gpu gives sway a DRM device. Without it, the wayland compositor
-    # can't find any output and exits immediately (greetd session opens then
-    # closes within ms). -display none keeps QEMU headless host-side.
+    # virtio-gpu gives sway a DRM device so the Wayland compositor can start.
+    # VNC display backend (no host window) makes the output appear "connected"
+    # to the guest — without it, sway exits immediately finding no outputs.
     qemu-system-x86_64 \
       -enable-kvm -m 4096 -smp 2 \
       -drive file="$WORKDIR/disk.qcow2",if=virtio,format=qcow2 \
       -cdrom "$ARTIFACT" \
       -boot d \
-      -display none \
+      -display vnc=127.0.0.1:0 \
       -vga virtio \
       -serial "file:$SERIAL_LOG" \
       -monitor none \
