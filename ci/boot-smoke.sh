@@ -88,7 +88,7 @@ case "$ARCH" in
       -kernel "$ART_DIR/Image" \
       -initrd "$ART_DIR/initramfs-linux.img" \
       -dtb "$ART_DIR/bcm2711-rpi-4-b.dtb" \
-      -append "root=/dev/mmcblk1p2 rw rootwait earlycon=pl011,0xfe201000 console=ttyAMA0,115200 ignore_loglevel" \
+      -append "root=/dev/mmcblk1p2 rw rootwait earlycon=pl011,0xfe201000 console=ttyAMA0,115200 ignore_loglevel systemd.journald.forward_to_console=1" \
       -drive file="$SD_IMAGE",if=sd,format=raw \
       -nographic \
       -serial "file:$SERIAL_LOG" \
