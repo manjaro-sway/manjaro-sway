@@ -61,38 +61,55 @@ case "$ARCH" in
     QEMU_PID=$!
     ;;
   aarch64)
-    # The extract script leaves Image / initramfs / DTB in the same workdir
-    # as the image. Booting via -M raspi4b (not -M virt) because the Manjaro
-    # rpi4 kernel has no virtio drivers compiled in — it's built strictly
-    # for Pi hardware and only knows SD/MMC + USB.
-    ART_DIR="$(dirname "$ARTIFACT")"
-    [ -f "$ART_DIR/Image" ] || { echo "kernel not extracted next to image"; exit 1; }
-    [ -f "$ART_DIR/bcm2711-rpi-4-b.dtb" ] || { echo "rpi4 DTB not extracted next to image"; exit 1; }
+    # KVM only when host arch matches guest.
+    if [ "$(uname -m)" = "aarch64" ] && [ -r /dev/kvm ]; then
+      ACCEL_ARGS=(-accel kvm)
+    else
+      ACCEL_ARGS=(-accel tcg)
+    fi
     # QEMU's SD card emulation requires a power-of-two size — Manjaro's
     # 7.31 GiB image gets rejected ("Invalid SD card size"). Round up to
     # 8 GiB on a copy so we don't modify the cached artifact.
     SD_IMAGE="$WORKDIR/sd.img"
     cp --reflink=auto "$ARTIFACT" "$SD_IMAGE"
     qemu-img resize -f raw "$SD_IMAGE" 8G
-    # KVM only when host arch matches guest. CI's ubuntu-24.04-arm runner is
-    # aarch64-native; local x86 dev hosts fall back to TCG (slow but works).
-    if [ "$(uname -m)" = "aarch64" ] && [ -r /dev/kvm ]; then
-      ACCEL_ARGS=(-accel kvm)
+
+    if [ "${BOOT_VIRT_MACHINE:-0}" = "1" ]; then
+      # The rpi4 kernel has no virtio-gpu, and -M raspi4b has no vc4 GPU, so
+      # Sway/Wayland can't start headfully under either. Instead boot the rootfs
+      # with the runner's own kernel (which has virtio-gpu) under -M virt.
+      # Userspace (greetd/sway/calamares) is kernel-agnostic.
+      KERNEL=$(ls /boot/vmlinuz-* 2>/dev/null | sort -V | tail -n1)
+      INITRD=$(ls /boot/initrd.img-* 2>/dev/null | sort -V | tail -n1)
+      [ -n "$KERNEL" ] || { echo "no host kernel found in /boot"; exit 1; }
+      qemu-system-aarch64 \
+        -M virt "${ACCEL_ARGS[@]}" -cpu host -m 4096 -smp 4 \
+        -kernel "$KERNEL" \
+        -initrd "$INITRD" \
+        -append "root=/dev/vda2 rw console=ttyAMA0 systemd.journald.forward_to_console=1 ignore_loglevel" \
+        -drive file="$SD_IMAGE",if=virtio,format=raw \
+        -device virtio-gpu \
+        -display vnc=127.0.0.1:0 \
+        -serial "file:$SERIAL_LOG" \
+        -monitor none &
     else
-      ACCEL_ARGS=(-accel tcg)
+      # Boot test: use the real rpi4 kernel under -M raspi4b for hardware fidelity.
+      # The extract script leaves Image / initramfs / DTB next to the image.
+      ART_DIR="$(dirname "$ARTIFACT")"
+      [ -f "$ART_DIR/Image" ] || { echo "kernel not extracted next to image"; exit 1; }
+      [ -f "$ART_DIR/bcm2711-rpi-4-b.dtb" ] || { echo "rpi4 DTB not extracted next to image"; exit 1; }
+      # raspi4b caps DRAM at 2G; SD is the root device the rpi4 kernel expects.
+      qemu-system-aarch64 \
+        -M raspi4b "${ACCEL_ARGS[@]}" -m 2G -smp 4 \
+        -kernel "$ART_DIR/Image" \
+        -initrd "$ART_DIR/initramfs-linux.img" \
+        -dtb "$ART_DIR/bcm2711-rpi-4-b.dtb" \
+        -append "root=/dev/mmcblk1p2 rw rootwait earlycon=pl011,0xfe201000 console=ttyAMA0,115200 ignore_loglevel systemd.journald.forward_to_console=1" \
+        -drive file="$SD_IMAGE",if=sd,format=raw \
+        -nographic \
+        -serial "file:$SERIAL_LOG" \
+        -monitor none &
     fi
-    # raspi4b caps DRAM at 2G in QEMU; SD is the root device the rpi4 kernel
-    # expects, so use if=sd. Console on PL011 UART matches the rpi config.txt.
-    qemu-system-aarch64 \
-      -M raspi4b "${ACCEL_ARGS[@]}" -m 2G -smp 4 \
-      -kernel "$ART_DIR/Image" \
-      -initrd "$ART_DIR/initramfs-linux.img" \
-      -dtb "$ART_DIR/bcm2711-rpi-4-b.dtb" \
-      -append "root=/dev/mmcblk1p2 rw rootwait earlycon=pl011,0xfe201000 console=ttyAMA0,115200 ignore_loglevel systemd.journald.forward_to_console=1" \
-      -drive file="$SD_IMAGE",if=sd,format=raw \
-      -nographic \
-      -serial "file:$SERIAL_LOG" \
-      -monitor none &
     QEMU_PID=$!
     ;;
   *)

@@ -268,6 +268,7 @@ jobs:
             mtools fdisk xz-utils zstd qemu-utils \
             build-essential ninja-build pkg-config \
             libglib2.0-dev libpixman-1-dev libslirp-dev \
+            libpng-dev \
             python3 python3-venv flex bison
           sudo chmod 666 /dev/kvm || true
       - name: cache qemu ${{ env.QEMU_VERSION }}
@@ -275,7 +276,7 @@ jobs:
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ${{ env.QEMU_PREFIX }}
-          key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v1
+          key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v2
       - name: build qemu (cache miss)
         if: steps.cache-qemu.outputs.cache-hit != 'true'
         run: |
@@ -286,10 +287,10 @@ jobs:
             --target-list=aarch64-softmmu \
             --enable-kvm \
             --enable-slirp \
+            --enable-vnc \
             --disable-docs \
             --disable-gtk \
             --disable-sdl \
-            --disable-vnc \
             --disable-curses \
             --disable-tools
           make -j"$(nproc)"
@@ -301,19 +302,17 @@ jobs:
         with:
           name: image-${{ matrix.branch }}-${{ matrix.device }}
           path: artifact
-      - name: extract kernel + initramfs
-        run: |
-          chmod +x ci/extract-rpi-kernel.sh
-          IMG=$(ls artifact/*.img* | head -n1)
-          ./ci/extract-rpi-kernel.sh "$IMG"
       - name: installer launch test
         env:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
           BOOT_MARKER_REGEX: 'calamares'
+          BOOT_VIRT_MACHINE: '1'
         run: |
           chmod +x ci/boot-smoke.sh
-          IMG=$(ls artifact/*.img | head -n1)
+          IMG=$(ls artifact/*.img* | head -n1)
           # Boot + greetd + oem-setup + calamares exec — give it 12 min.
+          # Uses -M virt with the runner's kernel (which has virtio-gpu) since
+          # the rpi4 kernel has no virtio drivers and raspi4b has no vc4 GPU.
           ./ci/boot-smoke.sh "$IMG" aarch64 720
       - name: upload serial log on failure
         if: failure()
