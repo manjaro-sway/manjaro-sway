@@ -33,7 +33,7 @@ trap 'rm -rf "$WORKDIR"; [ -n "${QEMU_PID:-}" ] && kill "$QEMU_PID" 2>/dev/null 
 # Caller can override via BOOT_MARKER_REGEX, used e.g. by the install test to
 # wait for `exe="/usr/bin/calamares"` (an audit SYSCALL line emitted when the
 # live session auto-execs calamares).
-MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro\|manjaro[-a-z]*\s*login:\|op=PAM:session_open.*greetd}"
+MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro|manjaro[-a-z]* *login:|op=PAM:session_open.*greetd}"
 
 case "$ARCH" in
   x86_64)

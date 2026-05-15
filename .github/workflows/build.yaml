@@ -186,7 +186,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            mtools fdisk xz-utils zstd \
+            mtools fdisk xz-utils zstd qemu-utils \
             build-essential ninja-build pkg-config \
             libglib2.0-dev libpixman-1-dev libslirp-dev \
             python3 python3-venv flex bison
