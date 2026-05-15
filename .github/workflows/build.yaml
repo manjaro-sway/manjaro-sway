@@ -48,11 +48,12 @@ jobs:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
       - name: prepare pacman pkg cache dir
-        # Runner-writable so actions/cache can restore here without sudo,
-        # and pacman (running as root inside basestrap) can still write.
+        # Owned by the runner user so actions/cache can tar-restore without
+        # sudo (tar needs to chown/utime the dir itself); pacman runs as
+        # root inside basestrap and can still write to it.
         run: |
           sudo mkdir -p /var/cache/pacman/pkg
-          sudo chmod 0777 /var/cache/pacman/pkg
+          sudo chown -R "$USER" /var/cache/pacman/pkg
       - name: cache pacman packages
         uses: actions/cache@v4
         with:
@@ -270,7 +271,11 @@ jobs:
       - name: installer launch test
         env:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
-          BOOT_MARKER_REGEX: 'exe="/usr/bin/calamares"'
+          # With systemd.journald.forward_to_console=1 set in the live
+          # ISO's cmdline, the journal entry from sway exec'ing calamares
+          # shows up on the serial console verbatim. No need for the
+          # audit-syscall format any more.
+          BOOT_MARKER_REGEX: 'calamares'
         run: |
           chmod +x ci/boot-smoke.sh
           ISO=$(ls artifact/*.iso | head -n1)
