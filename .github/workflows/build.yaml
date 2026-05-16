@@ -249,8 +249,8 @@ jobs:
     # rpi4 equivalent of test-iso-install: the image ships in OEM mode and
     # overlays/sway/etc/greetd/oem-setup auto-runs calamares on first boot.
     # We boot the image, wait for the journal entry showing calamares exec.
-    # Advisory (continue-on-error) until pam_systemd / XDG_RUNTIME_DIR works
-    # reliably in QEMU — see issue #982.
+    # INJECT_HEADLESS_SWAY bypasses the pam_systemd XDG_RUNTIME_DIR failure
+    # that prevents sway from starting in QEMU — see issue #982.
     continue-on-error: true
     runs-on: ubuntu-24.04-arm
     needs: [build-image]
@@ -311,6 +311,7 @@ jobs:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
           BOOT_MARKER_REGEX: 'calamares'
           BOOT_VIRT_MACHINE: '1'
+          INJECT_HEADLESS_SWAY: '1'
         run: |
           chmod +x ci/boot-smoke.sh
           IMG=$(ls artifact/*.img* | head -n1)
@@ -330,8 +331,8 @@ jobs:
     # Calamares process actually exec's. Catches installer-package missing,
     # autostart broken, dependency rot. Does *not* drive the wizard UI —
     # that's Phase 2 / issue #982.
-    # Advisory (continue-on-error) until pam_systemd / XDG_RUNTIME_DIR works
-    # reliably in QEMU — see issue #982.
+    # INJECT_HEADLESS_SWAY bypasses the pam_systemd XDG_RUNTIME_DIR failure
+    # that prevents sway from starting in QEMU — see issue #982.
     continue-on-error: true
     runs-on: ubuntu-24.04
     needs: [build-iso]
@@ -354,11 +355,8 @@ jobs:
       - name: installer launch test
         env:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
-          # With systemd.journald.forward_to_console=1 set in the live
-          # ISO's cmdline, the journal entry from sway exec'ing calamares
-          # shows up on the serial console verbatim. No need for the
-          # audit-syscall format any more.
           BOOT_MARKER_REGEX: 'calamares'
+          INJECT_HEADLESS_SWAY: '1'
         run: |
           chmod +x ci/boot-smoke.sh
           ISO=$(ls artifact/*.iso | head -n1)

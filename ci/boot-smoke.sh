@@ -7,6 +7,18 @@
 #   <artifact>   path to the ISO (.iso) or rpi4 image (.img / .img.xz)
 #   <arch>       x86_64 | aarch64
 #   timeout      defaults to 360 (6 minutes)
+#
+# Environment:
+#   BOOT_MARKER_REGEX     override the default boot marker
+#   SERIAL_LOG_OUT        stable path for the serial log (CI artifact upload)
+#   BOOT_VIRT_MACHINE=1   (aarch64) use -M virt + virtio-gpu instead of raspi4b
+#   INJECT_HEADLESS_SWAY=1
+#     After the live session's agetty login prompt appears on the serial
+#     console, log in as root, stop greetd, pre-create XDG_RUNTIME_DIR (which
+#     pam_systemd fails to set up under QEMU's constrained systemd environment),
+#     and start sway with WLR_BACKENDS=headless so the compositor runs without
+#     needing a real DRM device or logind seat.  Sway's autostart then execs
+#     calamares.  Requires PTY serial (-serial pty) instead of file.
 
 set -euo pipefail
 
@@ -15,10 +27,7 @@ ARCH="${2:?arch (x86_64|aarch64) required}"
 TIMEOUT="${3:-360}"
 
 WORKDIR="$(mktemp -d)"
-# SERIAL_LOG_OUT lets the caller (CI) pin the log to a stable path so the
-# upload-artifact step can pick it up after the EXIT trap rms the workdir.
 SERIAL_LOG="${SERIAL_LOG_OUT:-$WORKDIR/serial.log}"
-trap 'rm -rf "$WORKDIR"; [ -n "${QEMU_PID:-}" ] && kill "$QEMU_PID" 2>/dev/null || true' EXIT
 
 # Default markers signalling "userspace booted far enough":
 #  - audit hostname=manjaro* — kernel audit fires this only after /etc/hostname
@@ -31,9 +40,31 @@ trap 'rm -rf "$WORKDIR"; [ -n "${QEMU_PID:-}" ] && kill "$QEMU_PID" 2>/dev/null 
 #  - greetd PAM session_open — display manager handed off to a user session.
 #
 # Caller can override via BOOT_MARKER_REGEX, used e.g. by the install test to
-# wait for `exe="/usr/bin/calamares"` (an audit SYSCALL line emitted when the
-# live session auto-execs calamares).
+# wait for `calamares` (a journal entry emitted when the live session execs it).
 MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro|manjaro[-a-z]* *login:|op=PAM:session_open.*greetd}"
+
+INJECT_HEADLESS_SWAY="${INJECT_HEADLESS_SWAY:-0}"
+
+QEMU_PID=""
+CAT_PID=""
+SERIAL_PTY=""
+
+cleanup() {
+  [ -n "$CAT_PID" ] && kill "$CAT_PID" 2>/dev/null || true
+  [ -n "$QEMU_PID" ] && kill "$QEMU_PID" 2>/dev/null || true
+  rm -rf "$WORKDIR"
+}
+trap cleanup EXIT
+
+# Interactive mode uses a PTY so we can write keystrokes back to the VM.
+# QEMU announces the allocated PTY on stderr ("char device redirected to /dev/pts/N").
+if [ "$INJECT_HEADLESS_SWAY" = "1" ]; then
+  SERIAL_ARG="pty"
+  QEMU_STDERR="$WORKDIR/qemu.err"
+else
+  SERIAL_ARG="file:$SERIAL_LOG"
+  QEMU_STDERR="/dev/stderr"
+fi
 
 case "$ARCH" in
   x86_64)
@@ -55,9 +86,9 @@ case "$ARCH" in
       -boot d \
       -display vnc=127.0.0.1:0 \
       -vga virtio \
-      -serial "file:$SERIAL_LOG" \
+      -serial "$SERIAL_ARG" \
       -monitor none \
-      -bios "$OVMF" &
+      -bios "$OVMF" 2>"$QEMU_STDERR" &
     QEMU_PID=$!
     ;;
   aarch64)
@@ -101,8 +132,8 @@ case "$ARCH" in
         -drive file="$SD_IMAGE",if=virtio,format=raw \
         -device virtio-gpu \
         -display vnc=127.0.0.1:0 \
-        -serial "file:$SERIAL_LOG" \
-        -monitor none &
+        -serial "$SERIAL_ARG" \
+        -monitor none 2>"$QEMU_STDERR" &
     else
       # Boot test: use the real rpi4 kernel under -M raspi4b for hardware fidelity.
       # The extract script leaves Image / initramfs / DTB next to the image.
@@ -119,7 +150,7 @@ case "$ARCH" in
         -drive file="$SD_IMAGE",if=sd,format=raw \
         -nographic \
         -serial "file:$SERIAL_LOG" \
-        -monitor none &
+        -monitor none 2>"$QEMU_STDERR" &
     fi
     QEMU_PID=$!
     ;;
@@ -129,9 +160,32 @@ case "$ARCH" in
     ;;
 esac
 
+# PTY setup: find the device QEMU allocated, set it to raw mode, and forward
+# its output to the serial log so the polling loop can grep the same file.
+if [ "$INJECT_HEADLESS_SWAY" = "1" ]; then
+  echo "Waiting for QEMU PTY allocation..."
+  for i in $(seq 1 30); do
+    sleep 1
+    SERIAL_PTY=$(grep -m1 -oE '/dev/pts/[0-9]+' "$WORKDIR/qemu.err" 2>/dev/null || true)
+    [ -n "$SERIAL_PTY" ] && break
+  done
+  if [ -z "$SERIAL_PTY" ]; then
+    echo "PTY not found in QEMU output after 30s"
+    cat "$WORKDIR/qemu.err" >&2
+    exit 1
+  fi
+  echo "Serial PTY: $SERIAL_PTY"
+  stty -F "$SERIAL_PTY" raw -echo 2>/dev/null || true
+  # Forward PTY output to the log file in the background so the poll loop can
+  # grep it.  cat keeps reading until QEMU closes the PTY on exit.
+  cat "$SERIAL_PTY" >> "$SERIAL_LOG" &
+  CAT_PID=$!
+fi
+
 echo "QEMU started (pid $QEMU_PID), waiting up to ${TIMEOUT}s for boot marker..."
 
 deadline=$(( $(date +%s) + TIMEOUT ))
+HEADLESS_INJECTED=0
 while [ "$(date +%s)" -lt "$deadline" ]; do
   if [ -f "$SERIAL_LOG" ] && grep -Eq "$MARKER" "$SERIAL_LOG"; then
     echo "✓ boot marker observed"
@@ -139,6 +193,30 @@ while [ "$(date +%s)" -lt "$deadline" ]; do
     tail -n 50 "$SERIAL_LOG" || true
     exit 0
   fi
+
+  # When INJECT_HEADLESS_SWAY is active, intercept the agetty login prompt and
+  # start sway with WLR_BACKENDS=headless to work around the pam_systemd
+  # XDG_RUNTIME_DIR failure that occurs under QEMU's constrained environment.
+  if [ "$INJECT_HEADLESS_SWAY" = "1" ] && [ "$HEADLESS_INJECTED" = "0" ] && \
+     [ -f "$SERIAL_LOG" ] && grep -qE 'manjaro[-a-z]* *login:' "$SERIAL_LOG" 2>/dev/null; then
+    echo "→ login prompt detected, injecting headless sway..."
+    # Log in as root (no password on live ISO).
+    printf 'root\n' > "$SERIAL_PTY"
+    sleep 3
+    # Stop greetd to prevent it from racing our sway for the Wayland socket,
+    # then create the runtime dir pam_systemd would normally set up.
+    printf 'systemctl stop greetd || true\n' > "$SERIAL_PTY"
+    sleep 1
+    printf 'mkdir -p /run/user/1000 && chown 1000:1000 /run/user/1000 && chmod 700 /run/user/1000\n' > "$SERIAL_PTY"
+    sleep 1
+    # Run sway as the live-session user with the headless backend (no DRM or
+    # seat required).  nohup keeps sway alive after su exits.  Sway's autostart
+    # execs calamares, which is what the install test is waiting for.
+    printf 'su - manjaro -c "XDG_RUNTIME_DIR=/run/user/1000 WLR_BACKENDS=headless WLR_RENDERER=pixman nohup sway &>/tmp/sway.log &"\n' > "$SERIAL_PTY"
+    HEADLESS_INJECTED=1
+    echo "→ headless sway launched, waiting for calamares..."
+  fi
+
   if ! kill -0 "$QEMU_PID" 2>/dev/null; then
     echo "QEMU exited before marker appeared"
     tail -n 100 "$SERIAL_LOG" 2>/dev/null || true
