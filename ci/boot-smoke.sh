@@ -103,13 +103,19 @@ case "$ARCH" in
     # QEMU's SD card emulation requires a power-of-two size — Manjaro's
     # 7.31 GiB image gets rejected ("Invalid SD card size"). Round up to
     # 8 GiB on a copy so we don't modify the cached artifact.
+    # Decompress before copying — the artifact may ship as .img.xz.
+    # Feeding a compressed file to QEMU as "raw" presents xz magic bytes as
+    # sector 0, which the kernel doesn't recognise as MBR/GPT and creates no
+    # partition block devices (/dev/vda1, /dev/vda2, …).
+    case "$ARTIFACT" in
+      *.img.xz) xz --decompress --keep --stdout "$ARTIFACT" > "$WORKDIR/image.img"
+                ARTIFACT="$WORKDIR/image.img" ;;
+      *.img.zst) zstd --decompress --stdout "$ARTIFACT" > "$WORKDIR/image.img"
+                 ARTIFACT="$WORKDIR/image.img" ;;
+    esac
     SD_IMAGE="$WORKDIR/sd.img"
     cp --reflink=auto "$ARTIFACT" "$SD_IMAGE"
     qemu-img resize -f raw "$SD_IMAGE" 8G
-    # qemu-img resize leaves the GPT backup header at the old end of the image.
-    # The kernel rejects a GPT with a misplaced backup header and creates no
-    # partition devices (vda1, vda2, …), so the root mount fails silently.
-    sgdisk --move-second-header "$SD_IMAGE" >/dev/null
 
     if [ "${BOOT_VIRT_MACHINE:-0}" = "1" ]; then
       # The rpi4 kernel has no virtio-gpu, and -M raspi4b has no vc4 GPU, so
