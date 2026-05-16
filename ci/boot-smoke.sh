@@ -60,11 +60,13 @@ trap cleanup EXIT
 # QEMU announces the allocated PTY on stderr ("char device redirected to /dev/pts/N").
 if [ "$INJECT_HEADLESS_SWAY" = "1" ]; then
   SERIAL_ARG="pty"
-  QEMU_STDERR="$WORKDIR/qemu.err"
 else
   SERIAL_ARG="file:$SERIAL_LOG"
-  QEMU_STDERR="/dev/stderr"
 fi
+
+# Always capture QEMU stdout+stderr so we can grep PTY paths and dump errors.
+# QEMU writes "char device redirected to /dev/pts/N" to stdout (not stderr).
+QEMU_OUT="$WORKDIR/qemu.out"
 
 case "$ARCH" in
   x86_64)
@@ -88,7 +90,7 @@ case "$ARCH" in
       -vga virtio \
       -serial "$SERIAL_ARG" \
       -monitor none \
-      -bios "$OVMF" 2>"$QEMU_STDERR" &
+      -bios "$OVMF" >"$QEMU_OUT" 2>&1 &
     QEMU_PID=$!
     ;;
   aarch64)
@@ -122,6 +124,8 @@ case "$ARCH" in
       curl -fsSL "https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vmlinux" \
         -o "$WORKDIR/extract-vmlinux"
       chmod +x "$WORKDIR/extract-vmlinux"
+      # Ubuntu restricts /boot/vmlinuz-* to root (mode 600); make it readable.
+      sudo chmod 644 "$VMLINUZ"
       "$WORKDIR/extract-vmlinux" "$VMLINUZ" > "$KERNEL"
       [ -s "$KERNEL" ] || { echo "extract-vmlinux produced empty output"; exit 1; }
       qemu-system-aarch64 \
@@ -133,7 +137,7 @@ case "$ARCH" in
         -device virtio-gpu \
         -display vnc=127.0.0.1:0 \
         -serial "$SERIAL_ARG" \
-        -monitor none 2>"$QEMU_STDERR" &
+        -monitor none >"$QEMU_OUT" 2>&1 &
     else
       # Boot test: use the real rpi4 kernel under -M raspi4b for hardware fidelity.
       # The extract script leaves Image / initramfs / DTB next to the image.
@@ -150,7 +154,7 @@ case "$ARCH" in
         -drive file="$SD_IMAGE",if=sd,format=raw \
         -nographic \
         -serial "file:$SERIAL_LOG" \
-        -monitor none 2>"$QEMU_STDERR" &
+        -monitor none >"$QEMU_OUT" 2>&1 &
     fi
     QEMU_PID=$!
     ;;
@@ -166,12 +170,12 @@ if [ "$INJECT_HEADLESS_SWAY" = "1" ]; then
   echo "Waiting for QEMU PTY allocation..."
   for i in $(seq 1 30); do
     sleep 1
-    SERIAL_PTY=$(grep -m1 -oE '/dev/pts/[0-9]+' "$WORKDIR/qemu.err" 2>/dev/null || true)
+    SERIAL_PTY=$(grep -m1 -oE '/dev/pts/[0-9]+' "$QEMU_OUT" 2>/dev/null || true)
     [ -n "$SERIAL_PTY" ] && break
   done
   if [ -z "$SERIAL_PTY" ]; then
     echo "PTY not found in QEMU output after 30s"
-    cat "$WORKDIR/qemu.err" >&2
+    cat "$QEMU_OUT" >&2
     exit 1
   fi
   echo "Serial PTY: $SERIAL_PTY"
@@ -219,6 +223,7 @@ while [ "$(date +%s)" -lt "$deadline" ]; do
 
   if ! kill -0 "$QEMU_PID" 2>/dev/null; then
     echo "QEMU exited before marker appeared"
+    cat "$QEMU_OUT" 2>/dev/null || true
     tail -n 100 "$SERIAL_LOG" 2>/dev/null || true
     exit 1
   fi
