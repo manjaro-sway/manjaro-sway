@@ -81,9 +81,18 @@ case "$ARCH" in
       # under -M virt. Userspace (greetd/sway/calamares) is kernel-agnostic.
       # Prefer -generic over -azure: the Azure PE/EFI stub format is not
       # loadable via QEMU's -kernel flag; the generic kernel is a plain Image.
-      KERNEL=$(ls /boot/vmlinuz-*-generic 2>/dev/null | sort -V | tail -n1)
+      VMLINUZ=$(ls /boot/vmlinuz-*-generic 2>/dev/null | sort -V | tail -n1)
       INITRD=$(ls /boot/initrd.img-*-generic 2>/dev/null | sort -V | tail -n1)
-      [ -n "$KERNEL" ] || { echo "no generic kernel found in /boot (install linux-image-generic)"; exit 1; }
+      [ -n "$VMLINUZ" ] || { echo "no generic kernel found in /boot (install linux-image-generic)"; exit 1; }
+      # Ubuntu aarch64 vmlinuz is an EFI PE stub; QEMU -kernel needs a raw
+      # Image. extract-vmlinux finds the embedded compressed payload and
+      # decompresses it.
+      KERNEL="$WORKDIR/Image"
+      curl -fsSL "https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vmlinux" \
+        -o "$WORKDIR/extract-vmlinux"
+      chmod +x "$WORKDIR/extract-vmlinux"
+      "$WORKDIR/extract-vmlinux" "$VMLINUZ" > "$KERNEL"
+      [ -s "$KERNEL" ] || { echo "extract-vmlinux produced empty output"; exit 1; }
       qemu-system-aarch64 \
         -M virt "${ACCEL_ARGS[@]}" -m 2048 -smp 4 \
         -kernel "$KERNEL" \
