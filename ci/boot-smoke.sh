@@ -106,6 +106,10 @@ case "$ARCH" in
     SD_IMAGE="$WORKDIR/sd.img"
     cp --reflink=auto "$ARTIFACT" "$SD_IMAGE"
     qemu-img resize -f raw "$SD_IMAGE" 8G
+    # qemu-img resize leaves the GPT backup header at the old end of the image.
+    # The kernel rejects a GPT with a misplaced backup header and creates no
+    # partition devices (vda1, vda2, …), so the root mount fails silently.
+    sgdisk --move-second-header "$SD_IMAGE" >/dev/null
 
     if [ "${BOOT_VIRT_MACHINE:-0}" = "1" ]; then
       # The rpi4 kernel has no virtio-gpu, and -M raspi4b has no vc4 GPU, so

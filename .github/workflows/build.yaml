@@ -272,6 +272,7 @@ jobs:
             build-essential ninja-build pkg-config \
             libglib2.0-dev libpixman-1-dev libslirp-dev \
             libpng-dev \
+            gdisk \
             linux-image-generic \
             python3 python3-venv flex bison
           sudo chmod 666 /dev/kvm || true
