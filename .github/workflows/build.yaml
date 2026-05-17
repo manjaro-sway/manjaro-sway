@@ -176,7 +176,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: screenshots-iso-boot-${{ matrix.branch }}
-          path: screenshots/*.png
+          path: screenshots/
           if-no-files-found: warn
   test-image-boot:
     runs-on: ubuntu-24.04-arm
@@ -342,7 +342,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: screenshots-image-install-${{ matrix.branch }}-${{ matrix.device }}
-          path: screenshots/*.png
+          path: screenshots/
           if-no-files-found: warn
   test-iso-install:
     # Level 1 of the install test plan: boot the live ISO and verify the
@@ -392,7 +392,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: screenshots-iso-install-${{ matrix.branch }}
-          path: screenshots/*.png
+          path: screenshots/
           if-no-files-found: warn
   trigger-mirror:
     runs-on: ubuntu-24.04
