@@ -156,6 +156,7 @@ jobs:
       - name: boot smoke test
         env:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
+          SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
         run: |
           chmod +x ci/boot-smoke.sh
           ISO=$(ls artifact/*.iso | head -n1)
@@ -166,6 +167,13 @@ jobs:
         with:
           name: serial-iso-${{ matrix.branch }}
           path: serial.log
+          if-no-files-found: warn
+      - name: upload screenshots
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: screenshots-iso-boot-${{ matrix.branch }}
+          path: screenshots/*.png
           if-no-files-found: warn
   test-image-boot:
     runs-on: ubuntu-24.04-arm
@@ -311,6 +319,7 @@ jobs:
           BOOT_MARKER_REGEX: 'calamares'
           BOOT_VIRT_MACHINE: '1'
           INJECT_HEADLESS_SWAY: '1'
+          SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
         run: |
           chmod +x ci/boot-smoke.sh
           IMG=$(ls artifact/*.img* | head -n1)
@@ -324,6 +333,13 @@ jobs:
         with:
           name: serial-install-image-${{ matrix.branch }}-${{ matrix.device }}
           path: serial.log
+          if-no-files-found: warn
+      - name: upload screenshots
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: screenshots-image-install-${{ matrix.branch }}-${{ matrix.device }}
+          path: screenshots/*.png
           if-no-files-found: warn
   test-iso-install:
     # Level 1 of the install test plan: boot the live ISO and verify the
@@ -355,6 +371,7 @@ jobs:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
           BOOT_MARKER_REGEX: 'calamares'
           INJECT_HEADLESS_SWAY: '1'
+          SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
         run: |
           chmod +x ci/boot-smoke.sh
           ISO=$(ls artifact/*.iso | head -n1)
@@ -366,6 +383,13 @@ jobs:
         with:
           name: serial-install-${{ matrix.branch }}
           path: serial.log
+          if-no-files-found: warn
+      - name: upload screenshots
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: screenshots-iso-install-${{ matrix.branch }}
+          path: screenshots/*.png
           if-no-files-found: warn
   trigger-mirror:
     runs-on: ubuntu-24.04

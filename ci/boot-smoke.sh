@@ -19,6 +19,11 @@
 #     and start sway with WLR_BACKENDS=headless so the compositor runs without
 #     needing a real DRM device or logind seat.  Sway's autostart then execs
 #     calamares.  Requires PTY serial (-serial pty) instead of file.
+#   SCREENSHOT_DIR
+#     Directory to write stage screenshots into.  Requires the QEMU monitor
+#     socket (enabled automatically when this is set).  Screenshots are saved
+#     as PNG if convert/ffmpeg is available, otherwise as PPM.  Skipped
+#     silently for the raspi4b path which has no display (-nographic).
 
 set -euo pipefail
 
@@ -44,10 +49,13 @@ SERIAL_LOG="${SERIAL_LOG_OUT:-$WORKDIR/serial.log}"
 MARKER="${BOOT_MARKER_REGEX:-audit.*hostname=manjaro|manjaro[-a-z]* *login:|op=PAM:session_open.*greetd}"
 
 INJECT_HEADLESS_SWAY="${INJECT_HEADLESS_SWAY:-0}"
+SCREENSHOT_DIR="${SCREENSHOT_DIR:-}"
 
 QEMU_PID=""
 CAT_PID=""
 SERIAL_PTY=""
+MONITOR_SOCK="$WORKDIR/qemu-mon.sock"
+SCREENSHOT_N=0
 
 cleanup() {
   [ -n "$CAT_PID" ] && kill "$CAT_PID" 2>/dev/null || true
@@ -55,6 +63,32 @@ cleanup() {
   rm -rf "$WORKDIR"
 }
 trap cleanup EXIT
+
+# take_screenshot <label>
+# Sends a screendump command to the QEMU monitor socket and saves the result
+# as a numbered PNG (or PPM fallback) in SCREENSHOT_DIR.  No-op if the socket
+# doesn't exist (e.g. raspi4b -nographic path) or SCREENSHOT_DIR is unset.
+take_screenshot() {
+  [ -n "$SCREENSHOT_DIR" ] || return 0
+  [ -S "$MONITOR_SOCK" ]   || return 0
+  local label="${1:-shot}"
+  local n
+  printf -v n "%02d" "$SCREENSHOT_N"
+  SCREENSHOT_N=$(( SCREENSHOT_N + 1 ))
+  local ppm="$WORKDIR/screen-${n}.ppm"
+  local dest="$SCREENSHOT_DIR/${n}-${label}.png"
+  mkdir -p "$SCREENSHOT_DIR"
+  # Keep stdin open for 2s so QEMU has time to write the file before nc exits.
+  { printf 'screendump %s\n' "$ppm"; sleep 2; } | nc -U "$MONITOR_SOCK" >/dev/null 2>&1 || true
+  [ -f "$ppm" ] || return 0
+  if command -v ffmpeg >/dev/null 2>&1; then
+    ffmpeg -loglevel error -i "$ppm" "$dest" 2>/dev/null && echo "Screenshot: $dest" || true
+  elif command -v convert >/dev/null 2>&1; then
+    convert "$ppm" "$dest" 2>/dev/null && echo "Screenshot: $dest" || true
+  else
+    cp "$ppm" "${dest%.png}.ppm" && echo "Screenshot: ${dest%.png}.ppm" || true
+  fi
+}
 
 # Interactive mode uses a PTY so we can write keystrokes back to the VM.
 # QEMU announces the allocated PTY on stderr ("char device redirected to /dev/pts/N").
@@ -89,7 +123,7 @@ case "$ARCH" in
       -display vnc=127.0.0.1:0 \
       -vga virtio \
       -serial "$SERIAL_ARG" \
-      -monitor none \
+      -monitor unix:"$MONITOR_SOCK",server,nowait \
       -bios "$OVMF" >"$QEMU_OUT" 2>&1 &
     QEMU_PID=$!
     ;;
@@ -147,7 +181,7 @@ case "$ARCH" in
         -device virtio-gpu \
         -display vnc=127.0.0.1:0 \
         -serial "$SERIAL_ARG" \
-        -monitor none >"$QEMU_OUT" 2>&1 &
+        -monitor unix:"$MONITOR_SOCK",server,nowait >"$QEMU_OUT" 2>&1 &
     else
       # Boot test: use the real rpi4 kernel under -M raspi4b for hardware fidelity.
       # The extract script leaves Image / initramfs / DTB next to the image.
@@ -200,11 +234,12 @@ echo "QEMU started (pid $QEMU_PID), waiting up to ${TIMEOUT}s for boot marker...
 
 deadline=$(( $(date +%s) + TIMEOUT ))
 HEADLESS_INJECTED=0
+POLL_N=0
 while [ "$(date +%s)" -lt "$deadline" ]; do
   if [ -f "$SERIAL_LOG" ] && grep -Eq "$MARKER" "$SERIAL_LOG"; then
     echo "✓ boot marker observed"
-    # Tail what we saw so CI logs are inspectable on failure.
     tail -n 50 "$SERIAL_LOG" || true
+    take_screenshot "success"
     exit 0
   fi
 
@@ -214,6 +249,7 @@ while [ "$(date +%s)" -lt "$deadline" ]; do
   if [ "$INJECT_HEADLESS_SWAY" = "1" ] && [ "$HEADLESS_INJECTED" = "0" ] && \
      [ -f "$SERIAL_LOG" ] && grep -qE 'manjaro[-a-z]* *login:' "$SERIAL_LOG" 2>/dev/null; then
     echo "→ login prompt detected, injecting headless sway..."
+    take_screenshot "login-prompt"
     # Log in as root (no password on live ISO).
     printf 'root\n' > "$SERIAL_PTY"
     sleep 3
@@ -228,11 +264,19 @@ while [ "$(date +%s)" -lt "$deadline" ]; do
     # execs calamares, which is what the install test is waiting for.
     printf 'su - manjaro -c "XDG_RUNTIME_DIR=/run/user/1000 WLR_BACKENDS=headless WLR_RENDERER=pixman nohup sway &>/tmp/sway.log &"\n' > "$SERIAL_PTY"
     HEADLESS_INJECTED=1
+    take_screenshot "sway-injected"
     echo "→ headless sway launched, waiting for calamares..."
   fi
 
+  # Periodic screenshot every ~60s so intermediate boot state is visible.
+  if [ $(( POLL_N % 12 )) -eq 2 ]; then
+    take_screenshot "t$(( POLL_N * 5 ))s"
+  fi
+  POLL_N=$(( POLL_N + 1 ))
+
   if ! kill -0 "$QEMU_PID" 2>/dev/null; then
     echo "QEMU exited before marker appeared"
+    take_screenshot "qemu-exit"
     cat "$QEMU_OUT" 2>/dev/null || true
     tail -n 100 "$SERIAL_LOG" 2>/dev/null || true
     exit 1
@@ -241,5 +285,6 @@ while [ "$(date +%s)" -lt "$deadline" ]; do
 done
 
 echo "✗ timed out waiting for boot marker after ${TIMEOUT}s"
+take_screenshot "timeout"
 tail -n 200 "$SERIAL_LOG" 2>/dev/null || true
 exit 1
