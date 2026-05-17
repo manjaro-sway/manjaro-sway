@@ -78,8 +78,9 @@ take_screenshot() {
   local ppm="$WORKDIR/screen-${n}.ppm"
   local dest="$SCREENSHOT_DIR/${n}-${label}.png"
   mkdir -p "$SCREENSHOT_DIR"
-  # Keep stdin open for 1s so QEMU has time to write the file before nc exits.
-  { printf 'screendump %s\n' "$ppm"; sleep 1; } | nc -U "$MONITOR_SOCK" >/dev/null 2>&1 || true
+  # -N closes the socket on stdin EOF; without it nc waits for QEMU to close
+  # the monitor connection, hanging the script until the job timeout fires.
+  { printf 'screendump %s\n' "$ppm"; sleep 1; } | nc -N -U "$MONITOR_SOCK" >/dev/null 2>&1 || true
   [ -f "$ppm" ] || return 0
   if command -v ffmpeg >/dev/null 2>&1; then
     ffmpeg -loglevel error -i "$ppm" "$dest" 2>/dev/null && echo "Screenshot: $dest" || true
