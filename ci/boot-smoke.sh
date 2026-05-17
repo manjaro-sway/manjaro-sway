@@ -78,8 +78,8 @@ take_screenshot() {
   local ppm="$WORKDIR/screen-${n}.ppm"
   local dest="$SCREENSHOT_DIR/${n}-${label}.png"
   mkdir -p "$SCREENSHOT_DIR"
-  # Keep stdin open for 2s so QEMU has time to write the file before nc exits.
-  { printf 'screendump %s\n' "$ppm"; sleep 2; } | nc -U "$MONITOR_SOCK" >/dev/null 2>&1 || true
+  # Keep stdin open for 1s so QEMU has time to write the file before nc exits.
+  { printf 'screendump %s\n' "$ppm"; sleep 1; } | nc -U "$MONITOR_SOCK" >/dev/null 2>&1 || true
   [ -f "$ppm" ] || return 0
   if command -v ffmpeg >/dev/null 2>&1; then
     ffmpeg -loglevel error -i "$ppm" "$dest" 2>/dev/null && echo "Screenshot: $dest" || true
@@ -109,7 +109,9 @@ case "$ARCH" in
     # Manjaro: /usr/share/edk2/x64/OVMF.4m.fd). The split CODE/VARS *_4M.fd
     # files require -drive if=pflash and a writable VARS copy, which we don't
     # need for a one-shot boot test.
-    OVMF=$(find /usr/share -maxdepth 4 \( -name 'OVMF.fd' -o -name 'OVMF.4m.fd' -o -name 'OVMF_CODE.fd' \) 2>/dev/null | grep -v secboot | head -n1)
+    # Only match unified firmware files; OVMF_CODE.fd is the split variant that
+    # needs -drive if=pflash and won't work with -bios.
+    OVMF=$(find /usr/share -maxdepth 4 \( -name 'OVMF.fd' -o -name 'OVMF.4m.fd' \) 2>/dev/null | grep -v secboot | head -n1)
     [ -n "$OVMF" ] || { echo "OVMF firmware not found under /usr/share"; find /usr/share -name 'OVMF*' 2>/dev/null | head; exit 1; }
     qemu-img create -f qcow2 "$WORKDIR/disk.qcow2" 20G
     # virtio-gpu gives sway a DRM device so the Wayland compositor can start.
@@ -165,12 +167,9 @@ case "$ARCH" in
       # Image. extract-vmlinux finds the embedded compressed payload and
       # decompresses it.
       KERNEL="$WORKDIR/Image"
-      curl -fsSL "https://raw.githubusercontent.com/torvalds/linux/master/scripts/extract-vmlinux" \
-        -o "$WORKDIR/extract-vmlinux"
-      chmod +x "$WORKDIR/extract-vmlinux"
       # Ubuntu restricts /boot/vmlinuz-* to root (mode 600); make it readable.
       sudo chmod 644 "$VMLINUZ"
-      "$WORKDIR/extract-vmlinux" "$VMLINUZ" > "$KERNEL"
+      "$(dirname "$0")/extract-vmlinux" "$VMLINUZ" > "$KERNEL"
       [ -s "$KERNEL" ] || { echo "extract-vmlinux produced empty output"; exit 1; }
       qemu-system-aarch64 \
         -M virt "${ACCEL_ARGS[@]}" -m 2048 -smp 4 \
@@ -183,6 +182,12 @@ case "$ARCH" in
         -serial "$SERIAL_ARG" \
         -monitor unix:"$MONITOR_SOCK",server,nowait >"$QEMU_OUT" 2>&1 &
     else
+      # INJECT_HEADLESS_SWAY requires PTY serial which raspi4b can't provide
+      # (-nographic forces serial to a file). Use BOOT_VIRT_MACHINE=1 instead.
+      if [ "$INJECT_HEADLESS_SWAY" = "1" ]; then
+        echo "error: INJECT_HEADLESS_SWAY=1 requires BOOT_VIRT_MACHINE=1 on aarch64 (raspi4b uses -nographic)" >&2
+        exit 1
+      fi
       # Boot test: use the real rpi4 kernel under -M raspi4b for hardware fidelity.
       # The extract script leaves Image / initramfs / DTB next to the image.
       ART_DIR="$(dirname "$ARTIFACT")"
@@ -269,7 +274,7 @@ while [ "$(date +%s)" -lt "$deadline" ]; do
   fi
 
   # Periodic screenshot every ~60s so intermediate boot state is visible.
-  if [ $(( POLL_N % 12 )) -eq 2 ]; then
+  if [ "$POLL_N" -gt 0 ] && [ "$(( POLL_N % 12 ))" -eq 0 ]; then
     take_screenshot "t$(( POLL_N * 5 ))s"
   fi
   POLL_N=$(( POLL_N + 1 ))

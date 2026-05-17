@@ -99,9 +99,12 @@ jobs:
       - name: import sway key
         run: gpg --keyserver keys.openpgp.org --receive-keys ${{ vars.GPG_KEYID }}
       - name: prepare pacman pkg cache dir
+        # Owned by the runner user so actions/cache can tar-restore without
+        # sudo (tar needs to chown/utime the dir itself); pacman runs as
+        # root inside basestrap and can still write to it.
         run: |
           sudo mkdir -p /var/cache/pacman/pkg
-          sudo chmod 0777 /var/cache/pacman/pkg
+          sudo chown -R "$USER" /var/cache/pacman/pkg
       - name: cache pacman packages
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
@@ -136,6 +139,7 @@ jobs:
   test-iso-boot:
     runs-on: ubuntu-24.04
     needs: [build-iso]
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -158,7 +162,6 @@ jobs:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
           SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
         run: |
-          chmod +x ci/boot-smoke.sh
           ISO=$(ls artifact/*.iso | head -n1)
           ./ci/boot-smoke.sh "$ISO" x86_64
       - name: upload serial log on failure
@@ -178,6 +181,7 @@ jobs:
   test-image-boot:
     runs-on: ubuntu-24.04-arm
     needs: [build-image]
+    timeout-minutes: 20
     env:
       QEMU_VERSION: '10.1.0'
       QEMU_PREFIX: ${{ github.workspace }}/.qemu
@@ -198,6 +202,7 @@ jobs:
             mtools fdisk xz-utils zstd qemu-utils \
             build-essential ninja-build pkg-config \
             libglib2.0-dev libpixman-1-dev libslirp-dev \
+            libpng-dev linux-image-generic \
             python3 python3-venv flex bison
           sudo chmod 666 /dev/kvm || true
       - name: cache qemu ${{ env.QEMU_VERSION }}
@@ -205,7 +210,7 @@ jobs:
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ${{ env.QEMU_PREFIX }}
-          key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v1
+          key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v3
       - name: build qemu (cache miss)
         if: steps.cache-qemu.outputs.cache-hit != 'true'
         run: |
@@ -218,10 +223,10 @@ jobs:
             --target-list=aarch64-softmmu \
             --enable-kvm \
             --enable-slirp \
+            --enable-vnc \
             --disable-docs \
             --disable-gtk \
             --disable-sdl \
-            --disable-vnc \
             --disable-curses \
             --disable-tools
           make -j"$(nproc)"
@@ -235,14 +240,12 @@ jobs:
           path: artifact
       - name: extract kernel + initramfs
         run: |
-          chmod +x ci/extract-rpi-kernel.sh
           IMG=$(ls artifact/*.img* | head -n1)
           ./ci/extract-rpi-kernel.sh "$IMG"
       - name: boot smoke test
         env:
           SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
         run: |
-          chmod +x ci/boot-smoke.sh
           # extract-rpi-kernel.sh decompresses in place; pick the resulting raw img
           IMG=$(ls artifact/*.img | head -n1)
           ./ci/boot-smoke.sh "$IMG" aarch64
@@ -261,6 +264,7 @@ jobs:
     # that prevents sway from starting in QEMU — see issue #982.
     runs-on: ubuntu-24.04-arm
     needs: [build-image]
+    timeout-minutes: 25
     env:
       QEMU_VERSION: '10.1.0'
       QEMU_PREFIX: ${{ github.workspace }}/.qemu
@@ -287,7 +291,7 @@ jobs:
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ${{ env.QEMU_PREFIX }}
-          key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v2
+          key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v3
       - name: build qemu (cache miss)
         if: steps.cache-qemu.outputs.cache-hit != 'true'
         run: |
@@ -321,7 +325,6 @@ jobs:
           INJECT_HEADLESS_SWAY: '1'
           SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
         run: |
-          chmod +x ci/boot-smoke.sh
           IMG=$(ls artifact/*.img* | head -n1)
           # Boot + greetd + oem-setup + calamares exec — give it 12 min.
           # Uses -M virt with the runner's kernel (which has virtio-gpu) since
@@ -350,6 +353,7 @@ jobs:
     # that prevents sway from starting in QEMU — see issue #982.
     runs-on: ubuntu-24.04
     needs: [build-iso]
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
@@ -373,7 +377,6 @@ jobs:
           INJECT_HEADLESS_SWAY: '1'
           SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
         run: |
-          chmod +x ci/boot-smoke.sh
           ISO=$(ls artifact/*.iso | head -n1)
           # Boot + greetd + sway autostart + calamares exec — give it 12 min.
           ./ci/boot-smoke.sh "$ISO" x86_64 720

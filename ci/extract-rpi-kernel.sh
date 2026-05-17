@@ -12,7 +12,7 @@ set -euo pipefail
 
 IMG="${1:?image path required}"
 case "$IMG" in
-  *.xz)  xz --decompress --keep --force "$IMG"; IMG="${IMG%.xz}";;
+  *.xz)  xz --decompress --force "$IMG"; IMG="${IMG%.xz}";;
   *.zst) zstd -d --force "$IMG"; IMG="${IMG%.zst}";;
 esac
 
