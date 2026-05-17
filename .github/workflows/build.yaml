@@ -149,7 +149,7 @@ jobs:
       - name: install qemu + kvm stack
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-system-x86 ovmf
+          sudo apt-get install -y qemu-system-x86 ovmf ffmpeg
           # Self-hosted runners sometimes ship without /dev/kvm permissions
           sudo chmod 666 /dev/kvm || true
       - name: download iso
@@ -202,7 +202,7 @@ jobs:
             mtools fdisk xz-utils zstd qemu-utils \
             build-essential ninja-build pkg-config \
             libglib2.0-dev libpixman-1-dev libslirp-dev \
-            libpng-dev linux-image-generic \
+            libpng-dev linux-image-generic ffmpeg \
             python3 python3-venv flex bison
           sudo chmod 666 /dev/kvm || true
       - name: cache qemu ${{ env.QEMU_VERSION }}
@@ -283,7 +283,7 @@ jobs:
             build-essential ninja-build pkg-config \
             libglib2.0-dev libpixman-1-dev libslirp-dev \
             libpng-dev \
-            linux-image-generic \
+            linux-image-generic ffmpeg \
             python3 python3-venv flex bison
           sudo chmod 666 /dev/kvm || true
       - name: cache qemu ${{ env.QEMU_VERSION }}
@@ -363,7 +363,7 @@ jobs:
       - name: install qemu + kvm stack
         run: |
           sudo apt-get update
-          sudo apt-get install -y qemu-system-x86 ovmf
+          sudo apt-get install -y qemu-system-x86 ovmf ffmpeg
           sudo chmod 666 /dev/kvm || true
       - name: download iso
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
