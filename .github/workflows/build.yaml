@@ -145,7 +145,7 @@ jobs:
       matrix:
         branch: [unstable]
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: install qemu + kvm stack
         run: |
           sudo apt-get update
@@ -191,7 +191,7 @@ jobs:
         branch: [unstable]
         device: [rpi4]
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: install runtime deps
         # build deps go in unconditionally because configure needs to be able
         # to relink against system libs during install; runtime deps for
@@ -274,7 +274,7 @@ jobs:
         branch: [unstable]
         device: [rpi4]
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: install runtime deps
         run: |
           sudo apt-get update
@@ -359,7 +359,7 @@ jobs:
       matrix:
         branch: [unstable]
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: install qemu + kvm stack
         run: |
           sudo apt-get update
@@ -408,7 +408,7 @@ jobs:
     needs: [build-iso, build-image, prepare-release]
     if: ${{ failure() || cancelled() }}
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
       - name: rollback
         run: |
           echo ${{ github.token }} | gh auth login --with-token
