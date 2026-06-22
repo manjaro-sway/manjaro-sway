@@ -1,24 +1,27 @@
 # units (enabled via systemd --user enable)
+# --no-reload: `systemctl enable` forces a full daemon-reload (~370ms) even when
+# the symlink already exists. Without it these ~18 calls serialize into a ~6s
+# daemon-reload storm at every sway startup. --now still starts each unit.
 
-set $initialize_foot_server '[ -x "$(command -v foot)" ] && (systemctl --user enable --now foot-server.socket; systemctl --user enable --now foot-server)'
-set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --user enable --now swayrd'
-set $initialize_waybar '[ -x "$(command -v waybar)" ] && systemctl --user enable --now waybar'
-set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --user enable --now sworkstyle'
-set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --user enable --now poweralertd'
-set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --user enable --now idlehack'
-set $initialize_idle_daemon '[ -x "$(command -v swayidle-conf)" ] && systemctl --user enable --now swayidle'
-set $initialize_mounting_daemon '[ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ] && systemctl --user enable --now pcmanfm'
-set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --user enable --now way-displays'
-set $initialize_flashfocus '[ -x "$(command -v flashfocus)" ] && systemctl --user enable --now flashfocus'
+set $initialize_foot_server '[ -x "$(command -v foot)" ] && (systemctl --user enable --now --no-reload foot-server.socket; systemctl --user enable --now --no-reload foot-server)'
+set $initialize_swayr_daemon '[ -x "$(command -v swayrd)" ] && systemctl --user enable --now --no-reload swayrd'
+set $initialize_waybar '[ -x "$(command -v waybar)" ] && systemctl --user enable --now --no-reload waybar'
+set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl --user enable --now --no-reload sworkstyle'
+set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --user enable --now --no-reload poweralertd'
+set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --user enable --now --no-reload idlehack'
+set $initialize_idle_daemon '[ -x "$(command -v swayidle-conf)" ] && systemctl --user enable --now --no-reload swayidle'
+set $initialize_mounting_daemon '[ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ] && systemctl --user enable --now --no-reload pcmanfm'
+set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --user enable --now --no-reload way-displays'
+set $initialize_flashfocus '[ -x "$(command -v flashfocus)" ] && systemctl --user enable --now --no-reload flashfocus'
 set $initialize_mako '[ -x "$(command -v mako)" ] && systemctl --user set-environment MAKO_FONT="$term-font" MAKO_TEXT_COLOR="$text-color" MAKO_BORDER_COLOR="$accent-color" MAKO_BG_COLOR="$background-color" && systemctl --user reload-or-restart mako'
-set $initialize_wlsunset '[ -x "$(command -v wlsunset)" ] && systemctl --user enable --now wlsunset'
-set $initialize_autotiling '[ -x "$(command -v autotiling)" ] || [ -x "$(command -v autotiling-rs)" ] && systemctl --user enable --now autotiling'
-set $initialize_cliphist_store '[ -x "$(command -v cliphist)" ] && systemctl --user enable --now cliphist-store'
-set $initialize_cliphist_watch '[ -x "$(command -v cliphist)" ] && systemctl --user enable --now cliphist-watch'
-set $initialize_polkit_agent '[ -x /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ] && systemctl --user enable --now polkit-gnome'
-set $initialize_clip_persist '[ -x "$(command -v wl-clip-persist)" ] && systemctl --user enable --now wl-clip-persist'
-set $initialize_calendar_daemon '[ -x "$(command -v calcurse)" ] && systemctl --user enable --now calcurse-daemon'
-set $initialize_watch_playerctl '[ -x "$(command -v playerctl)" ] && systemctl --user enable --now watch-playerctl'
+set $initialize_wlsunset '[ -x "$(command -v wlsunset)" ] && systemctl --user enable --now --no-reload wlsunset'
+set $initialize_autotiling '[ -x "$(command -v autotiling)" ] || [ -x "$(command -v autotiling-rs)" ] && systemctl --user enable --now --no-reload autotiling'
+set $initialize_cliphist_store '[ -x "$(command -v cliphist)" ] && systemctl --user enable --now --no-reload cliphist-store'
+set $initialize_cliphist_watch '[ -x "$(command -v cliphist)" ] && systemctl --user enable --now --no-reload cliphist-watch'
+set $initialize_polkit_agent '[ -x /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ] && systemctl --user enable --now --no-reload polkit-gnome'
+set $initialize_clip_persist '[ -x "$(command -v wl-clip-persist)" ] && systemctl --user enable --now --no-reload wl-clip-persist'
+set $initialize_calendar_daemon '[ -x "$(command -v calcurse)" ] && systemctl --user enable --now --no-reload calcurse-daemon'
+set $initialize_watch_playerctl '[ -x "$(command -v playerctl)" ] && systemctl --user enable --now --no-reload watch-playerctl'
 
 # autostarts
 
