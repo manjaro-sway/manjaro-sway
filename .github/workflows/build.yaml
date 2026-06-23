@@ -55,7 +55,7 @@ jobs:
           sudo mkdir -p /var/cache/pacman/pkg
           sudo chown -R "$USER" /var/cache/pacman/pkg
       - name: cache pacman packages
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         with:
           path: /var/cache/pacman/pkg
           key: pacman-pkg-${{ matrix.branch }}-${{ matrix.device }}-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
@@ -106,7 +106,7 @@ jobs:
           sudo mkdir -p /var/cache/pacman/pkg
           sudo chown -R "$USER" /var/cache/pacman/pkg
       - name: cache pacman packages
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         with:
           path: /var/cache/pacman/pkg
           key: pacman-pkg-${{ matrix.branch }}-x86_64-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
@@ -207,7 +207,7 @@ jobs:
           sudo chmod 666 /dev/kvm || true
       - name: cache qemu ${{ env.QEMU_VERSION }}
         id: cache-qemu
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         with:
           path: ${{ env.QEMU_PREFIX }}
           key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v3
@@ -288,7 +288,7 @@ jobs:
           sudo chmod 666 /dev/kvm || true
       - name: cache qemu ${{ env.QEMU_VERSION }}
         id: cache-qemu
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         with:
           path: ${{ env.QEMU_PREFIX }}
           key: qemu-${{ env.QEMU_VERSION }}-${{ runner.os }}-${{ runner.arch }}-v3
