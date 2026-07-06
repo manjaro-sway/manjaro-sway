@@ -199,8 +199,9 @@
         "tooltip-format": "{}"
     },
     "sway/language": {
-        "format": " {}",
+        "format": " {}",
         "min-length": 5,
+        "hide-single-layout": true,
         "tooltip": false,
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
     },
