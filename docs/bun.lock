@@ -5,19 +5,19 @@
     "": {
       "name": "manjaro-downloads",
       "dependencies": {
-        "accept-language": "latest",
-        "dayjs": "latest",
-        "sunrise-sunset-js": "latest",
-        "zod": "latest",
+        "accept-language": "^3.0.20",
+        "dayjs": "^1.11.20",
+        "sunrise-sunset-js": "^3.2.1",
+        "zod": "^4.4.3",
       },
       "devDependencies": {
-        "@cloudflare/workers-types": "latest",
-        "typescript": "latest",
+        "@cloudflare/workers-types": "^5.0.0",
+        "typescript": "^6.0.3",
       },
     },
   },
   "packages": {
-    "@cloudflare/workers-types": ["@cloudflare/workers-types@4.20260511.1", "", {}, "sha512-FA+si7cOq9i/gtCHhIc0XJL0l1F/ApF+m00752Aj7WZFJrj3ZulT2T8/+rT3BabMT0QEnqFEGIqCgrmqhgEfMg=="],
+    "@cloudflare/workers-types": ["@cloudflare/workers-types@5.20260708.1", "", {}, "sha512-FSRyCsxALKmmNnk/2HMkTiX9Iz9yqTiTWX/BJZdffGznMSunXmQgb3mKy9wGBX2BCTLOuRYWL36uh7/3Gm05Eg=="],
 
     "accept-language": ["accept-language@3.0.20", "", { "dependencies": { "bcp47": "^1.1.2" } }, "sha512-xklPzRma4aoDEPk0ZfMjeuxB2FP4JBYlAR25OFUqCoOYDjYo6wGwAs49SnTN/MoB5VpnNX9tENfZ+vEIFmHQMQ=="],
 
