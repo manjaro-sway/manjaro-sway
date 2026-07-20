@@ -1,0 +1,41 @@
+#!/bin/sh
+
+LIBDIR='/usr/lib/manjaro-tools'
+DATADIR='/usr/share/manjaro-tools'
+SYSCONFDIR='/etc/manjaro-tools'
+
+export LC_MESSAGES=C
+export LANG=C
+
+livetimer=$(date +%s%3N)
+
+[[ -r ${LIBDIR}/util-live.sh ]] && source ${LIBDIR}/util-live.sh
+
+load_live_config "${SYSCONFDIR}/live.conf" || load_live_config "${DATADIR}/live.conf"
+
+livetimer=$(get_timer_ms)
+CONSOLEFONT="$(kernel_cmdline vconsole.font)"
+CONSOLEMAP="$(kernel_cmdline vconsole.font.map)"
+arch=$(uname -m)
+echo "Got consolefont and arch $arch: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live.log
+
+### DECIDE IF WE DON'T NEED IT ###
+# see also https://github.com/calamares/calamares/issues/860
+# Activate swap
+#livetimer=$(get_timer_ms)
+#configure_swap
+#echo "Activated swap and added to fstab: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live.log
+
+livetimer=$(get_timer_ms)
+configure_language
+echo "Finished localization: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live.log
+
+livetimer=$(get_timer_ms)
+configure_machine_id
+echo "Configured machine-id: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live.log
+
+if [[ -f /usr/bin/samba ]];then
+    livetimer=$(get_timer_ms)
+    configure_samba
+    echo "Configured samba: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live.log
+fi

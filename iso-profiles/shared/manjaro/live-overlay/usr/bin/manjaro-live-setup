@@ -1,0 +1,38 @@
+#!/bin/sh
+
+LIBDIR='/usr/lib/manjaro-tools'
+DATADIR='/usr/share/manjaro-tools'
+SYSCONFDIR='/etc/manjaro-tools'
+
+export LC_MESSAGES=C
+export LANG=C
+
+livetimer=$(date +%s%3N)
+
+[[ -r ${LIBDIR}/util-live.sh ]] && source ${LIBDIR}/util-live.sh
+
+load_live_config "${SYSCONFDIR}/live.conf" || load_live_config "${DATADIR}/live.conf"
+
+livetimer=$(get_timer_ms)
+detect_desktop_env
+echo "Detected ${default_desktop_executable} ${default_desktop_file}: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live-setup.log
+
+livetimer=$(get_timer_ms)
+configure_user
+echo "Created user ${username} with password ${password}: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live-setup.log
+
+livetimer=$(get_timer_ms)
+configure_sudoers_d
+echo "Configured sudoers: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live-setup.log
+
+livetimer=$(get_timer_ms)
+configure_accountsservice "${username}"
+echo "Configured accountsservice: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live-setup.log
+
+livetimer=$(get_timer_ms)
+configure_displaymanager
+echo "Configured displaymanager: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live-setup.log
+
+livetimer=$(get_timer_ms)
+configure_user_root /
+echo "Configured root user: $(elapsed_time_ms ${livetimer})ms" >> /var/log/manjaro-live-setup.log
