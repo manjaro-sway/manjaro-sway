@@ -30,7 +30,7 @@ jobs:
         with:
           format: 'YYYYMMDDHHmm'
       - id: receive
-        uses: boredland/kernel-info@95a8330bcb748769fbba1923cf885aaa55098a54 # main
+        uses: boredland/kernel-info@f781d0a7da20c30fc67dfbb6dc0a7e219f529d6c # main
     outputs:
       release_tag: ${{ steps.time.outputs.time }}
       longterm: ${{ steps.receive.outputs.longterm-pkg }}
