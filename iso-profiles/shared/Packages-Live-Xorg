@@ -5,7 +5,7 @@ KERNEL-broadcom-wl
 #KERNEL-rt3562sta
 manjaro-live-skel
 mkinitcpio-nfs-utils
->multilib lib32-libxvmc
+#>multilib lib32-libxvmc  ## moved to AUR on 2026-08-16
 >multilib lib32-primus
 nbd
 open-vm-tools
