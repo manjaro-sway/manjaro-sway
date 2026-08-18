@@ -4,63 +4,62 @@
 
 ## Normal MHWD package list
 
-KERNEL-bbswitch
-KERNEL-broadcom-wl
+#>multilib lib32-libxvmc ## moved to AUR on 2026-08-16
 #KERNEL-r8168
-#KERNEL-zfs
-#zfs-utils # only used for architect which we don't ship
 #KERNEL-rt3562sta
 #KERNEL-virtualbox-guest-modules
-KERNEL-headers
+#KERNEL-zfs
 #zfs-dkms
-libva-intel-driver
-libva-mesa-driver
-libxaw
-libxpm
-libxvmc
-#>multilib lib32-libxvmc ## moved to AUR on 2026-08-16
+#zfs-utils # only used for architect which we don't ship
 >multilib lib32-primus
+>multilib lib32-vulkan-intel
+>multilib lib32-vulkan-nouveau
+>multilib lib32-vulkan-radeon
+>nonfree_multilib lib32-nvidia-390xx-utils
+>nonfree_multilib lib32-nvidia-470xx-utils
+>nonfree_multilib lib32-nvidia-580xx-utils
+>nonfree_multilib lib32-nvidia-utils
+>nonfree_x86_64 KERNEL-nvidia
 >nonfree_x86_64 KERNEL-nvidia-390xx
 >nonfree_x86_64 KERNEL-nvidia-470xx
 >nonfree_x86_64 KERNEL-nvidia-580xx
 >nonfree_x86_64 KERNEL-nvidia-580xx-open
->nonfree_x86_64 KERNEL-nvidia
 >nonfree_x86_64 KERNEL-nvidia-open
 >nonfree_x86_64 libxnvctrl
 >nonfree_x86_64 libxnvctrl-390xx
 >nonfree_x86_64 libxnvctrl-470xx
 >nonfree_x86_64 libxnvctrl-580xx
->nonfree_x86_64 nvidia-390xx-utils
 >nonfree_x86_64 nvidia-390xx-settings
->nonfree_x86_64 nvidia-470xx-utils
+>nonfree_x86_64 nvidia-390xx-utils
 >nonfree_x86_64 nvidia-470xx-settings
->nonfree_x86_64 nvidia-580xx-utils
+>nonfree_x86_64 nvidia-470xx-utils
 >nonfree_x86_64 nvidia-580xx-settings
->nonfree_x86_64 nvidia-utils
+>nonfree_x86_64 nvidia-580xx-utils
 >nonfree_x86_64 nvidia-settings
->nonfree_multilib lib32-nvidia-390xx-utils
->nonfree_multilib lib32-nvidia-470xx-utils
->nonfree_multilib lib32-nvidia-580xx-utils
->nonfree_multilib lib32-nvidia-utils
-
+>nonfree_x86_64 nvidia-utils
+bumblebee
+gtkmm3
+KERNEL-bbswitch
+KERNEL-broadcom-wl
+KERNEL-headers
+libva-intel-driver
+libva-mesa-driver
+libxaw
+libxpm
+libxvmc
+nvidia-prime
 open-vm-tools
 primus
 qemu-guest-agent
-bumblebee
-nvidia-prime
-gtkmm3
 spice-vdagent
 virtualbox-guest-utils
+vulkan-icd-loader
+vulkan-intel
 vulkan-mesa-layers
+vulkan-nouveau
+vulkan-radeon
 vulkan-swrast
 vulkan-virtio
-vulkan-icd-loader
-vulkan-radeon
->multilib lib32-vulkan-radeon
-vulkan-intel
->multilib lib32-vulkan-intel
-vulkan-nouveau
->multilib lib32-vulkan-nouveau
 xf86-input-vmmouse
 xf86-video-amdgpu
 xf86-video-ati
