@@ -18,7 +18,7 @@ libva-mesa-driver
 libxaw
 libxpm
 libxvmc
->multilib lib32-libxvmc
+#>multilib lib32-libxvmc ## moved to AUR on 2026-08-16
 >multilib lib32-primus
 >nonfree_x86_64 KERNEL-nvidia-390xx
 >nonfree_x86_64 KERNEL-nvidia-470xx
