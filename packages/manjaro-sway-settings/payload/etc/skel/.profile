@@ -12,7 +12,16 @@ export GTK_CSD=0
 
 # qt wayland
 export QT_QPA_PLATFORM="wayland"
-export QT_QPA_PLATFORMTHEME=lxqt
+# Route Qt file dialogs through xdg-desktop-portal so they are served by
+# xdg-desktop-portal-lxqt (see FileChooser= in sway-portals.conf). Unlike the
+# `lxqt` platform theme this also works for Qt5 apps -- lxqt-qtplugin ships a
+# Qt6 plugin only. The portal theme wraps Qt's *generic* theme and so does no
+# styling of its own, hence QT_STYLE_OVERRIDE below.
+export QT_QPA_PLATFORMTHEME=xdgdesktopportal
+# Read by Qt5 and Qt6 alike, and independent of the platform theme. Kvantum
+# picks its theme up from ~/.config/Kvantum/kvantum.kvconfig, which is what
+# `kvantummanager --set` writes, so theme switching keeps working.
+export QT_STYLE_OVERRIDE=kvantum
 export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 
 # use xdg-desktop-portal for file dialogs in GTK apps
