@@ -10,7 +10,10 @@ set $initialize_workspace_icons '[ -x "$(command -v sworkstyle)" ] && systemctl 
 set $initialize_poweralert_daemon '[ -x "$(command -v poweralertd)" ] && systemctl --user enable --now --no-reload poweralertd'
 set $initialize_idlehack_daemon '[ -x "$(command -v idlehack)" ] && systemctl --user enable --now --no-reload idlehack'
 set $initialize_idle_daemon '[ -x "$(command -v swayidle-conf)" ] && systemctl --user enable --now --no-reload swayidle'
-set $initialize_mounting_daemon '[ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ] && systemctl --user enable --now --no-reload pcmanfm'
+# the sed migrates users whose saved profile still carries pcmanfm-qt's own
+# Terminal=xterm default; it runs before the daemon so the stale value isn't
+# reloaded and written straight back out on quit. Only that value is rewritten.
+set $initialize_mounting_daemon 'sed -i "s|^Terminal=xterm$|Terminal=xdg-terminal-exec|" "$HOME/.config/pcmanfm-qt/default/settings.conf" 2>/dev/null; [ -x "$(command -v pcmanfm-qt)" ] || [ -x "$(command -v pcmanfm)" ] && systemctl --user enable --now --no-reload pcmanfm'
 set $initialize_way_displays '[ -x "$(command -v way-displays)" ] && systemctl --user enable --now --no-reload way-displays'
 set $initialize_flashfocus '[ -x "$(command -v flashfocus)" ] && systemctl --user enable --now --no-reload flashfocus'
 set $initialize_mako '[ -x "$(command -v mako)" ] && systemctl --user set-environment MAKO_FONT="$term-font" MAKO_TEXT_COLOR="$text-color" MAKO_BORDER_COLOR="$accent-color" MAKO_BG_COLOR="$background-color" && systemctl --user reload-or-restart mako'
