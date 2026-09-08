@@ -114,7 +114,7 @@ jobs:
             pacman-pkg-${{ matrix.branch }}-x86_64-${{ runner.os }}-${{ runner.arch }}-
       - id: build
         name: x86_64 build
-        uses: manjaro-contrib/action-buildiso@9dfcf97aff6262844c83042837fca9c6c731a7ad # main
+        uses: manjaro-contrib/action-buildiso@5d095d15ab58af2c2cdef930696cbc8a1c9fc670 # main
         with:
           iso-profiles-repo: https://github.com/Manjaro-Sway/iso-profiles
           edition: sway
