@@ -68,7 +68,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: manjaro-contrib/release
-          ref: ea52031e3134917662798102d8c5ed83e464e2d6
+          ref: 582d9a11837a4b2ddf156077b7c12826f9796f6b
           path: .buildiso
       - id: build
         name: x86_64 build
