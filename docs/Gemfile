@@ -12,5 +12,5 @@ gem "jekyll", "~> 4.4.0"
 group :jekyll_plugins do
   gem 'jekyll-get-json', '~> 1.0'
   gem 'jekyll-webp', '~> 1.0'
-  gem "jekyll-remote-theme", '~> 0.4.3'
+  gem "jekyll-remote-theme", '~> 0.5.0'
 end
