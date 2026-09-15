@@ -1,0 +1,14 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+XDG_SESSION_TYPE=wayland
+XDG_CURRENT_DESKTOP=sway
+# avoid iterating over all libseat backends
+LIBSEAT_BACKEND=logind
+
+# allow software renderers in sway
+WLR_RENDERER_ALLOW_SOFTWARE=1
+# for nouveau compatibility
+WLR_DRM_NO_MODIFIERS=1

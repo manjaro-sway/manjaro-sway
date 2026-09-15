@@ -1,0 +1,6 @@
+#%PAM-1.0
+auth		sufficient	pam_rootok.so
+auth		sufficient	pam_wheel.so trust use_uid
+auth		required	pam_unix.so
+account		required	pam_unix.so
+session		required	pam_unix.so

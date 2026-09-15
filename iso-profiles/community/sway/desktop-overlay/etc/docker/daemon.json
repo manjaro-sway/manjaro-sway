@@ -1,0 +1,16 @@
+{
+  "bip": "172.39.1.5/24",
+  "fixed-cidr": "172.39.1.0/25",
+  "default-address-pools": [
+    {
+      "base": "172.39.0.0/16",
+      "size": 24
+    }
+  ],
+  "runtimes": {
+    "nvidia": {
+      "path": "nvidia-container-runtime",
+      "runtimeArgs": []
+    }
+  }
+}
