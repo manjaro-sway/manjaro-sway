@@ -19,7 +19,9 @@ jobs:
           node-version: 22
       - name: test
         working-directory: worker
-        run: npm ci && npm test
+        # no install step: the worker has no dependencies and the suite runs
+        # on node's own test runner
+        run: npm test
 
   python:
     runs-on: ubuntu-latest
