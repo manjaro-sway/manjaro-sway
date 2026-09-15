@@ -85,7 +85,15 @@ jobs:
     container: manjarolinux/base
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - run: pacman -Sy --noconfirm --needed python python-boto3
+      - name: install python
+        # The same branch the packages were built on, then a full upgrade.
+        # -Syu, not -Sy: a partial upgrade pulls a python built against a
+        # newer glibc than the image ships, and it fails at import with
+        # "libm.so.6: version `GLIBC_2.44' not found".
+        run: |
+          pacman-mirrors --api --set-branch unstable >/dev/null
+          pacman-mirrors --geoip >/dev/null 2>&1 || pacman-mirrors -f5 >/dev/null
+          pacman -Syu --noconfirm --needed python python-boto3
       - name: the tree resolves
         env:
           R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
