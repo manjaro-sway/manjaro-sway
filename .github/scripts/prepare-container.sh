@@ -34,29 +34,34 @@ pacman -Syu --noconfirm --needed \
 # the whole sync with "invalid or corrupted database (PGP signature)", and
 # every build after it cannot resolve so much as jq. SigLevel = Optional
 # does not help: the check that fails happens before it applies.
+#
+# Both the key AND the database, because a configured repository whose
+# database 404s fails every later `pacman -Syu` outright - not just the
+# sync here, which tolerates it. DatabaseOptional does not cover a 404:
+# it makes an *unsigned* database acceptable, not an absent one. The key
+# is published before the first build, so "key exists" does not imply
+# "database exists" and the two have to be probed separately.
 if curl -fsSL "${REPO_URL}/manjaro-sway.gpg" -o /tmp/manjaro-sway.gpg &&
-	gpg --show-keys /tmp/manjaro-sway.gpg >/dev/null 2>&1; then
+	gpg --show-keys /tmp/manjaro-sway.gpg >/dev/null 2>&1 &&
+	curl -fsIL -o /dev/null "${REPO_URL}/$(uname -m)/manjaro-sway.db"; then
 	pacman-key --add /tmp/manjaro-sway.gpg
 	gpg --show-keys --with-colons /tmp/manjaro-sway.gpg |
 		awk -F: '/^fpr:/ {print $10}' |
 		while read -r fingerprint; do pacman-key --lsign-key "$fingerprint"; done
 
 	# Our own repository, so a package can depend on one published minutes
-	# ago. DatabaseOptional, not DatabaseRequired: the very first run
-	# publishes into an empty bucket, where no database exists at all.
+	# ago.
 	cat >>/etc/pacman.conf <<-EOF
 
 		[manjaro-sway]
-		SigLevel = Required DatabaseOptional
+		SigLevel = Required
 		Server = ${REPO_URL}/\$arch
 	EOF
 else
-	echo "the manjaro-sway key is not published yet; building without the repository" >&2
+	echo "the manjaro-sway repository is not published yet; building without it" >&2
 fi
 
-# a missing repository must not fail the sync: on the first ever run the
-# bucket is empty and there is no database to fetch
-pacman -Sy --noconfirm || true
+pacman -Sy --noconfirm
 
 # Stock OPTIONS carry `debug`, which makes a <name>-debug package beside
 # every compiled one - detached symbols and /usr/src/debug sources. Those
