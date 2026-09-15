@@ -1,5 +1,9 @@
 pkgname=idlehack
-pkgver=0.r19
+# The pinned commit and the build have to agree: fd73c76 predates upstream's
+# move to cmake and ships a Makefile, so build() failed with "does not appear
+# to contain CMakeLists.txt". This is upstream's current head, where the
+# cmake build this PKGBUILD calls exists.
+pkgver=0.r21
 pkgrel=1
 pkgdesc="Monitor dbus and inhibit swayidle when Firefox or Chromium request it"
 arch=('x86_64')
@@ -7,7 +11,7 @@ url="https://github.com/loops/idlehack"
 license=('custom:ICS')
 provides=('idlehack' 'idlehack-git')
 conflicts=('idlehack-git')
-_commit="fd73c76c2d289f9eb9ad9b0695fa9e9f151be22f"
+_commit="4f7c11a56cfc4346fee6f710419122b460ed65a4"
 source=("$pkgname::git+https://github.com/loops/idlehack.git#commit=$_commit")
 sha256sums=('SKIP')
 depends=('libx11' 'dbus' 'systemd-libs')

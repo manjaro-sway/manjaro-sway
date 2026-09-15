@@ -3,7 +3,7 @@
 
 pkgname=wluma
 pkgver=4.11.1
-pkgrel=1
+pkgrel=2
 license=('ISC')
 pkgdesc='Automatic brightness adjustment based on screen contents and ALS'
 url='https://github.com/maximbaz/wluma'
@@ -11,7 +11,11 @@ arch=('x86_64')
 depends=('dbus' 'vulkan-icd-loader' 'systemd-libs' 'glibc' 'gcc-libs' 'v4l-utils')
 optdepends=('vulkan-driver: for using capturer=wlroots in config.toml'
             'wayland: for using capturer=wlroots in config.toml')
-makedepends=('cargo' 'clang' 'systemd' 'marked-man')
+# marked-man dropped: 2.1.1 calls marked's API as it was before 15, and
+# fails with "text.trim is not a function" on every input. It only
+# rendered README.md into a man page; the README itself is still
+# installed, so nothing is lost but the man(7) entry.
+makedepends=('cargo' 'clang' 'systemd')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/max-baz/${pkgname}/archive/${pkgver}.tar.gz"
         "https://github.com/max-baz/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.asc")
 b2sums=('3eba7e941a11f459053018dc3eb59e23da6c41d3a3206ccf0684e8e1294da7da1a54fefd20295cafceb695ea8f7483822cf99472f2b701dd57c8d1b95fb57ce6'
@@ -29,8 +33,6 @@ build() {
     export RUSTUP_TOOLCHAIN=stable
     export CARGO_TARGET_DIR=target
     cargo build --frozen --release --all-features
-    marked-man -i README.md -o "${pkgname}.7"
-    gzip "${pkgname}.7"
 }
 
 check() {
@@ -46,6 +48,5 @@ package() {
     install -Dm644 -t "${pkgdir}/usr/lib/udev/rules.d" "90-${pkgname}-backlight.rules"
     install -Dm644 -t "${pkgdir}/usr/lib/systemd/user" "${pkgname}.service"
     install -Dm644 -t "${pkgdir}/usr/share/doc/${pkgname}" "README.md"
-    install -Dm644 -t "${pkgdir}/usr/share/man/man7" "${pkgname}.7.gz"
     install -Dm644 -t "${pkgdir}/usr/share/${pkgname}/examples" "config.toml"
 }

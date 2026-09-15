@@ -66,8 +66,11 @@ packages:
   pacseek:
     upstream: https://aur.archlinux.org/pacseek.git
     arch: any
+  # The py3 fork, not the 1.0.8 release: the AUR's pam-python depends on
+  # python2, which Arch removed - it cannot be built at all. This is what
+  # the repository has always published.
   pam-python:
-    upstream: https://aur.archlinux.org/pam-python.git
+    upstream: https://aur.archlinux.org/pam-python-git.git
     arch: x86_64
   phinger-cursors:
     upstream: https://aur.archlinux.org/phinger-cursors.git
@@ -96,6 +99,8 @@ packages:
   way-displays:
     upstream: https://aur.archlinux.org/way-displays.git
     arch: x86_64
+  # marked-man's man-page step is removed here; it crashes on every input
+  # against current marked. The README is still installed.
   wluma:
     upstream: https://aur.archlinux.org/wluma.git
     arch: x86_64
