@@ -1,0 +1,117 @@
+name: track-upstreams
+
+# Upstream moves; our vendored copies do not. This looks once a day and
+# opens one pull request per package that changed.
+#
+# One per package, not one for all of them: a conflict in wluma should not
+# hold up a clean update to swayr, and a PR that touches one PKGBUILD is a
+# PR someone can actually review. Each branch is named for its package, so
+# a second run updates the existing PR rather than opening another.
+#
+# Never a direct push: several vendored PKGBUILDs carry deliberate local
+# edits, and whether an upstream change is still compatible with them is a
+# judgement call. The merge is three-way against packages/.upstream/, so a
+# change to a line we never touched applies cleanly and one to a line we
+# did touch is reported as a conflict with our file left alone.
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: track-upstreams
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - run: pip install pyyaml
+
+      - name: look for upstream changes
+        id: track
+        env:
+          # raises the GitHub API rate limit from 60/hour per address to
+          # 1000, which matters on a shared runner
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 scripts/track_upstreams.py --apply --report-dir /tmp/pr > /tmp/summary.json
+          status=$?
+          set -e
+          cat /tmp/summary.json
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          if [ "$status" = "2" ]; then
+            echo "::warning::could not check $(jq -r '.failed | join(", ")' /tmp/summary.json)"
+          fi
+
+      - name: open a pull request per package
+        if: steps.track.outputs.status != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          base=$(git rev-parse HEAD)
+          failures=0
+
+          # A clean merge wrote files; a conflict wrote none. Both produce a
+          # report, so drive the loop off the reports and decide per package.
+          for report in /tmp/pr/*.md; do
+            [ -e "$report" ] || continue
+            name=$(basename "$report" .md)
+            branch="track-upstream/$name"
+
+            # A conflicted package wrote no files, so decide BEFORE creating
+            # a branch - otherwise every conflict leaves an empty branch
+            # behind that no pull request ever references.
+            if git diff --quiet -- "packages/$name" "packages/.upstream/$name.PKGBUILD"; then
+              # conflicted: nothing to commit, so report it as an issue
+              # rather than an empty pull request
+              existing=$(gh issue list --search "in:title track upstream: $name" \
+                --state open --json number --jq '.[0].number // empty')
+              if [ -n "$existing" ]; then
+                gh issue comment "$existing" --body-file "$report"
+              else
+                gh issue create --title "track upstream: $name needs a human" \
+                  --body-file "$report"
+              fi
+              continue
+            fi
+
+            # each PR starts from the base commit, so one does not carry
+            # another's changes
+            git checkout -q -B "$branch" "$base"
+            git add "packages/$name" "packages/.upstream/$name.PKGBUILD"
+            git commit -q -m "track upstream: $name"
+            git push -q --force origin "$branch"
+
+            # `gh pr create` fails if one is already open for this branch,
+            # which is the normal second-run case - so fall back to updating
+            # it. Errors are NOT discarded: hiding them turned "the org
+            # forbids workflows from opening pull requests" into the far
+            # less useful "no pull requests found for branch".
+            if ! gh pr create --head "$branch" --base main \
+                 --title "track upstream: $name" --body-file "$report"; then
+              gh pr edit "$branch" --body-file "$report" || {
+                echo "::error::could not open or update a pull request for $name."
+                echo "::error::If this says 'GitHub Actions is not permitted to create pull requests',"
+                echo "::error::enable it in the manjaro-sway org settings: Actions > General >"
+                echo "::error::Workflow permissions > Allow GitHub Actions to create and approve pull requests."
+                failures=1
+              }
+            fi
+          done
+
+          git checkout -q "$base"
+          exit "$failures"

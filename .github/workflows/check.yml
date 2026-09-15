@@ -1,0 +1,80 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+      - name: test
+        working-directory: worker
+        run: npm ci && npm test
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13'
+      - name: ruff
+        run: |
+          pip install ruff
+          ruff check scripts
+
+  shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y shellcheck
+          shellcheck --severity=error \
+            .github/scripts/*.sh \
+            ci/*.sh \
+            packages/manjaro-sway-settings/payload/usr/bin/* \
+            packages/manjaro-sway-settings/payload/usr/local/bin/* \
+            packages/manjaro-sway-settings/payload/usr/share/sway/scripts/*.sh
+
+  iso-profile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: every package the profile lists resolves
+        # the same check build-iso runs, here so a pull request that adds an
+        # unresolvable name fails in seconds rather than an hour into a build
+        run: python3 scripts/check_iso_packages.py
+
+  packages:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: every PKGBUILD parses and its checksums match its sources
+        # a stale sha256sum fails the build twenty minutes in; catch it here
+        run: |
+          # git: several PKGBUILDs take git+ sources, which makepkg
+          # refuses to even look at without it
+          pacman -Sy --noconfirm --needed pacman-contrib git >/dev/null
+          useradd -m builder
+          chown -R builder:builder .
+          fail=0
+          for pkgbuild in packages/*/PKGBUILD; do
+            dir=$(dirname "$pkgbuild")
+            if ! sudo -u builder bash -c "cd '$dir' && makepkg --verifysource --noconfirm --skippgpcheck" >/dev/null 2>&1; then
+              echo "::error file=$pkgbuild::sources do not verify"
+              fail=1
+            fi
+          done
+          exit $fail

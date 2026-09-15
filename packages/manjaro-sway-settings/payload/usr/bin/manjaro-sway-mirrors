@@ -33,7 +33,7 @@ if ! custom_conf_exists || ! custom_conf_on_branch; then
     cat >$custom_conf <<EOL
 [manjaro-sway] 
 SigLevel = PackageRequired
-Server = https://packages.manjaro-sway.download/${branch}/\$arch 
+Server = https://sway.manjaro.download/packages/${branch}/\$arch
 EOL
     echo "## updated $custom_conf"
 fi

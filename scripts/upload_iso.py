@@ -5,11 +5,6 @@ Version-prefixed, so an older image stays fetchable while a newer one
 publishes, and `latest/` is repointed only once the versioned copy is
 complete - a download that starts mid-upload would otherwise get a truncated
 image that still checksums as whatever arrived.
-
-Two artefact types share this path: the x86_64 ISO and the Raspberry Pi
-disk image. They are different products - different arch, different boot
-mechanism, no installer on the Pi - so each has its own `latest/` alias
-and neither can overwrite the other's.
 """
 
 import argparse
@@ -29,7 +24,7 @@ def log(message: str) -> None:
 def s3_client():
     # R2 copies an object server-side, and a 1.7 GB image takes minutes -
     # well past botocore's 60s default, which failed the build after a
-    # successful upload with "Read timeout on .../latest/ashlaros.iso".
+    # successful upload with "Read timeout on .../latest/manjaro-sway.iso".
     # The copy itself had started; only the client gave up waiting.
     return boto3.client(
         "s3",
@@ -49,13 +44,11 @@ def main() -> int:
 
     # (glob, content type, the latest/ alias it repoints)
     ARTEFACTS = (
-        ("*.iso", "application/x-iso9660-image", "latest/ashlaros.iso"),
-        ("*.img.xz", "application/x-xz", "latest/ashlaros-rpi5.img.xz"),
+        ("*.iso", "application/x-iso9660-image", "latest/manjaro-sway.iso"),
     )
 
-    # The Pi build writes its checksum as SHA256SUMS.<image>, which *.img.xz
-    # also matches - uploaded as an artefact it would repoint latest/ at a
-    # 90-byte text file. Checksums are handled separately below.
+    # SHA256SUMS sits beside the image and must not be uploaded as one:
+    # that would repoint latest/ at a text file. It is handled below.
     found = [
         (path, content_type, alias)
         for pattern, content_type, alias in ARTEFACTS
@@ -75,11 +68,9 @@ def main() -> int:
         s3.upload_file(path, bucket, key, ExtraArgs={"ContentType": content_type})
         log(f"uploaded {key} ({os.path.getsize(path)} bytes)")
 
-    # SHA256SUMS from the ISO build, SHA256SUMS.<image> from the Pi one:
-    # the two products publish under the same version prefix from separate
-    # workflows, so the image cannot use the bare name without clobbering
-    # the ISO's. Matching the prefix uploads whichever this build wrote,
-    # rather than silently skipping the checksum that proves the image.
+    # Matched by prefix rather than named: the checksum that proves the
+    # image has to travel with it, and a silently skipped one is worse
+    # than a missing image.
     checksums = sorted(glob.glob(os.path.join(args.iso_dir, "SHA256SUMS*")))
     if not checksums:
         raise SystemExit("no SHA256SUMS beside the artefact")
@@ -125,8 +116,8 @@ def main() -> int:
 def prune_old_versions(s3, bucket: str, keep: int) -> None:
     """Delete all but the newest `keep` release prefixes.
 
-    Nothing removed these before, and a daily build publishes an image a
-    day. Versions are YYYY.MM.DD, so lexical order is chronological and
+    Nothing removed these before, and a weekly build publishes an image a
+    week. Versions are YYYYMMDDHHmm, so lexical order is chronological and
     the newest `keep` are simply the tail.
 
     Whole prefixes, not just the images: a version's checksum and
@@ -143,7 +134,7 @@ def prune_old_versions(s3, bucket: str, keep: int) -> None:
             name = prefix["Prefix"].rstrip("/")
             # a release prefix and nothing else: latest/, screenshots and
             # anything added later must not be swept up by this
-            if re.fullmatch(r"\d{4}\.\d{2}\.\d{2}", name):
+            if re.fullmatch(r"\d{12}", name):
                 versions.add(name)
 
     doomed = sorted(versions)[:-keep] if len(versions) > keep else []

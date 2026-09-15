@@ -63,20 +63,22 @@ def wanted(path: Path, kernel: str) -> list[tuple[str, str | None]]:
     than whichever tree happens to provide the name.
     """
     names = []
-    for line in path.read_text().splitlines():
-        line = line.split("#", 1)[0].strip()
-        if not line:
+    for raw in path.read_text().splitlines():
+        entry = raw.split("#", 1)[0].strip()
+        if not entry:
             continue
 
-        marker = MARKER.match(line)
+        marker = MARKER.match(entry)
         if marker:
             if marker.group(1) in DROPPED:
                 continue
             if marker.group(1) not in KEPT:
                 raise SystemExit(f"{path.name}: unknown marker >{marker.group(1)}")
-            line = line[marker.end():].strip()
+            entry = entry[marker.end():].strip()
+            if not entry:
+                continue
 
-        name = line.replace("KERNEL", kernel).split()[0]
+        name = entry.replace("KERNEL", kernel).split()[0]
         repository, _, bare = name.rpartition("/")
         names.append((bare, repository or None))
     return names
@@ -113,7 +115,7 @@ def manjaro() -> set[str]:
             with urllib.request.urlopen(request, timeout=60) as response:
                 payload = response.read()
         except (urllib.error.URLError, TimeoutError) as exc:
-            raise SystemExit(f"could not read {url}: {exc}")
+            raise SystemExit(f"could not read {url}: {exc}") from exc
 
         with tarfile.open(fileobj=io.BytesIO(payload), mode="r:gz") as tar:
             for member in tar.getmembers():
