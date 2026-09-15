@@ -1,12 +1,18 @@
 *.iso
 manjaro-tools
 pkg-cache
-iso-profiles
-iso
-docs/manjaro-sway/*
-docs/assets.json
-docs/release.json
 manjaro-full.zip
-docs/node_modules
-docs/_site
-docs/.wrangler
+
+# build output of the python in scripts/
+__pycache__/
+
+# makepkg's working directories, which every packages/<name>/ can grow.
+# Anchored to packages/: an unanchored src/ also matches worker/src, which
+# is source.
+packages/*/pkg/
+packages/*/src/
+*.pkg.tar.zst
+*.pkg.tar.zst.sig
+
+worker/node_modules
+worker/.wrangler

@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-# Make a stock Arch container able to build our packages.
+# Make a stock Manjaro container able to build our packages.
+#
+# Manjaro, not Arch: this is an overlay on Manjaro's repositories, and
+# several packages depend on names only Manjaro has - manjaro-base-skel,
+# matcha-gtk-theme, papirus-maia-icon-theme, kvantum-theme-matcha. On Arch
+# those cannot be resolved at all, which failed manjaro-sway-settings with
+# "Could not resolve all dependencies". Building against the distribution
+# the packages are installed on is also what keeps a compiled package
+# linked against the libraries its users actually have.
 #
 # Two things it cannot do out of the box: makepkg refuses to run as root, and
 # our own packages depend on each other - manjaro-sway-settings needs
@@ -24,7 +32,13 @@ if ! pacman -Sy --noconfirm >/dev/null 2>&1; then
 fi
 
 pacman-key --init
-pacman-key --populate archlinux
+pacman-key --populate archlinux manjaro
+
+# The branch the repository targets. The image ships stable mirrors, and a
+# package built against stable but published for unstable users links
+# against older libraries than they have.
+pacman-mirrors --api --set-branch unstable >/dev/null
+pacman-mirrors --geoip >/dev/null 2>&1 || pacman-mirrors -f5 >/dev/null
 
 pacman -Syu --noconfirm --needed \
   base-devel git sudo python python-boto3 pacman-contrib

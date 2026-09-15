@@ -20,7 +20,7 @@ jobs:
     if: inputs.any != '[]'
     runs-on: ubuntu-latest
     container:
-      image: archlinux:base-devel
+      image: manjarolinux/base
       # makepkg drops privileges and pacman needs to mount
       options: --security-opt seccomp=unconfined
     strategy:
@@ -74,7 +74,7 @@ jobs:
     if: inputs.compiled != '[]'
     runs-on: ubuntu-latest
     container:
-      image: archlinux:base-devel
+      image: manjarolinux/base
       options: --security-opt seccomp=unconfined
     strategy:
       fail-fast: false
@@ -121,7 +121,7 @@ jobs:
     container:
       # repo-add must come from the same pacman generation that built the
       # packages; Ubuntu's build rejects them as "not a package file"
-      image: archlinux:base-devel
+      image: manjarolinux/base
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: pacman -Sy --noconfirm --needed python python-boto3

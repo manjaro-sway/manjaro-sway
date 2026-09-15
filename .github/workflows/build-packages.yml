@@ -82,7 +82,7 @@ jobs:
     # checked either way; skipped is not failed
     if: always() && needs.wave0.result != 'cancelled'
     runs-on: ubuntu-latest
-    container: archlinux:base-devel
+    container: manjarolinux/base
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: pacman -Sy --noconfirm --needed python python-boto3
