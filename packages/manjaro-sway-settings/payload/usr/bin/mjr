@@ -1,0 +1,32 @@
+#!/bin/sh
+
+if [ -z "$1" ] || [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+  echo "mjr.sh - Non-tracking URL shortener"
+  echo "Usage: $(basename $0) <url>"
+  exit 1
+fi
+
+RESULT=$(curl --fail -s https://mjr.sh/add?url=$1)
+
+if [ -z "$RESULT" ]; then
+  echo "Failed to shorten URL"
+  exit 1
+fi
+
+URL=$(echo $RESULT | jq -r '.url')
+SECRET=$(echo $RESULT | jq -r '.secret')
+STATS=$(echo $RESULT | jq -r '.stats')
+KEY=$(echo $RESULT | jq -r '.key')
+
+STORAGE_DIR="${XDG_DOCUMENTS_DIR:-$HOME/Documents}/mjr"
+mkdir -p "$STORAGE_DIR"
+
+BACKUP="$STORAGE_DIR/$(echo $1 | awk -F[/:] '{print $4}')_${KEY}.json"
+echo $RESULT > $BACKUP
+
+echo "---"
+echo "url: $URL"
+echo "stats: $STATS"
+echo "secret: $SECRET"
+echo "backup: $BACKUP"
+echo "---"

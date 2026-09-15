@@ -1,0 +1,48 @@
+#!/bin/bash
+set -u
+
+## theme switcher for manjaro sway
+THEME_DIR="/usr/share/sway/themes"
+
+prompt() {
+    read -p "->${1:+" ${1}."} Press enter to continue..."
+}
+
+install() {
+    [ -f "$1/packages" ] || return
+    local missing_pkgs
+    missing_pkgs=$(pacman -T $(cat "$1/packages") 2>/dev/null)
+    if [ -n "$missing_pkgs" ]; then
+        echo "> Installing theme requirements using yay"
+        foot --app-id floating_shell --window-size-chars 82x25 yay -S --needed $missing_pkgs
+    fi
+}
+
+THEMES=$(find ${THEME_DIR} -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort)
+
+DARK_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select day theme")
+DARK_THEME_DIR="${THEME_DIR}/${DARK_THEME}"
+install "$DARK_THEME_DIR"
+
+LIGHT_THEME=$(echo "$THEMES" | rofi -dmenu -p "Select night theme")
+LIGHT_THEME_DIR="${THEME_DIR}/${LIGHT_THEME}"
+install "$LIGHT_THEME_DIR"
+
+FALLBACK_THEME="day"
+FALLBACK_THEME_DIR=$DARK_THEME_DIR
+SECONDARY_THEME="light"
+SECONDARY_THEME_DIR=$LIGHT_THEME_DIR
+
+if [ "$FALLBACK_THEME" == "night" ]; then
+    FALLBACK_THEME_DIR=$LIGHT_THEME_DIR
+    SECONDARY_THEME="dark"
+    SECONDARY_THEME_DIR=$DARK_THEME_DIR
+fi
+
+# copy the sway theme
+[ -f "$FALLBACK_THEME_DIR/theme.conf" ] && /usr/bin/cp --backup -v "$FALLBACK_THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/theme.conf" && swaymsg reload
+[ -f "$SECONDARY_THEME_DIR/theme.conf" ] && /usr/bin/cp --backup -v "$SECONDARY_THEME_DIR/theme.conf" "$HOME/.config/sway/definitions.d/theme.${SECONDARY_THEME}.conf_"
+
+# copy the foot theme
+[ -f "$FALLBACK_THEME_DIR/foot-theme.ini" ] && /usr/bin/cp --backup -v "$FALLBACK_THEME_DIR/foot-theme.ini" "$HOME/.config/foot/foot-theme.ini"
+[ -f "$SECONDARY_THEME_DIR/foot-theme.ini" ] && /usr/bin/cp --backup -v "$SECONDARY_THEME_DIR/foot-theme.ini" "$HOME/.config/foot/foot-theme.${SECONDARY_THEME}.ini_"

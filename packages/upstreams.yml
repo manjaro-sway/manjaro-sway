@@ -1,0 +1,107 @@
+# Where each PKGBUILD in this directory comes from.
+#
+# No upstream: authored here, nothing to track. Everything else is
+# vendored - the AUR is not a build input, because an AUR PKGBUILD can be
+# force-pushed between two builds of the same version.
+#
+# Vendored copies do not update themselves. track-upstreams.yml runs
+# scripts/track_upstreams.py daily: it fetches each upstream PKGBUILD -
+# from the AUR through cgit, from github through the contents API -
+# compares it against the pristine copy in packages/.upstream/, and opens
+# one pull request per package that moved. Local edits live in the
+# vendored copy, so the merge is three-way against that base: an upstream
+# change to a line we never touched applies cleanly, one to a line we did
+# touch is reported as a conflict and left for a human. Nothing is ever
+# merged automatically.
+#
+# arch: what the PKGBUILD declares after our edits, and which build-wave
+# job builds it. This repository is x86_64-only, so the values are `any`
+# for packages that ship no compiled artefact and `x86_64` for the rest.
+
+packages:
+  # authored here
+  manjaro-sway-settings:
+    arch: any
+  manjaro-sway-wallpapers:
+    arch: any
+  oh-my-zsh:
+    arch: any
+  laptop-mode-tools:
+    arch: any
+  kernel-install-mkinitcpio:
+    arch: any
+  # pinned to a commit rather than tracking HEAD: pkgver() counts commits
+  # on the checkout, so an unpinned source made the declared version and
+  # the built version disagree - every run rebuilt it and overwrote the
+  # published package with a byte-different one. Upstream last moved in
+  # 2021; bump the commit to take new work.
+  gtk3-nocsd:
+    arch: x86_64
+
+  # vendored from manjaro-contrib, which maintains these outside the AUR
+  grimshot:
+    upstream: https://github.com/manjaro-contrib/grimshot
+    arch: any
+  idlehack:
+    upstream: https://github.com/manjaro-contrib/idlehack
+    arch: x86_64
+  sway-services:
+    upstream: https://github.com/manjaro-contrib/sway-services
+    arch: any
+
+  # vendored from the AUR
+  bluetuith:
+    upstream: https://aur.archlinux.org/bluetuith.git
+    arch: x86_64
+  flashfocus:
+    upstream: https://aur.archlinux.org/flashfocus.git
+    arch: any
+  nwg-wrapper:
+    upstream: https://aur.archlinux.org/nwg-wrapper.git
+    # pure python; the AUR's x86_64 is an oversight, widened here
+    arch: any
+  pacman-log-orphans-hook:
+    upstream: https://aur.archlinux.org/pacman-log-orphans-hook.git
+    arch: any
+  pacseek:
+    upstream: https://aur.archlinux.org/pacseek.git
+    arch: any
+  pam-python:
+    upstream: https://aur.archlinux.org/pam-python.git
+    arch: x86_64
+  phinger-cursors:
+    upstream: https://aur.archlinux.org/phinger-cursors.git
+    arch: any
+  poweralertd:
+    upstream: https://aur.archlinux.org/poweralertd.git
+    arch: x86_64
+  python-xpybutil:
+    upstream: https://aur.archlinux.org/python-xpybutil.git
+    arch: any
+  swaycwd:
+    upstream: https://aur.archlinux.org/swaycwd.git
+    arch: any
+  swaylock-effects:
+    upstream: https://aur.archlinux.org/swaylock-effects.git
+    arch: x86_64
+  swayr:
+    upstream: https://aur.archlinux.org/swayr.git
+    arch: x86_64
+  swayshot:
+    upstream: https://aur.archlinux.org/swayshot.git
+    arch: any
+  sworkstyle:
+    upstream: https://aur.archlinux.org/sworkstyle.git
+    arch: x86_64
+  way-displays:
+    upstream: https://aur.archlinux.org/way-displays.git
+    arch: x86_64
+  wluma:
+    upstream: https://aur.archlinux.org/wluma.git
+    arch: x86_64
+  xdg-terminal-exec:
+    upstream: https://aur.archlinux.org/xdg-terminal-exec.git
+    arch: any
+  zeit:
+    upstream: https://aur.archlinux.org/zeit.git
+    arch: x86_64

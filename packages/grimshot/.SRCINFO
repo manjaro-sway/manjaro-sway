@@ -1,0 +1,19 @@
+pkgbase = grimshot
+	pkgdesc = A helper for screenshots within sway.
+	pkgver = 1.10
+	pkgrel = 1
+	url = https://github.com/OctopusET/sway-contrib
+	arch = any
+	license = MIT
+	makedepends = scdoc
+	depends = grim
+	depends = slurp
+	depends = jq
+	optdepends = libnotify: Notify users when a screenshot is taken
+	optdepends = wl-clipboard: Copy screenshots
+	source = grimshot-1.10::https://raw.githubusercontent.com/OctopusET/sway-contrib/cd2cc4c4100ec3ed70ac5e3e8676d218788468a4/grimshot
+	source = grimshot-1.10.1.scd::https://raw.githubusercontent.com/OctopusET/sway-contrib/2a132b84460dcf28d042dc1a1cc6311b1918b43a/grimshot.1.scd
+	sha256sums = 489d60e87178d0a9379072b508c438b42c8db5b9d2f48378f8ed196b0d736e26
+	sha256sums = d940e87358033919ea175351210c1ca1a6b456a55e35f40b3d6039ba662c0fe8
+
+pkgname = grimshot

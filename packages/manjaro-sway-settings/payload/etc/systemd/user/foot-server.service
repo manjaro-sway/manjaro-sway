@@ -1,0 +1,17 @@
+[Unit]
+Requires=%N.socket
+Description=Foot terminal server mode
+Documentation=man:foot(1)
+PartOf=wayland-session.target
+After=wayland-session.target
+
+[Service]
+ExecStart=/usr/share/sway/scripts/foot.sh --server=3
+UnsetEnvironment=LISTEN_PID LISTEN_FDS LISTEN_FDNAMES
+NonBlocking=true
+ExecReload=kill -SIGUSR2 $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=wayland-session.target
+

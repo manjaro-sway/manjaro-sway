@@ -26,7 +26,7 @@ We tried to allow opt-outs of most tools by just not having them installed. All 
 
 ### How can I remove an auto-starting application?
 
-Refer to the autostart section of our [definitions](https://github.com/manjaro-sway/desktop-settings/blob/sway/community/sway/etc/sway/autostart) to find the variables.
+Refer to the autostart section of our [definitions](https://github.com/manjaro-sway/manjaro-sway/blob/main/packages/manjaro-sway-settings/payload/etc/sway/autostart) to find the variables.
 
 Add an entry to `.config/sway/definitions.d/autostart.conf` for each command you'd like to disable:
 
@@ -93,7 +93,7 @@ Afterwards the primary files you'll need to edit are:
 - `~/.config/sway/definitiond.d/theme.conf`
 - `~/.config/foot/foot.ini`
 
-Feel free to contribute your themes and optimizations to our [themes directory](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway/usr/share/sway/themes).
+Feel free to contribute your themes and optimizations to our [themes directory](https://github.com/manjaro-sway/manjaro-sway/tree/main/packages/manjaro-sway-settings/payload/usr/share/sway/themes).
 
 ### How can I customize waybar without losing my customization after an upgrade?
 

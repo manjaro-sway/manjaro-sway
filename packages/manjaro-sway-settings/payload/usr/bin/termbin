@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+  echo "termbin.com - Terminal pastebin"
+  echo "Usage: echo "test" | $(basename $0)"
+  exit 1
+fi
+
+if ! command -v nc &> /dev/null
+then
+    echo "nc could not be found (netcat). Please install `openbsd-netcat`."
+    exit
+fi
+
+nc termbin.com 9999
+
+echo -e "\e[33mPlease switch to 'termpaste' for a better experience! 'termbin' will be removed eventually.\e[0m" >/dev/stderr

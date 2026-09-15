@@ -1,0 +1,657 @@
+name: 'Manjaro Iso Action'
+description: 'Installs prerequisites for building Manjaro on ubuntu'
+
+inputs:
+  iso-profiles-repo:
+    description: 'iso profiles to clone; empty uses the in-repo iso-profiles/ tree'
+    required: false
+    default: ''
+  iso-profiles-branch:
+    description: 'branch of the iso profiles to check out'
+    required: false
+  edition:
+    description: 'name of the iso profile to build'
+    required: true
+  branch:
+    description: 'stable (default), testing, unstable'
+    required: false
+    default: stable
+  scope:
+    description: 'full (default) or minimal image'
+    required: false
+    default: full
+  version:
+    description: 'dist_release version (upstream if not given)'
+    required: false
+  kernel:
+    description: 'kernel version'
+    required: false
+    # linux510 was the default for years after it left the repositories,
+    # so any caller that did not set this failed with 'target not found'.
+    # Callers that track upstream should pass a resolved version rather
+    # than relying on this.
+    default: linux612
+  code-name:
+    description: 'manjaro code-name (upstream if not given)'
+    required: false
+  release-tag:
+    description: 'release tag to upload to (if set)'
+    required: false
+  custom-repo:
+    description: 'name a custom repo to be prioritized above the default ones'
+    required: false
+  office-chooser:
+    description: 'include calamares office installer module'
+    required: false
+    default: "false"
+  build-mirror:
+    description: 'specific build mirror to use'
+    required: false
+    default: https://forksystems.mm.fcix.net/manjaro
+  fallback-mirrors:
+    description: >-
+      whitespace-separated mirrors pacman falls back through when the build
+      mirror stalls mid-transaction; empty disables the failover
+    required: false
+    # the same sync tier as the default build mirror, different operators
+    default: >-
+      https://coresite.mm.fcix.net/manjaro
+      https://nnenix.mm.fcix.net/manjaro
+      https://opencolo.mm.fcix.net/manjaro
+  gpg-secret-key-base64:
+    description: 'base64 encoded gpg secret key (without a passphrase) to sign the zip (if set)'
+    required: false
+  gpg-passphrase:
+    description: 'phrase to decrypt the gpg secret key if given'
+    required: false
+  additional-trusted-gpg:
+    description: 'gpg keyids that pacman should trust'
+    required: false
+  chroot-nameservers:
+    description: 'space-separated resolvers to write into the build chroots'
+    required: false
+    default: '1.1.1.1 8.8.8.8'
+  r2-endpoint:
+    description: 's3 endpoint to upload the unsplit iso to (skipped if unset)'
+    required: false
+  r2-access-key-id:
+    description: 's3 access key id'
+    required: false
+  r2-secret-access-key:
+    description: 's3 secret access key'
+    required: false
+  r2-bucket:
+    description: 's3 bucket to upload the iso into'
+    required: false
+  r2-prefix:
+    description: 'key prefix inside the bucket, e.g. rc-202601010000/'
+    required: false
+    default: ''
+  export-rootfs:
+    description: >-
+      also export the iso's squashfs layers as a flat rootfs tarball and
+      publish it as a container image, for running the desktop rather
+      than booting it
+    required: false
+    default: "false"
+  rootfs-image:
+    description: >-
+      registry repository to push the rootfs image to, e.g.
+      ghcr.io/manjaro-contrib/tryout. The tag is <edition>-<branch>.
+      Skipped if unset.
+    required: false
+    default: ''
+  registry-token:
+    description: 'token for rootfs-image, e.g. github.token for ghcr.io'
+    required: false
+    default: ''
+
+outputs:
+  file-path:
+    description: "path of the generated iso"
+    value: ${{ steps.image-build.outputs.file-path }}
+  rootfs-path:
+    description: "path of the exported rootfs tarball, empty unless export-rootfs"
+    value: ${{ steps.image-build.outputs.rootfs-path }}
+  rootfs-image:
+    description: "the pushed rootfs image, empty unless rootfs-image was set"
+    value: ${{ steps.publish-rootfs-image.outputs.rootfs-image }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: install-build-dependencies
+      shell: bash
+      env:
+        UV_VERSION: '0.12.7'
+        MESON_VERSION: '1.12.0'
+        NINJA_VERSION: '1.13.2'
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        sudo apt-add-repository -y universe
+        sudo apt-get update
+        sudo apt-get install \
+          xorriso \
+          gdisk \
+          zip \
+          systemd-container \
+          bmap-tools \
+          asciidoc \
+          libarchive-tools \
+          git \
+          build-essential \
+          cmake \
+          libarchive-dev \
+          pkg-config \
+          libcurl4-openssl-dev \
+          libgpgme-dev \
+          libssl-dev \
+          fakeroot \
+          dh-autoreconf \
+          haveged \
+          os-prober \
+          kwalify \
+          dosfstools \
+          libisoburn1 \
+          squashfs-tools \
+          docbook2x \
+          mktorrent \
+          doxygen \
+          zstd \
+          s3cmd
+        # uv rather than pip, pinned so an upstream release cannot break
+        # a build that was passing. `uv tool install` rather than
+        # `pip install --system`: ubuntu marks its python
+        # externally-managed and refuses a system install outright.
+        # the installer is piped, so retry the download and not the shell
+        retry curl -LsSf --connect-timeout 30 \
+          -o /tmp/uv-installer.sh "https://astral.sh/uv/${UV_VERSION}/install.sh"
+        sh /tmp/uv-installer.sh
+        export PATH="$HOME/.local/bin:$PATH"
+        # into /usr/local/bin, not the default ~/.local/bin: the pacman
+        # build runs meson under sudo, which resets PATH to secure_path and
+        # would not see a binary in the runner user's home
+        # --force: the runner image already ships a ninja in
+        # /usr/local/bin, and uv refuses to replace an existing executable.
+        # Pinning the version is the point, so ours has to win.
+        sudo env "PATH=$PATH" UV_TOOL_BIN_DIR=/usr/local/bin \
+          uv tool install --force "meson==${MESON_VERSION}"
+        sudo env "PATH=$PATH" UV_TOOL_BIN_DIR=/usr/local/bin \
+          uv tool install --force "ninja==${NINJA_VERSION}"
+    - id: cache-pacman
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: |
+          /tmp/pacman-stage
+          /tmp/pacman-configs
+        key: pacman-7.1.0-contrib-${{ runner.os }}-${{ runner.arch }}-v1
+    - id: install-pacman
+      shell: bash
+      env:
+        PACMAN_VERSION: 7.1.0
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        set -euo pipefail
+        if [ -d /tmp/pacman-stage/usr ]; then
+          echo "## pacman ${PACMAN_VERSION}: restoring from cache"
+          sudo cp -a /tmp/pacman-stage/. /
+          sudo install -m644 /tmp/pacman-configs/pacman.conf /etc/pacman.conf
+          sudo install -m644 /tmp/pacman-configs/makepkg.conf /etc/
+        else
+          echo "## pacman ${PACMAN_VERSION}: source build"
+          retry sudo git clone --depth 1 https://github.com/manjaro-contrib/packages-core-pacman.git pacman
+          pushd pacman
+            retry sudo wget https://gitlab.archlinux.org/pacman/pacman/-/archive/v${PACMAN_VERSION}/pacman-v${PACMAN_VERSION}.tar.gz
+            sudo tar -xvf pacman-v${PACMAN_VERSION}.tar.gz
+            pushd pacman-v${PACMAN_VERSION}
+              sudo meson --prefix=/usr \
+                        --buildtype=plain \
+                        -Ddoc=disabled \
+                        -Ddoxygen=enabled \
+                        -Dscriptlet-shell=/usr/bin/bash \
+                        -Dldconfig=/usr/bin/ldconfig \
+                        build
+              sudo meson compile -C build
+              # Stage install for caching; then propagate to / for this run.
+              sudo meson install -C build --destdir /tmp/pacman-stage
+              sudo cp -a /tmp/pacman-stage/. /
+            popd
+            sudo mkdir -p /tmp/pacman-configs
+            sudo cp pacman.conf makepkg.conf /tmp/pacman-configs/
+            sudo install -m644 pacman.conf /etc/pacman.conf
+            sudo install -m644 makepkg.conf /etc/
+          popd
+          # pacman-contrib provides paccache, used by callers to prune the
+          # /var/cache/pacman/pkg cache between runs. Autotools-based, not
+          # meson — needs autogen.sh first.
+          echo "## pacman-contrib: source build"
+          retry sudo git clone --depth 1 https://gitlab.archlinux.org/pacman/pacman-contrib.git
+          pushd pacman-contrib
+            sudo ./autogen.sh
+            sudo ./configure --prefix=/usr --disable-doc
+            sudo make
+            sudo make DESTDIR=/tmp/pacman-stage install
+            sudo cp -a /tmp/pacman-stage/. /
+          popd
+        fi
+        # System user, /etc/pacman.d, and mirrorlist aren't cached — runtime
+        # state, cheap to (re-)create.
+        id alpm >/dev/null 2>&1 || sudo useradd --system --no-create-home --shell /usr/sbin/nologin alpm
+        sudo mkdir -p /etc/pacman.d
+        sudo touch /etc/pacman.d/mirrorlist
+    - id: install-keyrings
+      shell: bash
+      env:
+        BRANCH: ${{ inputs.branch }}
+        BUILD_MIRROR: ${{ inputs.build-mirror }}
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        sudo install -dm755 /usr/share/pacman/keyrings/
+
+        retry sudo git clone --depth 1 https://github.com/manjaro-contrib/packages-core-manjaro-keyring.git manjaro-keyring
+        pushd manjaro-keyring
+          sudo install -m0644 manjaro.gpg /usr/share/pacman/keyrings/
+          sudo install -m0644 manjaro-trusted /usr/share/pacman/keyrings/
+          sudo install -m0644 manjaro-revoked /usr/share/pacman/keyrings/
+        popd
+
+        mkdir -p archlinux-keyring
+        pushd archlinux-keyring
+          # resolved from a repository database rather than the packages page;
+          # see the script for why that url cannot be relied on
+          bash "$GITHUB_ACTION_PATH/scripts/install-archlinux-keyring.sh"
+        popd
+
+        sudo pacman-key --init
+        sudo pacman-key --populate archlinux manjaro
+
+        # one keyserver being unreachable is not a reason to fail a build,
+        # and the two carry the same keys
+        for gpg_key in ${{ inputs.additional-trusted-gpg }}; do
+          received=""
+          for keyserver in keys.openpgp.org keyserver.ubuntu.com; do
+            if retry sudo pacman-key --keyserver "$keyserver" --recv-key "$gpg_key"; then
+              received=1
+              break
+            fi
+            echo "## $keyserver did not serve $gpg_key, trying the next" >&2
+          done
+          if [ -z "$received" ]; then
+            echo "## no keyserver served $gpg_key" >&2
+            exit 1
+          fi
+          sudo pacman-key --lsign-key "$gpg_key"
+        done
+    - id: install-arch-install-scripts
+      shell: bash
+      env:
+        VERSION: "27"
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        retry sudo wget https://github.com/archlinux/arch-install-scripts/archive/refs/tags/v${VERSION}.tar.gz -O arch-install-scripts.tar.gz
+        sudo tar -xvf arch-install-scripts.tar.gz
+        sudo make -C arch-install-scripts-${VERSION}
+        sudo make -C arch-install-scripts-${VERSION} check
+        sudo make -C arch-install-scripts-${VERSION} PREFIX=/usr install
+        
+        retry sudo wget https://raw.githubusercontent.com/manjaro-contrib/applications-pacman-mirrors/master/data/etc/pacman-mirrors.conf -O /etc/pacman-mirrors.conf
+    - id: install-calamares-tools
+      shell: bash
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        retry sudo git clone --depth 1 https://github.com/manjaro-contrib/applications-calamares-tools.git calamares-tools
+        
+        cd calamares-tools
+        sudo install -d /usr/share/calamares/
+        sudo cp -rv schemas/ /usr/share/calamares/
+    - id: install-mkinitcpio
+      shell: bash
+      env:
+        VERSION: "32"
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        retry sudo wget https://gitlab.archlinux.org/archlinux/mkinitcpio/mkinitcpio/-/archive/v${VERSION}/mkinitcpio-v${VERSION}.tar.gz
+        sudo tar -xf mkinitcpio-v${VERSION}.tar.gz
+        sudo make -C mkinitcpio-v${VERSION} install
+        sudo sed -i -e 's|File|Path|' /usr/share/libalpm/hooks/*hook
+    - id: install-manjaro-tools
+      shell: bash
+      env:
+        CUSTOM_REPO: ${{ inputs.custom-repo }}
+        BUILD_MIRROR: ${{ inputs.build-mirror }}
+        FALLBACK_MIRRORS: ${{ inputs.fallback-mirrors }}
+        XFER_DIR: /var/cache/pacman/pkg/.manjaro-iso
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        retry sudo git clone --depth 1 https://github.com/manjaro-contrib/tools-development-tools-manjaro-tools.git manjaro-tools
+        cd manjaro-tools
+        sudo make SYSCONFDIR=/etc PREFIX=/usr
+        sudo make SYSCONFDIR=/etc PREFIX=/usr install_base
+        sudo make SYSCONFDIR=/etc PREFIX=/usr install_yaml
+        sudo make SYSCONFDIR=/etc PREFIX=/usr install_iso
+        if [ ! -z ${CUSTOM_REPO} ]; then
+          echo "## adding repo [${CUSTOM_REPO}]"
+          sudo sed -i -e "s/\[core\]/\[${CUSTOM_REPO}\]\nSigLevel = PackageRequired\nInclude = \/etc\/pacman\.d\/mirrorlist\n\n\[core\]/" /usr/share/manjaro-tools/pacman-multilib.conf
+        fi
+
+        # mkchroot rewrites the mirrorlist down to the single build mirror,
+        # so alternatives listed there do not survive into the chroot.
+        # XferCommand lives in [options] and does survive, which is why the
+        # failover goes there; see the script for the outage it exists for.
+        #
+        # It lands under the pacman cache because the mhwd stage runs pacman
+        # inside a chroot, and chroot-run bind-mounts the cache there at the
+        # same path - a /usr/local path exists on the host only, and pacman
+        # reports that as 'running XferCommand: fork failed!'.
+        if [ -n "$(echo ${FALLBACK_MIRRORS})" ]; then
+          sudo install -Dm755 "$GITHUB_ACTION_PATH/scripts/pacman-xfer.sh" \
+            "$XFER_DIR/pacman-xfer.sh"
+          printf '%s\n' "${BUILD_MIRROR%/}" ${FALLBACK_MIRRORS} \
+            | sudo tee "$XFER_DIR/build-mirrors" >/dev/null
+          # /etc/pacman.conf as well as manjaro-tools' own: mkchroot builds
+          # the config it hands basestrap from get_pacman_conf(), but the
+          # host's /etc/pacman.conf is what install-pacman wrote and what
+          # several stages copy into a chroot. Patching only the former
+          # meant the failover was configured, printed the list below, and
+          # was never actually invoked for a package - every real build
+          # logged zero '## xfer:' lines while pacman used its own
+          # downloader and died on the first mirror that blipped.
+          for conf in /usr/share/manjaro-tools/pacman-*.conf /etc/pacman.conf; do
+            [ -f "$conf" ] || continue
+            # idempotent: this step can run against a restored pacman cache
+            # whose config already carries the line
+            sudo sed -i -e "\#^XferCommand = $XFER_DIR/pacman-xfer.sh#d" "$conf"
+            sudo sed -i -e "/^\[options\]/a XferCommand = $XFER_DIR/pacman-xfer.sh %o %u" "$conf"
+          done
+          echo "## package downloads fall back through:"
+          sudo cat "$XFER_DIR/build-mirrors"
+
+          # Assert rather than assume. Three separate fixes claimed to make
+          # the failover work and none did, because each reasoned about
+          # which pacman.conf buildiso reads instead of checking. buildiso
+          # picks ${DATADIR}/pacman-multilib.conf on x86_64 via
+          # get_pacman_conf(), and mkchroot copies that into a
+          # pacman-basestrap.conf with the Include line rewritten - so the
+          # XferCommand has to be in the file, and has to survive that sed.
+          conf=/usr/share/manjaro-tools/pacman-multilib.conf
+          if ! grep -q "^XferCommand" "$conf"; then
+            echo "## xfer: $conf carries no XferCommand; the failover would not run" >&2
+            exit 1
+          fi
+          if ! sed "s#Include = /etc/pacman.d/mirrorlist#Server = x#g" "$conf" |
+               grep -q "^XferCommand"; then
+            echo "## xfer: XferCommand is lost by mkchroot's rewrite" >&2
+            exit 1
+          fi
+          if ! sudo test -x "$XFER_DIR/pacman-xfer.sh"; then
+            echo "## xfer: $XFER_DIR/pacman-xfer.sh is not executable" >&2
+            exit 1
+          fi
+          echo "## xfer: $conf and the script are in place"
+          # what pacman will actually read, so a failure does not need a
+          # guess about which file was patched
+          sed -n '/^\[options\]/,/^\[/p' "$conf" | head -12
+        fi
+    - id: checkout-iso-profiles
+      shell: bash
+      env:
+        REPO: ${{ inputs.iso-profiles-repo }}
+        BRANCH: ${{ inputs.iso-profiles-branch }}
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        if [ -n "${REPO}" ]; then
+          retry sudo git clone ${BRANCH:+--branch ${BRANCH}} --depth 1 ${REPO} iso-profiles
+        else
+          sudo cp -r "$GITHUB_WORKSPACE/iso-profiles" iso-profiles
+        fi
+    - id: cleanup_space_workaround
+      shell: bash
+      run: |
+        sudo apt-get clean
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+    - id: image-build
+      shell: bash
+      env:
+        EDITION: ${{ inputs.edition }}
+        BRANCH: ${{ inputs.branch }}
+        SCOPE: ${{ inputs.scope }}
+        VERSION: ${{ inputs.version }}
+        KERNEL: ${{ inputs.kernel }}
+        CODE_NAME: ${{ inputs.code-name }}
+        OFFICE: ${{ inputs.office-chooser }}
+        BUILD_MIRROR: ${{ inputs.build-mirror }}
+        CHROOT_NAMESERVERS: ${{ inputs.chroot-nameservers }}
+        EXPORT_ROOTFS: ${{ inputs.export-rootfs }}
+      run: |
+        . "$GITHUB_ACTION_PATH/scripts/retry.sh"
+        echo "## building iso"
+        [ "$SCOPE" == "minimal" ] && unset SCOPE && unset OFFICE
+        [ "$OFFICE" == "false" ] && unset OFFICE
+
+        # source the version info from current release info; fetched to a
+        # file first, so a failed download cannot be sourced as empty
+        retry curl -sf --connect-timeout 30 -o /tmp/lsb-release \
+          https://raw.githubusercontent.com/manjaro-contrib/packages-core-manjaro-release/master/lsb-release
+        source /tmp/lsb-release
+
+        sudo sed -i -e "s|dist_name=\$(get_distname)|dist_name=${DISTRIB_ID%Linux}|g" /usr/lib/manjaro-tools/util.sh
+        sudo sed -i -e 's|iso_name=$(get_osid)|iso_name=manjaro|g' /usr/lib/manjaro-tools/util.sh
+        sudo sed -i -e "s|dist_release=\$(get_release)|dist_release=${VERSION:-$DISTRIB_RELEASE}|g" /usr/lib/manjaro-tools/util.sh
+        sudo sed -i -e "s|dist_codename=\$(get_codename)|dist_codename=\"${CODE_NAME:-$DISTRIB_CODENAME}\"|g" /usr/lib/manjaro-tools/util.sh
+        sudo sed -i -e "s|build_mirror='https://mirror.easyname.at/manjaro'|build_mirror=\'${BUILD_MIRROR}\'|g" /usr/lib/manjaro-tools/util.sh
+        
+        # the chroots inherit no resolver; see the script for why
+        sudo --preserve-env=CHROOT_NAMESERVERS \
+          bash "$GITHUB_ACTION_PATH/scripts/enable-chroot-dns.sh"
+
+        sudo buildiso ${SCOPE:+-f} -p $EDITION -b $BRANCH -k $KERNEL ${OFFICE:+-o}
+
+        # buildiso's work dir is deleted on the next line, and the squashfs
+        # layers only exist until then
+        if [ "$EXPORT_ROOTFS" = "true" ]; then
+          echo "## exporting the rootfs"
+          sudo bash "$GITHUB_ACTION_PATH/scripts/export-rootfs.sh" \
+            --work-dir "/var/lib/manjaro-tools/buildiso/${EDITION}" \
+            --output "$PWD/rootfs.tar.zst"
+          sudo chown "$(id -u):$(id -g)" "$PWD/rootfs.tar.zst"
+          echo "rootfs-path=rootfs.tar.zst" >> $GITHUB_OUTPUT
+        fi
+
+        sudo rm -Rf /var/lib/manjaro-tools/buildiso/*
+        
+        OUTPUT_ISO_PATH=$(find /var/cache/manjaro-tools/iso -type f -name "*.iso" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
+        TARGET_ISO_PATH=$(basename $OUTPUT_ISO_PATH)
+        mv $OUTPUT_ISO_PATH ./$TARGET_ISO_PATH
+        echo "file-path=$TARGET_ISO_PATH" >> $GITHUB_OUTPUT
+
+        FILE_PKG=$(find /var/cache/manjaro-tools/iso -type f -name "*-pkgs.txt" -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1 {print $2}')
+        mv $FILE_PKG ./${TARGET_ISO_PATH}.pkgs
+    - id: hash
+      shell: bash
+      run: |
+        echo "## calculating hashes"
+        sha1sum ${{ steps.image-build.outputs.file-path }} >${{ steps.image-build.outputs.file-path }}.sha1
+        sha256sum ${{ steps.image-build.outputs.file-path }} >${{ steps.image-build.outputs.file-path }}.sha256
+        sha512sum ${{ steps.image-build.outputs.file-path }} >${{ steps.image-build.outputs.file-path }}.sha512
+    - id: gpg_sign
+      shell: bash
+      run: |
+        # if is not yet supported in composite https://github.com/actions/runner/blob/main/docs/adrs/0549-composite-run-steps.md#if-condition
+        if [ -z "${{ inputs.gpg-secret-key-base64 }}" ]; then 
+          echo "## no gpg secret given"
+          exit 0
+        fi
+        echo "## gpg signing"
+        cat <(echo -e "${{ inputs.gpg-secret-key-base64 }}" | base64 --decode) | gpg --batch --import &>/dev/null
+        gpg --pinentry-mode loopback --passphrase "${{ inputs.gpg-passphrase }}" --detach-sign ./${{ steps.image-build.outputs.file-path }}
+    - id: upload-prepare
+      shell: bash -O extglob {0}
+      run: |
+        echo "## ssh setup"
+        mkdir -p /home/runner/.ssh
+        touch /home/runner/.ssh/github_actions
+        chmod 600 /home/runner/.ssh/github_actions
+        ssh-agent -a /tmp/ssh_agent.sock > /dev/null
+        echo "upload-files=./${{ steps.image-build.outputs.file-path }}+(|.sha*|.pkgs|.sig|.torrent)" >> $GITHUB_OUTPUT
+        mkdir -p ${{ inputs.edition }}/${{ inputs.version }}
+    - id: publish-rootfs-image
+      shell: bash
+      env:
+        ROOTFS: ${{ steps.image-build.outputs.rootfs-path }}
+        IMAGE: ${{ inputs.rootfs-image }}
+        REGISTRY_TOKEN: ${{ inputs.registry-token }}
+        EDITION: ${{ inputs.edition }}
+        BRANCH: ${{ inputs.branch }}
+        VERSION: ${{ inputs.version }}
+        RELEASE_TAG: ${{ inputs.release-tag }}
+      run: |
+        # if is not yet supported in composite https://github.com/actions/runner/blob/main/docs/adrs/0549-composite-run-steps.md#if-condition
+        if [ -z "$IMAGE" ] || [ -z "${ROOTFS:-}" ] || [ ! -f "${ROOTFS:-}" ]; then
+          echo "## no rootfs image configured"
+          exit 0
+        fi
+        # The tarball is the image: buildah takes a rootfs archive as a
+        # layer directly, so nothing is unpacked, repacked or copied on the
+        # runner. A Containerfile with ADD would cost a second full copy of
+        # a ~2 GB filesystem for no gain.
+        registry="${IMAGE%%/*}"
+        echo "$REGISTRY_TOKEN" \
+          | buildah login --username "${GITHUB_ACTOR}" --password-stdin "$registry"
+
+        ctr=$(buildah from scratch)
+        buildah add "$ctr" "$ROOTFS" /
+        # a container has no login manager to start; leave it at a shell so
+        # the image is useful interactively and as a base for one
+        buildah config --cmd /bin/bash "$ctr"
+        buildah config \
+          --label org.opencontainers.image.title="Manjaro ${EDITION} (${BRANCH})" \
+          --label org.opencontainers.image.description="The ${EDITION} desktop from the ${BRANCH} iso, without kernel or bootloader" \
+          --label org.opencontainers.image.version="${VERSION}" \
+          --label org.opencontainers.image.source="https://github.com/${GITHUB_REPOSITORY}" \
+          --label org.opencontainers.image.revision="${GITHUB_SHA}" \
+          "$ctr"
+
+        # <edition>-<branch> moves with every build; the release tag pins the
+        # one a given release shipped. Not `version`: it is an optional input
+        # that the workflow does not pass, so the pinned tag came out as
+        # "kde-stable-" - a second moving tag wearing a dash.
+        moving="${EDITION}-${BRANCH}"
+        buildah commit --format oci --squash "$ctr" "${IMAGE}:${moving}"
+
+        tags=("$moving")
+        if [ -n "${RELEASE_TAG:-}" ]; then
+          buildah tag "${IMAGE}:${moving}" "${IMAGE}:${moving}-${RELEASE_TAG}"
+          tags+=("${moving}-${RELEASE_TAG}")
+        fi
+
+        for tag in "${tags[@]}"; do
+          buildah push "${IMAGE}:${tag}"
+          echo "${IMAGE}:${tag}: published"
+        done
+        echo "rootfs-image=${IMAGE}:${EDITION}-${BRANCH}" >> $GITHUB_OUTPUT
+    - id: upload-object-storage
+      shell: bash
+      env:
+        R2_ENDPOINT: ${{ inputs.r2-endpoint }}
+        R2_ACCESS_KEY_ID: ${{ inputs.r2-access-key-id }}
+        R2_SECRET_ACCESS_KEY: ${{ inputs.r2-secret-access-key }}
+        R2_BUCKET: ${{ inputs.r2-bucket }}
+        R2_PREFIX: ${{ inputs.r2-prefix }}
+        ISO: ${{ steps.image-build.outputs.file-path }}
+        BOTO3_VERSION: '1.43.89'
+      run: |
+        # if is not yet supported in composite https://github.com/actions/runner/blob/main/docs/adrs/0549-composite-run-steps.md#if-condition
+        if [ -z "$R2_ENDPOINT" ] || [ -z "$R2_BUCKET" ]; then
+          echo "## no object storage configured"
+          exit 0
+        fi
+        echo "## uploading the unsplit iso"
+        # runs before the split-zip below: github caps an asset at 2 GB, so
+        # the release can only ever carry the parts, while object storage
+        # takes the image itself and serves it without reassembly
+        # an ephemeral environment rather than a system install: ubuntu marks
+        # its python externally-managed, so a --system install is refused
+        "$HOME/.local/bin/uv" run --no-project --quiet \
+          --with "boto3==${BOTO3_VERSION}" - <<'EOF'
+        import os
+
+        import boto3
+        from boto3.s3.transfer import TransferConfig
+        from botocore.exceptions import BotoCoreError, ClientError
+
+        iso = os.environ["ISO"]
+        key = os.environ.get("R2_PREFIX", "") + iso
+        s3 = boto3.client(
+            "s3",
+            endpoint_url=os.environ["R2_ENDPOINT"],
+            aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"],
+            aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],
+            region_name="auto",
+        )
+        # images run to several gigabytes; a larger part keeps the count sane
+        config = TransferConfig(multipart_chunksize=64 * 1024 * 1024)
+        size = os.path.getsize(iso)
+        print(f"{iso}: {size / 1e9:.2f} GB -> {key}")
+        bucket = os.environ["R2_BUCKET"]
+        s3.upload_file(iso, bucket, key, Config=config)
+        head = s3.head_object(Bucket=bucket, Key=key)
+        if head["ContentLength"] != size:
+            # a truncated object would satisfy a later existence check
+            s3.delete_object(Bucket=bucket, Key=key)
+            raise SystemExit(f"{iso}: uploaded {head['ContentLength']} of {size}")
+        print(f"{iso}: published")
+
+        # an image whose signature or checksum is missing cannot be
+        # verified, and the stable alias would point at it regardless. So
+        # the set is all-or-nothing: anything already uploaded is removed
+        # if a later part fails, leaving the previous build in place.
+        written = [key]
+        try:
+            for suffix in (".sig", ".sha1", ".sha256", ".sha512", ".pkgs"):
+                if not os.path.exists(iso + suffix):
+                    continue
+                s3.upload_file(iso + suffix, bucket, key + suffix)
+                written.append(key + suffix)
+                print(f"{iso}{suffix}: published")
+        except (OSError, BotoCoreError, ClientError) as e:
+            print(f"{iso}: rolling back {len(written)} object(s): {e}")
+            for done in written:
+                try:
+                    s3.delete_object(Bucket=bucket, Key=done)
+                except (BotoCoreError, ClientError) as cleanup:
+                    # report it: a partial set left behind is what this
+                    # whole block exists to prevent
+                    print(f"{iso}: could not remove {done}: {cleanup}")
+            raise
+
+        EOF
+    - id: upload-github-release
+      shell: bash -O extglob {0}
+      env:
+        LIMIT_MB: '2000'
+      run: |
+        # if is not yet supported in composite https://github.com/actions/runner/blob/main/docs/adrs/0549-composite-run-steps.md#if-condition
+        if [ -z "${{ inputs.release-tag }}" ]; then 
+          echo "## no release tag given"
+          exit 0
+        fi
+        echo "## github upload"
+
+        echo ${{ github.token }} | gh auth login --with-token
+        gh release create ${{ inputs.release-tag }} --title ${{ inputs.release-tag }} --repo ${{ github.repository }} --notes "automated release" --prerelease || echo "release already exists"
+
+        if [[ -z "$(du --threshold=${LIMIT_MB}M ${{ steps.image-build.outputs.file-path }})" ]]; then
+          # iso is small enough to upload already
+          gh release upload ${{ inputs.release-tag }} --repo ${{ github.repository }} --clobber \
+            ${{ steps.upload-prepare.outputs.upload-files }}
+        else
+          # iso is too big - creating a split-zip
+          zip -j -s ${LIMIT_MB}m ${{ steps.image-build.outputs.file-path }}.zip ${{ steps.image-build.outputs.file-path }}
+
+          gh release upload ${{ inputs.release-tag }} --repo ${{ github.repository }} --clobber \
+            ./${{ steps.image-build.outputs.file-path }}+(.z*|.sha*|.pkgs|.sig|.torrent)
+        fi
+  

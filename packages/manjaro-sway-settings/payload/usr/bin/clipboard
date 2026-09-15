@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$1" = "--select" ] || [ "$1" = "" ]; then
+    cliphist list | fzf | cliphist decode | wl-copy
+fi
+
+if [ "$1" = "--delete" ]; then
+    cliphist list | fzf | cliphist delete
+fi

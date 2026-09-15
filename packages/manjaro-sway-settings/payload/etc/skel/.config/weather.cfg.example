@@ -1,0 +1,5 @@
+[DEFAULT]
+city = Frankfurt am Main
+temperature = C
+distance = km
+locale = de_DE

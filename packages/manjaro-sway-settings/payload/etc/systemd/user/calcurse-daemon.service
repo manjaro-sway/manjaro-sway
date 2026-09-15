@@ -1,0 +1,15 @@
+[Unit]
+Description=Calcurse calendar daemon
+PartOf=sway-session.target
+StartLimitBurst=5
+StartLimitIntervalSec=30
+
+[Service]
+Type=forking
+ExecStartPre=-rm -f %h/.local/share/calcurse/.calcurse.pid %h/.local/share/calcurse/daemon.lock
+ExecStart=/usr/bin/calcurse --daemon
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=sway-session.target

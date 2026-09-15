@@ -1,0 +1,19 @@
+pkgbase = idlehack-git
+	pkgdesc = Monitor dbus and inhibit swayidle when Firefox or Chromium request it
+	pkgver = 0.r19
+	pkgrel = 1
+	url = https://github.com/loops/idlehack
+	arch = i686
+	arch = x86_64
+	license = custom:ICS
+	makedepends = git
+	makedepends = cmake
+	makedepends = pkgconf
+	depends = libx11
+	depends = dbus
+	depends = systemd-libs
+	provides = idlehack
+	source = idlehack-git::git+https://github.com/loops/idlehack.git
+	sha256sums = SKIP
+
+pkgname = idlehack-git

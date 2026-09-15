@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+for arg; do
+    shift
+    [ "$arg" = "--disable-internal-agent" ] && continue
+    set -- "$@" "$arg"
+done
+
+/usr/bin/pkexec env GTK_THEME="$(gsettings get org.gnome.desktop.interface gtk-theme | sed "s/'//g")" DISPLAY="$DISPLAY" WAYLAND_DISPLAY="$WAYLAND_DISPLAY" XDG_SESSION_TYPE="$XDG_SESSION_TYPE" XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" "$@"

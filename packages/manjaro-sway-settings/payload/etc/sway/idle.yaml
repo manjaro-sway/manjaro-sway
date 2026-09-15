@@ -1,0 +1,29 @@
+---
+debug: false
+wait: false
+timeouts:
+  # idle_timeout
+  - timeout: 240
+    command: brightnessctl -s && brightnessctl set 10
+    resume: brightnessctl -r
+  # locking_timeout
+  - timeout: 300
+    command: swaymsg exec \$locking
+  # keyboard_timeout
+  - timeout: 600
+    command: /usr/share/sway/scripts/keyboard-backlight-switch.sh off
+    resume: /usr/share/sway/scripts/keyboard-backlight-switch.sh on
+  # screen_timeout
+  - timeout: 600
+    command: swaymsg "output * power off"
+    resume: swaymsg "output * power on"
+  # sleep_timeout_bat
+  - timeout: 900
+    command: acpi --ac-adapter | grep -v 'on-line' && systemctl sleep
+  # sleep_timeout_ac
+  - timeout: 3600
+    command: acpi --ac-adapter | grep 'on-line' && systemctl sleep
+before-sleep: swaymsg exec \$locking
+after-resume: swaymsg "output * power on" && brightnessctl -r
+lock: swaymsg exec \$locking
+idlehint: '240'

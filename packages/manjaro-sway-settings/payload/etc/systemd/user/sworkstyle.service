@@ -1,0 +1,14 @@
+[Unit]
+Description=Renames workspaces to the icons configured
+Documentation=https://github.com/Lyr-7D1h/swayest_workstyle
+PartOf=sway-session.target
+After=sway-session.target
+
+[Service]
+ExecStart=/usr/bin/sworkstyle -d -l error
+NonBlocking=true
+ExecReload=kill -SIGUSR2 $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=sway-session.target

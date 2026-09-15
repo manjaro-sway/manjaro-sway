@@ -1,0 +1,15 @@
+# Teaches libfm-qt how to invoke xdg-terminal-exec, our default terminal.
+#
+# libfm-qt only knows the terminals listed in its own
+# /usr/share/libfm-qt6/terminals.list. For a Terminal=true desktop entry it
+# looks up the configured terminal there and, finding no entry, falls back to a
+# hard-coded "xterm -e" — which fails outright since we don't ship xterm.
+#
+# Both argument keys are required: libfm-qt re-reads its global list whenever
+# either one is missing, and that list has no xdg-terminal-exec group to fill
+# the gap from. "--" terminates xdg-terminal-exec's own options so a command
+# starting with a dash is passed through to the terminal untouched.
+
+[xdg-terminal-exec]
+open_arg=--
+noclose_arg=--hold --

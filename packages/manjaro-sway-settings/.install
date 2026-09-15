@@ -1,0 +1,15 @@
+update() {
+    manjaro-sway-mirrors check || echo "## updating manjaro-sway-mirrors" && sudo manjaro-sway-mirrors
+    systemctl daemon-reload
+    command -v pcmanfm >/dev/null && echo -e "\033[0;33m## pcmanfm is installed. Consider replacing it with pcmanfm-qt, run: sudo pacman -S pcmanfm-qt && sudo pacman -R pcmanfm\033[0m"
+    echo -e "\033[0;33m## in order to update your user configuration, run: skel\033[0m"
+    echo -e "\033[0;33m## in order to apply your user configuration, run: swaymsg reload\033[0m"
+}
+
+post_install() {
+    update
+}
+
+post_upgrade() {
+    update
+}

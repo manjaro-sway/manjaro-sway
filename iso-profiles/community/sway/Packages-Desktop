@@ -1,0 +1,123 @@
+# Manjaro Sway
+
+## Base
+
+manjaro-sway/manjaro-sway-settings
+
+## Sway Extras
+
+sway-services
+>extra flashfocus # nicer flashing on focus change
+gtklock # lockscreen that sticks to the gtk theme
+>extra wlsunset # time & place based light temperature
+>extra autotiling # automated tiling
+>extra sworkstyle # dynamic workspace icons in waybar
+>extra swaycwd # determines the cwd of a sway container
+
+## Wayland support
+
+xorg-xwayland # xorg-wayland bridge
+>extra wdisplays # graphical display management like arandr
+qt5-wayland
+qt6-wayland
+gnome-keyring # unlock keyring on login
+polkit-gnome # polkit for visual superuser access
+>extra xdg-desktop-portal-wlr
+manjaro-pipewire
+
+## Btrfs
+
+grub-btrfs
+>extra timeshift-autosnap-manjaro
+
+## Greeter
+
+greetd
+greetd-tuigreet
+
+## Browser
+
+firefox
+manjaro-browser-settings
+
+## Themes
+
+qt5ct
+qt6ct
+kvantum
+gtk3-nocsd
+
+## File systems access
+
+pcmanfm-qt
+gvfs
+>extra gvfs-mtp
+>extra file-roller
+>extra p7zip
+
+## Sound, video and bluetooth
+
+pulsemixer
+bluez
+bluez-utils
+playerctl
+
+## Network
+
+avahi
+nss-mdns
+networkmanager
+>extra network-manager-applet
+dhclient
+
+## Multimedia
+
+>extra celluloid # multimedia player
+>extra ffmpeg
+>extra ffmpegthumbnailer
+>extra zathura
+>extra zathura-pdf-poppler
+>extra gnome-epub-thumbnailer
+>extra imv
+
+## Package Management
+
+>extra yay
+>extra base-devel
+pamac-gtk
+
+## Utils
+
+>extra apparmor
+xdg-user-dirs
+>extra manjaro-settings-manager
+>extra manjaro-settings-manager-notifier
+>extra poweralertd
+>extra laptop-mode-tools
+
+## lmt dependencies
+
+>extra python-pyqt5
+>extra ethtool
+
+## Extra fonts
+
+>extra wqy-microhei
+
+## CLI tools
+
+curl
+jq
+>extra oh-my-zsh
+wget
+wl-clipboard # wayland clipboard application
+cliphist # clipboard history application
+>extra wluma # adaptive brightness
+>extra dex # starting .desktop files from the cli
+>extra pacseek # lightweight tui package manager
+>extra helix # vim-like editor
+>extra pacman-log-orphans-hook # pacman hook to log orphaned packages
+
+## Misc
+
+>basic squashfs-tools

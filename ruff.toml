@@ -1,0 +1,20 @@
+line-length = 100
+target-version = "py313"
+
+[lint]
+# pycodestyle/pyflakes for the real mistakes, bugbear for the mutable-default
+# and loop-variable traps, pyupgrade so annotations do not drift, and the
+# pylint warnings/errors - but not its refactor and convention advice, which
+# is about shape rather than correctness.
+select = ["E", "F", "W", "B", "UP", "RUF", "PLE", "PLW"]
+
+ignore = [
+  # subprocess.run without check=. Every call that omits it does so
+  # deliberately: a failed TPM enrolment or a chwd with no matching profile
+  # is an outcome to report, not an exception. Calls that must raise go
+  # through phases_impl.run_command().
+  "PLW1510",
+  # the progress marker '›' is intentional, and every occurrence is a literal
+  # we print rather than anything a reader could confuse with '>'
+  "RUF001",
+]

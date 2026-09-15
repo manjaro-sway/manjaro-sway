@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -d /sys/module/nvidia ]; then
+    exec /usr/bin/sway --unsupported-gpu "$@"
+else
+    exec /usr/bin/sway "$@"
+fi

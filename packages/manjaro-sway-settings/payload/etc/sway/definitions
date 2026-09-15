@@ -1,0 +1,140 @@
+# shellcheck disable=SC2148,SC2086,SC2154,SC2046,SC2016
+### Variables
+#
+# Logo key. Use Mod1 for Alt and Mod4 for Super.
+set $mod Mod4
+set $alt_mod Alt
+
+# Direction keys
+set $left Left
+set $down Down
+set $up Up
+set $right Right
+
+# Alternative direction keys
+set $left_alt h
+set $down_alt j
+set $up_alt k
+set $right_alt l
+
+# Default generated background
+set $background $HOME/.config/sway/generated_background.svg
+
+# Add --to-code to bindsym, support for non-latin layouts
+set $bindsym bindsym --to-code
+
+# For user's convenience, the same for unbindsym
+set $unbindsym unbindsym --to-code
+
+# Script paths
+set $script_path /usr/share/sway/scripts
+
+# Theme application (override any variable with "" to disable)
+set $apply_gtk_theme $script_path/enable-gtk-theme.sh "$gtk-theme"
+set $apply_icon_theme gsettings set org.gnome.desktop.interface icon-theme "$icon-theme"
+set $apply_color_scheme gsettings set org.gnome.desktop.interface color-scheme "$gtk-color-scheme"
+set $apply_cursor_theme $script_path/enable-cursor-theme.sh "$cursor-theme"
+set $apply_gui_font gsettings set org.gnome.desktop.interface font-name "$gui-font"
+set $configure_input_sources gsettings set org.gnome.desktop.input-sources show-all-sources true
+set $apply_monospace_font gsettings set org.gnome.desktop.interface monospace-font-name "$term-font"
+set $configure_fontconfig $script_path/fontconfig.sh "monospace" "$term-font"
+set $apply_vscode_settings $script_path/update-vscode-settings.sh "$term-font" "$vscode-theme"
+set $apply_zed_settings $script_path/update-zed-settings.sh "$term-font" "$vscode-theme"
+set $generate_background $script_path/generate-bg.sh "$accent-color" "$text-color" "$background-color"
+set $generate_waybar_style $script_path/generate-waybar-style.sh "$background-color" "$text-color" "$accent-color" "$color8" "$color9"
+set $apply_kvantum_theme kvantummanager --set "$kvantum-theme"
+
+# Terminal emulator
+set $term footclient
+set $term_cwd $term -D "$(swaycwd 2>/dev/null || echo $HOME)"
+set $term_float footclient --app-id floating_shell --window-size-chars 82x25
+
+# Task manager
+set $task_manager $script_path/once.sh $term_float btop
+
+# Onscreen bar
+set $onscreen_bar $script_path/wob.sh "$accent-color" "$background-color"
+
+# Brightness control
+set $brightness $script_path/brightness.sh
+set $brightness_up $brightness up | $onscreen_bar
+set $brightness_down $brightness down | $onscreen_bar
+
+# Scaling
+set $scale_up $script_path/scale.sh up
+set $scale_down $script_path/scale.sh down
+set $scale_default $script_path/scale.sh default
+
+# Audio control
+set $sink_volume wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%d", $2*100}'
+set $source_volume wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{printf "%d", $2*100}'
+set $volume_down $onscreen_bar $(wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $sink_volume)
+set $volume_up $onscreen_bar $(wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && $sink_volume)
+set $volume_mute $onscreen_bar $(wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 || $sink_volume)
+set $mic_mute $onscreen_bar $(wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo 0 || $source_volume)
+
+# Rofi theme
+set $rofi_theme "* {\nlightbg: $background-color;\nbackground: $background-color;\nlightfg: $accent-color;\nforeground: $text-color;\n}\nwindow {\nwidth: 25em;\n}\n"
+
+# Clipboard history
+set $clipboard cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to copy" -lines 10 | cliphist decode | wl-copy
+set $clipboard-del cliphist list | rofi -dmenu -font "$gui-font" -p "Select item to delete" -lines 10 | cliphist delete
+
+# Zeit tracking
+set $zeit_list zeit list --only-projects-and-tasks --append-project-id-to-task | rofi -dmenu -font "$gui-font" -p "Select task to track" -lines 10 | $script_path/zeit.sh track && waybar-signal zeit
+
+# Application launcher
+set $menu rofi -show combi -combi-modes "drun,run" -terminal "$term" -ssh-command "{terminal} {ssh-client} {host} [-p {port}]" -run-shell-command "{terminal} {cmd}" -show-icons -font "$gui-font" -lines 10
+
+# Lockscreen configuration
+set $locking $script_path/lock.sh
+
+# Bluetooth menu
+set $bluetooth $script_path/once.sh $term_float bluetuith
+
+### Autostart applications definition.
+# Can be removed soon-ish as it is being imported in userspace.
+include /etc/sway/autostart
+
+# Hide cursor after 5 seconds of inactivty
+seat seat0 hide_cursor 5000
+
+# Pulseaudio command
+set $pulseaudio $script_path/once.sh $term_float pulsemixer
+
+# Help command
+set $help $script_path/help.sh --toggle
+
+# Calendar application
+set $calendar $script_path/once.sh $term_float calcurse
+
+# Workspace names
+set $ws1 number 1
+set $ws2 number 2
+set $ws3 number 3
+set $ws4 number 4
+set $ws5 number 5
+set $ws6 number 6
+set $ws7 number 7
+set $ws8 number 8
+set $ws9 number 9
+set $ws10 number 10
+
+# Screenshot commands
+set $grimshot grimshot
+set $pipe_output $grimshot save output -
+set $pipe_selection $grimshot save area -
+set $swappy swappy -f -
+set $upload_pipe curl -s -F "file=@-;filename=.png" https://x0.at/ | tee >(wl-copy) >(xargs notify-send)
+
+set $screenshot_screen $pipe_output | $swappy
+set $screenshot_screen_upload $pipe_output | $upload_pipe
+
+set $screenshot_selection $pipe_selection | $swappy
+set $screenshot_selection_upload $pipe_selection | $upload_pipe
+
+# Update manager
+set $update_manager '$script_path/checkupdates.sh upgrade'
+
+# Emoji picker
+set $emoji_picker emoji-picker

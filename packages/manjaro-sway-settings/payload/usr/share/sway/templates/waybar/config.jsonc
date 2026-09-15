@@ -1,0 +1,380 @@
+// =============================================================================
+//
+// Waybar configuration
+//
+// Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+//
+// =============================================================================
+{
+    // -------------------------------------------------------------------------
+    // Global configuration
+    // -------------------------------------------------------------------------
+    "layer": "top",
+    // If height property would be not present, it'd be calculated dynamically
+    "height": 30,
+    "position": "top",
+    "reload_style_on_change": true,
+    "modules-left": [
+        "custom/menu",
+        "sway/workspaces",
+        "custom/scratchpad"
+    ],
+    "modules-center": [
+        "custom/wf-recorder",
+        "sway/mode",
+        "custom/weather"
+    ],
+    "modules-right": [
+        // informational
+        "sway/language",
+        "custom/github",
+        "custom/clipboard",
+        "custom/zeit",
+        "cpu",
+        // "temperature",
+        // "memory",
+        "battery",
+        // connecting
+        "network",
+        "bluetooth",
+        "custom/valent",
+        // media
+        "custom/playerctl",
+        "custom/idle_inhibitor",
+        "custom/dnd",
+        "pulseaudio",
+        "backlight",
+        // system
+        "custom/theme",
+        "custom/adaptive-light",
+        "custom/sunset",
+        "custom/pacman",
+        "tray",
+        "clock"
+    ],
+    // -------------------------------------------------------------------------
+    // Modules
+    // -------------------------------------------------------------------------
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format-charging": "󰂄 {capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-icons": [
+            "󱃍",
+            "󰁺",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "tooltip": true
+    },
+    "clock": {
+        "interval": 60,
+        "format": "{:%e %b %Y %H:%M}",
+        "tooltip": true,
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
+        "on-click": "swaymsg exec \\$calendar"
+    },
+    "cpu": {
+        "interval": 10,
+        "format": "󰘚",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "swaymsg exec \\$task_manager",
+        "tooltip": true
+    },
+    "memory": {
+        "interval": 10,
+        "format": "󰍛",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "swaymsg exec \\$task_manager",
+        "tooltip": true
+    },
+    "network": {
+        "interval": 5,
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰖪",
+        "format-disabled": "󰀝",
+        "format-icons": [
+            "󰤯",
+            "󰤟",
+            "󰤢",
+            "󰤥",
+            "󰤨"
+        ],
+        "tooltip-format": "{icon} {ifname}: {ipaddr}",
+        "tooltip-format-ethernet": "{icon} {ifname}: {ipaddr}",
+        "tooltip-format-wifi": "{icon} {ifname} ({essid}): {ipaddr}",
+        "tooltip-format-disconnected": "{icon} disconnected",
+        "tooltip-format-disabled": "{icon} disabled",
+        "on-click": "swaymsg exec \\$once \\$term_float nmtui connect"
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>",
+        "tooltip": false
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
+        "on-scroll-up": "swaymsg exec \\$brightness_up",
+        "on-scroll-down": "swaymsg exec \\$brightness_down"
+    },
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{icon} {volume}%{format_source}",
+        "format-muted": "󰖁 {format_source}",
+        "format-source": "",
+        "format-source-muted": " 󰍭",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headset": "󰋎",
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ]
+        },
+        "tooltip-format": "{icon}  {volume}% {format_source}",
+        "on-click": "swaymsg exec \\$pulseaudio",
+        "on-click-middle": "swaymsg exec \\$volume_mute",
+        "on-scroll-up": "swaymsg exec \\$volume_up",
+        "on-scroll-down": "swaymsg exec \\$volume_down"
+    },
+    "temperature": {
+        "critical-threshold": 90,
+        "interval": 5,
+        "format": "{icon}",
+        "tooltip-format": "{temperatureC}°C",
+        "format-icons": [
+            "",
+            "",
+            ""
+        ],
+        "tooltip": true,
+        "on-click": "swaymsg exec \"\\$once \\$term_float watch sensors\""
+    },
+    "tray": {
+        "icon-size": 21,
+        "spacing": 5
+    },
+    "custom/pacman": {
+        "format": "󰀼 {}",
+        "interval": 3600,
+        "return-type": "json",
+        "exec-if": "/usr/share/sway/scripts/checkupdates.sh check",
+        "exec": "/usr/share/sway/scripts/checkupdates.sh status",
+        "on-click": "swaymsg exec \\$update_manager",
+        "on-click-middle": "waybar-signal pacman",
+        "signal": 14
+    },
+    "custom/menu": {
+        "format": "",
+        "on-click": "swaymsg exec \\$menu",
+        "tooltip": false
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "on-click": "swaymsg exec \\$bluetooth",
+        "on-click-right": "rfkill toggle bluetooth",
+        "tooltip-format": "{}"
+    },
+    "sway/language": {
+        "format": " {}",
+        "min-length": 5,
+        "hide-single-layout": true,
+        "tooltip": false,
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+    },
+    "custom/scratchpad": {
+        "interval": "once",
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "one": "󰖯",
+            "many": "󰖲"
+        },
+        "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
+        "on-click": "swaymsg 'scratchpad show'",
+        "signal": 7
+    },
+    "custom/sunset": {
+        "interval": "once",
+        "tooltip": true,
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "on": "󰌵",
+            "off": "󰌶"
+        },
+        "exec": "fallback_latitude=50.1 fallback_longitude=8.7 latitude= longitude= /usr/share/sway/scripts/sunset.sh",
+        "on-click": "/usr/share/sway/scripts/sunset.sh toggle",
+        "exec-if": "/usr/share/sway/scripts/sunset.sh check",
+        "signal": 6
+    },
+    "custom/theme": {
+        "format": "{icon}",
+        "interval": 300,
+        "tooltip": true,
+        "format-icons": {
+            "light": "",
+            "dark": "",
+            "auto_light": "󱩷",
+            "auto_dark": "󱩸"
+        },
+        "return-type": "json",
+        "exec-if": "/usr/share/sway/scripts/theme-toggle.sh check",
+        "exec": "/usr/share/sway/scripts/theme-toggle.sh status",
+        "on-click": "/usr/share/sway/scripts/theme-toggle.sh toggle",
+        "on-click-right": "/usr/share/sway/scripts/theme-toggle.sh auto-toggle",
+        "signal": 17
+    },
+    "custom/wf-recorder": {
+        "interval": "once",
+        "return-type": "json",
+        "format": "{}",
+        "exec": "echo '{\"class\": \"recording\",\"text\":\"󰑊\",\"tooltip\":\"press $mod+Esc to stop recording\"}'",
+        "exec-if": "pgrep wf-recorder",
+        "on-click": "waybar-signal recorder",
+        "signal": 8
+    },
+    "custom/github": {
+        "interval": 300,
+        "tooltip": true,
+        "return-type": "json",
+        "format": " {}",
+        "exec": "/usr/share/sway/scripts/gh-notifications.sh",
+        "exec-if": "[ -x \"$(command -v gh)\" ] && gh auth status 2>&1 | grep -q -m 1 'Logged in'",
+        "on-click": "xdg-open https://github.com/notifications && sleep 30 && waybar-signal github",
+        "on-click-right": "waybar-signal github",
+        "signal": 4
+    },
+    "custom/playerctl": {
+        "interval": "once",
+        "tooltip": true,
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "Playing": "󰏦",
+            "Paused": "󰐍"
+        },
+        "exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-scroll-up": "playerctl position 10+",
+        "on-scroll-down": "playerctl position 10-",
+        "signal": 5
+    },
+    "custom/clipboard": {
+        "format": "󰨸",
+        "interval": "once",
+        "return-type": "json",
+        "on-click": "swaymsg -q exec '$clipboard'; waybar-signal clipboard",
+        "on-click-right": "swaymsg -q exec '$clipboard-del'; waybar-signal clipboard",
+        "on-click-middle": "rm -f ~/.cache/cliphist/db; waybar-signal clipboard",
+        "exec": "printf '{\"tooltip\":\"%s\"}' $(cliphist list | wc -l)' item(s) in the clipboard\r(Mid click to clear)'",
+        "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list | wc -l) -gt 0 ]",
+        "signal": 9
+    },
+    "custom/weather": {
+        "format": "{}",
+        "tooltip": true,
+        "interval": 3600,
+        // accepts -c/--city <city> -t/--temperature <C/F> -d/--distance <km/miles>
+        "exec": "/usr/share/sway/scripts/weather.py",
+        "return-type": "json",
+        "on-click": "xdg-open \"https://wttr.in/$(/usr/share/sway/scripts/geoip.sh | jq -r '.city')\"",
+        "on-click-right": "waybar-signal weather",
+        "signal": 16
+    },
+    "custom/zeit": {
+        "return-type": "json",
+        "interval": "once",
+        "format": "{icon}",
+        "format-icons": {
+            "tracking": "󰖷",
+            "stopped": "󰋣"
+        },
+        "exec": "/usr/share/sway/scripts/zeit.sh status",
+        "on-click": "/usr/share/sway/scripts/zeit.sh click; waybar-signal zeit",
+        "exec-if": "[ -x \"$(command -v zeit)\" ]",
+        "signal": 10
+    },
+    "custom/dnd": {
+        "interval": "once",
+        "return-type": "json",
+        "format": "{}{icon}",
+        "format-icons": {
+            "default": "󰚢",
+            "dnd": "󰚣"
+        },
+        "on-click": "/usr/share/sway/scripts/dnd.sh toggle; waybar-signal dnd",
+        "on-click-right": "/usr/share/sway/scripts/dnd.sh restore",
+        "exec": "/usr/share/sway/scripts/dnd.sh status",
+        "signal": 11
+    },
+    "custom/adaptive-light": {
+        "interval": "once",
+        "tooltip": true,
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "on": "󰃡",
+            "off": "󰃠"
+        },
+        "exec": "/usr/share/sway/scripts/wluma.sh",
+        "on-click": "/usr/share/sway/scripts/wluma.sh toggle",
+        "exec-if": "/usr/share/sway/scripts/wluma.sh check",
+        "signal": 12
+    },
+    "custom/valent": {
+        "format": "{icon}",
+        "tooltip": true,
+        "interval": 60,
+        "exec": "/usr/share/sway/scripts/valent.py",
+        "exec-if": "[ -x \"$(command -v valent)\" ]",
+        "return-type": "json",
+        "format-icons": {
+            "no-devices": "",
+            "dangerously-empty": "󰂃",
+            "no-signal": "󰞃",
+            "connected": "",
+            "disconnected": ""
+        },
+        "on-click": "valent",
+        "on-click-middle": "waybar-signal valent",
+        "signal": 13
+    },
+    "custom/idle_inhibitor": {
+        "interval": 60,
+        "return-type": "json",
+        "format": "{icon}",
+        "format-icons": {
+            "on": "󰒳",
+            "off": "󰒲"
+        },
+        "exec": "inhibit-idle",
+        "on-click": "inhibit-idle off; inhibit-idle interactive",
+        "on-click-middle": "inhibit-idle off",
+        "signal": 15
+    }
+}

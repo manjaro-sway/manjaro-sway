@@ -1,0 +1,60 @@
+name = "manjaro-sway-web"
+main = "src/index.js"
+compatibility_date = "2026-09-10"
+# the login sees several accounts; pin the one owning the buckets so a
+# deploy can never bind an empty bucket on the wrong account
+account_id = "ed740e1b87e525691b947ca317a3cb90"
+
+# One hostname, everything under it: the landing page at /, the pacman
+# repository under /packages/, the images under /iso/. Routing is by path
+# in src/index.js, and each site reads only its own binding.
+#
+# A custom domain rather than a route: cloudflare provisions the DNS record
+# and the certificate, and the zone lives in the same account as the worker.
+routes = [
+  { pattern = "sway.manjaro.download", custom_domain = true },
+]
+
+# The landing page, served from the repository rather than copied into a JS
+# module, so the page and its assets have exactly one source. The worker
+# runs first and hands anything outside a mount to this binding.
+[assets]
+directory = "../docs"
+binding = "DOCS"
+run_worker_first = true
+
+[[r2_buckets]]
+binding = "PACKAGES"
+bucket_name = "sway-packages"
+
+[[r2_buckets]]
+binding = "ISO"
+bucket_name = "sway-iso"
+
+# Download counting. Writes need no credentials - writeDataPoint goes
+# through the binding - so downloads are recorded whether or not the read
+# token is set, and the token can be added later without losing anything
+# already counted.
+[[analytics_engine_datasets]]
+binding = "ANALYTICS_ENGINE"
+dataset = "manjaro-sway-iso-downloads"
+
+# Analytics engine keeps three months. A cron on the 2nd - not the 1st,
+# because a closed month's last events must be queryable before it is
+# archived and ingestion is not instant - rolls each closed month into one
+# key here, which is kept indefinitely.
+#
+# Its own namespace, not the one manjaro-contrib-releases uses: both write
+# month:YYYY-MM, so a shared namespace would have each overwrite the
+# other's totals.
+[[kv_namespaces]]
+binding = "STATS"
+id = "dc2111ede7fc47a5a1286aeea4969df4"
+
+[triggers]
+crons = ["17 3 2 * *"]
+
+[vars]
+# not a secret: the account id is already in this file in plaintext above.
+# ANALYTICS_TOKEN is the secret, and goes in with `wrangler secret put`.
+ACCOUNT_ID = "ed740e1b87e525691b947ca317a3cb90"

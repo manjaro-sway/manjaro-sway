@@ -1,0 +1,16 @@
+[Unit]
+Description=Auto Manages Your Wayland Displays
+Documentation=https://github.com/alex-courtis/way-displays
+PartOf=wayland-session.target
+After=wayland-session.target
+
+[Service]
+NonBlocking=true
+ExecStart=way-displays
+ExecReload=kill -SIGUSR2 $MAINPID
+Restart=on-failure
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=wayland-session.target
