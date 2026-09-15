@@ -40,8 +40,27 @@ pacman-key --populate archlinux manjaro
 pacman-mirrors --api --set-branch unstable >/dev/null
 pacman-mirrors --geoip >/dev/null 2>&1 || pacman-mirrors -f5 >/dev/null
 
-pacman -Syu --noconfirm --needed \
-  base-devel git sudo python python-boto3 pacman-contrib
+# Retried, and -Syy on the retry: a mirror's database is published ahead of
+# the package files it names, so a sync that lands in that window fails with
+# a 404 for a file the database promises. Refreshing the database picks a
+# mirror that has both. Transient, but it takes the whole build with it.
+install_packages() {
+  pacman -Syu --noconfirm --needed \
+    base-devel git sudo python python-boto3 pacman-contrib
+}
+for attempt in 1 2 3; do
+  if install_packages; then
+    break
+  fi
+  if [ "$attempt" = 3 ]; then
+    echo "## could not install the build dependencies after $attempt attempts" >&2
+    exit 1
+  fi
+  echo "## install failed (attempt $attempt); refreshing mirrors and retrying" >&2
+  pacman-mirrors -f5 >/dev/null 2>&1 || true
+  pacman -Syy --noconfirm >/dev/null 2>&1 || true
+  sleep 15
+done
 
 # Trust our own signing key before configuring the repository. A signed
 # database whose key is unknown does not degrade to unsigned - pacman fails
