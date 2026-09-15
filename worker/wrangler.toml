@@ -23,13 +23,16 @@ directory = "../docs"
 binding = "DOCS"
 run_worker_first = true
 
+# The buckets manjaro-contrib used, emptied and taken over for this
+# repository (2026-09-15): the R2 credentials the workflows carry are
+# scoped to them, and nothing else publishes here now.
 [[r2_buckets]]
 binding = "PACKAGES"
-bucket_name = "sway-packages"
+bucket_name = "packages"
 
 [[r2_buckets]]
 binding = "ISO"
-bucket_name = "sway-iso"
+bucket_name = "releases"
 
 # Download counting. Writes need no credentials - writeDataPoint goes
 # through the binding - so downloads are recorded whether or not the read
