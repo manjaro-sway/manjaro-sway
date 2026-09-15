@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+status() {
+    systemctl --user is-active wluma >/dev/null 2>&1
+}
+
+#Accepts managing parameter
+case $1'' in
+'toggle')
+    status && systemctl --user stop wluma || systemctl --user --now enable wluma
+    waybar-signal adaptive_brightness
+    ;;
+'check')
+    [ -x "$(command -v wluma)" ] && [ $(ls -A /sys/class/backlight/ | wc -l) -gt 0 ]
+    exit $?
+    ;;
+esac
+
+#Returns data for Waybar
+if status; then
+    class="on"
+    text="adaptive brightness"
+else
+    class="off"
+    text="static brightness"
+fi
+
+jq -cn --arg class "$class" --arg text "$text" '{"alt":$class,"tooltip":$text}'

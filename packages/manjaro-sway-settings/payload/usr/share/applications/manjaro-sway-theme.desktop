@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Manjaro Sway Theme
+
+Comment=Lets you select a manjaro sway theme
+
+Exec=manjaro-sway-theme
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
+Categories=Settings;DesktopSettings;

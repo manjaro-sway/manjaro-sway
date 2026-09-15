@@ -1,0 +1,19 @@
+#
+# pattern: Can either be the exact "app_name" (app_id/class) of the window or a regex string in the format of `"/{regex}/"` which will match the window "title".
+# icon: Your beatiful icon
+#
+# verbose format:
+#
+# '{pattern}' = { type = 'generic' | 'exact', value = '{icon}' }
+#
+#
+# If it couldn't match something it will print:
+#
+# WARN [sworkstyle:config] No match for '{app_name}' with title '{title}'
+#
+# You can use {title} to do a generic matching
+# You can use {app_name} to do an exact match
+# You can find icons for nerd fonts here: https://www.nerdfonts.com/cheat-sheet
+# Anything added in here will override the defaults in the package.
+
+[matching]

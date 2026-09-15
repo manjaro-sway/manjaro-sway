@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Pick an Emoji
+
+Comment=Lets you pick & paste an emoji
+
+Exec=emoji-picker
+Icon=face-glasses
+Terminal=false
+Type=Application
+Categories=Utility;

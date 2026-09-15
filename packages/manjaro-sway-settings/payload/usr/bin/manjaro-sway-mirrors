@@ -1,0 +1,51 @@
+#!/bin/sh
+pacman_conf=/etc/pacman.conf
+pacman_d_dir=/etc/pacman.d
+custom_conf=$pacman_d_dir/manjaro-sway.repo.conf
+branch=$(LANG="en_US" pacman-mirrors -G | sed -e "s/^arm-//")
+
+custom_conf_exists() {
+    [ -f $custom_conf ]
+}
+custom_conf_on_branch() {
+    grep -q "/${branch}" $custom_conf >/dev/null 2>&1
+}
+custom_conf_referenced() {
+    grep -q "Include[ ]*=[ ]*$custom_conf" $pacman_conf
+}
+
+if [ "$1" = "check" ]; then
+    custom_conf_exists || exit 1
+    custom_conf_on_branch || exit 1
+    custom_conf_referenced || exit 1
+    exit 0
+fi
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "## Please run as root/sudo"
+    exit 1
+fi
+
+# ensure pacman.d exists
+mkdir -p $pacman_d_dir
+
+if ! custom_conf_exists || ! custom_conf_on_branch; then
+    cat >$custom_conf <<EOL
+[manjaro-sway] 
+SigLevel = PackageRequired
+Server = https://packages.manjaro-sway.download/${branch}/\$arch 
+EOL
+    echo "## updated $custom_conf"
+fi
+
+## remove the classic repo config
+if grep -q "\[manjaro-sway\]" $pacman_conf; then
+    sed -i '/\[manjaro-sway\]/,+2 d' $pacman_conf
+    echo "## removed classic repo configuration from $pacman_conf"
+fi
+
+## add a include line to the pacman.conf
+if ! custom_conf_referenced; then
+    sed -i "/^\[core\]/i \Include = $custom_conf\n" $pacman_conf
+    echo "## now referencing $custom_conf from $pacman_conf"
+fi

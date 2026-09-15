@@ -1,0 +1,215 @@
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
+
+@keyframes blink-warning {
+    to {
+        color: @theme_base_color;
+        background-color: @warning_color;
+    }
+}
+
+@keyframes blink-critical {
+    to {
+        color: @theme_base_color;
+        background-color: @error_color;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+/* Reset all styles */
+* {
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    font-family: "JetBrainsMono NF", "Roboto Mono", sans-serif;
+}
+
+/* The whole bar */
+window#waybar {
+    background: @theme_base_color;
+    color: @theme_text_color;
+    font-size: 14px;
+}
+
+/* Each module */
+#custom-pacman,
+#custom-menu,
+#custom-help,
+#custom-scratchpad,
+#custom-github,
+#custom-clipboard,
+#custom-zeit,
+#custom-dnd,
+#custom-valent,
+#custom-idle_inhibitor,
+#bluetooth,
+#battery,
+#clock,
+#cpu,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#temperature,
+#backlight,
+#language,
+#custom-adaptive-light,
+#custom-sunset,
+#custom-playerctl,
+#custom-weather,
+#custom-theme,
+#tray {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+#custom-scratchpad,
+#custom-menu,
+#workspaces button.focused,
+#clock {
+    color: @theme_bg_color;
+    background-color: @theme_selected_bg_color;
+}
+
+#custom-zeit.tracking {
+    background-color: @warning_color;
+}
+
+#battery {
+    background-color: transparent;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.warning {
+    color: @warning_color;
+    background-color: transparent;
+}
+
+#battery.critical {
+    color: @error_color;
+    background-color: transparent;
+}
+
+#battery.charging {
+    color: @theme_text_color;
+    background-color: transparent;
+}
+
+#battery.warning.discharging {
+    animation-name: blink-warning;
+    animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+    animation-name: blink-critical;
+    animation-duration: 2s;
+}
+
+#clock {
+    font-weight: bold;
+}
+
+#cpu.warning {
+    color: @warning_color;
+}
+
+#cpu.critical {
+    color: @error_color;
+}
+
+#custom-menu {
+    padding-left: 8px;
+    padding-right: 13px;
+}
+
+#memory {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#memory.warning {
+    color: @warning_color;
+}
+
+#memory.critical {
+    color: @error_color;
+    animation-name: blink-critical;
+    animation-duration: 2s;
+}
+
+#mode {
+    background: @background_color;
+}
+
+#network.disconnected {
+    color: @warning_color;
+}
+
+#pulseaudio.muted {
+    color: @warning_color;
+}
+
+#temperature.critical {
+    color: @error_color;
+}
+
+#workspaces button {
+    border-top: 2px solid transparent;
+    /* To compensate for the top border and still have vertical centering */
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: @theme_selected_bg_color;
+}
+
+#workspaces button.focused {
+    border-color: @theme_selected_bg_color;
+}
+
+#workspaces button.urgent {
+    border-color: @error_color;
+    color: @error_color;
+}
+
+#workspaces button:hover {
+    color: @theme_bg_color;
+    background-color: @theme_selected_bg_color;
+}
+
+#custom-pacman {
+    color: @warning_color;
+}
+
+#bluetooth.disabled {
+    color: @warning_color;
+}
+
+#custom-wf-recorder {
+    color: @error_color;
+    padding-right: 10px;
+}
+
+#custom-valent.dangerously-empty {
+    color: @warning_color;
+}

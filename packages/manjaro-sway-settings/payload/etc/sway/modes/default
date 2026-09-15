@@ -1,0 +1,201 @@
+### Key bindings
+#
+# Basics:
+#
+## Launch // Terminal ##
+$bindsym $mod+Return exec $term_cwd
+$bindsym $mod+Shift+Return exec $term
+
+## Action // Kill focused window ##
+$bindsym $mod+Shift+q kill
+
+## Launch // Open launcher ##
+$bindsym $mod+d exec $menu
+$bindsym $alt_mod+space exec $menu
+
+## Launch // Open clipboard ##
+$bindsym $mod+Shift+p exec $clipboard
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
+
+## Action // Reload Sway Configuration ##
+$bindsym $mod+Shift+c reload
+
+## Action // Toggle Waybar ##    
+$bindsym $mod+Shift+b exec pkill -U $USER -x -SIGUSR1 waybar
+
+# --locked flags allow the buttons to be used whilst the screen is locked.
+$bindsym --locked XF86AudioRaiseVolume exec $volume_up
+
+$bindsym --locked XF86AudioLowerVolume exec $volume_down
+
+$bindsym --locked XF86AudioMute exec $volume_mute
+
+$bindsym XF86AudioMicMute exec $mic_mute
+
+$bindsym --locked XF86MonBrightnessUp exec $brightness_up
+
+$bindsym --locked XF86MonBrightnessDown exec $brightness_down
+
+$bindsym --locked XF86AudioPlay exec playerctl play-pause
+
+$bindsym XF86AudioNext exec playerctl next
+
+$bindsym XF86AudioPrev exec playerctl previous
+
+$bindsym XF86Search exec $menu
+
+$bindsym XF86PowerOff exec $shutdown
+
+$bindsym XF86TouchpadToggle input type:touchpad events toggle enabled disabled
+
+# Moving around:
+#
+# Move your focus around
+## Navigation // Move focus // $mod + ↑ ↓ ← → ##
+$bindsym $mod+$left focus left
+$bindsym $mod+$down focus down
+$bindsym $mod+$up focus up
+$bindsym $mod+$right focus right
+
+$bindsym $mod+$left_alt focus left
+$bindsym $mod+$down_alt focus down
+$bindsym $mod+$up_alt focus up
+$bindsym $mod+$right_alt focus right
+
+## Navigation // Move focused window // $mod + Shift + ↑ ↓ ← → ##
+$bindsym $mod+Shift+$left move left
+$bindsym $mod+Shift+$down move down
+$bindsym $mod+Shift+$up move up
+$bindsym $mod+Shift+$right move right
+
+$bindsym $mod+Shift+$left_alt move left
+$bindsym $mod+Shift+$down_alt move down
+$bindsym $mod+Shift+$up_alt move up
+$bindsym $mod+Shift+$right_alt move right
+
+## Navigation // Move focused workspace // $mod + Alt + ↑ ↓ ← → ##
+$bindsym $mod+$alt_mod+$right move workspace to output right
+$bindsym $mod+$alt_mod+$left move workspace to output left
+$bindsym $mod+$alt_mod+$down move workspace to output down
+$bindsym $mod+$alt_mod+$up move workspace to output up
+
+$bindsym $mod+$alt_mod+$right_alt move workspace to output right
+$bindsym $mod+$alt_mod+$left_alt move workspace to output left
+$bindsym $mod+$alt_mod+$down_alt move workspace to output down
+$bindsym $mod+$alt_mod+$up_alt move workspace to output up
+
+## Navigation // List all open windows in last-recently-used order ##
+$bindsym $mod+p exec swayr switch-window
+
+## Navigation // Switch to the last recently used window ##
+$bindsym $alt_mod+Tab exec swayr switch-to-urgent-or-lru-window
+
+## Navigation // Switch to the last recently used workspace ##
+$bindsym $mod+Tab workspace back_and_forth
+
+#
+# Workspaces:
+#
+## Navigation // Switch workspace // $mod + [number] ##
+$bindsym $mod+1 workspace $ws1
+$bindsym $mod+2 workspace $ws2
+$bindsym $mod+3 workspace $ws3
+$bindsym $mod+4 workspace $ws4
+$bindsym $mod+5 workspace $ws5
+$bindsym $mod+6 workspace $ws6
+$bindsym $mod+7 workspace $ws7
+$bindsym $mod+8 workspace $ws8
+$bindsym $mod+9 workspace $ws9
+$bindsym $mod+0 workspace $ws10
+
+set $focus_ws [ "$focus_after_move" == 'true' ] && swaymsg workspace
+
+## Action // Move focused window to workspace // $mod + Shift + [number] ##
+$bindsym $mod+Shift+1 move container to workspace $ws1, exec $focus_ws $ws1
+$bindsym $mod+Shift+2 move container to workspace $ws2, exec $focus_ws $ws2
+$bindsym $mod+Shift+3 move container to workspace $ws3, exec $focus_ws $ws3
+$bindsym $mod+Shift+4 move container to workspace $ws4, exec $focus_ws $ws4
+$bindsym $mod+Shift+5 move container to workspace $ws5, exec $focus_ws $ws5
+$bindsym $mod+Shift+6 move container to workspace $ws6, exec $focus_ws $ws6
+$bindsym $mod+Shift+7 move container to workspace $ws7, exec $focus_ws $ws7
+$bindsym $mod+Shift+8 move container to workspace $ws8, exec $focus_ws $ws8
+$bindsym $mod+Shift+9 move container to workspace $ws9, exec $focus_ws $ws9
+$bindsym $mod+Shift+0 move container to workspace $ws10, exec $focus_ws $ws10
+
+## Launch // Open launcher in a new workspace ##
+$bindsym $mod+Shift+d exec /usr/share/sway/scripts/first-empty-workspace.py --switch, exec $menu
+
+## Navigation // Switch to a new workspace ##
+$bindsym $mod+n exec /usr/share/sway/scripts/first-empty-workspace.py --switch
+
+## Action // Move focused window to a new workspace ##
+$bindsym $mod+Shift+n exec /usr/share/sway/scripts/first-empty-workspace.py --move
+
+## Action // Move focused window to a new workspace and switch there ##
+$bindsym $mod+Shift+m exec /usr/share/sway/scripts/first-empty-workspace.py --move --switch
+
+#
+# Layout stuff:
+#
+## Setting // Split windows horizontally ##
+$bindsym $mod+b splith
+## Setting // Split windows vertically ##
+$bindsym $mod+v splitv
+
+## Action // Switch to window stacking ##
+$bindsym $mod+s layout stacking
+## Action // Switch to window tabbing ##
+$bindsym $mod+w layout tabbed
+## Action // Switch to window tiling ##
+$bindsym $mod+e layout toggle split
+
+## Action // Toggle fullscreen ##
+$bindsym $mod+f fullscreen
+
+## Action // Toggle global fullscreen ##
+$bindsym $mod+Shift+f fullscreen global
+
+## Action // Scale up  ##
+$bindsym $alt_mod+plus exec $scale_up
+
+## Action // Scale down  ##
+$bindsym $alt_mod+minus exec $scale_down
+
+## Action // Scale default  ##
+$bindsym $mod+equal exec $scale_default
+
+## Action // Toggle floating ##
+$bindsym $mod+Shift+space floating toggle
+
+## Navigation // Toggle focus between tiling and floating ##
+$bindsym $mod+space focus mode_toggle
+
+## Navigation // Swap focus to the parent window ##
+$bindsym $mod+a focus parent
+
+## Launch // Toggle Help ##
+$bindsym $mod+question exec $help
+
+## Launch // Open Support ##
+$bindsym $mod+Shift+s exec xdg-open https://github.com/Manjaro-Sway/manjaro-sway/blob/main/SUPPORT.md
+
+## Launch // Inhibit Idle ##
+$bindsym $mod+Shift+i exec inhibit-idle interactive
+
+default_border pixel 1
+hide_edge_borders smart
+
+# allow to kill focused floating shell windows using Esc
+$bindsym --release Escape [app_id="floating_shell" con_id=__focused__] kill
+
+## Launch // Task Manager ##
+$bindsym Ctrl+$alt_mod+Delete exec $task_manager
+
+## Launch // Emoji Picker ##
+$bindsym $alt_mod+Shift+e exec $emoji_picker

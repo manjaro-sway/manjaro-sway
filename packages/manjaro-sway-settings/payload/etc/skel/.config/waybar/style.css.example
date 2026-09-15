@@ -1,0 +1,7 @@
+@import "colors.css";
+@import "/usr/share/sway/templates/waybar/style.css";
+
+/* Add your custom styles below — this file is yours to edit freely.
+ * colors.css is auto-managed by the theme switcher.
+ * To override the system style, add rules here instead of editing the
+ * system template at /usr/share/sway/templates/waybar/style.css */

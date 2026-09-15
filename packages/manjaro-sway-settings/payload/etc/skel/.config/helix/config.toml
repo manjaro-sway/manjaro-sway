@@ -1,0 +1,30 @@
+theme = "bogster"
+
+[editor]
+line-number = "relative"
+color-modes = true
+mouse = false
+
+# Resolve true color detection problems (e.g. on Linux in Windows WSL2)
+# such as the error, "theme: theme requires true color support".
+true-color = true
+
+[editor.indent-guides]
+render = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.insert]
+esc = ["collapse_selection", "normal_mode"]
+
+[keys.normal]
+esc = ["collapse_selection", "keep_primary_selection"]
+ret = ["move_line_down", "goto_first_nonwhitespace"]
+0   = "goto_line_start"
+
+[keys.select]
+esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
+0   = "goto_line_start"

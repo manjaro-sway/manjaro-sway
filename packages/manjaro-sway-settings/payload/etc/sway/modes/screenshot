@@ -1,0 +1,20 @@
+set $mode_screenshot "<span foreground='$color10'>󰄄</span>  \
+<span foreground='$color5'><b>Pick</b></span> <span foreground='$color10'>(<b>p</b>)</span> \
+<span foreground='$color5'><b>Output</b></span> <span foreground='$color10'>(<b>o</b>)</span> \
+<span foreground='$color7'>+ <span foreground='$color10'><b>Shift</b></span> for </span>"
+
+mode --pango_markup $mode_screenshot {
+    # output = currently active output
+    $bindsym o mode "default", exec $screenshot_screen
+    $bindsym Shift+o mode "default", exec $screenshot_screen_upload
+
+    # pick the region to screenshot
+    $bindsym p mode "default", exec $screenshot_selection
+    $bindsym Shift+p mode "default", exec $screenshot_selection_upload
+
+    # Return to default mode.
+    $bindsym Escape mode "default"
+}
+
+## Launch // Screenshot Mode ##
+$bindsym Print mode $mode_screenshot

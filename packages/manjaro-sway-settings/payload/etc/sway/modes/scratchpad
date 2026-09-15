@@ -1,0 +1,12 @@
+#
+# Scratchpad:
+#
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+## Action // Move window to scratchpad ##
+$bindsym $mod+Shift+minus move scratchpad, exec "waybar-signal scratchpad"
+
+# If there are multiple scratchpad windows, this command cycles through them.
+## Action // Toggle scratchpad ##
+$bindsym $mod+minus scratchpad show, exec "waybar-signal scratchpad"
