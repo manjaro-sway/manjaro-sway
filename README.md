@@ -1,15 +1,10 @@
 # Manjaro Sway Edition
 
-[![downloads](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%88%91%20%E2%88%9E&cache=3600&query=total&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
-[![downloads last seven days](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%88%91%207d&cache=3600&query=weekly_sum&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
-[![downloads per week](https://img.shields.io/badge/dynamic/json?color=green&label=%E2%AC%87%20%E2%8C%80%20week&cache=3600&query=weekly_avg&url=https%3A%2F%2Fmanjaro-sway.download/count)](https://manjaro-sway.download)
-
-[![settings release](https://img.shields.io/github/v/release/manjaro-sway/desktop-settings)](https://github.com/Manjaro-Sway/desktop-settings/releases/latest)
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
-[![repo](https://github.com/manjaro-sway/packages/actions/workflows/repo.yml/badge.svg)](https://github.com/manjaro-sway/packages/actions/workflows/repo.yml)
-[![build](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/build.yaml/badge.svg)](https://github.com/Manjaro-Sway/manjaro-sway/actions/workflows/build.yaml)
+[![packages](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-packages.yml/badge.svg)](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-packages.yml)
+[![iso](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-iso.yml/badge.svg)](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-iso.yml)
 
 [![All Contributors](https://img.shields.io/badge/dynamic/json?color=important&label=contributors&query=%24.contributors.length&url=https%3A%2F%2Fraw.githubusercontent.com%2FManjaro-Sway%2Fmanjaro-sway%2Fmain%2F.all-contributorsrc)](#contributors-)
 [![Matrix](https://img.shields.io/matrix/manjaro-sway:matrix.org)](https://matrix.to/#/#manjaro-sway:matrix.org)
@@ -25,7 +20,7 @@ This is manjaro sway edition - built according to the following principles:
 
 ## How to install
 
-You can find the latest images on [manjaro-sway.download](https://manjaro-sway.download/).
+You can find the latest images on [sway.manjaro.download](https://sway.manjaro.download/).
 
 You can create a boot-able USB stick using [Etcher](https://www.balena.io/etcher/) or a similar tool.
 
@@ -40,24 +35,37 @@ Check out our [FAQ](SUPPORT.md) for additional hints.
 Some projects evolved from the this sway distribution include:
 
 - tons of [github actions](https://github.com/orgs/manjaro-contrib/repositories?q=actions) to orchestrate iso-/image- and package-building, as well as repo-orchestration
-- [/weather](https://manjaro-sway.download/weather/auto) a waybar-targeting proxy for [open-meteo.com](https://open-meteo.com)
-- [/geoip](https://manjaro-sway.download/geoip) a no-fuzz wrapper for cloudflare geo-ip data
+- [/geo](https://sway.manjaro.download/geo) a no-fuzz wrapper for cloudflare geo-ip data, including the day's sun times
 - [mjr.sh](https://mjr.sh) a little service for shortening links, available in Manjaro Sway as the `mjr` cli
 
 ## Development
 
 ### Sources
 
-- [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway)
-- [desktop settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway)
+Everything this distribution builds lives in this repository:
+
+- [`iso-profiles/community/sway`](iso-profiles/community/sway) — the ISO profile
+- [`packages/manjaro-sway-settings/payload`](packages/manjaro-sway-settings/payload) — the desktop settings and skel
+- [`packages/`](packages) — the PKGBUILDs of the pacman repository, with
+  [`upstreams.yml`](packages/upstreams.yml) recording where each vendored one comes from
+- [`worker/`](worker) and [`docs/`](docs) — what serves
+  [sway.manjaro.download](https://sway.manjaro.download)
 
 ### How to Build
 
-1. Check out the ISO profile
-2. Run this command in the root directory
+The ISO and the packages are built by
+[`build-iso.yml`](.github/workflows/build-iso.yml) and
+[`build-packages.yml`](.github/workflows/build-packages.yml). To build an ISO
+locally with [manjaro-tools](https://gitlab.manjaro.org/tools/development-tools/manjaro-tools):
 
 ```bash
-buildiso -p sway
+buildiso -p sway -f -b unstable
+```
+
+Before pushing a profile change, the cheap check the CI runs is worth running too:
+
+```bash
+python3 scripts/check_iso_packages.py
 ```
 
 ### Contributing
@@ -66,7 +74,7 @@ There are lots of ways to contribute.
 
 - Give us a ⭐ here on github to increase our visibility
 - Help collecting implementation ideas in [discussions](https://github.com/Manjaro-Sway/manjaro-sway/discussions)
-- Implement ideas in our [desktop-settings](https://github.com/manjaro-sway/desktop-settings/tree/sway/community/sway) and [iso profile](https://github.com/manjaro-sway/iso-profiles/tree/sway/community/sway) and create pull requests
+- Implement ideas in the [desktop settings](packages/manjaro-sway-settings/payload) and the [iso profile](iso-profiles/community/sway) and create pull requests
 - Contribute to the documentation and help others in our chat
 - Get in [touch](https://forum.manjaro.org/) with the broader Manjaro community.
 - Use the distribution on a daily basis, find and share solutions to problems you have.
