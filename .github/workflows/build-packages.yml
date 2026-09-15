@@ -1,0 +1,112 @@
+name: build-packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - packages/**
+      - scripts/**
+      - .github/scripts/**
+      - .github/workflows/build-packages.yml
+      # the reusable workflow this one calls does the actual building, so a
+      # change there changes every build and must trigger one
+      - .github/workflows/build-wave.yml
+  workflow_dispatch:
+    inputs:
+      package:
+        description: build a single package directory rather than all of them
+        required: false
+      rebuild_all:
+        description: >-
+          rebuild even packages already published at their current version.
+          Needed when the toolchain moves under us - a new glibc or rustc -
+          because nothing in the package directory changes then.
+        type: boolean
+        default: false
+
+concurrency:
+  # publish read-modify-writes the bucket and repo-add is not atomic; two
+  # runs must never overlap
+  group: build-packages
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      waves: ${{ steps.split.outputs.waves }}
+      wave_count: ${{ steps.split.outputs.wave_count }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # package_version.py derives pkgver/pkgrel from how many commits
+          # have touched a package directory; a shallow checkout reports 1
+          # for everything, which would publish every authored package at
+          # pkgrel=1 forever and strand every later update
+          fetch-depth: 0
+      - id: split
+        env:
+          ONLY: ${{ inputs.package }}
+          REBUILD_ALL: ${{ inputs.rebuild_all && '1' || '' }}
+          REPO_URL: ${{ vars.REPO_URL }}
+        run: python3 scripts/discover_packages.py >> "$GITHUB_OUTPUT"
+
+  # A wave is build-then-publish, because the next wave resolves its
+  # dependencies out of the published repository: flashfocus cannot be built
+  # until python-xpybutil is installable. Two waves are expressed as two
+  # pairs of jobs rather than a loop - Actions has no such loop, and the
+  # alternative (a workflow that dispatches itself) hides the ordering.
+  wave0:
+    needs: discover
+    # every package already published at its current version leaves nothing
+    # to do, which is the normal outcome of a commit that touches only CI
+    if: fromJSON(needs.discover.outputs.wave_count) > 0
+    uses: ./.github/workflows/build-wave.yml
+    with:
+      any: ${{ toJSON(fromJSON(needs.discover.outputs.waves)[0].any) }}
+      compiled: ${{ toJSON(fromJSON(needs.discover.outputs.waves)[0].compiled) }}
+    secrets: inherit
+
+  wave1:
+    needs: [discover, wave0]
+    if: fromJSON(needs.discover.outputs.wave_count) > 1
+    uses: ./.github/workflows/build-wave.yml
+    with:
+      any: ${{ toJSON(fromJSON(needs.discover.outputs.waves)[1].any) }}
+      compiled: ${{ toJSON(fromJSON(needs.discover.outputs.waves)[1].compiled) }}
+    secrets: inherit
+
+  verify:
+    needs: [wave0, wave1]
+    # a wave that failed still published whatever built, so the tree is
+    # checked either way; skipped is not failed
+    if: always() && needs.wave0.result != 'cancelled'
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: pacman -Sy --noconfirm --needed python python-boto3
+      - name: the tree resolves
+        env:
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: sway-packages
+        run: python3 scripts/check_repo.py
+
+  # An ISO built before this run published carries the previous packages and
+  # says nothing about it. Dispatching from here means the common case - a
+  # push touching packages/ and iso-profiles/ together - is ordered rather
+  # than racing.
+  iso:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: build an iso against the packages just published
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run build-iso.yml --repo "${{ github.repository }}" --ref main

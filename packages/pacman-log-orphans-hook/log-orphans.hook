@@ -1,0 +1,11 @@
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=*
+
+[Action]
+Description=Log Orphan Packages
+When=PostTransaction
+Exec=/bin/bash -c 'pkgs="$(pacman -Qtdq)"; if [[ ! -z "$pkgs" ]]; then echo -e "The following packages are installed but not required (anymore):\n$pkgs\nYou can mark them as explicitly installed with '\''pacman -D --asexplicit <pkg>'\'' or remove them all using '\''pacman -Qtdq | pacman -Rns -'\''"; fi'

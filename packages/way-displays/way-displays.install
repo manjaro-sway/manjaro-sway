@@ -1,0 +1,42 @@
+all_off="$(tput sgr0)"
+bold="${all_off}$(tput bold)"
+red="${bold}$(tput setaf 1)"
+green="${bold}$(tput setaf 2)" # PR
+yellow="${bold}$(tput setaf 3)" # title
+blue="${bold}$(tput setaf 4)" # section
+magenta="${bold}$(tput setaf 5)" # issue
+cyan="${bold}$(tput setaf 6)" # person
+
+# Colored makepkg-like functions
+note() {
+    printf "${blue}==>${yellow} NOTE:${all_off} ${1}\n"
+}
+
+plain() {
+    printf "${1}\n"
+}
+
+green() {
+    printf "${green}${1}${all_off}\n"
+}
+
+yello() {
+    printf "${yellow}${1}${all_off}\n"
+}
+
+blue() {
+    printf "${blue}${1}${all_off}\n"
+}
+
+magen() {
+    printf "${magenta}${1}${all_off}\n"
+}
+
+post_install() {
+    yello "${yello}Major Release 2.0.0:${all_off} https://github.com/alex-courtis/way-displays/wiki/Version-2.0.0-Changes"
+}
+
+post_upgrade() {
+    post_install
+}
+

@@ -1,0 +1,156 @@
+name: build-wave
+
+# One wave: build every package in it, then publish them together. The caller
+# runs waves in order, because a later wave resolves its dependencies out of
+# what this one publishes.
+on:
+  workflow_call:
+    inputs:
+      any:
+        description: JSON array of arch=any package directories
+        required: true
+        type: string
+      compiled:
+        description: JSON array of package directories built per architecture
+        required: true
+        type: string
+
+jobs:
+  build-any:
+    if: inputs.any != '[]'
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+      # makepkg drops privileges and pacman needs to mount
+      options: --security-opt seccomp=unconfined
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(inputs.any) }}
+    steps:
+      # Before checkout: without git on PATH the action downloads a tarball
+      # through the REST API instead of cloning, leaving no .git at all -
+      # so fetch-depth below is silently meaningless and package_version.py
+      # fails with "not a git repository".
+      - name: install git before the checkout
+        run: pacman -Sy --noconfirm --needed git
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # package_version.py derives pkgver/pkgrel from how many commits
+          # have touched a package directory; a shallow checkout reports 1
+          # for everything, which would publish every authored package at
+          # pkgrel=1 forever and strand every later update
+          fetch-depth: 0
+      - name: prepare the build container
+        env:
+          REPO_URL: ${{ vars.REPO_URL }}
+        run: .github/scripts/prepare-container.sh
+      - name: import the signing key
+        env:
+          GPG_SECRET_BASE64: ${{ secrets.GPG_SECRET_BASE64 }}
+          GPG_KEYID: ${{ vars.GPG_KEYID }}
+        run: .github/scripts/import-key.sh
+      - name: build
+        env:
+          GPG_KEYID: ${{ vars.GPG_KEYID }}
+        run: .github/scripts/build-package.sh "packages/${{ matrix.package }}"
+      - name: collect the packages
+        # upload-artifact rejects a colon anywhere in a path and a pacman
+        # epoch always has one, so the files go in a tar we name ourselves
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          find . -maxdepth 1 \( -name '*.pkg.tar.zst' -o -name '*.pkg.tar.zst.sig' \) \
+            -printf '%P\n' > files.txt
+          test -s files.txt
+          tar cf artifact.tar -T files.txt
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: pkg-any-${{ matrix.package }}
+          path: packages/${{ matrix.package }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
+
+  build-compiled:
+    if: inputs.compiled != '[]'
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base-devel
+      options: --security-opt seccomp=unconfined
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(inputs.compiled) }}
+    steps:
+      - name: install git before the checkout
+        run: pacman -Sy --noconfirm --needed git
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: prepare the build container
+        env:
+          REPO_URL: ${{ vars.REPO_URL }}
+        run: .github/scripts/prepare-container.sh
+      - name: import the signing key
+        env:
+          GPG_SECRET_BASE64: ${{ secrets.GPG_SECRET_BASE64 }}
+          GPG_KEYID: ${{ vars.GPG_KEYID }}
+        run: .github/scripts/import-key.sh
+      - name: build
+        env:
+          GPG_KEYID: ${{ vars.GPG_KEYID }}
+        run: .github/scripts/build-package.sh "packages/${{ matrix.package }}"
+      - name: collect the packages
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          find . -maxdepth 1 \( -name '*.pkg.tar.zst' -o -name '*.pkg.tar.zst.sig' \) \
+            -printf '%P\n' > files.txt
+          test -s files.txt
+          tar cf artifact.tar -T files.txt
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: pkg-x86_64-${{ matrix.package }}
+          path: packages/${{ matrix.package }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
+
+  publish:
+    needs: [build-any, build-compiled]
+    # a leg that failed must not withhold the packages that did build
+    if: always() && (needs.build-any.result == 'success' || needs.build-compiled.result == 'success')
+    runs-on: ubuntu-latest
+    container:
+      # repo-add must come from the same pacman generation that built the
+      # packages; Ubuntu's build rejects them as "not a package file"
+      image: archlinux:base-devel
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: pacman -Sy --noconfirm --needed python python-boto3
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          # the any packages belong in the same tree as the compiled ones
+          pattern: pkg-{x86_64,any}-*
+          path: artifacts
+        continue-on-error: true
+      - name: unpack
+        id: have
+        run: |
+          mkdir -p out
+          find artifacts -name artifact.tar -exec tar -xf {} -C out \; 2>/dev/null || true
+          count=$(find out -maxdepth 1 -name '*.pkg.tar.zst' | wc -l)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          echo "## $count package(s) to publish"
+      - name: import the signing key
+        if: steps.have.outputs.count != '0'
+        env:
+          GPG_SECRET_BASE64: ${{ secrets.GPG_SECRET_BASE64 }}
+          GPG_KEYID: ${{ vars.GPG_KEYID }}
+        run: .github/scripts/import-key.sh
+      - name: publish to R2
+        if: steps.have.outputs.count != '0'
+        env:
+          GPG_KEYID: ${{ vars.GPG_KEYID }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: sway-packages
+        run: python3 scripts/publish.py --pkg-dir out --arch x86_64
