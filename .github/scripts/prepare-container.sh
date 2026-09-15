@@ -92,6 +92,11 @@ pacman -Sy --noconfirm
 # it off `debuginfo`-style names that merely start the same way.
 sed -i -E 's/([ (])debug([ )])/\1!debug\2/g' /etc/makepkg.conf
 
-useradd -m -G wheel builder 2>/dev/null || true
+# The manjaro image already has a builder user, so useradd no-ops there
+# and -m creates nothing: make sure the home it points at exists and
+# belongs to them either way, or makepkg cannot write a gnupg home.
+useradd -m -G wheel builder 2>/dev/null || usermod -aG wheel builder
+builder_home=$(getent passwd builder | cut -d: -f6)
+install -d -o builder -g builder -m 755 "$builder_home"
 echo 'builder ALL=(ALL) NOPASSWD: ALL' >/etc/sudoers.d/builder
 chmod 440 /etc/sudoers.d/builder

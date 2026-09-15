@@ -32,6 +32,11 @@ import_for "${HOME:-/root}/.gnupg"
 # and under `set -e` a bare `id builder && ...` makes its absence the
 # script's exit status. Publishing then failed with 28 packages collected
 # and the key already imported.
+# getent, not a hardcoded /home/builder: the manjaro base image ships a
+# builder user whose home is /builder, so the key was imported somewhere
+# makepkg's gpg never reads and every build failed with "The key ... does
+# not exist in your keyring" - after the import reported success.
 if id builder >/dev/null 2>&1; then
-  import_for /home/builder/.gnupg builder
+  builder_home=$(getent passwd builder | cut -d: -f6)
+  import_for "${builder_home:-/home/builder}/.gnupg" builder
 fi
