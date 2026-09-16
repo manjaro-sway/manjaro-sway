@@ -8,7 +8,13 @@ export EDITOR=helix
 # such as Firefox, require the backend to be explicitly selected.
 export MOZ_ENABLE_WAYLAND=1
 export MOZ_DBUS_REMOTE=1
+
+# The pair is the point. GTK_CSD is read by the preloaded library, not by
+# GTK, so on its own it does nothing - which is what it did here for as
+# long as it has been in this file. gtk-nocsd is what makes it mean
+# something, and covers GTK4 and libadwaita as well as GTK3.
 export GTK_CSD=0
+export LD_PRELOAD="/usr/lib/libgtk-nocsd.so${LD_PRELOAD:+:$LD_PRELOAD}"
 
 # qt wayland
 export QT_QPA_PLATFORM="wayland"

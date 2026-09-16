@@ -45,7 +45,7 @@ manjaro-browser-settings
 qt5ct
 qt6ct
 kvantum
-gtk3-nocsd
+gtk-nocsd
 
 ## File systems access
 

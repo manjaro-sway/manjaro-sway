@@ -1,0 +1,52 @@
+# Maintainer: Jonas Strassel <info@jonas-strassel.de>
+
+pkgname=gtk-nocsd
+pkgver=4.8
+pkgrel=1
+pkgdesc="LD_PRELOAD library that restores server-side decorations in GTK3/4, libhandy and libadwaita apps"
+arch=('x86_64')
+url="https://codeberg.org/MorsMortium/GTK-NoCSD"
+license=('GPL-3.0-or-later')
+depends=('glibc' 'libadwaita')
+makedepends=('gcc' 'pkgconf')
+# The names the old GTK3-only hack went by. manjaro-contrib built ZaWertun's
+# fork as gtk3-nocsd; anyone upgrading from that should land here, and the
+# two must never be installed together - both preload a library that hooks
+# the same symbols.
+conflicts=('gtk3-nocsd' 'gtk-nocsd-git')
+provides=('gtk3-nocsd')
+replaces=('gtk3-nocsd')
+
+# A tag, not a branch and not a commit-counting VCS source. gtk3-nocsd,
+# which this replaces, had a pkgver() counting commits on live HEAD, so
+# the declared version and the built version disagreed, the builder rebuilt
+# it every run, and each rebuild overwrote the published object with a
+# byte-different one. Upstream tags releases, so take one.
+source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
+sha256sums=('2be0214c37a57d1e0bcd7d217310c2af1307955710077f41db928fb40d33fa68')
+
+build() {
+    cd "$srcdir/$pkgname"
+    make build
+}
+
+package() {
+    cd "$srcdir/$pkgname"
+
+    # LIBDIR: the Makefile defaults to $PREFIX/lib64, which is not where
+    # Arch puts libraries.
+    #
+    # NOOPT: upstream hard-links the library into /opt for Flatpak, which
+    # ships no Flatpak runtime of its own here and would leave a second
+    # copy of the same inode outside the package's own tree.
+    #
+    # NODOC: the example profile.d snippets are a global switch we make
+    # ourselves, in manjaro-sway-settings' skel - shipping a second, inert
+    # copy would be two places to read and one to believe.
+    make install \
+        DESTDIR="$pkgdir" \
+        PREFIX=/usr \
+        LIBDIR=/usr/lib \
+        NOOPT=1 \
+        NODOC=1
+}

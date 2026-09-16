@@ -30,12 +30,12 @@ packages:
     arch: any
   kernel-install-mkinitcpio:
     arch: any
-  # pinned to a commit rather than tracking HEAD: pkgver() counts commits
-  # on the checkout, so an unpinned source made the declared version and
-  # the built version disagree - every run rebuilt it and overwrote the
-  # published package with a byte-different one. Upstream last moved in
-  # 2021; bump the commit to take new work.
-  gtk3-nocsd:
+  # Replaces gtk3-nocsd, whose pkgver() counted commits on live HEAD: the
+  # declared version never moved while the built bytes did, so every run
+  # rebuilt it and publish refused to overwrite the object readers cache
+  # as immutable. This builds from a tag, and covers GTK4 and libadwaita
+  # as well as GTK3.
+  gtk-nocsd:
     arch: x86_64
 
   # vendored from manjaro-contrib, which maintains these outside the AUR
