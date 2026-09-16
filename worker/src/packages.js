@@ -33,26 +33,32 @@ export function resolveKey(path) {
 }
 
 export function renderListing(prefix, dirs, files) {
-  const parent = prefix.replace(/[^/]+\/$/, '');
-  const base = '/packages/unstable/';
+  // Relative, not rooted at /packages/unstable/. The same listing is served
+  // under two hostnames whose paths differ - the legacy repository host
+  // carries no /packages prefix - so an absolute href is right on one and a
+  // 404 on the other, which is what it was: every link on
+  // packages.manjaro-sway.download pointed at a path that host does not
+  // serve. A listing only exists at a URL ending in `/` (see isListing), so
+  // a relative href always resolves against the directory being shown.
+  //
+  // The href is now the same string as the link text, which is what a
+  // listing entry is: a name within the directory you are looking at.
   const rows = [
-    prefix
-      ? `<tr><td><a href="${base}${escapeHtml(parent)}">../</a></td><td></td><td></td></tr>`
-      : '',
-    ...dirs.map(
-      (d) =>
-        `<tr><td><a href="${base}${escapeHtml(d)}">${escapeHtml(
-          d.slice(prefix.length),
-        )}</a></td><td></td><td></td></tr>`,
-    ),
-    ...files.map(
-      (f) =>
-        `<tr><td><a href="${base}${escapeHtml(f.key)}">${escapeHtml(
-          f.key.slice(prefix.length),
-        )}</a></td><td>${humanSize(f.size)}</td><td>${escapeHtml(
-          new Date(f.uploaded).toISOString().slice(0, 16).replace('T', ' '),
-        )}</td></tr>`,
-    ),
+    prefix ? '<tr><td><a href="../">../</a></td><td></td><td></td></tr>' : '',
+    ...dirs.map((d) => {
+      const name = d.slice(prefix.length);
+      return `<tr><td><a href="${escapeHtml(name)}">${escapeHtml(
+        name,
+      )}</a></td><td></td><td></td></tr>`;
+    }),
+    ...files.map((f) => {
+      const name = f.key.slice(prefix.length);
+      return `<tr><td><a href="${escapeHtml(name)}">${escapeHtml(
+        name,
+      )}</a></td><td>${humanSize(f.size)}</td><td>${escapeHtml(
+        new Date(f.uploaded).toISOString().slice(0, 16).replace('T', ' '),
+      )}</td></tr>`;
+    }),
   ].join('\n');
 
   return page(
