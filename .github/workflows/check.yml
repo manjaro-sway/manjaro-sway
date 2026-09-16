@@ -14,26 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
-        with:
-          node-version: 22
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
       - name: test
-        working-directory: worker
         # no install step: the worker has no dependencies and the suite runs
-        # on node's own test runner
-        run: npm test
+        # on node's own test runner. The task lives in mise.toml so a
+        # workstation and a runner run the same thing on the same node.
+        run: mise run test
 
   python:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        with:
-          python-version: '3.13'
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
       - name: ruff
-        run: |
-          pip install ruff
-          ruff check scripts
+        # ruff's version is pinned in mise.toml rather than resolved fresh
+        # on every run: a new release finding a new class of problem should
+        # be a commit, not a build that fails without one.
+        run: mise run lint
 
   shell:
     runs-on: ubuntu-latest
@@ -53,10 +50,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
       - name: every package the profile lists resolves
         # the same check build-iso runs, here so a pull request that adds an
         # unresolvable name fails in seconds rather than an hour into a build
-        run: python3 scripts/check_iso_packages.py
+        run: mise run check-iso-packages
 
   packages:
     runs-on: ubuntu-latest

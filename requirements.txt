@@ -1,0 +1,8 @@
+# What the scripts in scripts/ import beyond the standard library.
+#
+# Unpinned on purpose: these are two well-behaved libraries used through
+# their stable surfaces - an S3 client and a YAML loader - and a pin here
+# would be a second thing to update with nothing checking it. The tools
+# that decide reproducibility are pinned in mise.toml instead.
+boto3
+PyYAML

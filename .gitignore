@@ -16,3 +16,7 @@ packages/*/src/
 
 worker/node_modules
 worker/.wrangler
+
+# uv's cache, kept in the checkout so a runner can cache one directory
+# (UV_CACHE_DIR in mise.toml)
+.uv-cache/
