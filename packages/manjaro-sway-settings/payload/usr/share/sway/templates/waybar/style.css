@@ -89,6 +89,12 @@ window#waybar {
     background-color: @theme_selected_bg_color;
 }
 
+/* A hidden scratchpad window is on no workspace, so nothing else renders its
+ * urgency hint. Swap the background only; the foreground is inherited. */
+#custom-scratchpad.urgent {
+    background-color: @error_color;
+}
+
 #custom-zeit.tracking {
     background-color: @warning_color;
 }
