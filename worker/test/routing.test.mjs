@@ -29,6 +29,21 @@ test('each mount reaches its own site', () => {
   assert.equal(mountFor('/img/logo.png'), null);
 });
 
+test('/geo is no longer a route and is not answered here', async () => {
+  // The desktop reads location from the ashlaros deployment now. What
+  // matters is that this path reaches the assets binding like any other
+  // unmounted path, rather than being quietly answered by a leftover
+  // route: a stale client gets a clean miss it can fall back from, not
+  // HTML that its `jq` would choke on.
+  assert.equal(mountFor('/geo'), null);
+  let asked = null;
+  await worker.fetch(get('geo'), env((request) => {
+    asked = new URL(request.url).pathname;
+    return new Response('not found', { status: 404 });
+  }));
+  assert.equal(asked, '/geo');
+});
+
 test('the mount prefix is stripped before the site sees the path', () => {
   // the buckets hold unprefixed keys, so a site that saw `/packages/...`
   // would look up a key that cannot exist

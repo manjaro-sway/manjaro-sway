@@ -35,9 +35,11 @@ USER_AGENT = "manjaro-sway-weather/1.0 github.com/manjaro-sway/manjaro-sway"
 
 FORECAST_URL = "https://api.met.no/weatherapi/locationforecast/2.0/complete"
 
-# Our own worker rather than a third-party geo-ip service: the desktop
-# should not tell anyone else its IP address on every weather refresh.
-GEO_URL = environ.get("MANJARO_SWAY_GEO_URL", "https://sway.manjaro.download/geo")
+# The ashlaros worker rather than a commercial geo-ip service: the desktop
+# should not tell a data broker its IP address on every weather refresh.
+# That deployment belongs to a sibling project, not to this one; set
+# MANJARO_SWAY_GEO_URL to use a different one.
+GEO_URL = environ.get("MANJARO_SWAY_GEO_URL", "https://ashlaros.download/geo")
 
 # MET's symbol vocabulary, which replaces open-meteo's WMO integers. The
 # whole set, not only what one sample happened to return: a code we do not

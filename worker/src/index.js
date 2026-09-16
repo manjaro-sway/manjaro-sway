@@ -10,7 +10,6 @@
  */
 
 import { FAVICON } from './favicon.js';
-import { geo } from './geo.js';
 import { site as isoSite } from './iso.js';
 import { site as packagesSite } from './packages.js';
 import { handler } from './serve.js';
@@ -97,11 +96,6 @@ export default {
       }
       return handler(packagesSite)(rebase(request, `/unstable/${within}`), env, ctx);
     }
-
-    // Ahead of the docs binding, which otherwise answers for everything
-    // outside a mount. The desktop reads this instead of telling a third
-    // party its IP address; nothing about the request is logged or stored.
-    if (pathname === '/geo') return geo(request);
 
     // The signing key at the root as well as under the repository: a
     // machine trusts the key before it has a repository configured, and

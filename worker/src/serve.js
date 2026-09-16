@@ -266,9 +266,10 @@ export function handler(site) {
     // rejecting it here would make the route unreachable rather than
     // wrong - which is how the score endpoint first answered 405.
     //
-    // (request, bucket, env, url) rather than just the bucket: /geo needs
-    // request.cf, and the game routes need env and the query. One
-    // signature covering all of them beats each adding its own parameter.
+    // (request, bucket, env, url) rather than just the bucket: the stats
+    // routes need env for the analytics binding and the query for the
+    // version filter. One signature covering all of them beats each
+    // adding its own parameter.
     const route = site.routes?.[requested];
     if (route) return route(request, bucket, env, url);
 
