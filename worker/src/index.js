@@ -18,6 +18,10 @@ import { archiveMonth, closedMonth } from './stats.js';
 
 // The prefix a path has to carry to reach a bucket. Anything else is the
 // landing page, which the assets binding serves.
+// The branch names that are not published, and the rest of the path after
+// them. Anchored, so it cannot match a key that merely contains the word.
+const ALIAS_BRANCH = /^\/packages\/(?:stable|testing)\/(.*)$/;
+
 const MOUNTS = [
   { prefix: '/packages/', site: packagesSite },
   { prefix: '/iso/', site: isoSite },
@@ -92,6 +96,17 @@ export default {
           'cache-control': 'public, max-age=86400',
         },
       });
+    }
+
+    // Only unstable is published. The other two names redirect rather than
+    // serving the same objects quietly: a client configured for stable was
+    // getting unstable packages with nothing to say so, in its output or
+    // in ours. A 301 is visible in `pacman -Sy`, and pacman follows it.
+    const alias = ALIAS_BRANCH.exec(pathname);
+    if (alias) {
+      const url = new URL(request.url);
+      url.pathname = `/packages/unstable/${alias[1]}`;
+      return Response.redirect(url.toString(), 301);
     }
 
     const mount = mountFor(pathname);

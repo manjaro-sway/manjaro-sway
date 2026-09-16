@@ -28,16 +28,32 @@ test('the published tree is served under its branch', async () => {
   assert.equal(res.status, 200);
 });
 
-test('every branch name resolves the same objects', async () => {
-  // only unstable is published; the other two are aliases so a client
-  // configured against an older URL keeps working rather than 404ing
-  for (const branch of ['unstable', 'testing', 'stable']) {
+test('an unpublished branch redirects to the one that is', async () => {
+  // A client configured for stable was being served unstable packages with
+  // nothing anywhere to say so. Redirecting keeps that client working and
+  // makes the substitution visible in its output and in the logs.
+  for (const branch of ['stable', 'testing']) {
     const res = await worker.fetch(
       req(`packages/${branch}/x86_64/manjaro-sway.db.tar.gz`),
       env(),
     );
-    assert.equal(res.status, 200, branch);
+    assert.equal(res.status, 301, branch);
+    assert.equal(
+      res.headers.get('location'),
+      'https://sway.manjaro.download/packages/unstable/x86_64/manjaro-sway.db.tar.gz',
+      branch,
+    );
   }
+});
+
+test('the redirect carries the whole path, not just the database', async () => {
+  // pacman fetches the package and its signature from the same Server line
+  const res = await worker.fetch(
+    req('packages/stable/x86_64/swayr-0.27.3-1-x86_64.pkg.tar.zst.sig'),
+    env(),
+  );
+  assert.equal(res.status, 301);
+  assert.match(res.headers.get('location'), /\/packages\/unstable\/x86_64\/swayr-.*\.sig$/);
 });
 
 test('a path naming no known tree is refused without touching the bucket', async () => {
@@ -125,7 +141,9 @@ test('resolveKey strips the branch and admits only the published tree', () => {
   assert.equal(resolveKey(''), '');
   assert.equal(resolveKey('unstable'), '');
   assert.equal(resolveKey('unstable/x86_64/'), 'x86_64/');
-  assert.equal(resolveKey('stable/x86_64/manjaro-sway.db'), 'x86_64/manjaro-sway.db');
+  assert.equal(resolveKey('unstable/x86_64/manjaro-sway.db'), 'x86_64/manjaro-sway.db');
+  // the unpublished branches never reach here: index.js redirects them
+  assert.equal(resolveKey('stable/x86_64/manjaro-sway.db'), null);
   assert.equal(resolveKey('unstable/aarch64/manjaro-sway.db'), null);
   assert.equal(resolveKey('unstable/../secrets'), null);
   assert.equal(resolveKey('../secrets'), null);

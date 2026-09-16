@@ -11,10 +11,9 @@ const TITLE = 'packages';
 // answering 404 for it is cheaper than a bucket round trip.
 const ARCHES = ['x86_64'];
 
-// Only `unstable` is published. The other two are aliases for it rather
-// than trees of their own: a client configured against an older URL keeps
-// resolving, and there is one set of objects behind all three names.
-const BRANCHES = ['unstable', 'testing', 'stable'];
+// The one branch published. `stable` and `testing` are redirected to it in
+// index.js before a request reaches this site, so they never appear here.
+const BRANCH = 'unstable';
 
 /**
  * The stored key a request path refers to, or null if it names no tree.
@@ -26,7 +25,7 @@ const BRANCHES = ['unstable', 'testing', 'stable'];
 export function resolveKey(path) {
   if (path === '') return '';
   const [branch, ...rest] = path.split('/');
-  if (!BRANCHES.includes(branch)) return null;
+  if (branch !== BRANCH) return null;
   const within = rest.join('/');
   if (within === '') return '';
   const [arch] = within.split('/');
@@ -86,12 +85,8 @@ export const site = {
     // has anything from it installed. Reachable under every branch alias,
     // because the key is what a user fetches first and a 404 there reads
     // as the repository being down.
-    ...Object.fromEntries(
-      BRANCHES.flatMap((branch) => [
-        [`${branch}/manjaro-sway.gpg`, signingKey],
-        [`${branch}/x86_64/manjaro-sway.gpg`, signingKey],
-      ]),
-    ),
+    [`${BRANCH}/manjaro-sway.gpg`]: signingKey,
+    [`${BRANCH}/x86_64/manjaro-sway.gpg`]: signingKey,
     'manjaro-sway.gpg': signingKey,
   },
 
