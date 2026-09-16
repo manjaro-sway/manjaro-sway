@@ -33,7 +33,19 @@ jobs:
       # so fetch-depth below is silently meaningless and package_version.py
       # fails with "not a git repository".
       - name: install git before the checkout
-        run: pacman -Syu --noconfirm --needed git
+        # Retried for the same reason prepare-container.sh retries: a
+        # mirror publishes its database ahead of the package files it
+        # names, and a sync landing in that window 404s. This step runs
+        # before the checkout, so it cannot use the script.
+        run: |
+          for attempt in 1 2 3; do
+            pacman -Syu --noconfirm --needed git && exit 0
+            echo "## install failed (attempt $attempt); refreshing mirrors" >&2
+            pacman-mirrors -f5 >/dev/null 2>&1 || true
+            pacman -Syy --noconfirm >/dev/null 2>&1 || true
+            sleep 15
+          done
+          exit 1
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # package_version.py derives pkgver/pkgrel from how many commits
@@ -82,7 +94,19 @@ jobs:
         package: ${{ fromJSON(inputs.compiled) }}
     steps:
       - name: install git before the checkout
-        run: pacman -Syu --noconfirm --needed git
+        # Retried for the same reason prepare-container.sh retries: a
+        # mirror publishes its database ahead of the package files it
+        # names, and a sync landing in that window 404s. This step runs
+        # before the checkout, so it cannot use the script.
+        run: |
+          for attempt in 1 2 3; do
+            pacman -Syu --noconfirm --needed git && exit 0
+            echo "## install failed (attempt $attempt); refreshing mirrors" >&2
+            pacman-mirrors -f5 >/dev/null 2>&1 || true
+            pacman -Syy --noconfirm >/dev/null 2>&1 || true
+            sleep 15
+          done
+          exit 1
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
