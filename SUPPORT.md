@@ -22,7 +22,7 @@ $unbindsym $mod+w
 
 ## Disabling integrations
 
-We tried to allow opt-outs of most tools by just not having them installed. All tools listed as `optdepends` in the [PKGBUILD](https://github.com/manjaro-sway/manjaro-sway-settings/blob/master/PKGBUILD) can be removed and re-installed at your discretion.
+We tried to allow opt-outs of most tools by just not having them installed. All tools listed as `optdepends` in the [PKGBUILD](https://github.com/manjaro-sway/manjaro-sway/blob/main/packages/manjaro-sway-settings/PKGBUILD) can be removed and re-installed at your discretion.
 
 ### How can I remove an auto-starting application?
 
