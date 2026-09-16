@@ -1,0 +1,44 @@
+# Tool and dependency versions, so a workstation and a runner agree.
+#
+# The scripts in scripts/ are standalone - each is runnable on its own and
+# none imports a third-party package beyond boto3 and PyYAML - so there is
+# no package to build and no lockfile to resolve. mise pins the tools and
+# uv installs the two dependencies, which is the whole of it.
+#
+# Node is here because the worker is tested with it: CI pinned a version in
+# check.yml and Cloudflare Workers Builds resolves its own, so the two could
+# drift with no commit to blame it on.
+#
+# The jobs that run inside a manjarolinux container do NOT use this:
+# repo-add and makepkg have to come from the same pacman generation that
+# built the packages, so those take python-boto3 from pacman instead. Same
+# reason the ISO build calls python3 directly - it runs against the image's
+# own interpreter, not one mise installed.
+
+[tools]
+python = "3.14.7"
+uv = "0.12"
+ruff = "0.16.7"
+node = "24"
+
+[env]
+# keep uv's cache inside the checkout so a runner can cache one directory
+UV_CACHE_DIR = "{{ config_root }}/.uv-cache"
+
+[tasks.install]
+description = "install the script dependencies"
+run = "uv pip install --system -r requirements.txt"
+
+[tasks.lint]
+description = "lint every python file in scripts/"
+run = "ruff check scripts"
+
+[tasks.test]
+description = "run the worker tests"
+dir = "worker"
+run = "npm test"
+
+[tasks.check-iso-packages]
+description = "every package the iso profile lists resolves"
+depends = ["install"]
+run = "python3 scripts/check_iso_packages.py"
