@@ -108,7 +108,6 @@ xdg-user-dirs
 
 curl
 jq
->extra oh-my-zsh
 wget
 wl-clipboard # wayland clipboard application
 cliphist # clipboard history application

@@ -1,6 +1,3 @@
-# base config for oh my zsh
-source /usr/share/oh-my-zsh/zshrc
-
 #p10k instant prompt to make terminal open a bit snappier
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
