@@ -1,7 +1,7 @@
 # Manjaro Sway Edition
 
-[![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dlongterm)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
-[![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel-info.manjaro-sway.download%2F%3Fcategory%3Dstable)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
+[![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel.manjaro.download%2Fcategory%2Flongterm.json)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
+[![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel.manjaro.download%2Fcategory%2Fstable.json)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
 [![packages](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-packages.yml/badge.svg)](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-packages.yml)
 [![iso](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-iso.yml/badge.svg)](https://github.com/manjaro-sway/manjaro-sway/actions/workflows/build-iso.yml)
