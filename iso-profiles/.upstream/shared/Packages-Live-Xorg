@@ -1,0 +1,26 @@
+calamares
+KERNEL-bbswitch
+KERNEL-broadcom-wl
+#KERNEL-r8168
+#KERNEL-rt3562sta
+manjaro-live-skel
+mkinitcpio-nfs-utils
+#>multilib lib32-libxvmc  ## moved to AUR on 2026-08-16
+>multilib lib32-primus
+nbd
+open-vm-tools
+primus
+>manjaro grub-theme-live-manjaro
+bumblebee
+manjaro-live-systemd
+#manjaro-architect
+xf86-input-vmmouse
+xf86-video-amdgpu
+xf86-video-ati
+xf86-video-dummy
+xf86-video-fbdev
+xf86-video-intel
+xf86-video-nouveau
+xf86-video-sisusb
+xf86-video-vesa
+xf86-video-voodoo

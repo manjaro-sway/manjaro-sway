@@ -1,0 +1,41 @@
+# Where the vendored iso-profiles files come from.
+#
+# Only shared/ is listed. community/sway/ is ours - it is the edition this
+# repository exists to build, and upstream has no copy of it to track.
+# shared/ is Manjaro's, vendored here when the profiles were imported, and
+# nothing rebuilds from it - so it drifts silently until an ISO behaves
+# oddly. scripts/track_upstreams.py checks it daily against this manifest.
+#
+# The remote is named once rather than per file: these are a tree, and
+# repeating it twenty-two times invites the halves to disagree.
+remote:
+  host: https://code.manjaro.org
+  repo: profiles/iso-profiles
+  ref: master
+
+# Every file upstream has under shared/. Listed rather than discovered, so
+# a file appearing upstream is a decision someone makes here rather than
+# something that starts being merged into our tree unannounced.
+files:
+  - shared/Packages-Desktop
+  - shared/Packages-Live
+  - shared/Packages-Live-Sponsor
+  - shared/Packages-Live-Xorg
+  - shared/Packages-Mhwd
+  - shared/Packages-Root
+  - shared/profile.conf.example
+  - shared/manjaro/live-overlay/etc/default/grub
+  - shared/manjaro/live-overlay/etc/fstab
+  - shared/manjaro/live-overlay/etc/issue
+  - shared/manjaro/live-overlay/etc/localtime
+  - shared/manjaro/live-overlay/etc/pam.d/su
+  - shared/manjaro/live-overlay/etc/skel/.config/manjaro/manjaro-settings-manager.conf
+  - shared/manjaro/live-overlay/etc/sudoers.d/g_wheel
+  - shared/oem/live-overlay/etc/default/grub
+  - shared/oem/live-overlay/etc/default/tlp
+  - shared/oem/live-overlay/etc/fstab
+  - shared/oem/live-overlay/etc/issue
+  - shared/oem/live-overlay/etc/pam.d/su
+  - shared/oem/live-overlay/etc/skel/.config/manjaro/manjaro-settings-manager.conf
+  - shared/oem/live-overlay/etc/sudoers.d/g_wheel
+  - shared/oem/live-overlay/usr/share/calamares/branding/manjaro/branding.desc

@@ -6,21 +6,27 @@ GitHub one can be rewritten between two builds of the same version, so ours
 are copies. That makes them frozen unless something looks, which is what
 this does.
 
-Two kinds of upstream, one mechanism:
+Three kinds of upstream, one mechanism:
 
   - aur.archlinux.org, read through cgit's plain view.
   - github.com, read through the contents API. One file, not a clone: the
     cost is the same as the AUR fetch, so there is no reason to treat these
     differently. (An earlier version skipped them on the assumption that
     checking meant cloning. It does not.)
+  - code.manjaro.org, read through the same contents API - it runs Gitea -
+    for the files under iso-profiles/shared/. Those are vendored from
+    Manjaro's own profile and drift the same way a PKGBUILD does, except
+    that nothing here rebuilds from them, so drift is invisible until an
+    ISO behaves oddly. gitlab.manjaro.org, where they used to live, is
+    gone.
 
-Several vendored PKGBUILDs carry deliberate local edits - `arch=` narrowed
-to this repository's single architecture - so an update is never a blind
-overwrite. `packages/.upstream/<name>.PKGBUILD` holds the pristine
-upstream text each copy was made from, and that file is the merge base:
-with it, an upstream change to a line we never touched applies cleanly, and
-one to a line we did touch conflicts loudly. Without it the "merge" is an
-overwrite that reverts our edits and reports success.
+Several vendored copies carry deliberate local edits - `arch=` narrowed to
+this repository's single architecture, `nano` added to the live package
+list - so an update is never a blind overwrite. A pristine copy of the
+upstream text each was made from sits beside it, and that file is the merge
+base: with it, an upstream change to a line we never touched applies
+cleanly, and one to a line we did touch conflicts loudly. Without it the
+"merge" is an overwrite that reverts our edits and reports success.
 
 Output is per package, so the caller can open one pull request per update
 rather than one containing everything: an unrelated conflict should not
@@ -49,10 +55,20 @@ PACKAGES = ROOT / "packages"
 MANIFEST = PACKAGES / "upstreams.yml"
 BASES = PACKAGES / ".upstream"
 
+# The iso-profiles half. One manifest naming the upstream repository once,
+# rather than a URL per file: the files are a tree, and repeating the
+# remote twenty-two times invites the two halves to disagree.
+PROFILES = ROOT / "iso-profiles"
+PROFILES_MANIFEST = PROFILES / "upstream.yml"
+PROFILES_BASES = PROFILES / ".upstream"
+
 AUR_HOST = "https://aur.archlinux.org/"
 AUR_PLAIN = "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h={name}"
 GITHUB_HOST = "https://github.com/"
 GITHUB_API = "https://api.github.com/repos/{repo}/contents/PKGBUILD"
+# Gitea's contents API, same shape as GitHub's. code.manjaro.org replaced
+# gitlab.manjaro.org, which no longer resolves.
+GITEA_API = "{host}/api/v1/repos/{repo}/contents/{path}?ref={ref}"
 
 USER_AGENT = "manjaro-sway-track-upstreams"
 
@@ -109,6 +125,34 @@ def fetch(kind: str, identifier: str) -> bytes:
     return body
 
 
+def fetch_profile_file(remote: dict, path: str) -> bytes:
+    """One file out of the upstream iso-profiles tree.
+
+    No content check of the kind fetch() does for a PKGBUILD: these files
+    have no shared marker - a sudoers line, an empty localtime placeholder
+    and a package list have nothing in common - so there is nothing
+    honest to assert. Gitea returns JSON with base64 content or an error
+    status, and both are already distinguishable without guessing at the
+    body.
+    """
+    payload = json.loads(
+        request(
+            GITEA_API.format(
+                host=remote["host"].rstrip("/"),
+                repo=remote["repo"],
+                path=path,
+                ref=remote.get("ref", "master"),
+            )
+        )
+    )
+    if payload.get("type") != "file":
+        raise ValueError(f"{path}: upstream entry is not a file")
+    content = payload.get("content")
+    if content is None:
+        raise ValueError(f"{path}: upstream returned no content")
+    return base64.b64decode(content)
+
+
 def merge(base: bytes, ours: bytes, theirs: bytes) -> tuple[bytes, bool]:
     """Replay our local edits onto the new upstream text.
 
@@ -131,15 +175,15 @@ def merge(base: bytes, ours: bytes, theirs: bytes) -> tuple[bytes, bool]:
         return result.stdout, result.returncode == 0
 
 
-def unified(old: bytes, new: bytes, name: str) -> str:
+def unified(old: bytes, new: bytes, label: str) -> str:
     import difflib
 
     return "".join(
         difflib.unified_diff(
             old.decode(errors="replace").splitlines(keepends=True),
             new.decode(errors="replace").splitlines(keepends=True),
-            fromfile=f"{name}/PKGBUILD (upstream, as vendored)",
-            tofile=f"{name}/PKGBUILD (upstream, now)",
+            fromfile=f"{label} (upstream, as vendored)",
+            tofile=f"{label} (upstream, now)",
         )
     )
 
@@ -177,7 +221,7 @@ def check(name: str, entry: dict, apply: bool) -> dict | None:
 
     log(f"{name}: upstream changed")
     merged, clean = merge(base, ours, theirs)
-    diff = unified(base, theirs, name)
+    diff = unified(base, theirs, f"{name}/PKGBUILD")
 
     if clean and apply:
         pkgbuild.write_bytes(merged)
@@ -194,7 +238,74 @@ def check(name: str, entry: dict, apply: bool) -> dict | None:
     }
 
 
+def check_profile(path: str, remote: dict, apply: bool) -> dict | None:
+    """Look at one vendored iso-profiles file. None when nothing moved.
+
+    Same three-way merge as a PKGBUILD, because the reason is the same:
+    shared/Packages-Live carries `nano`, which upstream has never had, and
+    a two-way overwrite would drop it while reporting success.
+    """
+    ours_path = PROFILES / path
+    if not ours_path.exists():
+        log(f"{path}: vendored copy is missing")
+        return {"name": path, "state": "failed", "error": "no vendored copy"}
+
+    try:
+        theirs = fetch_profile_file(remote, path)
+    except (urllib.error.URLError, ValueError, KeyError, TimeoutError) as exc:
+        log(f"{path}: could not fetch upstream: {exc}")
+        return {"name": path, "state": "failed", "error": str(exc)}
+
+    base_path = PROFILES_BASES / path
+    if not base_path.exists():
+        log(f"{path}: no merge base at {base_path.relative_to(ROOT)}")
+        return {"name": path, "state": "failed", "error": "no merge base"}
+
+    base = base_path.read_bytes()
+    if sha256(base) == sha256(theirs):
+        return None
+
+    log(f"{path}: upstream changed")
+    ours = ours_path.read_bytes()
+    merged, clean = merge(base, ours, theirs)
+    diff = unified(base, theirs, path)
+
+    if clean and apply:
+        ours_path.write_bytes(merged)
+        base_path.write_bytes(theirs)
+
+    return {
+        "name": path,
+        "state": "changed" if clean else "conflicted",
+        "kind": "iso-profiles",
+        "upstream": f"{remote['host'].rstrip('/')}/{remote['repo']} {path}",
+        "diff": diff,
+    }
+
+
+def slug(name: str) -> str:
+    """A filename for a report about `name`.
+
+    A package name is already one. An iso-profiles name is a path, and
+    `shared/Packages-Live.md` would mean a directory that does not exist -
+    which is exactly how this failed the first time it ran against a
+    profile file.
+    """
+    return name.replace("/", "__")
+
+
+def paths_for(result: dict) -> tuple[str, str]:
+    """(vendored copy, merge base) as repository-relative paths."""
+    if result.get("kind") == "iso-profiles":
+        return f"iso-profiles/{result['name']}", f"iso-profiles/.upstream/{result['name']}"
+    return (
+        f"packages/{result['name']}/PKGBUILD",
+        f"packages/.upstream/{result['name']}.PKGBUILD",
+    )
+
+
 def body_for(result: dict) -> str:
+    ours, base = paths_for(result)
     if result["state"] == "changed":
         verdict = (
             "Merged cleanly onto our copy: upstream touched no line we edit.\n"
@@ -203,9 +314,9 @@ def body_for(result: dict) -> str:
     else:
         verdict = (
             "**Conflicts.** Upstream changed a line we deliberately edit, so\n"
-            "nothing was written - `packages/" + result["name"] + "/PKGBUILD` is\n"
+            "nothing was written - `" + ours + "` is\n"
             "untouched. Reconcile by hand, then update\n"
-            "`packages/.upstream/" + result["name"] + ".PKGBUILD` to the new\n"
+            "`" + base + "` to the new\n"
             "upstream text so the next merge has the right base."
         )
     return (
@@ -213,6 +324,44 @@ def body_for(result: dict) -> str:
         f"{verdict}\n\n"
         f"```diff\n{result['diff']}```\n"
     )
+
+
+def seed_profile_bases(profiles: dict) -> int:
+    """Write a merge base for every tracked iso-profiles file.
+
+    Run once, when a file starts being tracked. Seeding is only safe while
+    the vendored copy and upstream agree, or while the difference is a
+    local edit someone has decided to keep: the base records what upstream
+    said, and a wrong base makes the next merge either drop our edit or
+    conflict on a line nobody touched. It refuses to overwrite a base that
+    already exists, because doing so would silently discard the history of
+    the copy it describes.
+    """
+    remote = profiles.get("remote")
+    if not remote:
+        log("no remote in the iso-profiles manifest")
+        return 2
+
+    failed = []
+    for path in sorted(profiles.get("files", [])):
+        base_path = PROFILES_BASES / path
+        if base_path.exists():
+            log(f"{path}: base exists; leaving it alone")
+            continue
+        try:
+            theirs = fetch_profile_file(remote, path)
+        except (urllib.error.URLError, ValueError, KeyError, TimeoutError) as exc:
+            log(f"{path}: could not fetch upstream: {exc}")
+            failed.append(path)
+            continue
+        base_path.parent.mkdir(parents=True, exist_ok=True)
+        base_path.write_bytes(theirs)
+        ours = (PROFILES / path).read_bytes() if (PROFILES / path).exists() else b""
+        note = "identical" if ours == theirs else "LOCAL EDIT preserved"
+        log(f"{path}: seeded ({note})")
+
+    print(json.dumps({"seeded": True, "failed": failed}))
+    return 2 if failed else 0
 
 
 def main() -> int:
@@ -226,7 +375,19 @@ def main() -> int:
         help="write one markdown body per changed package here",
     )
     parser.add_argument("--only", help="check a single package directory")
+    parser.add_argument(
+        "--seed-profile-bases",
+        action="store_true",
+        help="write iso-profiles merge bases from upstream and exit",
+    )
     args = parser.parse_args()
+
+    profiles = {}
+    if PROFILES_MANIFEST.exists():
+        profiles = yaml.safe_load(PROFILES_MANIFEST.read_text()) or {}
+
+    if args.seed_profile_bases:
+        return seed_profile_bases(profiles)
 
     packages = yaml.safe_load(MANIFEST.read_text())["packages"]
 
@@ -238,11 +399,23 @@ def main() -> int:
         if result:
             results.append(result)
 
+    remote = profiles.get("remote")
+    for path in sorted(profiles.get("files", [])):
+        if args.only and path != args.only:
+            continue
+        result = check_profile(path, remote, args.apply)
+        if result:
+            results.append(result)
+
     if args.report_dir:
         args.report_dir.mkdir(parents=True, exist_ok=True)
         for result in results:
             if result["state"] in ("changed", "conflicted"):
-                (args.report_dir / f"{result['name']}.md").write_text(body_for(result))
+                # an iso-profiles name is a path, so it cannot be a filename
+                # as-is; the workflow reads the item back out of the report
+                (args.report_dir / f"{slug(result['name'])}.md").write_text(
+                    body_for(result)
+                )
 
     summary = {
         "changed": [r["name"] for r in results if r["state"] == "changed"],
