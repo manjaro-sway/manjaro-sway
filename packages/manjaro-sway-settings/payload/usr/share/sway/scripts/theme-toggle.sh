@@ -44,7 +44,7 @@ tomorrow_sunset_unix() {
 }
 
 if [ -f "$LOCKFILE" ]; then
-    if [ $current_unix -ge $(sunrise_unix) ] && [ $current_unix -lt $(sunset_unix) ]; then
+    if [ "$current_unix" -ge "$(sunrise_unix)" ] && [ "$current_unix" -lt "$(sunset_unix)" ]; then
         NEXT_PRIMARY_THEME="light"
         NEXT_SECONDARY_THEME="dark"
     else
