@@ -1,0 +1,80 @@
+# Dependabot, replacing the renovate config this repository used to carry.
+#
+# Two mechanisms, and they are not the same thing:
+#
+#   - Security updates are opened by GitHub itself when an advisory matches
+#     something we depend on, regardless of what is written here. They need
+#     Dependabot alerts enabled on the repository (Settings > Advanced
+#     Security); this file cannot turn them on.
+#   - Version updates are what these entries schedule. Everything but a
+#     major is ignored below, so a routine patch bump does not open a PR -
+#     but a security fix still arrives, because a security update is not a
+#     version update and the ignore rules do not apply to it.
+#
+# That split is the whole point: majors are worth a human reading the
+# changelog, patches are noise, and vulnerabilities are neither optional
+# nor schedulable.
+version: 2
+
+updates:
+  # Every `uses:` in .github is pinned to a commit digest, which is what
+  # makes a supply-chain compromise of an action visible rather than
+  # automatic. renovate kept those digests current; nothing did after it
+  # was removed, so this is the one entry that is a genuine regression fix
+  # rather than a nicety.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "chore(deps)"
+    labels: ["dependencies"]
+    # A digest bump within the same tag is how an action ships a fix, and
+    # it reads as neither major nor minor - so nothing is ignored here.
+
+  # The vendored buildiso action pins actions/cache itself, and the entry
+  # above does not reach it: `directory: /` covers .github/workflows, not a
+  # composite action's own action.yml. Without this, the pin furthest from
+  # anybody's attention is the one nothing watches.
+  - package-ecosystem: github-actions
+    directory: /.github/actions/buildiso
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "chore(deps)"
+    labels: ["dependencies"]
+
+  # The worker's only dependency is wrangler, which deploys the site.
+  - package-ecosystem: npm
+    directory: /worker
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "chore(deps)"
+    labels: ["dependencies"]
+    ignore:
+      # wrangler is pinned exactly so a deploy cannot change under us
+      # (#1011). A minor or patch should not reopen that question weekly;
+      # a major changes deploy behaviour and is worth reading about.
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
+
+  # boto3 and PyYAML, used by the scripts in scripts/.
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "chore(deps)"
+    labels: ["dependencies"]
+    ignore:
+      # requirements.txt is deliberately unpinned: these are two stable
+      # library surfaces and CI resolves them fresh, so a minor or patch
+      # PR would change no file. A major can break the S3 client the
+      # publish path depends on.
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-minor
+          - version-update:semver-patch
