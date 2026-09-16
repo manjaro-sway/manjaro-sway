@@ -65,8 +65,55 @@ jobs:
         with:
           path: /var/cache/pacman/pkg
           key: pacman-pkg-unstable-x86_64-${{ runner.os }}-${{ runner.arch }}-${{ steps.overlay-state.outputs.etag }}-${{ github.run_id }}
+          # Two restore-keys, narrowest first. The etag one reuses a cache
+          # filled from the same overlay, which is the ideal hit. The one
+          # without it reuses a cache from an OLDER overlay, which is the
+          # common case: a publish changes 25 of our packages and leaves
+          # ~700 Manjaro ones untouched, and keying the whole directory to
+          # the overlay threw all of them away - the first run after this
+          # key landed reported "Cache not found" and re-downloaded 1.5 GB.
+          #
+          # Stale copies of our own packages in a reused cache are not a
+          # hazard: the step below deletes them before pacman looks, so a
+          # rebuilt package at an unchanged version cannot be installed
+          # from a previous run's bytes.
           restore-keys: |
             pacman-pkg-unstable-x86_64-${{ runner.os }}-${{ runner.arch }}-${{ steps.overlay-state.outputs.etag }}-
+            pacman-pkg-unstable-x86_64-${{ runner.os }}-${{ runner.arch }}-
+      - name: drop our own packages from the restored cache
+        # A reused cache can hold a previous build of one of our packages
+        # under the same version-filename - publish.py permits a
+        # byte-different rebuild at an unchanged version - and pacman
+        # would install those bytes against the signature we publish now:
+        # "signature is invalid", an hour in. That is the failure the
+        # overlay etag in the key above is there to prevent; this is what
+        # makes it safe to reuse a cache from an older overlay anyway.
+        #
+        # Only ours are dropped. Manjaro's ~700 packages are immutable at
+        # a given version - their repository never republishes bytes under
+        # one - and they are the whole point of keeping the cache.
+        env:
+          REPO_URL: ${{ vars.REPO_URL }}
+        run: |
+          set -euo pipefail
+          # %NAME%, not the entry directory: a directory is name-version,
+          # so globbing on it would only match the version that happens to
+          # be published now and would miss precisely the stale copy this
+          # step exists to delete.
+          ours=$(curl -fsS "$REPO_URL/x86_64/manjaro-sway.db" \
+                 | tar xzO --wildcards '*/desc' 2>/dev/null \
+                 | awk '/^%NAME%$/ { getline; print }' | sort -u)
+          [ -n "$ours" ] || { echo "overlay database listed no names" >&2; exit 1; }
+          removed=0
+          for pkg in $ours; do
+            for f in /var/cache/pacman/pkg/"$pkg"-[0-9]*.pkg.tar.zst; do
+              [ -e "$f" ] || continue
+              sudo rm -f "$f" "$f.sig"
+              removed=$((removed + 1))
+            done
+          done
+          echo "dropped $removed cached copies of our own packages"
+
       # Cheap, and it fails in seconds on the mistake that otherwise fails
       # the build an hour in: a profile naming a package no repository has.
       - name: every listed package resolves
@@ -90,6 +137,13 @@ jobs:
           path: ${{ steps.build.outputs.file-path }}
           retention-days: 1
           if-no-files-found: error
+          # The ISO is a squashfs of packages that are already
+          # zstd-compressed, so there is nothing left for gzip to find:
+          # measured 4.16% on a 200 MB slice of the real image, at 3.4s
+          # per 200 MB - about a minute of deflate for the whole 4 GB, and
+          # the same again inflating it in publish. The action's own
+          # documentation recommends 0 for exactly this case.
+          compression-level: 0
       - name: prune + chmod pacman cache
         if: always()
         run: |
