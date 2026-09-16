@@ -4,7 +4,8 @@
 
 import { escapeHtml, html, humanSize, notFound, page } from './serve.js';
 
-const TITLE = 'manjaro-sway';
+// the section this page is, since the shell already names the site
+const TITLE = 'packages';
 
 // The tree the publish workflow writes. Anything else is a typo, and
 // answering 404 for it is cheaper than a bucket round trip.
@@ -55,7 +56,10 @@ export function renderListing(prefix, dirs, files) {
     ),
   ].join('\n');
 
-  return page(prefix ? `${TITLE}/${prefix}` : TITLE, `<table>\n${rows}\n</table>`);
+  return page(
+    prefix ? `${TITLE}/${prefix}` : TITLE,
+    `<div class="listing"><table>\n${rows}\n</table></div>`,
+  );
 }
 
 /** Serve the repository signing key. */

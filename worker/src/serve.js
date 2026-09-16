@@ -20,45 +20,79 @@ export function humanSize(bytes) {
 }
 
 /**
- * The design language from sway-repo/_layouts/default.html, with the
- * Manjaro green replaced by our stone accent. Both sites render with it,
- * which is the point of having one worker.
+ * The landing page's design language, so /iso and /packages read as parts
+ * of the same site rather than as a file server bolted to it: #282828
+ * page, #141a1b topbar, #eee foreground, #16a085 accent, the logo
+ * watermark, monospace for anything a reader might copy.
+ *
+ * docs/index.html carries its own copy of these rules. Two copies, because
+ * the page is a static asset the worker never renders and this is a string
+ * the worker returns - there is no build step to share them through, and a
+ * stylesheet request would be a second round trip for ~1 KB.
  */
 const STYLE = `
 * { color: #eee; text-decoration: none; }
 body {
-  background: #282828;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center right;
+  background-image: url("/img/background.svg");
+  background-color: #282828;
   margin: 0;
   font-family: Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+header { background: #141a1b; height: 30px; }
 h1 {
-  background: #141a1b;
-  color: #8a8f98;
+  color: #16a085;
   font-size: 0.8rem;
   font-weight: 500;
   line-height: 30px;
   padding: 0 20px;
   margin: 0;
 }
-main { margin: 20px; max-width: 60rem; }
+h1 a.home { color: #8a8f98; }
+h1 a.home:hover { color: #16a085; }
+/* The watermark is decoration; a listing is a long dense table, and over
+   the logo's light areas the dimmed size and date columns stopped being
+   readable. A panel behind the content keeps the artwork visible around it
+   and the text legible on it. The landing page needs none of this: its
+   content is a few short paragraphs that end above the logo.
+   The background is sized to cover, because the svg paints its own canvas
+   and any smaller size shows that rectangle's edge. */
+main {
+  margin: 20px;
+  max-width: 60rem;
+  padding: 4px 20px 20px;
+  background: rgba(40, 40, 40, 0.82);
+  border-radius: 3px;
+  align-self: flex-start;
+}
 h2 {
-  color: #8a8f98;
+  color: #16a085;
   font-size: 0.8rem;
   font-weight: 500;
-  margin: 1.6rem 0 0.3rem;
-}
-/* the machine a download is for, under the version it belongs to: dimmer
-   than the version and closer to the rows it labels, so the grouping reads
-   as a subdivision rather than a second list */
-h3 {
-  color: #6b7280;
-  font-size: 0.75rem;
-  font-weight: 500;
-  margin: 0.7rem 0 0.2rem;
+  margin: 2rem 0 0.4rem;
 }
 table { border-collapse: collapse; font-family: monospace; }
 td { padding: 2px 20px 2px 0; white-space: nowrap; }
 td:not(:first-child) { color: #8a8f98; }
+/* A package filename is ~45 monospace characters and does not wrap, so on
+   a phone it pushed the size and date columns off the panel entirely.
+   Scroll the table rather than the page: the columns stay aligned and
+   reachable, and nothing else on the page moves sideways. */
+.listing { overflow-x: auto; }
+@media (max-width: 40rem) {
+  main { margin: 10px; padding: 4px 10px 10px; }
+  td { padding-right: 12px; }
+}
+/* the same text-shadow the landing page gives its links: the watermark
+   runs behind this text, and monospace on a mid-tone edge is where it
+   first becomes hard to read */
+table a, .row { text-shadow: 2px 2px #282828; }
 .row {
   display: flex;
   justify-content: space-between;
@@ -66,27 +100,16 @@ td:not(:first-child) { color: #8a8f98; }
   padding: 0.15rem 0;
   font-family: monospace;
 }
-a:hover, .row:hover { color: #c9ccd1; }
+a:hover, .row:hover { color: #16a085; }
 p { color: #8a8f98; font-size: 0.85rem; line-height: 1.6; }
-code { font-family: monospace; color: #c9ccd1; }
-/* width and height are on the element too: the page ships no external css,
-   so a late-loading image would otherwise reflow the downloads under it */
-.shots { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0; }
-/* max-width, the same thing .tour below already had: a fixed 480px on a
-   390px phone put the right edge of every shot 112px past the viewport
-   and scrolled the whole page sideways. aspect-ratio rather than a fixed
-   height, because once the width is allowed to shrink a fixed height
-   makes object-fit crop more of the picture the smaller the screen gets -
-   scaling it down is what a reader wants. */
-.shot {
-  width: 480px;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border: 1px solid #3a4043;
-}
-.tour { max-width: 100%; height: auto; border: 1px solid #3a4043; margin: 1rem 0; }
+code { font-family: monospace; color: #16a085; }
+/* the landing page's inline link: monospace and lifted off the watermark.
+   The markup already used it; nothing here defined it, so it rendered as
+   undecorated body text. The colour is stated on the element rather than
+   inherited: the universal selector above has the same specificity and
+   wins on order, which left this the one accent link still white. */
+a.link { font-family: monospace; color: #16a085; text-shadow: 2px 2px #282828; }
+a.link:hover { color: #c9ccd1; }
 `;
 
 export function page(title, body) {
@@ -99,7 +122,9 @@ export function page(title, body) {
     <style>${STYLE}</style>
   </head>
   <body>
-    <h1>${escapeHtml(title)}</h1>
+    <header>
+      <h1><a class="home" href="/">Manjaro Sway Edition</a> / ${escapeHtml(title)}</h1>
+    </header>
     <main>
 ${body}
     </main>

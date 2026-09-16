@@ -9,7 +9,8 @@
 import { escapeHtml, html, humanSize, json, page } from './serve.js';
 import { collect, record } from './stats.js';
 
-const TITLE = 'Manjaro Sway';
+// the section this page is, since the shell already names the site
+const TITLE = 'images';
 
 /** Where this site is mounted, for the links it renders. */
 const BASE = '/iso/';

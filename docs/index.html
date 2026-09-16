@@ -55,9 +55,16 @@
         margin: 2rem 0 0.4rem;
       }
 
+      /* A panel behind the text, the same one the /iso and /packages
+         listings use: the watermark runs behind the pacman.conf snippet,
+         and monospace over the logo's light areas was hard to read. */
       #content {
         margin: 20px;
         max-width: 46rem;
+        padding: 4px 20px 20px;
+        background: rgba(40, 40, 40, 0.82);
+        border-radius: 3px;
+        align-self: flex-start;
       }
 
       p {
