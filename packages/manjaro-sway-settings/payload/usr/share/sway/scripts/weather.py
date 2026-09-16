@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 """Script for the Waybar weather module.
 
-manjaro-sway called a cloudflare worker that talked to open-meteo and
-rendered the tooltip server-side. AshlarOS runs no such service, so the
-rendering that used to live in the worker lives here: the module calls
-MET Norway (the institute behind yr.no) directly and emits the same
-{"text", "tooltip"} shape waybar expects.
+This used to call a cloudflare worker that talked to open-meteo and
+rendered the tooltip server-side, so a desktop showed whatever that
+deployment happened to be serving. The rendering lives here instead: the
+module calls MET Norway (the institute behind yr.no) directly and emits
+the {"text", "tooltip"} shape waybar expects, which means an installed
+desktop keeps working whatever happens to our infrastructure.
+
+Location is the exception, and deliberately so - /geo on our worker
+answers with the coordinates cloudflare attaches at its edge, so the
+machine's IP reaches us rather than a third-party geo-ip service. When it
+is unreachable the module falls back to the last forecast it cached, and
+only fails outright if it has never succeeded.
 
 MET asks three things of a client in return for a free, keyless API, and
 all three are obligations rather than courtesies - "if we cannot contact
