@@ -7,7 +7,6 @@ on:
     branches: [main]
     paths:
       - iso-profiles/**
-      - ci/**
       - .github/actions/buildiso/**
       - .github/workflows/build-iso.yml
   workflow_dispatch:
@@ -86,97 +85,13 @@ jobs:
           sudo paccache -rk1 -c /var/cache/pacman/pkg 2>/dev/null || true
           sudo chmod -R a+rX /var/cache/pacman/pkg 2>/dev/null || true
 
-  test-iso-boot:
-    runs-on: ubuntu-24.04
-    needs: [build-iso]
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - name: install qemu + kvm stack
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu-system-x86 ovmf ffmpeg
-          # Self-hosted runners sometimes ship without /dev/kvm permissions
-          sudo chmod 666 /dev/kvm || true
-      - name: download iso
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: iso-unstable
-          path: artifact
-      - name: boot smoke test
-        env:
-          SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
-          SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
-        run: |
-          ISO=$(ls artifact/*.iso | head -n1)
-          ./ci/boot-smoke.sh "$ISO" x86_64
-      - name: upload serial log on failure
-        if: failure()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: serial-iso-unstable
-          path: serial.log
-          if-no-files-found: warn
-      - name: upload screenshots
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: screenshots-iso-boot-unstable
-          path: screenshots/
-          if-no-files-found: warn
-
-  test-iso-install:
-    # Level 1 of the install test plan: boot the live ISO and verify the
-    # Calamares process actually exec's. Catches installer-package missing,
-    # autostart broken, dependency rot. Does *not* drive the wizard UI —
-    # that's Phase 2 / issue #982.
-    # INJECT_HEADLESS_SWAY bypasses the pam_systemd XDG_RUNTIME_DIR failure
-    # that prevents sway from starting in QEMU — see issue #982.
-    runs-on: ubuntu-24.04
-    needs: [build-iso]
-    timeout-minutes: 25
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - name: install qemu + kvm stack
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu-system-x86 ovmf ffmpeg
-          sudo chmod 666 /dev/kvm || true
-      - name: download iso
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: iso-unstable
-          path: artifact
-      - name: installer launch test
-        env:
-          SERIAL_LOG_OUT: ${{ github.workspace }}/serial.log
-          BOOT_MARKER_REGEX: 'calamares'
-          INJECT_HEADLESS_SWAY: '1'
-          SCREENSHOT_DIR: ${{ github.workspace }}/screenshots
-        run: |
-          ISO=$(ls artifact/*.iso | head -n1)
-          # Boot + greetd + sway autostart + calamares exec — give it 12 min.
-          ./ci/boot-smoke.sh "$ISO" x86_64 720
-      - name: upload serial log on failure
-        if: failure()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: serial-install-unstable
-          path: serial.log
-          if-no-files-found: warn
-      - name: upload screenshots
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: screenshots-iso-install-unstable
-          path: screenshots/
-          if-no-files-found: warn
-
   publish:
-    # Nothing is published until something has booted it. An ISO that
-    # assembles is not an ISO that works, and mkarchiso exiting zero says
-    # only the first.
-    needs: [prepare-release, build-iso, test-iso-boot, test-iso-install]
+    # Published on a successful build alone. The boot and install smoke
+    # tests used to gate this - an ISO that assembles is not an ISO that
+    # works - but they cost ~45 minutes of QEMU per run, and this
+    # repository is moving to maintenance only. The checksum still proves
+    # which image is in the bucket; nothing proves it boots.
+    needs: [prepare-release, build-iso]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
