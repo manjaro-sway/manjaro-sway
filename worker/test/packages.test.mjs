@@ -174,9 +174,20 @@ test('resolveKey strips the branch and admits only the published tree', () => {
   assert.equal(resolveKey('../secrets'), null);
 });
 
-test('a listing links to paths that resolve', async () => {
-  const res = await worker.fetch(req('packages/unstable/x86_64/'), env());
-  const body = await res.text();
-  // the link has to carry the mount and a branch, or following it 404s
-  assert.match(body, /href="\/packages\/unstable\/x86_64\/manjaro-sway\.db\.tar\.gz"/);
+test('a listing links to paths that resolve, on either hostname', async () => {
+  // The same listing is served under two hostnames whose paths differ, so
+  // what matters is that a link resolves from where it is shown - not what
+  // string it contains. This test used to pin the absolute form, which is
+  // precisely why every link on the legacy host 404'd.
+  for (const [url, dir] of [
+    ['https://sway.manjaro.download/packages/unstable/x86_64/', '/packages/unstable/x86_64/'],
+    ['https://packages.manjaro-sway.download/unstable/x86_64/', '/unstable/x86_64/'],
+  ]) {
+    const res = await worker.fetch(new Request(url), env());
+    const body = await res.text();
+    const href = body.match(/href="([^"]*manjaro-sway\.db\.tar\.gz)"/)?.[1];
+    assert.ok(href, `no db link in the listing at ${url}`);
+    // resolved the way a browser would, against the directory being shown
+    assert.equal(new URL(href, url).pathname, `${dir}manjaro-sway.db.tar.gz`);
+  }
 });
