@@ -1,0 +1,12 @@
+[Unit]
+Description=Scratchpad urgency waybar signal
+PartOf=sway-session.target
+After=sway-session-pre.target
+
+[Service]
+ExecStart=/usr/share/sway/scripts/scratchpad-urgent-watch.sh
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=sway-session.target

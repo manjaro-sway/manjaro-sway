@@ -25,6 +25,7 @@ set $initialize_polkit_agent '[ -x /usr/lib/polkit-gnome/polkit-gnome-authentica
 set $initialize_clip_persist '[ -x "$(command -v wl-clip-persist)" ] && systemctl --user enable --now --no-reload wl-clip-persist'
 set $initialize_calendar_daemon '[ -x "$(command -v calcurse)" ] && systemctl --user enable --now --no-reload calcurse-daemon'
 set $initialize_watch_playerctl '[ -x "$(command -v playerctl)" ] && systemctl --user enable --now --no-reload watch-playerctl'
+set $initialize_scratchpad_urgent_watch '[ -x "$(command -v waybar)" ] && systemctl --user enable --now --no-reload scratchpad-urgent-watch'
 
 # autostarts
 
