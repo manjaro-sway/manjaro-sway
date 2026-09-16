@@ -64,12 +64,6 @@ packages:
   pacseek:
     upstream: https://aur.archlinux.org/pacseek.git
     arch: any
-  # The py3 fork, not the 1.0.8 release: the AUR's pam-python depends on
-  # python2, which Arch removed - it cannot be built at all. This is what
-  # the repository has always published.
-  pam-python:
-    upstream: https://aur.archlinux.org/pam-python-git.git
-    arch: x86_64
   phinger-cursors:
     upstream: https://aur.archlinux.org/phinger-cursors.git
     arch: any
