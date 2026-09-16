@@ -1,5 +1,19 @@
 for_window [class="calamares"] floating enable
-set $installer sudo -EH env DISPLAY= calamares &
+# -E without -H. `-H` sets HOME=/root, and kvantum reads its theme from
+# $HOME/.config/Kvantum/kvantum.kvconfig - the file `kvantummanager --set`
+# writes in the user's session, which 90-enable-theme.conf runs on every
+# start. With HOME moved the installer found no theme and fell back to
+# Kvantum's built-in default: "Active theme: Kvantum (default)" on the
+# live ISO, with the branding rendering against a stylesheet that was
+# never loaded. Verified in a container that -EH yields HOME=/root and an
+# empty QT_STYLE_OVERRIDE while -E keeps both.
+#
+# calamares_polkit is what other Manjaro editions use and passes the same
+# variables through pkexec, but it authenticates against polkit rather
+# than sudo - and the live profile's NOPASSWD rule is a sudoers rule. This
+# keeps the authentication path that is known to work here and changes
+# only the environment, which is the actual defect.
+set $installer sudo -E env DISPLAY= calamares &
 set $mod Mod4
 bindsym $mod+i exec $installer
 exec $installer
