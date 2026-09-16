@@ -117,6 +117,24 @@ export default {
       });
     }
 
+    // Location moved to the ashlaros deployment, and installs carry the
+    // old URL in their shipped copy of geoip.sh until the settings package
+    // updates - which for an abandoned machine is never. Redirecting keeps
+    // those desktops working instead of handing them a 404 they can only
+    // fall back from. Both callers follow redirects: geoip.sh curls with
+    // -L, and python-requests does by default.
+    //
+    // 302, not the 301 below: a permanent redirect is cached by the client
+    // forever, so it could not be repointed if that deployment moves.
+    //
+    // Only /geo. There is no /weather on either side - this one 404s today
+    // and so does ashlaros's, because weather.py calls MET Norway itself
+    // and always has. Redirecting it would turn our own 404 into a hop to
+    // somebody else's.
+    if (pathname === '/geo') {
+      return Response.redirect('https://ashlaros.download/geo', 302);
+    }
+
     // Only unstable is published. The other two names redirect rather than
     // serving the same objects quietly: a client configured for stable was
     // getting unstable packages with nothing to say so, in its output or
