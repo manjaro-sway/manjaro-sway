@@ -401,8 +401,13 @@ runs:
         . "$GITHUB_ACTION_PATH/scripts/retry.sh"
         if [ -n "${REPO}" ]; then
           retry sudo git clone ${BRANCH:+--branch ${BRANCH}} --depth 1 ${REPO} iso-profiles
-        else
+        elif [ ! -d iso-profiles ]; then
           sudo cp -r "$GITHUB_WORKSPACE/iso-profiles" iso-profiles
+        else
+          # already here: this step runs in $GITHUB_WORKSPACE, so a caller
+          # whose own iso-profiles/ is the tree to build needs no copy at
+          # all - and copying it would be into itself, which cp refuses.
+          echo "## building the iso-profiles/ tree of the calling repository"
         fi
     - id: cleanup_space_workaround
       shell: bash
