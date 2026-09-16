@@ -18,6 +18,12 @@ routes = [
   # machines cannot be edited from here - src/index.js rewrites its paths
   # onto the one published tree.
   { pattern = "packages.manjaro-sway.download", custom_domain = true },
+  # The old apex. It is the address in every README, forum post and
+  # bookmark that predates the move, and it answers the same site as
+  # sway.manjaro.download - the worker routes by path, not by hostname,
+  # so no code knows the difference.
+  { pattern = "manjaro-sway.download", custom_domain = true },
+  { pattern = "www.manjaro-sway.download", custom_domain = true },
 ]
 
 # The landing page, served from the repository rather than copied into a JS
