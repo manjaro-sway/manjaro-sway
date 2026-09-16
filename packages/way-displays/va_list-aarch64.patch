@@ -1,0 +1,54 @@
+Drop the truthiness tests on a va_list, which do not compile on aarch64.
+
+va_list is an array type on aarch64, so testing one in a boolean context
+is an array-to-pointer decay GCC rejects outright:
+
+    src/log.c:124:22: error: invalid operands to binary && (have 'int' and 'va_list')
+    lib/alex-c/src/str.c:11:13: error: wrong type argument to unary exclamation mark
+    lib/alex-c/src/str.c:58:13: error: wrong type argument to unary exclamation mark
+
+On x86_64 va_list is a pointer, the tests are vacuously true, and it
+builds - which is why upstream has not noticed.
+
+The tests were never meaningful. A va_list obtained from va_start is
+always valid, every caller of these functions passes one, and there is no
+portable null va_list to compare against in the first place. In log.c
+__format alone is the real guard; in str.c the guard goes entirely, since
+__format is checked by vsnprintf itself.
+
+Worth reporting upstream. Until then the aarch64 leg of our build fails
+here and way-displays is absent from the aarch64 repository.
+
+--- a/src/log.c
++++ b/src/log.c
+@@ -121,7 +121,7 @@
+ 	char *l;
+ 
+ 	// allocate the line for output and capture
+-	if (__format && __args)
++	if (__format)
+ 		l = vsnprintf_alloc(MAX_LINE_LEN, __format, __args);
+ 	else
+ 		l = strdup("");
+--- a/lib/alex-c/src/str.c
++++ b/lib/alex-c/src/str.c
+@@ -8,9 +8,6 @@
+ #include "str.h"
+ 
+ char *vsnprintf_alloc(size_t __maxlen, const char *__restrict __format, va_list __args) {
+-	if (!__args)
+-		return NULL;
+-
+ 	va_list args;
+ 	va_copy(args, __args);
+ 	size_t raw = vsnprintf(NULL, 0, __format, args);
+@@ -55,9 +52,6 @@
+ }
+ 
+ char *vsnprintf_append(char *__restrict s, size_t __maxlen, const char *__restrict __format, va_list __args) {
+-	if (!__args)
+-		return NULL;
+-
+ 	size_t l_left = MIN(s ? strlen(s) : 0, __maxlen);
+ 	size_t l_right = 0;
+ 

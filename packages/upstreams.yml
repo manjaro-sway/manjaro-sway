@@ -81,8 +81,10 @@ packages:
   python-xpybutil:
     upstream: https://aur.archlinux.org/python-xpybutil.git
     arch: any
+  # no upstream: the AUR PKGBUILD's url is a google-cache link to a reddit
+  # thread, long dead, and the script has no upstream repository - it ships
+  # here as a source beside the PKGBUILD. Nothing to track, so no merge base.
   swaycwd:
-    upstream: https://aur.archlinux.org/swaycwd.git
     arch: any
   swaylock-effects:
     upstream: https://aur.archlinux.org/swaylock-effects.git

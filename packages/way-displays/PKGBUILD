@@ -1,16 +1,27 @@
 # Maintainer: Alexander Courtis <alex@courtis.org>
 pkgname=way-displays
 pkgver=2.0.0
-pkgrel=4
+pkgrel=6
 pkgdesc="way-displays: Auto Manage Your Wayland Displays"
 arch=('x86_64')
 url="https://github.com/alex-courtis/way-displays"
 license=('MIT')
 depends=('wayland' 'libinput' 'libyaml')
 makedepends=('git' 'make' 'gcc')
-source=("https://github.com/alex-courtis/${pkgname}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('feb5076ad2c05ecd40dd0e1f57d089bbcd3c0e50672b4bb621754f0a2447fae3')
+source=("https://github.com/alex-courtis/${pkgname}/archive/refs/tags/${pkgver}.tar.gz"
+        'va_list-aarch64.patch')
+sha256sums=('feb5076ad2c05ecd40dd0e1f57d089bbcd3c0e50672b4bb621754f0a2447fae3'
+            '18276043b841daed79825d5c6cdd017ad02bfed15c6cc0b5c7eb3feaa5f85e2a')
 install=way-displays.install
+
+prepare() {
+	cd "$pkgname-$pkgver"
+	# upstream tests a va_list for truthiness, which only compiles where
+	# va_list is a pointer. On aarch64 it is an array type and the build
+	# fails - so without this the package is absent from the aarch64
+	# repository while the build leg still reports success.
+	patch -p1 < "$srcdir/va_list-aarch64.patch"
+}
 
 build() {
 	cd "$pkgname-$pkgver"

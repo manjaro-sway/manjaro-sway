@@ -1,11 +1,8 @@
 pkgname=idlehack
-# Pinned to upstream's head rather than the AUR's fd73c76, which predates
-# the move to cmake and ships a Makefile: build() calls cmake and failed
-# with "does not appear to contain CMakeLists.txt".
 pkgver=0.r21
 pkgrel=1
 pkgdesc="Monitor dbus and inhibit swayidle when Firefox or Chromium request it"
-arch=('x86_64')
+arch=('i686' 'x86_64' 'aarch64')
 url="https://github.com/loops/idlehack"
 license=('custom:ICS')
 provides=('idlehack' 'idlehack-git')
