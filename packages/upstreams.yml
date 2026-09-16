@@ -24,8 +24,6 @@ packages:
     arch: any
   manjaro-sway-wallpapers:
     arch: any
-  oh-my-zsh:
-    arch: any
   laptop-mode-tools:
     arch: any
   kernel-install-mkinitcpio:
