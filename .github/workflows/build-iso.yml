@@ -28,7 +28,7 @@ jobs:
         with:
           format: 'YYYYMMDDHHmm'
       - id: receive
-        uses: boredland/kernel-info@24a68e1e82e2f89bb42e9bdd926a63724899441d # main
+        uses: manjaro-sway/kernel-info@6be175f1e2d82dc7e013929ad6e4f45a6a0a3f9c # main
     outputs:
       release_tag: ${{ steps.time.outputs.time }}
       kernel: ${{ steps.receive.outputs.stable-pkg }}
