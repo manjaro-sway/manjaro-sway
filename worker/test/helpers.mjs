@@ -5,6 +5,11 @@
 // have to state it twice.
 const aliasBody = (key) => (key.startsWith('latest/') ? '202609101200' : 'bytes');
 
+// Only the alias key is a pointer. The handler refuses to read a body too
+// large to be a version string, so the fake has to tell a pointer from an
+// image the way R2 does - by size - or the redirect is never exercised.
+const isPointer = (key) => key === 'latest/manjaro-sway.iso';
+
 export function bucketOf(keys, { etag = '"e"', pageSize = 1000 } = {}) {
   return {
     // Paginated like R2: a page is capped and says so, and the caller is
@@ -45,7 +50,7 @@ export function bucketOf(keys, { etag = '"e"', pageSize = 1000 } = {}) {
       // fake without it cannot exercise the redirect at all
       const object = {
         body: 'bytes',
-        size,
+        size: isPointer(k) ? aliasBody(k).length : size,
         writeHttpMetadata: () => {},
         httpEtag: etag,
         text: async () => aliasBody(k),

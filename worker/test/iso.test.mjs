@@ -32,6 +32,27 @@ test('an iso is offered as a download, not rendered', async () => {
   assert.match(res.headers.get('content-disposition'), /attachment/);
 });
 
+test('an alias key holding a whole image is refused, not read', async () => {
+  // The bug this defends, seen in the sibling repository: latest/ still
+  // held the image it used to be a server-side copy of, and reading two
+  // gigabytes as a pointer killed the isolate - Cloudflare error 1101, a
+  // 500 on the download link. A body too large to be a version string is
+  // never read at all, so a bad object degrades to 404 instead.
+  const iso = bucketOf(KEYS);
+  const huge = {
+    ...(await iso.get('latest/manjaro-sway.iso')),
+    size: 1_978_718_208,
+    text: async () => {
+      throw new Error('a whole image must never be read as a pointer');
+    },
+  };
+  const res = await worker.fetch(req('latest/manjaro-sway.iso'), {
+    PACKAGES: bucketOf([]),
+    ISO: { ...iso, get: async () => huge },
+  });
+  assert.equal(res.status, 404);
+});
+
 test('latest redirects to the versioned object it points at', async () => {
   // a redirect rather than a stream: `latest/` is repointed every release,
   // and a client resuming across one would splice two different images
