@@ -60,11 +60,34 @@
          and monospace over the logo's light areas was hard to read. */
       #content {
         margin: 20px;
-        max-width: 46rem;
         padding: 4px 20px 20px;
         background: rgba(40, 40, 40, 0.82);
         border-radius: 3px;
+        /* A flex item sizes to its content, so the unwrappable pacman.conf
+           snippet below stretched this panel past the viewport and scrolled
+           the whole page sideways on a phone. Bound it to the width that is
+           actually there; min-width: 0 because a flex item's automatic
+           minimum size is its content, which defeats the bound above it. */
+        /* vw, not %: a percentage resolves against the flex container,
+           which has already grown to fit this item, so it bounds nothing. */
+        width: min(46rem, 100vw - 40px);
+        /* border-box, or the padding is added to that width and the panel
+           ends up wider than the viewport it was measured against. */
+        box-sizing: border-box;
+        min-width: 0;
         align-self: flex-start;
+      }
+
+      /* The commands are the one thing a reader retypes, so they must stay
+         readable rather than be cut off. They wrap at the panel edge, and
+         the continuation is indented so a wrapped line cannot be mistaken
+         for a second command. */
+      pre {
+        margin: 0.6rem 0;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        padding-left: 1.2rem;
+        text-indent: -1.2rem;
       }
 
       p {
@@ -88,6 +111,15 @@
       .muted {
         color: #8a8f98;
         font-size: 0.85rem;
+      }
+
+      @media (max-width: 40rem) {
+        #content {
+          margin: 10px;
+          padding: 4px 10px 10px;
+          width: min(46rem, 100vw - 20px);
+        }
+        header h1 { padding-left: 10px; }
       }
 
       /* the checksum is long and must not reflow the page on a phone */
