@@ -10,7 +10,7 @@
 
 pkgname=gtk3-nocsd
 pkgver=r82.512c2bd
-pkgrel=3
+pkgrel=2
 pkgdesc="A hack to disable gtk+ 3 client side decoration"
 arch=('x86_64')
 url="https://github.com/ZaWertun/gtk3-nocsd"
