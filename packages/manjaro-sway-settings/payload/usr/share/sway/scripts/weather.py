@@ -8,9 +8,11 @@ module calls MET Norway (the institute behind yr.no) directly and emits
 the {"text", "tooltip"} shape waybar expects, which means an installed
 desktop keeps working whatever happens to our infrastructure.
 
-Location is the exception, and deliberately so - /geo on our worker
-answers with the coordinates cloudflare attaches at its edge, so the
-machine's IP reaches us rather than a third-party geo-ip service. When it
+Location is the exception: /geo on the ashlaros worker answers with the
+coordinates cloudflare attaches at its edge, so the machine's IP goes
+there rather than to a commercial geo-ip service. That deployment belongs
+to a sibling project, not to this one - our own /geo redirects to it, and
+MANJARO_SWAY_GEO_URL points somewhere else for anyone who prefers. When it
 is unreachable the module falls back to the last forecast it cached, and
 only fails outright if it has never succeeded.
 
@@ -193,11 +195,11 @@ def symbol_parts(symbol_code):
 def resolve_location(name):
     """Coordinates and display name for a city, or for this machine's IP.
 
-    'auto' asks our own worker, which reads the geo data Cloudflare already
-    attached to the request at its edge - so the machine's IP goes to us
-    rather than to a third party. Anything else is geocoded by open-meteo,
-    which MET has no equivalent for and which a city name typed by the user
-    cannot be derived from.
+    'auto' asks the ashlaros worker, which reads the geo data Cloudflare
+    already attached to the request at its edge - so the machine's IP goes
+    there rather than to a commercial geo-ip service. Anything else is
+    geocoded by open-meteo, which MET has no equivalent for and which a
+    city name typed by the user cannot be derived from.
     """
     if name == 'auto':
         result = requests.get(GEO_URL, timeout=10)
