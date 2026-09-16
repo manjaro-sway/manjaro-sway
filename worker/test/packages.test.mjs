@@ -137,6 +137,31 @@ test('a write method is refused', async () => {
   assert.equal(res.status, 405);
 });
 
+const legacy = (path) => new Request(`https://packages.manjaro-sway.download/${path}`);
+
+test('the legacy host serves the repository, whatever branch it names', async () => {
+  // Every install made from an older ISO has
+  // Server = https://packages.manjaro-sway.download/<branch>/$arch in its
+  // pacman.conf, and those machines cannot be edited from here.
+  for (const branch of ['unstable', 'testing', 'stable']) {
+    const res = await worker.fetch(legacy(`${branch}/x86_64/manjaro-sway.db.tar.gz`), env());
+    assert.equal(res.status, 200, branch);
+  }
+});
+
+test('the legacy host serves the signing key its pacman.conf trusts', async () => {
+  const res = await worker.fetch(legacy('manjaro-sway.gpg'), env());
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get('content-type'), 'application/pgp-keys');
+});
+
+test('the legacy host cannot reach the iso bucket', async () => {
+  // it is the repository host and nothing else; a path that looks like an
+  // image key must miss rather than cross into the other bucket
+  const res = await worker.fetch(legacy('202609160023/manjaro-sway.iso'), env());
+  assert.equal(res.status, 404);
+});
+
 test('resolveKey strips the branch and admits only the published tree', () => {
   assert.equal(resolveKey(''), '');
   assert.equal(resolveKey('unstable'), '');

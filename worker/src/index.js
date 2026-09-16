@@ -16,11 +16,22 @@ import { site as packagesSite } from './packages.js';
 import { handler } from './serve.js';
 import { archiveMonth, closedMonth } from './stats.js';
 
-// The prefix a path has to carry to reach a bucket. Anything else is the
-// landing page, which the assets binding serves.
+// The hostname the repository was served from before the move, where the
+// path carries no /packages prefix: Server = https://<host>/<branch>/$arch.
+// Every install made from an older ISO still has that line in its
+// pacman.conf, and those machines cannot be edited from here - so the host
+// keeps working, with the path rewritten onto the one tree.
+const LEGACY_PACKAGES_HOST = 'packages.manjaro-sway.download';
+
 // The branch names that are not published, and the rest of the path after
 // them. Anchored, so it cannot match a key that merely contains the word.
 const ALIAS_BRANCH = /^\/packages\/(?:stable|testing)\/(.*)$/;
+
+// The same on the legacy host, where there is no /packages prefix.
+const LEGACY_BRANCH = /^\/(?:unstable|testing|stable)\/(.*)$/;
+
+// The prefix a path has to carry to reach a bucket. Anything else is the
+// landing page, which the assets binding serves.
 
 const MOUNTS = [
   { prefix: '/packages/', site: packagesSite },
@@ -71,7 +82,21 @@ export default {
   },
 
   fetch(request, env, ctx) {
-    const { pathname } = new URL(request.url);
+    const { hostname, pathname } = new URL(request.url);
+
+    // The legacy repository host. Its paths are rewritten rather than
+    // redirected: pacman follows a redirect fine, but this is the hot path
+    // for every existing install's `-Sy`, and a hop per object is latency
+    // those machines pay for nothing. The signing key is served under it
+    // too, since that is the URL their pacman.conf was set up against.
+    if (hostname === LEGACY_PACKAGES_HOST) {
+      const legacy = LEGACY_BRANCH.exec(pathname);
+      const within = legacy ? legacy[1] : pathname.replace(/^\//, '');
+      if (within === 'manjaro-sway.gpg' || within === 'gpg-public-key.asc') {
+        return packagesSite.routes['manjaro-sway.gpg'](request, env[packagesSite.bucket], env);
+      }
+      return handler(packagesSite)(rebase(request, `/unstable/${within}`), env, ctx);
+    }
 
     // Ahead of the docs binding, which otherwise answers for everything
     // outside a mount. The desktop reads this instead of telling a third
