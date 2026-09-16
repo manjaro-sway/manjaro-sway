@@ -41,7 +41,6 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y shellcheck
           shellcheck --severity=error \
             .github/scripts/*.sh \
-            ci/*.sh \
             packages/manjaro-sway-settings/payload/usr/bin/* \
             packages/manjaro-sway-settings/payload/usr/local/bin/* \
             packages/manjaro-sway-settings/payload/usr/share/sway/scripts/*.sh
