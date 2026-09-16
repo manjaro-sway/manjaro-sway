@@ -34,7 +34,6 @@ Check out our [FAQ](SUPPORT.md) for additional hints.
 Some projects evolved from the this sway distribution include:
 
 - tons of [github actions](https://github.com/orgs/manjaro-contrib/repositories?q=actions) to orchestrate iso-/image- and package-building, as well as repo-orchestration
-- [/geo](https://sway.manjaro.download/geo) a no-fuzz wrapper for cloudflare geo-ip data, including the day's sun times
 - [mjr.sh](https://mjr.sh) a little service for shortening links, available in Manjaro Sway as the `mjr` cli
 
 ## Development

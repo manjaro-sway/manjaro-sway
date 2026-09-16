@@ -10,7 +10,6 @@
  */
 
 import { FAVICON } from './favicon.js';
-import { geo } from './geo.js';
 import { site as isoSite } from './iso.js';
 import { site as packagesSite } from './packages.js';
 import { handler } from './serve.js';
@@ -98,11 +97,6 @@ export default {
       return handler(packagesSite)(rebase(request, `/unstable/${within}`), env, ctx);
     }
 
-    // Ahead of the docs binding, which otherwise answers for everything
-    // outside a mount. The desktop reads this instead of telling a third
-    // party its IP address; nothing about the request is logged or stored.
-    if (pathname === '/geo') return geo(request);
-
     // The signing key at the root as well as under the repository: a
     // machine trusts the key before it has a repository configured, and
     // this is the URL the documentation can give for that.
@@ -121,6 +115,24 @@ export default {
           'cache-control': 'public, max-age=86400',
         },
       });
+    }
+
+    // Location moved to the ashlaros deployment, and installs carry the
+    // old URL in their shipped copy of geoip.sh until the settings package
+    // updates - which for an abandoned machine is never. Redirecting keeps
+    // those desktops working instead of handing them a 404 they can only
+    // fall back from. Both callers follow redirects: geoip.sh curls with
+    // -L, and python-requests does by default.
+    //
+    // 302, not the 301 below: a permanent redirect is cached by the client
+    // forever, so it could not be repointed if that deployment moves.
+    //
+    // Only /geo. There is no /weather on either side - this one 404s today
+    // and so does ashlaros's, because weather.py calls MET Norway itself
+    // and always has. Redirecting it would turn our own 404 into a hop to
+    // somebody else's.
+    if (pathname === '/geo') {
+      return Response.redirect('https://ashlaros.download/geo', 302);
     }
 
     // Only unstable is published. The other two names redirect rather than

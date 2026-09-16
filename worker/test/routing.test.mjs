@@ -29,6 +29,18 @@ test('each mount reaches its own site', () => {
   assert.equal(mountFor('/img/logo.png'), null);
 });
 
+test('/geo redirects to the deployment that answers it now', async () => {
+  // Installs carry the old URL in their shipped copy of geoip.sh until the
+  // settings package updates, so this is what keeps those desktops working.
+  // Both callers follow redirects - geoip.sh curls with -L, requests does
+  // by default - so the hop is invisible to them.
+  const res = await worker.fetch(get('geo'), env());
+  // 302 exactly: a 301 is cached by the client forever, so the hop could
+  // never be repointed if that deployment moves
+  assert.equal(res.status, 302);
+  assert.equal(res.headers.get('location'), 'https://ashlaros.download/geo');
+});
+
 test('the mount prefix is stripped before the site sees the path', () => {
   // the buckets hold unprefixed keys, so a site that saw `/packages/...`
   // would look up a key that cannot exist

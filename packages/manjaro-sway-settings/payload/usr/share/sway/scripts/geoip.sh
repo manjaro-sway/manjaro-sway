@@ -1,17 +1,20 @@
 #!/bin/sh
 # Approximate location and today's sun times, cached for the day.
 #
-# One call to our own worker, which reads the geo data Cloudflare already
-# attached to the request at its edge and computes the sun times there. No
-# third party sees the machine's IP: previously this told get.geojs.io,
-# and the weather module told it again on every refresh.
+# One call to the ashlaros worker, which reads the geo data Cloudflare
+# already attached to the request at its edge and computes the sun times
+# there. Not a commercial geo-ip service: this used to tell get.geojs.io,
+# and the weather module told it again on every refresh. It is a sibling
+# project's deployment rather than ours, so the IP leaves this project
+# even though it does not reach a data broker - MANJARO_SWAY_GEO_URL
+# points it elsewhere for anyone who would rather it did not.
 #
 # Consumers - sunset.sh and theme-toggle.sh - read .latitude/.longitude/
 # .city/.sunrise/.sunset/.sunrise_tomorrow/.sunset_tomorrow, and the worker
 # answers with exactly those keys, so this passes the body through.
 set -u
 
-geo_url="${MANJARO_SWAY_GEO_URL:-https://sway.manjaro.download/geo}"
+geo_url="${MANJARO_SWAY_GEO_URL:-https://ashlaros.download/geo}"
 
 cache_file="$HOME/.cache/geoip"
 cache_time=$(date -r "$cache_file" +%s 2>/dev/null || echo 0)
