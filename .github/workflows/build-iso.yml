@@ -49,9 +49,14 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: /var/cache/pacman/pkg
-          key: pacman-pkg-unstable-x86_64-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
+          # v2, because the overlay moved to a new repository: the cache held
+          # packages from the old one at the same version-filenames, and
+          # pacman rejected every one of them as "signature is invalid" -
+          # the bytes are a different build than the signature we publish
+          # now. A cache key has to name what it holds, not just the branch.
+          key: pacman-pkg-v2-unstable-x86_64-${{ runner.os }}-${{ runner.arch }}-${{ github.run_id }}
           restore-keys: |
-            pacman-pkg-unstable-x86_64-${{ runner.os }}-${{ runner.arch }}-
+            pacman-pkg-v2-unstable-x86_64-${{ runner.os }}-${{ runner.arch }}-
       # Cheap, and it fails in seconds on the mistake that otherwise fails
       # the build an hour in: a profile naming a package no repository has.
       - name: every listed package resolves
