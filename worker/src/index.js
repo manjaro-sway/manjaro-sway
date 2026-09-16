@@ -83,6 +83,21 @@ export default {
   fetch(request, env, ctx) {
     const { hostname, pathname } = new URL(request.url);
 
+    // manjaro.download is not a name this project serves under - it reads
+    // like the distribution's own domain, and answering there would claim
+    // something we are not. It exists so the bare name does not dead-end,
+    // so it redirects to the edition's site and keeps its path: a link
+    // someone wrote to /iso/latest still lands on /iso/latest.
+    //
+    // 301, unlike /geo: this mapping is a property of the names themselves
+    // rather than of where a service happens to be hosted, so there is
+    // nothing to repoint later.
+    if (hostname === 'manjaro.download' || hostname === 'www.manjaro.download') {
+      const url = new URL(request.url);
+      url.hostname = 'manjaro-sway.download';
+      return Response.redirect(url.toString(), 301);
+    }
+
     // The legacy repository host. Its paths are rewritten rather than
     // redirected: pacman follows a redirect fine, but this is the hot path
     // for every existing install's `-Sy`, and a hop per object is latency

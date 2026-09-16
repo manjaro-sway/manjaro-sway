@@ -29,6 +29,28 @@ test('each mount reaches its own site', () => {
   assert.equal(mountFor('/img/logo.png'), null);
 });
 
+test('the bare domain redirects to the edition, keeping the path', async () => {
+  // manjaro.download reads like the distribution's own domain; this
+  // project does not serve under it. The path survives so an existing
+  // link to a deep page still lands on that page.
+  const res = await worker.fetch(
+    new Request('https://manjaro.download/iso/latest'),
+    env(),
+  );
+  assert.equal(res.status, 301);
+  assert.equal(res.headers.get('location'), 'https://manjaro-sway.download/iso/latest');
+});
+
+test('the redirect is exact-match, so sway.manjaro.download still serves', async () => {
+  // A suffix test would have caught the subdomain the whole site runs on
+  // and bounced every request away from it
+  const res = await worker.fetch(
+    new Request('https://sway.manjaro.download/packages/unstable/x86_64/manjaro-sway.db.tar.gz'),
+    env(),
+  );
+  assert.notEqual(res.status, 301);
+});
+
 test('/geo redirects to the deployment that answers it now', async () => {
   // Installs carry the old URL in their shipped copy of geoip.sh until the
   // settings package updates, so this is what keeps those desktops working.

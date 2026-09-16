@@ -41,6 +41,12 @@ routes = [
   # so no code knows the difference.
   { pattern = "manjaro-sway.download", custom_domain = true },
   { pattern = "www.manjaro-sway.download", custom_domain = true },
+  # Not a name this project serves under: these only exist so the bare
+  # domain does not dead-end, and index.js redirects them to the edition's
+  # site. A custom domain rather than a route because the zone has no
+  # record at all today - cloudflare provisions one on deploy.
+  { pattern = "manjaro.download", custom_domain = true },
+  { pattern = "www.manjaro.download", custom_domain = true },
 ]
 
 # The landing page, served from the repository rather than copied into a JS
