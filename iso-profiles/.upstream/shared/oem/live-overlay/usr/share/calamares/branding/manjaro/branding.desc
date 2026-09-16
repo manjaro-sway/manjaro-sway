@@ -1,0 +1,23 @@
+---
+componentName:  manjaro
+
+strings:
+    productName:         Manjaro Linux
+    shortProductName:    Manjaro
+    version:             20.1 OEM
+    shortVersion:        20.1 OEM
+    versionedName:       Manjaro Linux 20.1 "Mikah" OEM
+    shortVersionedName:  Manjaro 20.1 OEM
+    bootloaderEntryName: Manjaro
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "logo.png"
+    productWelcome:      "languages.png"
+
+slideshow:               "show.qml"
+
+style:
+   sidebarBackground:    "#454948"
+   sidebarText:          "#efefef"
+   sidebarTextSelect:    "#9E4F5D"

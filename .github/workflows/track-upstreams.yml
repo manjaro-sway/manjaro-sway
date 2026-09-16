@@ -1,12 +1,18 @@
 name: track-upstreams
 
 # Upstream moves; our vendored copies do not. This looks once a day and
-# opens one pull request per package that changed.
+# opens one pull request per item that changed.
 #
-# One per package, not one for all of them: a conflict in wluma should not
-# hold up a clean update to swayr, and a PR that touches one PKGBUILD is a
-# PR someone can actually review. Each branch is named for its package, so
-# a second run updates the existing PR rather than opening another.
+# Two kinds of item, one mechanism: the vendored PKGBUILDs under packages/,
+# and the files under iso-profiles/shared/ that come from Manjaro's own
+# profile. The second kind is the one nothing else would catch - no build
+# reads them from upstream, so an ISO keeps being assembled from whatever
+# was vendored, however old.
+#
+# One per item, not one for all of them: a conflict in wluma should not
+# hold up a clean update to swayr, and a PR that touches one file is a PR
+# someone can actually review. Each branch is named for its item, so a
+# second run updates the existing PR rather than opening another.
 #
 # Never a direct push: several vendored PKGBUILDs carry deliberate local
 # edits, and whether an upstream change is still compatible with them is a
@@ -60,20 +66,33 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          base=$(git rev-parse HEAD)
+          # the commit every branch starts from; `base` below means a
+          # merge-base FILE, which is a different thing entirely
+          head=$(git rev-parse HEAD)
           failures=0
 
           # A clean merge wrote files; a conflict wrote none. Both produce a
           # report, so drive the loop off the reports and decide per package.
           for report in /tmp/pr/*.md; do
             [ -e "$report" ] || continue
-            name=$(basename "$report" .md)
-            branch="track-upstream/$name"
+            slug=$(basename "$report" .md)
+            # the script writes `/` as `__`, because an iso-profiles item is
+            # a path and cannot be a filename as-is
+            name=${slug//__//}
+            branch="track-upstream/$slug"
 
-            # A conflicted package wrote no files, so decide BEFORE creating
+            # Which pair of paths this item owns. A package is a directory
+            # plus a base file; an iso-profiles item is one file plus its
+            # base, under a different root.
+            case "$name" in
+              shared/*) ours="iso-profiles/$name"; base="iso-profiles/.upstream/$name" ;;
+              *)        ours="packages/$name";     base="packages/.upstream/$name.PKGBUILD" ;;
+            esac
+
+            # A conflicted item wrote no files, so decide BEFORE creating
             # a branch - otherwise every conflict leaves an empty branch
             # behind that no pull request ever references.
-            if git diff --quiet -- "packages/$name" "packages/.upstream/$name.PKGBUILD"; then
+            if git diff --quiet -- "$ours" "$base"; then
               # conflicted: nothing to commit, so report it as an issue
               # rather than an empty pull request
               existing=$(gh issue list --search "in:title track upstream: $name" \
@@ -89,8 +108,8 @@ jobs:
 
             # each PR starts from the base commit, so one does not carry
             # another's changes
-            git checkout -q -B "$branch" "$base"
-            git add "packages/$name" "packages/.upstream/$name.PKGBUILD"
+            git checkout -q -B "$branch" "$head"
+            git add "$ours" "$base"
             git commit -q -m "track upstream: $name"
             git push -q --force origin "$branch"
 
@@ -111,5 +130,5 @@ jobs:
             fi
           done
 
-          git checkout -q "$base"
+          git checkout -q "$head"
           exit "$failures"
