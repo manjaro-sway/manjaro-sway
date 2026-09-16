@@ -1,6 +1,17 @@
 name = "manjaro-sway-web"
 main = "src/index.js"
 compatibility_date = "2026-09-10"
+
+# Pushes to this repository are deployed by Cloudflare Workers Builds, which
+# runs `npx wrangler deploy` from worker/ - so this file, not anything in
+# .github/workflows, is what decides the live configuration.
+#
+# workers_dev = false: the worker answers on the custom domains below and
+# nothing else. Left unset it also publishes a
+# manjaro-sway-web.<subdomain>.workers.dev address, which serves the whole
+# site - packages, images and all - from a hostname nobody administers and
+# which no certificate or documentation refers to.
+workers_dev = false
 # the login sees several accounts; pin the one owning the buckets so a
 # deploy can never bind an empty bucket on the wrong account
 account_id = "ed740e1b87e525691b947ca317a3cb90"
@@ -11,6 +22,12 @@ account_id = "ed740e1b87e525691b947ca317a3cb90"
 #
 # A custom domain rather than a route: cloudflare provisions the DNS record
 # and the certificate, and the zone lives in the same account as the worker.
+#
+# This list is the whole truth about where the worker answers. A deploy
+# replaces the remote routing with what is here, so a route added in the
+# dashboard is silently removed by the next push - which is exactly what
+# happened to a leftover manjaro.download route. Add hostnames here, not
+# in the dashboard.
 routes = [
   { pattern = "sway.manjaro.download", custom_domain = true },
   # The hostname the repository was served from before the move. Every
