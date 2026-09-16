@@ -65,10 +65,25 @@ h1 a.home:hover { color: #16a085; }
    and any smaller size shows that rectangle's edge. */
 main {
   margin: 20px;
-  max-width: 60rem;
   padding: 4px 20px 20px;
   background: rgba(40, 40, 40, 0.82);
   border-radius: 3px;
+  /* A flex item sizes to its content, and a package filename is ~45
+     monospace characters that will not wrap - so the panel itself grew
+     past the viewport and took the page with it, which no overflow rule
+     on the table inside could undo. Bound the width to what is actually
+     available and let the table scroll within it. min-width: 0 because a
+     flex item's automatic minimum size is its content, which silently
+     defeats the max-width above it. */
+  /* vw, not %: a percentage resolves against the flex container, which has
+     already grown to fit this item, so it bounds nothing. The viewport is
+     the one width that does not move. */
+  width: min(60rem, 100vw - 40px);
+  /* border-box, or the padding is added to that width: the panel came out
+     at exactly the viewport width, its own margins pushed off the screen,
+     and the page scrolled sideways by the padding. */
+  box-sizing: border-box;
+  min-width: 0;
   align-self: flex-start;
 }
 h2 {
@@ -86,8 +101,34 @@ td:not(:first-child) { color: #8a8f98; }
    reachable, and nothing else on the page moves sideways. */
 .listing { overflow-x: auto; }
 @media (max-width: 40rem) {
-  main { margin: 10px; padding: 4px 10px 10px; }
+  main { margin: 10px; padding: 4px 10px 10px; width: min(60rem, 100vw - 20px); }
   td { padding-right: 12px; }
+  /* On a phone the table is wider than any viewport, and a horizontal
+     scroll inside a panel is a gesture nobody discovers - the rows just
+     look cut off. Stack each row instead: the filename wraps in full, and
+     its size and date sit under it as one dimmed line. */
+  .listing table, .listing tbody, .listing tr, .listing td { display: block; }
+  .listing tr {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .listing td,
+  .listing td a {
+    padding: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  /* block, not inline-block: an inline-block shrink-wraps to its longest
+     unbreakable run, so a name whose last break opportunity falls before
+     the panel edge still overhung it. As a block it is bound by the cell
+     and overflow-wrap can break anywhere it must. */
+  .listing td a { display: block; }
+  /* size and date, side by side under the name rather than one per line.
+     :empty guards the parent and directory rows, whose size and date cells
+     are blank - without it they render a bare separator dot. */
+  .listing td:not(:first-child) { display: inline; font-size: 0.85em; }
+  .listing td:empty { display: none; }
+  .listing td:nth-child(2):not(:empty)::after { content: " · "; }
 }
 /* the same text-shadow the landing page gives its links: the watermark
    runs behind this text, and monospace on a mid-tone edge is where it
