@@ -98,9 +98,6 @@ packages:
   wluma:
     upstream: https://aur.archlinux.org/wluma.git
     arch: x86_64
-  xdg-terminal-exec:
-    upstream: https://aur.archlinux.org/xdg-terminal-exec.git
-    arch: any
   zeit:
     upstream: https://aur.archlinux.org/zeit.git
     arch: x86_64
