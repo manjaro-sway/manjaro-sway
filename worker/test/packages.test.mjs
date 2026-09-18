@@ -17,6 +17,9 @@ const KEYS = [
   'x86_64/manjaro-sway.db',
   'x86_64/manjaro-sway-settings-17.2.5-12-any.pkg.tar.zst',
   'x86_64/swayr-0.27.3-1-x86_64.pkg.tar.zst',
+  // the signature beside a package: it is rewritten whenever that package
+  // is republished, so it must never be redirected to a cacheable host
+  'x86_64/swayr-0.27.3-1-x86_64.pkg.tar.zst.sig',
   'manjaro-sway.gpg',
 ];
 
@@ -97,18 +100,38 @@ test('the signing key is fetchable, because trusting it precedes installing anyt
   assert.equal(root.headers.get('content-type'), 'application/pgp-keys');
 });
 
-test('packages are immutable, the database is not', async () => {
-  // a cached database is a client that cannot see a package published
-  // since; a re-fetched package is bandwidth spent on bytes that cannot
-  // have changed
+test('a package is redirected to the bucket, the database is served here', async () => {
+  // The split that matters: a package cannot change under a client, so it
+  // is sent to the CDN hostname and costs this worker one invocation
+  // instead of one per request. The database is rewritten on every
+  // publish, so it stays here - a client pointed at a cacheable copy of it
+  // is a client installing against a package list it cannot verify.
   const pkg = await worker.fetch(
     req('packages/unstable/x86_64/swayr-0.27.3-1-x86_64.pkg.tar.zst'),
     env(),
   );
-  assert.match(pkg.headers.get('cache-control'), /immutable/);
+  assert.equal(pkg.status, 302);
+  assert.equal(
+    pkg.headers.get('location'),
+    'https://cdn.manjaro-sway.download/x86_64/swayr-0.27.3-1-x86_64.pkg.tar.zst',
+  );
 
   const db = await worker.fetch(req('packages/unstable/x86_64/manjaro-sway.db.tar.gz'), env());
+  assert.equal(db.status, 200);
   assert.equal(db.headers.get('cache-control'), 'no-cache');
+});
+
+test('a signature is served here, never redirected', async () => {
+  // A .sig is rewritten when a package is republished at an unchanged
+  // version, so it is exactly the file that must not come from a host that
+  // may hold an older copy: a stale signature against a fresh package is
+  // "signature is invalid" on the client.
+  const sig = await worker.fetch(
+    req('packages/unstable/x86_64/swayr-0.27.3-1-x86_64.pkg.tar.zst.sig'),
+    env(),
+  );
+  assert.equal(sig.status, 200);
+  assert.equal(sig.headers.get('cache-control'), 'no-cache');
 });
 
 test('a range request is answered as a range', async () => {

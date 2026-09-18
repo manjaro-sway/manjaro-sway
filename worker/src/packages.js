@@ -13,6 +13,11 @@ const ARCHES = ['x86_64'];
 
 // The one branch published. `stable` and `testing` are redirected to it in
 // index.js before a request reaches this site, so they never appear here.
+// The packages bucket's own custom domain. Object keys are the same here
+// as through the worker - x86_64/<file> - so a redirect is a hostname
+// swap, not a path rewrite.
+const CDN = 'https://cdn.manjaro-sway.download';
+
 const BRANCH = 'unstable';
 
 /**
@@ -110,4 +115,15 @@ export const site = {
       ? 'public, max-age=31536000, immutable'
       : 'no-cache',
   }),
+
+  // Where a client can fetch this object without going through the worker.
+  // The bucket's own hostname, which carries the same keys and has nothing
+  // in front of it.
+  //
+  // Packages only, and not their .sig: a signature is small, is fetched
+  // once beside the package it signs, and is rewritten when a package is
+  // republished at an unchanged version - so it is exactly the file that
+  // must not be served from anywhere that may hold an older copy.
+  direct: (key) =>
+    /\.pkg\.tar\.zst$/.test(key) ? `${CDN}/${encodeURI(key)}` : null,
 };
