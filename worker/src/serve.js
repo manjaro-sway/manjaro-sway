@@ -256,7 +256,9 @@ export async function serveObject(request, bucket, key, extraHeaders = {}) {
  * (request, bucket, env, url).
  */
 export function handler(site) {
-  return async (request, env) => {
+  // ctx for waitUntil: both callers already pass it, so the cache write
+  // below can outlive the response rather than delaying it
+  return async (request, env, ctx) => {
     const url = new URL(request.url);
     const requested = decodeURIComponent(url.pathname.slice(1));
     const bucket = env[site.bucket];
@@ -311,6 +313,47 @@ export function handler(site) {
     }
 
     if (site.isListing(key)) return site.listing(bucket, key);
+
+    // An immutable object is redirected to the bucket's own hostname
+    // instead of being streamed through here. run_worker_first means this
+    // worker is invoked for every request on every route, so serving the
+    // bytes ourselves spends an invocation per request - 87.5k in a day,
+    // 77% of the free tier - on objects that never change. The CDN
+    // hostname has no worker in front of it: the redirect costs one
+    // invocation per file, and the transfer and every repeat fetch cost
+    // none.
+    //
+    // Only what the site marks immutable. The database and the signatures
+    // beside it are rewritten in place on every publish, and pointing a
+    // client at a cacheable copy of either is how a reader ends up with a
+    // package that does not match the signature it just fetched.
+    //
+    // A range or conditional request is not redirected: those resume a
+    // download or revalidate, the client already holds a validator from
+    // this host, and a hop mid-resume is a splice risk for no saving.
+    const direct = site.direct?.(key);
+    if (
+      direct &&
+      request.method === 'GET' &&
+      !request.headers.get('range') &&
+      !request.headers.get('if-range') &&
+      !request.headers.get('if-none-match')
+    ) {
+      // head first: without it an absent package answers 302 to a URL that
+      // is also absent, so a typo or a pruned version becomes a redirect
+      // into a 404 on another host rather than an honest 404 here. One
+      // metadata read, against a transfer this hands off entirely.
+      if (!(await bucket.head(key))) return notFound();
+      return new Response(null, {
+        status: 302,
+        headers: {
+          location: direct,
+          // the object is immutable, so the hop to it is too - but keep it
+          // short enough that moving the bucket is not a year-long wait
+          'cache-control': 'public, max-age=3600',
+        },
+      });
+    }
 
     const response = await serveObject(request, bucket, key, site.headers(key));
     // after the response, because only its status says whether anything was
