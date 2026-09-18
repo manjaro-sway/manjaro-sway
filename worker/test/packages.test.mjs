@@ -162,6 +162,19 @@ test('a write method is refused', async () => {
 
 const legacy = (path) => new Request(`https://packages.manjaro-sway.download/${path}`);
 
+test('the older pkg. host serves the repository too', async () => {
+  // bc7f7936 shipped `Server = https://pkg.manjaro-sway.download/stable/$arch`,
+  // and that hostname had no DNS record at all until #1041 - an install
+  // from that era reported "manjaro-sway.db failed to download", which is
+  // what an unresolvable host looks like from pacman. Both names are still
+  // in somebody's pacman.conf and neither can be edited from here.
+  const res = await worker.fetch(
+    new Request('https://pkg.manjaro-sway.download/stable/x86_64/manjaro-sway.db'),
+    env(),
+  );
+  assert.equal(res.status, 200);
+});
+
 test('the legacy host serves the repository, whatever branch it names', async () => {
   // Every install made from an older ISO has
   // Server = https://packages.manjaro-sway.download/<branch>/$arch in its
