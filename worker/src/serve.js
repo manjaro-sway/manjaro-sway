@@ -356,9 +356,12 @@ export function handler(site) {
           'cache-control': 'public, max-age=3600',
         },
       });
-      // the last point at which this download is visible to us: the bytes
-      // move on a host that reports nothing back
-      site.record?.(env, key, hop.status, request.method);
+      // The last point at which this download is visible to us: the bytes
+      // move on a host that reports nothing back. Not a ranged hop: a
+      // resume issues one per chunk, and counting each would report one
+      // download as dozens - which is why counts() excludes 206, back
+      // when a range was answered here.
+      if (!request.headers.get('range')) site.record?.(env, key, hop.status, request.method);
       return hop;
     }
 
