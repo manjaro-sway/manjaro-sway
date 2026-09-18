@@ -81,8 +81,8 @@ test('serving an iso counts it, serving a package does not', async () => {
 });
 
 test('counting never breaks the download it is counting', async () => {
-  // the versioned key: latest/ is a pointer that redirects, and a 302
-  // transfers nothing to count
+  // a versioned key, which is now answered with a hop to the bucket - the
+  // point being that a thrown analytics call must not cost the redirect
   const key = '202609101200/manjaro-sway-202609101200.iso';
   const env = {
     ISO: bucketOf([key]),
@@ -93,7 +93,7 @@ test('counting never breaks the download it is counting', async () => {
     },
   };
   const response = await worker.fetch(get(`iso/${key}`), env, {});
-  assert.equal(response.status, 200);
+  assert.equal(response.status, 302);
 });
 
 test('an unset token renders the page rather than a 500', async () => {

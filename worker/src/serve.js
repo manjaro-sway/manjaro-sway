@@ -344,7 +344,7 @@ export function handler(site) {
       // into a 404 on another host rather than an honest 404 here. One
       // metadata read, against a transfer this hands off entirely.
       if (!(await bucket.head(key))) return notFound();
-      return new Response(null, {
+      const hop = new Response(null, {
         status: 302,
         headers: {
           location: direct,
@@ -353,6 +353,10 @@ export function handler(site) {
           'cache-control': 'public, max-age=3600',
         },
       });
+      // the last point at which this download is visible to us: the bytes
+      // move on a host that reports nothing back
+      site.record?.(env, key, hop.status, request.method);
+      return hop;
     }
 
     const response = await serveObject(request, bucket, key, site.headers(key));

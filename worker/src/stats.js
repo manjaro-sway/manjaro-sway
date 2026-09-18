@@ -46,7 +46,15 @@ export function sqlSafe(value) {
  * dozens; a 304 transfers nothing; SHA256SUMS is not a download.
  */
 export function counts(key, status, method) {
-  return method === 'GET' && status === 200 && key.endsWith('.iso');
+  // 302 as well as 200: an image is no longer streamed through the worker,
+  // it is redirected to the bucket's own hostname, and the bytes move on a
+  // host that reports nothing back here. The hop is the last moment we see
+  // the download at all, so it is what gets counted.
+  //
+  // This counts intent rather than completion - a client that abandons the
+  // transfer still counted. It did before too: a 200 was recorded when the
+  // response headers were written, not when the last byte landed.
+  return method === 'GET' && (status === 200 || status === 302) && key.endsWith('.iso');
 }
 
 /**
