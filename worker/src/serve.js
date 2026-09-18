@@ -328,17 +328,20 @@ export function handler(site) {
     // client at a cacheable copy of either is how a reader ends up with a
     // package that does not match the signature it just fetched.
     //
-    // A range or conditional request is not redirected: those resume a
-    // download or revalidate, the client already holds a validator from
-    // this host, and a hop mid-resume is a splice risk for no saving.
+    // Ranges are redirected too. Both bucket hostnames answer them
+    // natively - 206 with content-range and an etag - and a resume is the
+    // case that matters most: excluding it sent a resumed four gigabyte
+    // download back through the worker, which is the transfer this exists
+    // to avoid.
+    //
+    // The etag differs across the hop, because a multipart upload's is a
+    // digest of digests rather than the object's MD5. A client resuming
+    // with If-Range against the old validator gets the whole object once
+    // and starts over, which is what RFC 9110 asks for and is a restarted
+    // download either way. These objects are immutable, so the bytes it
+    // starts over on are the same bytes.
     const direct = site.direct?.(key);
-    if (
-      direct &&
-      request.method === 'GET' &&
-      !request.headers.get('range') &&
-      !request.headers.get('if-range') &&
-      !request.headers.get('if-none-match')
-    ) {
+    if (direct && request.method === 'GET') {
       // head first: without it an absent package answers 302 to a URL that
       // is also absent, so a typo or a pruned version becomes a redirect
       // into a 404 on another host rather than an honest 404 here. One
