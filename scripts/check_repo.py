@@ -64,9 +64,7 @@ def db_entries(payload: bytes) -> dict[str, dict[str, str]]:
             handle = tar.extractfile(member)
             if handle is None:
                 continue
-            entries[member.name.removesuffix("/desc")] = dict(
-                FIELD.findall(handle.read().decode())
-            )
+            entries[member.name.removesuffix("/desc")] = dict(FIELD.findall(handle.read().decode()))
     return entries
 
 
@@ -112,8 +110,7 @@ def check_arch(s3, bucket: str, arch: str) -> list[str]:
         recorded = fields.get("CSIZE")
         if recorded and int(recorded) != present[filename]:
             problems.append(
-                f"{arch}: {filename} is {present[filename]} bytes,"
-                f" the database says {recorded}"
+                f"{arch}: {filename} is {present[filename]} bytes, the database says {recorded}"
             )
         if f"{filename}.sig" not in present:
             problems.append(f"{arch}: {filename} has no signature")

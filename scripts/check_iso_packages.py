@@ -38,8 +38,16 @@ REPOSITORIES = ("core", "extra", "multilib")
 # A full x86_64 build takes these and drops the rest; `>cleanup` and
 # `>blacklist` name packages removed from the image rather than added.
 KEPT = ("extra", "basic", "multilib", "x86_64", "manjaro")
-DROPPED = ("cleanup", "blacklist", "sonar", "office", "nonfree_default",
-           "nonfree_i686", "nonfree_x86_64", "nonfree_multilib")
+DROPPED = (
+    "cleanup",
+    "blacklist",
+    "sonar",
+    "office",
+    "nonfree_default",
+    "nonfree_i686",
+    "nonfree_x86_64",
+    "nonfree_multilib",
+)
 
 MARKER = re.compile(r">(\w+)")
 
@@ -74,7 +82,7 @@ def wanted(path: Path, kernel: str) -> list[tuple[str, str | None]]:
                 continue
             if marker.group(1) not in KEPT:
                 raise SystemExit(f"{path.name}: unknown marker >{marker.group(1)}")
-            entry = entry[marker.end():].strip()
+            entry = entry[marker.end() :].strip()
             if not entry:
                 continue
 
@@ -138,9 +146,7 @@ def manjaro() -> set[str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--kernel", default="linux612", help="the kernel the ISO is built with"
-    )
+    parser.add_argument("--kernel", default="linux612", help="the kernel the ISO is built with")
     args = parser.parse_args()
 
     lists = sorted(PROFILE.glob("Packages-*")) + sorted(SHARED.glob("Packages-*"))

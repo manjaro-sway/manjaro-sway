@@ -31,7 +31,10 @@ run = "uv pip install --system -r requirements.txt"
 
 [tasks.lint]
 description = "lint every python file in scripts/"
-run = "ruff check scripts"
+# format --check as well as check: ruff's formatter is what settles the
+# hand-wrapped call sites that had drifted, and a rule nothing enforces
+# drifts again on the next edit.
+run = ["ruff check scripts", "ruff format --check scripts"]
 
 [tasks.test]
 description = "run the worker tests"
