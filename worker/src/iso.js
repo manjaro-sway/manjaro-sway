@@ -15,6 +15,11 @@ const TITLE = 'images';
 /** Where this site is mounted, for the links it renders. */
 const BASE = '/iso/';
 
+// The releases bucket's own custom domain. Keys are identical here to the
+// ones served through the worker, so a redirect is a hostname swap.
+const CDN = 'https://iso.manjaro-sway.download';
+
+
 /** The alias upload_iso.py repoints at every release. */
 export const ALIAS = 'latest/manjaro-sway.iso';
 
@@ -228,4 +233,17 @@ export const site = {
     }
     return headers;
   },
+
+  // Where a client can fetch this object without going through the worker.
+  // A versioned image is four gigabytes streamed through an invocation
+  // that is billed per request; the bucket's own hostname has no worker in
+  // front of it, so the hop costs one invocation and the transfer none.
+  //
+  // Never `latest/`: that key is a pointer repointed at every release, and
+  // the handler above reads it and answers its own 302 to the versioned
+  // object - which is what keeps a resumed download aimed at an immutable
+  // URL. Redirecting the pointer itself would hand a client the moving
+  // target instead.
+  direct: (key) =>
+    versionOf(key) === 'latest' ? null : `${CDN}/${encodeURI(key)}`,
 };

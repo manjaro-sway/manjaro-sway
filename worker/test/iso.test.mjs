@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import worker from '../src/index.js';
-import { renderIndex, versionOf } from '../src/iso.js';
+import { renderIndex, site as isoSite, versionOf } from '../src/iso.js';
 import { bucketOf, get } from './helpers.mjs';
 
 const KEYS = [
@@ -23,13 +23,24 @@ const KEYS = [
 const env = () => ({ PACKAGES: bucketOf([]), ISO: bucketOf(KEYS) });
 const req = (path) => get(`iso/${path}`);
 
-test('an iso is offered as a download, not rendered', async () => {
+test('a versioned image is redirected to the bucket that serves it', async () => {
+  // Four gigabytes no longer stream through an invocation that is billed
+  // per request. What the worker still owes the client is the right
+  // target: the same key on the bucket's own hostname.
+  //
+  // content-disposition moved with it - upload_iso.py stores it on the
+  // object, because the CDN serves the object's own metadata and knows
+  // nothing about this handler. That is not assertable from here, which is
+  // why it is set at upload rather than added per response.
   const res = await worker.fetch(
     req('202609101200/manjaro-sway-unstable-202609101200-linux612.iso'),
     env(),
   );
-  assert.equal(res.status, 200);
-  assert.match(res.headers.get('content-disposition'), /attachment/);
+  assert.equal(res.status, 302);
+  assert.equal(
+    res.headers.get('location'),
+    'https://iso.manjaro-sway.download/202609101200/manjaro-sway-unstable-202609101200-linux612.iso',
+  );
 });
 
 test('an alias key holding a whole image is refused, not read', async () => {
@@ -65,12 +76,16 @@ test('latest redirects to the versioned object it points at', async () => {
   assert.equal(res.headers.get('cache-control'), 'no-cache');
 });
 
-test('a versioned image is immutable', async () => {
-  const res = await worker.fetch(
-    req('202609101200/manjaro-sway-unstable-202609101200-linux612.iso'),
-    env(),
+test('the alias is served here and the version is not', async () => {
+  // latest/ is a pointer this worker reads and answers with its own 302 to
+  // the versioned object, so a resumed download aims at an immutable URL.
+  // Redirecting the pointer to the bucket instead would hand the client
+  // the moving target.
+  assert.equal(isoSite.direct('latest/manjaro-sway.iso'), null);
+  assert.match(
+    isoSite.direct('202609101200/manjaro-sway-unstable-202609101200-linux612.iso'),
+    /^https:\/\/iso\.manjaro-sway\.download\//,
   );
-  assert.match(res.headers.get('cache-control'), /immutable/);
 });
 
 test('a range request is answered as a range, so a download resumes', async () => {
