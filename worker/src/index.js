@@ -20,7 +20,15 @@ import { archiveMonth, closedMonth } from './stats.js';
 // Every install made from an older ISO still has that line in its
 // pacman.conf, and those machines cannot be edited from here - so the host
 // keeps working, with the path rewritten onto the one tree.
-const LEGACY_PACKAGES_HOST = 'packages.manjaro-sway.download';
+// Both hostnames the repository has been served from, and both are still
+// in pacman.conf somewhere: packages. shipped from 2023, pkg. before it
+// (bc7f7936). pkg. had no DNS record at all until #1041 was reported -
+// an install from that era could not resolve the host, which is what
+// "manjaro-sway.db failed to download" looks like from the inside.
+const LEGACY_PACKAGES_HOSTS = new Set([
+  'packages.manjaro-sway.download',
+  'pkg.manjaro-sway.download',
+]);
 
 // The branch names that are not published, and the rest of the path after
 // them. Anchored, so it cannot match a key that merely contains the word.
@@ -88,7 +96,7 @@ export default {
     // for every existing install's `-Sy`, and a hop per object is latency
     // those machines pay for nothing. The signing key is served under it
     // too, since that is the URL their pacman.conf was set up against.
-    if (hostname === LEGACY_PACKAGES_HOST) {
+    if (LEGACY_PACKAGES_HOSTS.has(hostname)) {
       const legacy = LEGACY_BRANCH.exec(pathname);
       const within = legacy ? legacy[1] : pathname.replace(/^\//, '');
       if (within === 'manjaro-sway.gpg' || within === 'gpg-public-key.asc') {

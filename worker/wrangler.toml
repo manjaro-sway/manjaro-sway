@@ -35,6 +35,10 @@ routes = [
   # machines cannot be edited from here - src/index.js rewrites its paths
   # onto the one published tree.
   { pattern = "packages.manjaro-sway.download", custom_domain = true },
+  # The repository host before packages. (bc7f7936, 2023). It had no DNS
+  # record at all, so an install from that era could not resolve it - see
+  # #1041. index.js rewrites its paths the same way.
+  { pattern = "pkg.manjaro-sway.download", custom_domain = true },
   # The old apex. It is the address in every README, forum post and
   # bookmark that predates the move, and it answers the same site as
   # sway.manjaro.download - the worker routes by path, not by hostname,
