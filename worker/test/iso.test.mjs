@@ -88,13 +88,18 @@ test('the alias is served here and the version is not', async () => {
   );
 });
 
-test('a range request is answered as a range, so a download resumes', async () => {
+test('a resumed download is redirected too, not streamed from here', async () => {
+  // A resume is the case worth handing off: excluding it sent a partial
+  // four gigabyte transfer back through the worker, which is the whole
+  // cost this redirect exists to avoid. The bucket hostname answers
+  // ranges natively, so the client gets its 206 from there.
   const request = new Request(
     'https://sway.manjaro.download/iso/202609101200/manjaro-sway-unstable-202609101200-linux612.iso',
     { headers: { range: 'bytes=1000-2000' } },
   );
   const res = await worker.fetch(request, env());
-  assert.equal(res.status, 206);
+  assert.equal(res.status, 302);
+  assert.match(res.headers.get('location'), /^https:\/\/iso\.manjaro-sway\.download\//);
 });
 
 test('an absent image is 404', async () => {
