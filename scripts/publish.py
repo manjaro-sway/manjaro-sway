@@ -65,6 +65,14 @@ SINGLE_PART = TransferConfig(
     multipart_threshold=SINGLE_PUT_LIMIT, multipart_chunksize=SINGLE_PUT_LIMIT
 )
 
+# What a package is cached as, stored on the object because the worker
+# redirects to the bucket's own hostname rather than serving the bytes: a
+# package's version is in its name, so it can never change under a client.
+# The database and the signatures carry nothing of the sort - they are
+# rewritten in place on every publish and are served through the worker,
+# which marks them no-cache.
+IMMUTABLE = "public, max-age=31536000, immutable"
+
 
 PKG_SUFFIXES = (".pkg.tar.zst",)
 
@@ -271,7 +279,20 @@ def publish(s3, bucket: str, arch: str, pkg_dir: str, packages: list[str], key: 
         # exactly the set the database references.
         if name in live:
             refuse_overwrite(s3, bucket, prefix + name, package)
-        s3.upload_file(package, bucket, prefix + name, Config=SINGLE_PART)
+        # Stored on the object, not added by the worker: since #1032 a
+        # package is redirected to cdn.manjaro-sway.download, which serves
+        # the object's own metadata and knows nothing about our handlers.
+        # A package is immutable - its version is in its name - and
+        # without this the hop lands on a response carrying no
+        # cache-control at all, so every client refetches bytes that
+        # cannot have changed.
+        s3.upload_file(
+            package,
+            bucket,
+            prefix + name,
+            ExtraArgs={"CacheControl": IMMUTABLE},
+            Config=SINGLE_PART,
+        )
         log(f"{arch}: uploaded {name}")
         signature = package + ".sig"
         if os.path.exists(signature):
