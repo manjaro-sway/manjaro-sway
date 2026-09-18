@@ -60,9 +60,7 @@ def source_trees(directory: Path) -> list[str]:
 
 
 def git(*args: str) -> str:
-    result = subprocess.run(
-        ["git", "-C", str(ROOT), *args], capture_output=True, text=True
-    )
+    result = subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True)
     if result.returncode != 0:
         # not a repository, or a checkout without history. Failing loudly
         # beats inventing a version: a wrong one either strands an update

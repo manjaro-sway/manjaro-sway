@@ -43,9 +43,7 @@ def main() -> int:
     args = parser.parse_args()
 
     # (glob, content type, the latest/ alias it repoints)
-    ARTEFACTS = (
-        ("*.iso", "application/x-iso9660-image", "latest/manjaro-sway.iso"),
-    )
+    ARTEFACTS = (("*.iso", "application/x-iso9660-image", "latest/manjaro-sway.iso"),)
 
     # SHA256SUMS sits beside the image and must not be uploaded as one:
     # that would repoint latest/ at a text file. It is handled below.

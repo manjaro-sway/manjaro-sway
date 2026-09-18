@@ -99,9 +99,9 @@ def request(url: str, accept: str | None = None) -> bytes:
 def source_of(upstream: str) -> tuple[str, str] | None:
     """(kind, identifier) for an upstream URL, or None if we cannot read it."""
     if upstream.startswith(AUR_HOST) and "/cgit/" not in upstream:
-        return "aur", upstream[len(AUR_HOST):].removesuffix(".git")
+        return "aur", upstream[len(AUR_HOST) :].removesuffix(".git")
     if upstream.startswith(GITHUB_HOST):
-        return "github", upstream[len(GITHUB_HOST):].removesuffix(".git")
+        return "github", upstream[len(GITHUB_HOST) :].removesuffix(".git")
     return None
 
 
@@ -167,8 +167,20 @@ def merge(base: bytes, ours: bytes, theirs: bytes) -> tuple[bytes, bool]:
             paths[label].write_bytes(data)
 
         result = subprocess.run(
-            ["git", "merge-file", "-L", "ours", "-L", "vendored", "-L", "upstream",
-             "-p", str(paths["ours"]), str(paths["base"]), str(paths["theirs"])],
+            [
+                "git",
+                "merge-file",
+                "-L",
+                "ours",
+                "-L",
+                "vendored",
+                "-L",
+                "upstream",
+                "-p",
+                str(paths["ours"]),
+                str(paths["base"]),
+                str(paths["theirs"]),
+            ],
             capture_output=True,
         )
         # exit >0 is the number of conflicts; <0 is an error
@@ -366,9 +378,7 @@ def seed_profile_bases(profiles: dict) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--apply", action="store_true", help="write the merged PKGBUILD and base"
-    )
+    parser.add_argument("--apply", action="store_true", help="write the merged PKGBUILD and base")
     parser.add_argument(
         "--report-dir",
         type=Path,
@@ -413,9 +423,7 @@ def main() -> int:
             if result["state"] in ("changed", "conflicted"):
                 # an iso-profiles name is a path, so it cannot be a filename
                 # as-is; the workflow reads the item back out of the report
-                (args.report_dir / f"{slug(result['name'])}.md").write_text(
-                    body_for(result)
-                )
+                (args.report_dir / f"{slug(result['name'])}.md").write_text(body_for(result))
 
     summary = {
         "changed": [r["name"] for r in results if r["state"] == "changed"],

@@ -52,9 +52,7 @@ ARCH_RE = re.compile(r"^arch=\((.*?)\)", re.MULTILINE | re.DOTALL)
 # taking only the first dropped every makedepends in the tree - 17 of our
 # packages declare both, so their build order was computed from half their
 # edges. checkdepends counts too: it is installed before makepkg runs.
-DEPENDS_RE = re.compile(
-    r"^(?:make|check)?depends=\((.*?)\)", re.MULTILINE | re.DOTALL
-)
+DEPENDS_RE = re.compile(r"^(?:make|check)?depends=\((.*?)\)", re.MULTILINE | re.DOTALL)
 PKGNAME_RE = re.compile(r"^pkgname=(.+)$", re.MULTILINE)
 PKGVER_RE = re.compile(r"^pkgver=(.+)$", re.MULTILINE)
 PKGREL_RE = re.compile(r"^pkgrel=(.+)$", re.MULTILINE)
@@ -67,9 +65,7 @@ COMMIT_RE = re.compile(r"^_commit=[\"']?[0-9a-f]{40}", re.MULTILINE)
 # every run - the very failure the comment describes.
 PKGVER_FN_RE = re.compile(r"^\s*pkgver\s*\(\)\s*\{", re.MULTILINE)
 
-REPO_URL = os.environ.get(
-    "REPO_URL", "https://sway.manjaro.download/packages/unstable"
-)
+REPO_URL = os.environ.get("REPO_URL", "https://sway.manjaro.download/packages/unstable")
 FIELD = re.compile(r"%([A-Z0-9]+)%\n([^\n]*)")
 
 # What the repository records for a package we built, so a rebuild can be
@@ -156,9 +152,7 @@ def pkgname_of(pkgbuild: Path, text: str) -> str:
     # whole-string match and then had its first word taken, which is the
     # literal string "_pkgname" - sway-services really did resolve to that.
     def resolve(match: re.Match) -> str:
-        assigned = scalar(
-            re.compile(rf"^{match.group(1)}=(.+)$", re.MULTILINE), text
-        )
+        assigned = scalar(re.compile(rf"^{match.group(1)}=(.+)$", re.MULTILINE), text)
         return assigned if assigned else match.group(0)
 
     raw = re.sub(r"\$\{?(\w+)\}?", resolve, raw)
@@ -199,7 +193,8 @@ def authored_version(directory: Path) -> str | None:
     """
     result = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "package_version.py"), str(directory)],
-        capture_output=True, text=True,
+        capture_output=True,
+        text=True,
     )
     return result.stdout.strip() if result.returncode == 0 else None
 
@@ -273,9 +268,7 @@ def published(arch: str) -> dict[str, tuple[str, str | None]]:
     url = f"{REPO_URL}/{arch}/manjaro-sway.db.tar.gz"
     # a named User-Agent, because cloudflare's bot protection answers 403 to
     # urllib's default and a 403 here silently means "rebuild everything"
-    request = urllib.request.Request(
-        url, headers={"User-Agent": "manjaro-sway-discover-packages"}
-    )
+    request = urllib.request.Request(url, headers={"User-Agent": "manjaro-sway-discover-packages"})
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
             payload = response.read()
@@ -349,9 +342,7 @@ def main() -> int:
             # only dependencies we build in THIS run can hold a package
             # back; anything skipped is already published, and anything
             # else comes from Manjaro
-            if not {
-                provided[d] for d in meta["depends"] if d in provided and provided[d] != name
-            }
+            if not {provided[d] for d in meta["depends"] if d in provided and provided[d] != name}
             - built
         }
         if not ready:

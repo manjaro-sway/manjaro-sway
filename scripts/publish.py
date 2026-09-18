@@ -79,9 +79,7 @@ PKG_SUFFIXES = (".pkg.tar.zst",)
 
 def packages_in(directory: str) -> list[str]:
     return sorted(
-        path
-        for suffix in PKG_SUFFIXES
-        for path in glob.glob(os.path.join(directory, f"*{suffix}"))
+        path for suffix in PKG_SUFFIXES for path in glob.glob(os.path.join(directory, f"*{suffix}"))
     )
 
 
