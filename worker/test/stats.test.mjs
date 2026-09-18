@@ -80,6 +80,26 @@ test('serving an iso counts it, serving a package does not', async () => {
   assert.equal(typeof isoSite.record, 'function');
 });
 
+test('a resume counts once, not once per chunk', async () => {
+  // #1036 redirected ranges too, and the hop is what gets counted - so a
+  // resume, which issues a range request per chunk, would report one
+  // download as dozens. That is exactly what excluding 206 prevented while
+  // the range was answered here, and the redirect must not lose it.
+  const key = '202609111200/manjaro-sway.iso';
+  const env = { ISO: bucketOf([key]), ANALYTICS_ENGINE: analytics() };
+  for (const range of ['bytes=0-999', 'bytes=1000-1999']) {
+    const request = new Request(`https://sway.manjaro.download/iso/${key}`, {
+      headers: { range },
+    });
+    const res = await worker.fetch(request, env, {});
+    assert.equal(res.status, 302);
+  }
+  assert.equal(env.ANALYTICS_ENGINE.written.length, 0);
+
+  await worker.fetch(get(`iso/${key}`), env, {});
+  assert.equal(env.ANALYTICS_ENGINE.written.length, 1);
+});
+
 test('counting never breaks the download it is counting', async () => {
   // a versioned key, which is now answered with a hop to the bucket - the
   // point being that a thrown analytics call must not cost the redirect
