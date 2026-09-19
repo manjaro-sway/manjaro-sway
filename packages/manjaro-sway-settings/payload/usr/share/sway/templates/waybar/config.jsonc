@@ -290,8 +290,8 @@
         "return-type": "json",
         "on-click": "swaymsg -q exec '$clipboard'; waybar-signal clipboard",
         "on-click-right": "swaymsg -q exec '$clipboard-del'; waybar-signal clipboard",
-        "on-click-middle": "rm -f ~/.cache/cliphist/db; waybar-signal clipboard",
-        "exec": "printf '{\"tooltip\":\"%s\"}' $(cliphist list | wc -l)' item(s) in the clipboard\r(Mid click to clear)'",
+        "on-click-middle": "cliphist wipe; waybar-signal clipboard",
+        "exec": "printf '{\"tooltip\":\"%s item(s) in the clipboard\\\\n(Mid click to clear)\"}' \"$(cliphist list | wc -l)\"",
         "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list | wc -l) -gt 0 ]",
         "signal": 9
     },
