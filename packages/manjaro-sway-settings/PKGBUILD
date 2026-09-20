@@ -46,6 +46,12 @@ depends=(
     'xdg-desktop-portal-lxqt' # native lxqt file chooser, via the portal
     'lxqt-qtplugin'           # styles the portal dialog process (qt6-only, that process only)
     ## theme
+    # The skel .profile preloads this to make GTK_CSD=0 mean something, so
+    # the two belong to the same package. It was only on the ISO package
+    # list, which installs it once at image build and does not keep it:
+    # remove it and every command prints "cannot be preloaded" (#1045),
+    # and an existing install never gained it at all.
+    'gtk-nocsd'               # server-side decorations for GTK3/4 and libadwaita
     'qt6ct'                   # provides qt6ct-style, used to style the portal dialog
     'kvantum'                 # theme engine for qt
     'kvantum-qt5'             # theme engine for qt (qt 5 support)
