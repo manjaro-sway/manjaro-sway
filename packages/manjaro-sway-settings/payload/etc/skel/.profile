@@ -13,8 +13,19 @@ export MOZ_DBUS_REMOTE=1
 # GTK, so on its own it does nothing - which is what it did here for as
 # long as it has been in this file. gtk-nocsd is what makes it mean
 # something, and covers GTK4 and libadwaita as well as GTK3.
+#
+# Guarded, because ld.so complains once per command when the library is
+# missing - "cannot be preloaded (cannot open shared object file)" on
+# every prompt and in the output of every script. gtk-nocsd is on the ISO
+# package list but is not a dependency of this package, so it can be
+# absent: removed by hand, or not yet reinstalled after the gtk3-nocsd
+# rename. A desktop without server-side decorations is a preference
+# someone can live with; a shell that prints an error before every command
+# is not.
 export GTK_CSD=0
-export LD_PRELOAD="/usr/lib/libgtk-nocsd.so${LD_PRELOAD:+:$LD_PRELOAD}"
+if [ -e /usr/lib/libgtk-nocsd.so ]; then
+	export LD_PRELOAD="/usr/lib/libgtk-nocsd.so${LD_PRELOAD:+:$LD_PRELOAD}"
+fi
 
 # qt wayland
 export QT_QPA_PLATFORM="wayland"
