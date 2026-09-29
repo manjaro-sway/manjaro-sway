@@ -1,6 +1,14 @@
 # shellcheck disable=SC2148,SC2086,SC2154,SC2046,SC2016
 ### Variables
 #
+# The theme must be read before any line below embeds one of its variables:
+# sway replaces variables as it reads, so the commands in "Theme
+# application" freeze whatever the theme defines at this moment. The skel
+# config reads theme.conf ahead of this file, but that file is copied once
+# per home and ages: a config that reaches here first would expand
+# $kvantum-theme and friends to nothing (manjaro-sway#1050).
+include $HOME/.config/sway/definitions.d/theme.conf
+
 # Logo key. Use Mod1 for Alt and Mod4 for Super.
 set $mod Mod4
 set $alt_mod Alt
