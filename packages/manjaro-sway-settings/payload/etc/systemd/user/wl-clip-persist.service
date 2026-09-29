@@ -1,7 +1,8 @@
 [Unit]
 Description=Keep clipboard content even after closing application
 PartOf=sway-session.target
-After=sway-session-pre.target
+After=sway-session.target
+Requisite=sway-session.target
 
 [Service]
 ExecStart=/usr/bin/wl-clip-persist --clipboard regular --all-mime-type-regex '(?i)^(?!image/x-inkscape-svg).+'
