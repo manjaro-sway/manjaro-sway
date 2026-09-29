@@ -1,6 +1,7 @@
 [Unit]
 Description=Calcurse calendar daemon
 PartOf=sway-session.target
+After=sway-session.target
 StartLimitBurst=5
 StartLimitIntervalSec=30
 
