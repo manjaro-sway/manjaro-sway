@@ -2,7 +2,7 @@
 # Contributor: Maxim Baz <archlinux at maximbaz dot com>
 
 pkgname=wluma
-pkgver=5.0.2
+pkgver=5.0.3
 pkgrel=1
 license=('ISC')
 pkgdesc='Automatic brightness adjustment based on screen contents and ALS'
@@ -14,8 +14,8 @@ optdepends=('vulkan-driver: for using capturer=wlroots in config.toml'
 makedepends=('cargo' 'clang' 'systemd' 'go-md2man')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/max-baz/${pkgname}/archive/${pkgver}.tar.gz"
         "https://github.com/max-baz/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.asc")
-b2sums=('7143fa197ecc9f419ba5c4a759d8d83e6acd18619c64374edddc0ca1b71ac8a26e9ed201fe33ba3c00751cdbd94265e6fa821c29f94d86d03d9fb86d0fa07dbf'
-	'c2d00dc95d1b08a1a5e5d3e0d4e820553fa1a6dacd22f01566564ed785fcc0de1308bd49febc62cbe9c92265acf1032a5e37b36ed0200f57d1207e579e365033')
+b2sums=('40b89649ac3100c7961d99366f2225ed14f4cae6753648034f4a8515cc3d82d22c798a46898ac44fffadc184115ea75b0c78e5ab6105158c8b121cd7b94f50c3'
+	'9b6e522c9694b5d3f0d995153272fe20d8a1a872cef543bad182e7490f20fb55ddcdb12a8fbcedf6f7ddc1cbe0dd9a31e22c50103f272bfd6dd080a2f808c76c')
 validpgpkeys=('56C3E775E72B0C8B1C0C1BD0B5DB77409B11B601')
 options=(!lto)
 
