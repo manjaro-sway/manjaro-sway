@@ -1,0 +1,42 @@
+# Maintainer: Jonas Strassel <info@jonas-strassel.de>
+# Contributor: cscs <mrcyberfighter@gmail.com>
+
+# Named for what it installs. Manjaro's extra calls this package
+# kvantum-theme-matcha, and so did manjaro-contrib - but contrib built
+# cscs's older matcha-kde project, which installs Matcha-*, at 20200810-2,
+# while extra builds matchama-kde, which installs the Matchama-* our themes
+# ask for, at 20191119-2. Same name, different upstream: when #1006 dropped
+# the contrib build because extra "serves" the name, every machine that had
+# it was left on the higher version with no upgrade, Kvantum Manager
+# opening on every start (#1055, as #709 in 2024).
+#
+# replaces= is the way off it: pacman looks for a replacer before it
+# compares versions, so -Syu offers this in place of the stranded build
+# whatever that build's version.
+pkgname=kvantum-theme-matchama
+pkgver=20191119
+pkgrel=1
+pkgdesc="Matchama theme for Kvantum, the Qt side of the matcha sway themes"
+arch=('any')
+url="https://gitlab.com/cscs/matchama-kde"
+license=('GPL-3.0-or-later')
+depends=('kvantum')
+provides=('kvantum-theme-matcha')
+conflicts=('kvantum-theme-matcha')
+replaces=('kvantum-theme-matcha')
+
+# The commit Manjaro's extra pins; upstream publishes no tags.
+_commit=8525e05
+source=("$pkgname-$_commit.tar.gz::$url/-/archive/$_commit/matchama-kde-$_commit.tar.gz")
+sha256sums=('29544b48a1e20222f080627f5c1e0a60ed93bda39c24c5ddcd218778b2f894c9')
+
+package() {
+    cd "$srcdir/matchama-kde-$_commit"
+
+    # Kvantum only; the tree also carries aurorae, konsole and plasma themes
+    # a sway desktop has nothing to do with.
+    install -dm755 "$pkgdir/usr/share/Kvantum"
+    cp -r Kvantum/Matchama* "$pkgdir/usr/share/Kvantum/"
+
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

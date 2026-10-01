@@ -60,7 +60,7 @@ depends=(
     'papirus-maia-icon-theme' # default icon theme
     'phinger-cursors'         # default cursor theme
     'matcha-gtk-theme'        # default gtk (gnome etc.) theme
-    'kvantum-theme-matcha'    # default kvantum (kde etc.) theme
+    'kvantum-theme-matchama'  # default kvantum (kde etc.) theme
 )
 makedepends=('git')
 optdepends=(

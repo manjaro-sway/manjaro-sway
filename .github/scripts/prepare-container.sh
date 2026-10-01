@@ -3,8 +3,8 @@
 #
 # Manjaro, not Arch: this is an overlay on Manjaro's repositories, and
 # several packages depend on names only Manjaro has - manjaro-base-skel,
-# matcha-gtk-theme, papirus-maia-icon-theme, kvantum-theme-matcha. On Arch
-# those cannot be resolved at all, which failed manjaro-sway-settings with
+# matcha-gtk-theme, papirus-maia-icon-theme. On Arch those cannot be
+# resolved at all, which failed manjaro-sway-settings with
 # "Could not resolve all dependencies". Building against the distribution
 # the packages are installed on is also what keeps a compiled package
 # linked against the libraries its users actually have.

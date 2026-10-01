@@ -35,6 +35,12 @@ packages:
   # as well as GTK3.
   gtk-nocsd:
     arch: x86_64
+  # Under its own name because Manjaro's kvantum-theme-matcha is the same
+  # theme, and the contrib build of that name was a different one (#1055).
+  # Pinned to the commit extra builds; upstream publishes no tags and the
+  # AUR's split package would bring five themes for KDE software.
+  kvantum-theme-matchama:
+    arch: any
 
   # vendored from manjaro-contrib, which maintains these outside the AUR
   grimshot:
