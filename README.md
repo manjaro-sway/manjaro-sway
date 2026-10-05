@@ -1,5 +1,8 @@
 # Manjaro Sway Edition
 
+> [!IMPORTANT]
+> **Manjaro Sway is in maintenance mode.** It still receives fixes and package updates, but active development now happens in [AshlarOS](https://ashlaros.download/).
+
 [![lts](https://img.shields.io/badge/dynamic/json?label=lts&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel.manjaro.download%2Fcategory%2Flongterm.json)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 [![stable](https://img.shields.io/badge/dynamic/json?label=stable&query=%24%5B%3A1%5D.packageName&url=https%3A%2F%2Fkernel.manjaro.download%2Fcategory%2Fstable.json)](https://github.com/Manjaro-Sway/manjaro-sway/releases/latest)
 
