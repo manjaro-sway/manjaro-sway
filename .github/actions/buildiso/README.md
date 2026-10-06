@@ -49,16 +49,14 @@ served an HTML page rather than the config it was installing. Each cost a
 full ISO build to discover, around twenty-five minutes per edition, and
 none of them needed a build to catch.
 
-Everything the build clones or fetches comes from the `manjaro-contrib`
-mirrors on GitHub rather than `gitlab.manjaro.org` directly: pacman,
-manjaro-keyring, calamares-tools, manjaro-tools, manjaro-release,
-pacman-mirrors and the default iso-profiles.
-
-The upstream instance is the source of truth and the mirrors track it, but
-it is not always reachable from a runner. A single unavailable moment took
-out seven of fifteen builds with `remote: Token has expired` on a public
-clone, and a build that has already spent twenty minutes should not die
-fetching a keyring.
+Everything the build clones or fetches comes from `code.manjaro.org`
+directly - pacman, manjaro-keyring and manjaro-release as raw files out of
+`packages/PKGBUILDs`, pacman-mirrors' config likewise, and manjaro-tools
+and calamares-tools as clones: the same instance the official
+`manjaro/manjaro-iso-action` builds from. The `manjaro-contrib` mirrors on
+GitHub stood in here for a `gitlab.manjaro.org` a runner could not always
+reach; they are snapshots that move only when someone syncs them, and had
+drifted behind the profiles the editions build from.
 
 ### Transient failures
 
@@ -141,6 +139,17 @@ repository section, so `scripts/pacman-xfer.sh` goes there and swaps the
 host in the url pacman asked for. `fallback-mirrors` sets the list; it
 defaults to three mirrors on the same sync tier as the build mirror and
 under different operators, and emptying it restores plain downloads.
+
+It survives too well: `chroot-run` copies the config it is handed into the
+image it is running in, so the line would reach the installed system and
+name a script that only ever existed on the builder - every download then
+dies with `running XferCommand: fork failed!`
+(forum.manjaro.org/t/190422). manjaro-tools restores the shipped form of
+the image's `/etc/pacman.conf` in `reset_pac_conf()`, at the end of every
+image stage, and the action extends that restore to drop the line again -
+asserted against the packed layers afterwards, because the failure mode is
+an ISO that builds fine and breaks at the first `pacman -Syu` after the
+installation.
 
 pacman runs `XferCommand` once per file - around eight hundred times for a
 desktop transaction - and each run is a fresh process that remembers

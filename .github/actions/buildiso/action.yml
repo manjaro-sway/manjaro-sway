@@ -199,27 +199,29 @@ runs:
           sudo install -m644 /tmp/pacman-configs/makepkg.conf /etc/
         else
           echo "## pacman ${PACMAN_VERSION}: source build"
-          retry sudo git clone --depth 1 https://github.com/manjaro-contrib/packages-core-pacman.git pacman
-          pushd pacman
-            retry sudo wget https://gitlab.archlinux.org/pacman/pacman/-/archive/v${PACMAN_VERSION}/pacman-v${PACMAN_VERSION}.tar.gz
-            sudo tar -xvf pacman-v${PACMAN_VERSION}.tar.gz
-            pushd pacman-v${PACMAN_VERSION}
-              sudo meson --prefix=/usr \
-                        --buildtype=plain \
-                        -Ddoc=disabled \
-                        -Ddoxygen=enabled \
-                        -Dscriptlet-shell=/usr/bin/bash \
-                        -Dldconfig=/usr/bin/ldconfig \
-                        build
-              sudo meson compile -C build
-              # Stage install for caching; then propagate to / for this run.
-              sudo meson install -C build --destdir /tmp/pacman-stage
-              sudo cp -a /tmp/pacman-stage/. /
-            popd
-            sudo mkdir -p /tmp/pacman-configs
-            sudo cp pacman.conf makepkg.conf /tmp/pacman-configs/
-            sudo install -m644 pacman.conf /etc/pacman.conf
-            sudo install -m644 makepkg.conf /etc/
+          # the packaging repository carries the two configs this runner
+          # runs with; the pacman source itself comes from its own upstream
+          sudo mkdir -p /tmp/pacman-configs
+          retry sudo wget -O /tmp/pacman-configs/pacman.conf \
+            https://code.manjaro.org/packages/PKGBUILDs/raw/branch/main/core/pacman/pacman.conf
+          retry sudo wget -O /tmp/pacman-configs/makepkg.conf \
+            https://code.manjaro.org/packages/PKGBUILDs/raw/branch/main/core/pacman/makepkg.conf
+          sudo install -m644 /tmp/pacman-configs/pacman.conf /etc/pacman.conf
+          sudo install -m644 /tmp/pacman-configs/makepkg.conf /etc/
+          retry sudo wget https://gitlab.archlinux.org/pacman/pacman/-/archive/v${PACMAN_VERSION}/pacman-v${PACMAN_VERSION}.tar.gz
+          sudo tar -xvf pacman-v${PACMAN_VERSION}.tar.gz
+          pushd pacman-v${PACMAN_VERSION}
+            sudo meson --prefix=/usr \
+                      --buildtype=plain \
+                      -Ddoc=disabled \
+                      -Ddoxygen=enabled \
+                      -Dscriptlet-shell=/usr/bin/bash \
+                      -Dldconfig=/usr/bin/ldconfig \
+                      build
+            sudo meson compile -C build
+            # Stage install for caching; then propagate to / for this run.
+            sudo meson install -C build --destdir /tmp/pacman-stage
+            sudo cp -a /tmp/pacman-stage/. /
           popd
           # pacman-contrib provides paccache, used by callers to prune the
           # /var/cache/pacman/pkg cache between runs. Autotools-based, not
@@ -248,12 +250,13 @@ runs:
         . "$GITHUB_ACTION_PATH/scripts/retry.sh"
         sudo install -dm755 /usr/share/pacman/keyrings/
 
-        retry sudo git clone --depth 1 https://github.com/manjaro-contrib/packages-core-manjaro-keyring.git manjaro-keyring
-        pushd manjaro-keyring
-          sudo install -m0644 manjaro.gpg /usr/share/pacman/keyrings/
-          sudo install -m0644 manjaro-trusted /usr/share/pacman/keyrings/
-          sudo install -m0644 manjaro-revoked /usr/share/pacman/keyrings/
-        popd
+        # the keyring files come straight from the packaging repository
+        retry sudo wget -O /usr/share/pacman/keyrings/manjaro.gpg \
+          https://code.manjaro.org/packages/PKGBUILDs/raw/branch/main/core/manjaro-keyring/manjaro.gpg
+        retry sudo wget -O /usr/share/pacman/keyrings/manjaro-trusted \
+          https://code.manjaro.org/packages/PKGBUILDs/raw/branch/main/core/manjaro-keyring/manjaro-trusted
+        retry sudo wget -O /usr/share/pacman/keyrings/manjaro-revoked \
+          https://code.manjaro.org/packages/PKGBUILDs/raw/branch/main/core/manjaro-keyring/manjaro-revoked
 
         mkdir -p archlinux-keyring
         pushd archlinux-keyring
@@ -294,12 +297,12 @@ runs:
         sudo make -C arch-install-scripts-${VERSION} check
         sudo make -C arch-install-scripts-${VERSION} PREFIX=/usr install
         
-        retry sudo wget https://raw.githubusercontent.com/manjaro-contrib/applications-pacman-mirrors/master/data/etc/pacman-mirrors.conf -O /etc/pacman-mirrors.conf
+        retry sudo wget https://code.manjaro.org/applications/pacman-mirrors/raw/branch/master/data/etc/pacman-mirrors.conf -O /etc/pacman-mirrors.conf
     - id: install-calamares-tools
       shell: bash
       run: |
         . "$GITHUB_ACTION_PATH/scripts/retry.sh"
-        retry sudo git clone --depth 1 https://github.com/manjaro-contrib/applications-calamares-tools.git calamares-tools
+        retry sudo git clone --depth 1 https://code.manjaro.org/applications/calamares-tools.git calamares-tools
         
         cd calamares-tools
         sudo install -d /usr/share/calamares/
@@ -323,7 +326,7 @@ runs:
         XFER_DIR: /var/cache/pacman/pkg/.manjaro-iso
       run: |
         . "$GITHUB_ACTION_PATH/scripts/retry.sh"
-        retry sudo git clone --depth 1 https://github.com/manjaro-contrib/tools-development-tools-manjaro-tools.git manjaro-tools
+        retry sudo git clone --depth 1 https://code.manjaro.org/tools/manjaro-tools.git manjaro-tools
         cd manjaro-tools
         sudo make SYSCONFDIR=/etc PREFIX=/usr
         sudo make SYSCONFDIR=/etc PREFIX=/usr install_base
@@ -363,6 +366,33 @@ runs:
             sudo sed -i -e "\#^XferCommand = $XFER_DIR/pacman-xfer.sh#d" "$conf"
             sudo sed -i -e "/^\[options\]/a XferCommand = $XFER_DIR/pacman-xfer.sh %o %u" "$conf"
           done
+          # The injected line is build-only. chroot-run copies these configs
+          # into the image as the build goes (copy_hostconf), and a fresh
+          # install then names a script that only ever existed on the
+          # builder - every download dies with 'running XferCommand: fork
+          # failed!' (forum.manjaro.org/t/190422). manjaro-tools restores
+          # the shipped form of the image's /etc/pacman.conf in
+          # reset_pac_conf(), at the end of every image stage, so that
+          # restore is where this line has to die. The patch fails the build
+          # if that function changes shape under it, and image-build checks
+          # the packed layers afterwards - the failure mode otherwise is an
+          # ISO that builds fine and breaks at the first pacman -Syu on the
+          # user's disk.
+          sudo python3 - /usr/lib/manjaro-tools/util-iso.sh "$XFER_DIR" <<'PY'
+        import pathlib
+        import sys
+
+        util, xfer_dir = pathlib.Path(sys.argv[1]), sys.argv[2]
+        src = util.read_text()
+        anchor = '        -e "s|^.*#CheckSpace|CheckSpace|" \\\n'
+        strip = f'        -e "\\#^XferCommand = {xfer_dir}/pacman-xfer.sh#d" \\\n'
+        if anchor not in src:
+            sys.exit(
+                f"## xfer: {util}: reset_pac_conf() changed shape; the build "
+                "XferCommand would leak into the image"
+            )
+        util.write_text(src.replace(anchor, anchor + strip, 1))
+        PY
           echo "## package downloads fall back through:"
           sudo cat "$XFER_DIR/build-mirrors"
 
@@ -428,6 +458,7 @@ runs:
         CODE_NAME: ${{ inputs.code-name }}
         OFFICE: ${{ inputs.office-chooser }}
         BUILD_MIRROR: ${{ inputs.build-mirror }}
+        XFER_DIR: /var/cache/pacman/pkg/.manjaro-iso
         CHROOT_NAMESERVERS: ${{ inputs.chroot-nameservers }}
         EXPORT_ROOTFS: ${{ inputs.export-rootfs }}
       run: |
@@ -439,7 +470,7 @@ runs:
         # source the version info from current release info; fetched to a
         # file first, so a failed download cannot be sourced as empty
         retry curl -sf --connect-timeout 30 -o /tmp/lsb-release \
-          https://raw.githubusercontent.com/manjaro-contrib/packages-core-manjaro-release/master/lsb-release
+          https://code.manjaro.org/packages/PKGBUILDs/raw/branch/main/core/manjaro-release/lsb-release
         source /tmp/lsb-release
 
         sudo sed -i -e "s|dist_name=\$(get_distname)|dist_name=${DISTRIB_ID%Linux}|g" /usr/lib/manjaro-tools/util.sh
@@ -453,6 +484,25 @@ runs:
           bash "$GITHUB_ACTION_PATH/scripts/enable-chroot-dns.sh"
 
         sudo buildiso ${SCOPE:+-f} -p $EDITION -b $BRANCH -k $KERNEL ${OFFICE:+-o}
+
+        # The image must not carry the build XferCommand: the script it
+        # names exists only on the builder, and clean_up_image has already
+        # emptied the cache dir the line points into - a shipped config with
+        # the line downloads nothing at all (forum.manjaro.org/t/190422).
+        # reset_pac_conf strips it; this is the packed layers saying so.
+        found=
+        while IFS= read -r conf; do
+          found=1
+          if grep -q "^XferCommand = ${XFER_DIR}/pacman-xfer.sh" "$conf"; then
+            echo "## xfer: $conf still carries the build XferCommand" >&2
+            exit 1
+          fi
+        done < <(find /var/lib/manjaro-tools/buildiso -type f -path '*fs/etc/pacman.conf')
+        if [ -z "$found" ]; then
+          echo "## xfer: no image etc/pacman.conf found to check" >&2
+          exit 1
+        fi
+        echo "## xfer: no image etc/pacman.conf carries the build XferCommand"
 
         # buildiso's work dir is deleted on the next line, and the squashfs
         # layers only exist until then
