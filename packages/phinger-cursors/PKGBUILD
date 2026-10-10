@@ -1,15 +1,15 @@
 # Maintainer: Philipp Schaffrath <philipp dot schaffrath at gmail dot com>
 
 pkgname=phinger-cursors
-pkgver=2.1
+pkgver=2.2
 pkgrel=1
 pkgdesc='Most likely the most over-engineered cursor theme.'
 url='https://github.com/phisch/phinger-cursors'
 license=('CC-BY-SA-4.0')
 arch=('any')
 source=("$pkgname-$pkgver.tar.bz2::${url}/releases/download/v${pkgver}/${pkgname}-variants.tar.bz2")
-md5sums=('c633fcc6d7e8a765d1374acb4cf73e7c')
-sha256sums=('ddb7310c62bf8e0e2798a24f8a867e4af7b17a39757ba45c85e13f3988f646fc')
+md5sums=('10861addf60784e866dc47fe84f1c7b8')
+sha256sums=('46d4cfc30a38c19cada3339027b5a78f7b0bf74f3220eba7001c4fdd9d5a6e56')
 
 package() {
     install -Ddm755 "$pkgdir/usr/share/icons"
