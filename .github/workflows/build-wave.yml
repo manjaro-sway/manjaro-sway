@@ -75,7 +75,7 @@ jobs:
             -printf '%P\n' > files.txt
           test -s files.txt
           tar cf artifact.tar -T files.txt
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: pkg-any-${{ matrix.package }}
           path: packages/${{ matrix.package }}/artifact.tar
@@ -130,7 +130,7 @@ jobs:
             -printf '%P\n' > files.txt
           test -s files.txt
           tar cf artifact.tar -T files.txt
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: pkg-x86_64-${{ matrix.package }}
           path: packages/${{ matrix.package }}/artifact.tar
