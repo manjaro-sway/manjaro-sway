@@ -28,12 +28,3 @@ ttf-indic-otf
 ttf-liberation
 xdg-user-dirs
 xdg-utils
-xf86-input-elographics
-xf86-input-evdev
-#xf86-input-keyboard # deprecated
-xf86-input-libinput
-#xf86-input-mouse # deprecated
-xf86-input-void
-xorg-server
-xorg-twm
-xorg-xinit
